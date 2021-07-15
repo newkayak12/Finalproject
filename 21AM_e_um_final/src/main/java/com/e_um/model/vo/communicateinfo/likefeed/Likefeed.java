@@ -1,8 +1,10 @@
-package com.e_um.model.vo.userInfo.communicate.friend;
+package com.e_um.model.vo.communicateinfo.likefeed;
+
+import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import com.e_um.model.vo.userInfo.interest.Interest;
+import com.e_um.model.vo.groupinfo.comment.Comment;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.AllArgsConstructor;
@@ -15,8 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Component
-public class Friend {
-
-		private User myId, freindsId;
-		private String friendBlockFlag;
+public class Likefeed {
+	private String feedSeq;
+	private String likeFeedId;
 }

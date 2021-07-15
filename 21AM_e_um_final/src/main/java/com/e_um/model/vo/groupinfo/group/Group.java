@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 public class Group {
 	/*
 	 * group에를 부를 때, member를 join 해서 가져오면 좋겠네
+	 * collection을 사용하면 좋을 듯
 	 */
 
 	private String group_seq, group_master, group_theme;

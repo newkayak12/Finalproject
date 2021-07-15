@@ -1,4 +1,4 @@
-package com.e_um.model.vo.service.faq;
+package com.e_um.model.vo.serviceinfo.faq;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.e_um.model.vo.service.question;
+package com.e_um.model.vo.serviceinfo.question;
 
 import java.util.Date;
 
@@ -17,6 +17,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @Component
 public class Question {
+	
+	/*
+	 * User에 대한 전체적인 정보가 필요하다고 판단.
+	 */
 	private String questionSeq;
 	private User userId;
 	private String questionCategory;
@@ -26,6 +30,9 @@ public class Question {
 	private String questionResponseFlag;
 	private String questionImageFile;
 	
+	/*
+	 * 어차피 join해야한다고 판단하여, answer테이블의 내용도 같이 넣음
+	 */
 	
 	private String questionAnswerContents, questionAnswerTitle;
 	private Date questionAnswerDate;

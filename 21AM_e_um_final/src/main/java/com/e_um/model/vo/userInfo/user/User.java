@@ -23,7 +23,7 @@ public class User {
 	 * 
 	 * */
 
-	private String userId, userPassword, userName, userNick, userEmail, userAddrBasic, userAddrDetail, userAddrZip, userPhone;
+	private String userId, userPassword, userName, userNick, userEmail, userAddrBasic, userAddrDetail, userAddrZip, userPhone, userRole;
 	private Date userDate;
 	private String userGender;
 	private Date userYear;
@@ -32,7 +32,6 @@ public class User {
 	
 	private Interest interest;
 	
-	private String userRole;
 	private int userReportCount;
 	private String userBlock, userExit;
 }
