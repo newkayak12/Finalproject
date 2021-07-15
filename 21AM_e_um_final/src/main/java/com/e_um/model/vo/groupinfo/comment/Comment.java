@@ -1,9 +1,10 @@
-package com.e_um.model.vo.userInfo.scheduler;
+package com.e_um.model.vo.groupinfo.comment;
 
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.e_um.model.vo.groupinfo.member.Member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,13 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Component
-public class Scheduler {
+public class Comment {
 	
-	private Date schedulerDate;
-	private String userId;
-	private String schedulerCategoryName;
-	private String schedulerTitle, schedulerContents, schedulerFlag;
-	
-	
-	
+	private String groupCommentSeq, groupCommentContents, groupCommentBlock;
+
 }

@@ -1,9 +1,8 @@
-package com.e_um.model.vo.userInfo.scheduler;
+package com.e_um.model.vo.groupinfo.member;
 
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,13 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Component
-public class Scheduler {
-	
-	private Date schedulerDate;
-	private String userId;
-	private String schedulerCategoryName;
-	private String schedulerTitle, schedulerContents, schedulerFlag;
-	
-	
-	
+public class Member {
+	private String userId, group_user_role, group_user_age;
+	private Date group_user_date;
+	private String group_user_flag;
 }
