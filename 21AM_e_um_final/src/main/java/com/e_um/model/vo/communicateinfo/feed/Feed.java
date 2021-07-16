@@ -1,12 +1,8 @@
 package com.e_um.model.vo.communicateinfo.feed;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
-
-import com.e_um.model.vo.communicateinfo.likefeed.Likefeed;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
