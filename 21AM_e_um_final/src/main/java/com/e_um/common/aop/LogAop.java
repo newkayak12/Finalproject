@@ -21,11 +21,12 @@ public class LogAop {
 		log.warn("\n into! :"+sig.getName() +" : "+ sig.getDeclaringTypeName()+"\n");
 		Object[] models = join.getArgs();
 		
-		for(Object model : models) {
-			Model a = (Model) model;
-			
+		if(models!=null) {
+			for(Object model : models) {
+				Model a = (Model) model;
+				log.warn("parameter {}: "+ a);
+			}
 		}
-		
 		Object obj = join.proceed();
 	
 		
