@@ -19,8 +19,12 @@ import lombok.NoArgsConstructor;
 public class Member {
 /*
  * user에 대한 정보를 join할 경우 필요하다 판단(나이)
+ * 
+ * ???????
  */
 	private User group_user;
+	
+	
 	private String group_user_role;
 	private Date group_user_date;
 	private String group_user_flag;
