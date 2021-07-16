@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <link href="<c:url value="${path }/resources/css/main.css" />" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

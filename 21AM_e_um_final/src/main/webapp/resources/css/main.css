@@ -1,4 +1,4 @@
-@charset "EUC-KR";
+@charset "UTF-8";
 
 /*header css*/
 #header-content{
@@ -41,7 +41,7 @@ ul.head_submenu{
     position:absolute;
     font-size: 15px;
     left:-8px;
-    width:100px;
+    width:100px; 
     top:50px;
     background-color:rgb(165, 205, 230);
     opacity: 0;
@@ -75,7 +75,7 @@ ul.head_submenu li{
 
 
 
-/* ÆùÆ®-Å¸ÀÌÆ² */
+/* í°íŠ¸-íƒ€ì´í‹€ */
 @font-face {
         font-family: 'twayair';
         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
@@ -83,7 +83,7 @@ ul.head_submenu li{
         font-style: normal;
 }
 
-/*ÆùÆ®-³»¿ë*/
+/*í°íŠ¸-ë‚´ìš©*/
 @font-face {
     font-family: 'NanumBarunGothic';
     font-style: normal;
