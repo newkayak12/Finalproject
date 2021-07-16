@@ -15,6 +15,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @Component
 public class FoodMenu {
+	
+	/*
+	 * 메뉴
+	 */
 	private String foodMenuSeq, menuName;
 	private int menuPrice;
 	private String menuPhoto;

@@ -13,5 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @Component
 public class FoodCategory {
+	
+	/*
+	 * 
+	 * 두 개를 기본적으로 join한다는 생각으로
+	 */
 	private String foodCategoryMain, foodCategorySub;
 }

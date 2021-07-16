@@ -1,10 +1,13 @@
 package com.e_um.model.vo.placeinfo.food.food;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.e_um.model.vo.placeinfo.food.category.FoodCategory;
+import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +24,11 @@ public class Food {
 	private FoodCategory foodCategory;
 	private String foodName, foodContents, foodAddr, foodCall;
 	private String foodLongitude, foodLatitude;
-	private int foodStar, foodPrice;
+	private double foodStar;
+	private int  foodPrice;
 	private Date foodTimeFirst, foodTimeLast;
 	private int foodHead;
+	
+	private List<FoodMenu> menu = new ArrayList();
 
 }
