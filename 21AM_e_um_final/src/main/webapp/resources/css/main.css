@@ -71,7 +71,9 @@ ul.head_submenu li{
     min-height: 500px;
     margin: 30px 10% 10px 10%;
 }
-
+body{
+    width: 100%;
+}
 
 
 

@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Component
-public class FoodCategory {
+public class FoodCategorySub {
 	
 	/*
 	 * 
 	 * 두 개를 기본적으로 join한다는 생각으로
 	 */
-	private String foodCategoryMain, foodCategorySub;
+	private String foodCategorySub;
 }

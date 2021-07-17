@@ -24,9 +24,13 @@ public class FoodBooking {
 	 * 예약시 점포에 대한 정보와 user에 대한 정보가 필요할 것으로 보임
 	 * 필요하면 바꿔주세요
 	 */
-	private Food food;
+	private String foodBookingSeq;
 	private User user;
-	private String bookingContents, bookingCancelFlag;
-	private int bookingHead;
+	private Food food;
 	private Date bookingDateDay;
+	private Date bookingDateTime;
+	private int bookingHead;
+	private String bookingContents, bookingCancelFlag;
+	
+	
 }
