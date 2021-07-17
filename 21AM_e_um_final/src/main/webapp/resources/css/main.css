@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+/*header css*/
+#header-content{
+    display:flex;
+    justify-content:space-around;
+    height:150px;
+    align-items: center;
+}
+#head_menu a{
+    text-decoration: none;
+    color:black;
+}
+#head_menu>ul{
+    padding:0;
+    margin:0;
+}
+#head_menu ul li{
+    list-style-type: none;
+    font-family: 'twayair';
+}
+#head_menu li:hover{
+    color:rgb(4, 82, 131);
+}
+#head_menu a:hover{
+    color:rgb(4, 82, 131);
+}
+#head_menu>ul>li{
+    margin:0 50px 0 50px;
+    font-size: 20px;
+}
+#head_menu li{
+    display: inline-block;
+    width:80px;
+    text-align:center;
+    position:relative;
+    padding:10px 0 10px;
+}
+ul.head_submenu{
+    padding:20px 0 20px 0;
+    position:absolute;
+    font-size: 15px;
+    left:-8px;
+    width:100px; 
+    top:50px;
+    background-color:rgb(165, 205, 230);
+    opacity: 0;
+    transition: all 0.15s ease-in;
+    visibility: hidden;
+}
+ul.head_submenu li{
+    padding:5px 10px 5px 10px;
+    width:100px;
+}
+#head_menu_place:hover .head_submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.headericon{
+    width:25px;
+    height:25px;
+    margin:10px;
+}
+
+
+
+/*section css*/
+#root{
+    border:1px red solid;
+    min-height: 500px;
+    margin: 30px 10% 10px 10%;
+}
+
+
+
+
+/* 폰트-타이틀 */
+@font-face {
+        font-family: 'twayair';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+}
+
+/*폰트-내용*/
+@font-face {
+    font-family: 'NanumBarunGothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'NanumBarunGothic';
+    font-style: normal;
+    font-weight: 700;
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'NanumBarunGothic';
+    font-style: normal;
+    font-weight: 300;
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
+}
+.nanumbarungothic * {
+    font-family: 'NanumBarunGothic', sans-serif;
+}
