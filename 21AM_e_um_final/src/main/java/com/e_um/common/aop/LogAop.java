@@ -23,11 +23,11 @@ public class LogAop {
 		
 		if(models!=null) {
 			for(Object model : models) {
-				Model a = (Model) model;
-				log.warn("parameter {}: "+ a);
+
+			
 			}
 		}
-		Object obj = join.proceed();
+		Object obj = join.proceed();            
 	
 		
 		log.warn("\n from! : "+sig.getName() +" : "+ sig.getDeclaringTypeName()+"\n");

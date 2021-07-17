@@ -2,7 +2,7 @@ package com.e_um.model.vo.placeinfo.food.menu;
 
 import org.springframework.stereotype.Component;
 
-import com.e_um.model.vo.placeinfo.food.category.FoodCategory;
+import com.e_um.model.vo.placeinfo.food.category.FoodCategorySub;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,9 @@ public class FoodMenu {
 	/*
 	 * 메뉴
 	 */
-	private String foodMenuSeq, menuName;
+	private String foodMenuSeq;
+	private String foodSeq;
+	private String menuName;
 	private int menuPrice;
 	private String menuPhoto;
 }
