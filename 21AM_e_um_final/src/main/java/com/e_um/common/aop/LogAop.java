@@ -19,14 +19,8 @@ public class LogAop {
 		Signature sig = join.getSignature();
 		
 		log.warn("\n into! :"+sig.getName() +" : "+ sig.getDeclaringTypeName()+"\n");
-		Object[] models = join.getArgs();
 		
-		if(models!=null) {
-			for(Object model : models) {
-
-			
-			}
-		}
+		
 		Object obj = join.proceed();            
 	
 		

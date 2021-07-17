@@ -20,10 +20,12 @@ public class UserController {
 	UserServiceInterface service;
 
 	@RequestMapping(value="/user/login/start")
-	public String loginPagin(@RequestParam(value = "testKey")Object name){
-		log.warn("22");
-		log.warn("{}", name);
-		return "components/login";
+	public String loginPagin(){
+		return "components/user/login";
 	}
 	
+	@RequestMapping("/user/lostandfound/start")
+	public String lostandfound() {
+		return "components/user/lostandfound";
+	}
 }

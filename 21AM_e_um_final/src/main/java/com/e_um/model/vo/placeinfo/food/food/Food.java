@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.e_um.model.vo.placeinfo.food.category.FoodCategory;
-import com.e_um.model.vo.placeinfo.food.category.FoodCategorySub;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
 import lombok.AllArgsConstructor;

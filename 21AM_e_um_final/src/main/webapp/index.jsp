@@ -30,25 +30,35 @@
 </style>
 	
 <script>
-	const fn_login=()=>{
-		$("#modalLoginTitle").html("로그인");
-		
+
+	function loginAjax(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/login/start",
 			method:"get",
-			data:{"testKey":"테스트"},
-			processDate:true,
 			success:data=>{
-				console.log(data)
 				$("#minimodalRoot").html(data)
 			}
-		}).done(
-			$("#minimodalRoot").html(data)
-		)
+		})
+	}
+	
+	function lostAndFound(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/lostandfound/start",
+			success:date=>{
+				$("#minimodalRoot").html()
+			}
+		})
+	}
+	
+	const fn_login=()=>{
+		$("#modalLoginTitle").html("로그인");
+		loginAjax();	
+		
 	}
 	const fn_lostAndFound=()=>{
 		$("#modalLoginTitle").html("아이디/ 비밀번호 찾기");
-		$("#loginContainer").css("display","none")
+		
+		
 
 		
 	}
@@ -71,7 +81,7 @@
 		</header>
 	
 	
-		<section class=" fluid-container position-relative headerfix sectionMinHeight mb-1">
+		<section class=" fluid-container position-relative headerfix sectionMinHeight mb-1 mt-1">
 			
 	
 				<div class="fluid-container">
