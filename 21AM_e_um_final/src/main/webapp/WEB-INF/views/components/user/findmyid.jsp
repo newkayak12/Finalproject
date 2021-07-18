@@ -8,7 +8,7 @@
 	        <span class="m-2 d-flex justify-content-center align-items-center p-3 w-fitcontent">
 	            <span class="w-25">Name</span>
 	            &nbsp;&nbsp;
-	            <input type="text" id="userId" class="w-20">
+	            <input type="text" id="userName" class="w-20">
 	            &nbsp;&nbsp;
 	          
 	        </span>	
@@ -21,7 +21,7 @@
 	        </span>
 	        <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
 	           
-	            <input type="button" id="findid" class="w-20 " value="아이디 찾기" onlclick="">
+	            <input type="button" id="findid" class="w-20 " value="아이디 찾기" onclick="findmyidpwmiddle()">
 	            &nbsp;&nbsp; 
 	        </span>
 	        <input type="hidden" id="findmyflag" value="${flag}">;
