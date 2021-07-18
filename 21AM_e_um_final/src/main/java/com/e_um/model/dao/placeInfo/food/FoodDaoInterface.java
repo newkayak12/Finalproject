@@ -10,4 +10,10 @@ public interface FoodDaoInterface {
 
 	List<Food> selectAllFood(SqlSessionTemplate session);
 
+	int foodInsert(SqlSessionTemplate session, Food food);
+
+	List<String> selectFoodCategoryMain(SqlSessionTemplate session);
+
+	List<String> selectFoodCategorySub(SqlSessionTemplate session);
+
 }

@@ -16,8 +16,22 @@ public class FoodDao implements FoodDaoInterface {
 	
 	@Override
 	public List<Food> selectAllFood(SqlSessionTemplate session) {
-		
 		return session.selectList("food.selectAllFood");
+	}
+
+	@Override
+	public int foodInsert(SqlSessionTemplate session, Food food) {
+		return session.insert("food.foodInsert", food);
+	}
+
+	@Override
+	public List<String> selectFoodCategoryMain(SqlSessionTemplate session) {
+		return session.selectList("food.selectFoodCategoryMain");
+	}
+
+	@Override
+	public List<String> selectFoodCategorySub(SqlSessionTemplate session) {
+		return session.selectList("food.selectFoodCategorySub");
 	}
 
 }
