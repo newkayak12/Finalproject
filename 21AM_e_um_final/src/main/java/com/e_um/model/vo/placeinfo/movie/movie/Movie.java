@@ -25,14 +25,14 @@ public class Movie {
 	private String movieDirector; 
 	private Date movieOpenDate ;
 	private String movieRunningTime;
-	private int movieAge;
-	private String moviePhoto1,moviePhoto2,moviePhoto3;
+	private String movieAge;
+	private String moviePhoto,moviePhoto2,moviePhoto3;
 	private String movieVideo;
 	private String movieContents, movieStatus;
-	private double movieReservRate;
+	private double movieReserveRate;
 	
 	
-	private List<MoviePersonInfo> persons = new ArrayList();
+	private List<MoviePersonInfo> moviePersonName = new ArrayList();
 	
 	
 	
