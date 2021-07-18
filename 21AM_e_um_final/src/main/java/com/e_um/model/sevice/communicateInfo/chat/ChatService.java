@@ -14,6 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatService implements ChatServiceInterface {
 	@Autowired
 	ChatDaoInterface dao;
-	@Autowired
-	SqlSessionTemplate session;
+//	@Autowired
+//	SqlSessionTemplate session;
 }
