@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+
+:root{
+	--eumbackground: #70b3d9;
+	--eumfontcolorwhite: white;
+}
+
 /*header css*/
 #header-content{
     display:flex;
