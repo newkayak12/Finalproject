@@ -1,7 +1,29 @@
 @charset "UTF-8";
 
 /*section css*/
-#root{
+ #root{
     border:1px red solid;
     min-height:500px;
+    font-family:'NanumBarunGothic';
+}
+#searchFriBtn{
+    padding: .375rem 2rem;
+    background-color: rgb(165, 205, 230);
+    border:rgb(165, 205, 230);
+}
+#searchFriDetail{
+    /* margin-left:10%; */
+    cursor: pointer;
+}
+.fribtn{
+    /* border:black solid 1px; */
+    font-size: smaller;
+    font-weight: bolder;
+    margin-top:15px;
+    cursor: pointer;
+}
+.fribtn>span{
+    border:rgb(165, 205, 230) solid 2px;
+    padding:5px 10px 5px 10px;
+    border-radius: 10%;
 }
