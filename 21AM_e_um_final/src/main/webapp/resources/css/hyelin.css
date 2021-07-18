@@ -1,1 +1,7 @@
 @charset "UTF-8";
+
+/*section css*/
+#root{
+    border:1px red solid;
+    min-height:500px;
+}
