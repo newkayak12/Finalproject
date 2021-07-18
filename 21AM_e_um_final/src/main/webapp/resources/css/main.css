@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+
+:root{
+	--eumbackground: #70b3d9;
+	--eumfontcolorwhite: white;
+}
+
 /*header css*/
 #header-content{
     display:flex;
@@ -64,12 +70,10 @@ ul.head_submenu li{
 }
 
 
-
 /*section css*/
 #root{
     border:1px red solid;
-    min-height: 500px;
-    margin: 30px 10% 10px 10%;
+    min-height:500px;
 }
 body{
     width: 100%;
