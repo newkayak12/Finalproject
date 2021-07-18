@@ -41,28 +41,80 @@
 		})
 	}
 	
-	function lostAndFound(){
+	function lostAndFoundajax(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/lostandfound/start",
-			success:date=>{
-				$("#minimodalRoot").html()
+			success:data=>{
+				$("#minimodalRoot").html(data)
+			}
+		})
+	}
+	function findmyidajaxstart(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/findmyid/start",
+			success:data=>{
+				$("#minimodalRoot").html(data)
+			}
+		})
+	}
+	function findmypwajaxstart(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/findmypw/start",
+			success:data=>{
+				$("#minimodalRoot").html(data)
+			}
+		})
+	}
+	function findmyidajaxmiddle(flag){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/findmyid/middle",
+			data:{
+				"flag":flag
+			},
+			success:data=>{
+				$("#minimodalRoot").html(data)
+			}
+		})
+	}
+	function findmypwajaxmiddle(flag){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/findmypw/middle",
+			data:{
+				"flag":flag
+			},
+			success:data=>{
+				$("#minimodalRoot").html(data)
 			}
 		})
 	}
 	
+	
 	const fn_login=()=>{
 		$("#modalLoginTitle").html("로그인");
 		loginAjax();	
-		
 	}
 	const fn_lostAndFound=()=>{
 		$("#modalLoginTitle").html("아이디/ 비밀번호 찾기");
-		
-		
-
-		
+		lostAndFoundajax();
 	}
-
+	const findmyid=()=>{
+		$("#modalLoginTitle").html("아이디 찾기");
+		findmyidajaxstart();
+	}
+	const findmypw=()=>{
+		$("#modalLoginTitle").html("비밀번호 찾기");
+		findmypwajaxstart()
+	}
+	const findmyidpwmiddle=()=>{
+		let findflag = $("#findmyflag").val();
+		
+		if(findflag=='id'){
+			findmyidajaxmiddle(findflag)
+		} else if(findflag=='pw'){}
+			findmyidajaxmpwdle(findflag)
+	}
+	
+	
 </script>
 </head >
 
@@ -164,9 +216,12 @@
 	    </footer>
 
 
-<!-- modal-xl -->
+<!-- 
+	modal-xl
+	modal-dialog-scrollable
+ -->
 	<div class="modal" id="modal">
-		<div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-dialog  modal-dialog-centered ">
 		  <div class="modal-content">
 	  
 			<!-- Modal Header -->
@@ -177,7 +232,7 @@
 	  
 			<!-- Modal body -->
 			<div class="modal-body" id="modalbody">
-				<div id="minimodalRoot">
+				<div id="minimodalRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column"style="min-height: 300px">
 					
 				</div>
 			</div>
