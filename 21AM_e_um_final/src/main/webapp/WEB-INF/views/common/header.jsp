@@ -22,7 +22,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<header>
+<header class="fixed-top navbar-light bg-light">
 	<div id="header-content">
 		<!--로고 자리-->
 		<div style="font-family: 'Arizonia', cursive; font-size:30px; font-weight: bold;">E_UM</div>

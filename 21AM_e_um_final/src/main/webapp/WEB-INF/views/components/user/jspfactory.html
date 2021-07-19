@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <head>
+    
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -20,14 +21,74 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <body>
-    <%@ page language="java" contentType="text/html; charset=UTF-8"
-    <div class="d-flex justify-content-center flex-column align-items-center" id="loginContainer">
-        <span class="m-2 d-flex justify-content-center align-items-center p-3 w-fitcontent">
-          
-            <input type="text" >
+<style>
+    *{
+        border: 1px black solid;
+    }
+</style>
+    signupsecond
+
+
+    <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+    <button class="btn btn-secondary" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
+<div class="modal" id="signup">
+    <div class="modal-dialog  modal-dialog-centered  modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" id="modalLoginTitle">회원가입</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" id="modalbody">
+            <div id="largemodalRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column"style="min-height: 300px">
+
+
             
-        </span>
-    </div>
+                <div class="d-flex justify-content-center flex-column align-items-center" id="loginContainer">
+
+                    <input type="hieeden" id="userId" value="${user.userId}">
+                    <input type="hieeden" id="userPassword" value="${user.userPassword}">
+                    <input type="hieeden" id="userName" value="${user.userName}">
+                    <input type="hieeden" id="userYear" value="${user.userYear}">
+                    <input type="hieeden" id="userEmail" value="${user.userEmail}">
+                    <input type="hieeden" id="userAddrZip" value="${user.userAddrZip}">
+                    <input type="hieeden" id="userAddrBasic" value="${user.userAddrBasic}">
+                    <input type="hieeden" id="userAddrDetail" value="${user.userAddrDetail}">
+                    <input type="hieeden" id="userGender" value="${user.userGender}">
+                    
+                    <div>
+
+                        
+            
+            
+                               
+                    </div>
+            
+                    <div class="d-flex justify-content-center col-8 pr-4 pl-4">
+                        <input type="button" value="이전으로" class="col-3 m-2 mr-4" onclick="signupsecond()" >
+                        <input type="button" value="다음으로" class="col-3 m-2 ml-4" onclick="signupthrid()">
+                    </div>
+            
+                    
+                </div>
+
+
+            </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" onclick="$('#modalbody').animate({scrollTop:},150)">top</button>
+        </div>
+  
+      </div>
+</div>
 
 </body>
 </html>
+
+

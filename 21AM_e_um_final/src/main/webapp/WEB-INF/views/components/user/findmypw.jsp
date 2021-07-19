@@ -21,7 +21,7 @@
 	        </span>
 	        <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
 	           
-	            <input type="button" id="findpwchange" class="w-20 " value="비밀번호 변경하기">
+	            <input type="button" id="findpwchange" class="w-20 " value="비밀번호 변경하기" onclick="findmyidpwmiddle()">
 	            &nbsp;&nbsp; 
 	        </span>
 	        <input type="hidden" id="findmyflag" value="${flag}">;
