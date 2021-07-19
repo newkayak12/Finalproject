@@ -1,78 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<head>
-    
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<body>
-<style>
-    *{
-        border: 1px black solid;
-    }
-</style>
-    signupsecond
+<div class="d-flex justify-content-center flex-column align-items-center" id="loginContainer" >
+                <form id="formdatas">
+                    <input type="hidden" id="userId" name="userId" value="${user.userId}">
+                    <input type="hidden" id="userNick" name="userNick" value="${user.userNick}">
+                    <input type="hidden" id="userPassword" name="userPassword" value="${user.userPassword}">
+                    <input type="hidden" id="userName" name="userName" value="${user.userName}">
+                    <input type="hidden" id="userYear"  name="userYear" value="${user.userYear}">
+                    <input type="hidden" id="userEmail" name="userEmail" value="${user.userEmail}">
+                    <input type="hidden" id="userAddrZip" name="userAddrZip" value="${user.userAddrZip}">
+                    <input type="hidden" id="userAddrBasic" name="userAddrBasic" value="${user.userAddrBasic}">
+                    <input type="hidden" id="userAddrDetail" name="userAddrDetail" value="${user.userAddrDetail}">
+                    <input type="hidden" id="userGender" name="userGender" value="${user.userGender}">
+                    <input type="hidden" id="userPhone" name="userPhone" value="${user.userPhone}">
+                    <input type="hidden" id="profileInterestName1" name="profileInterestName1">
+                    <input type="hidden" id="profileInterestName2" name="profileInterestName2">
+                    <input type="hidden" id="profileInterestName3" name="profileInterestName3">
+                    <input type="hidden" id="profileInterestName4" name="profileInterestName4">
+                    <input type="hidden" id="profileInterestName5" name="profileInterestName5">
+                    <input type="file" id="profilePhoto" name="profilePhoto" class="col-4 small ml-2" accept='image/png,image/jpeg,image/jpg' style="display: none;"  >
+                </form>
 
 
-    <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-    <button class="btn btn-secondary" onclick="fn_signupzero()" data-toggle="modal" onclick='$("#signup").removeAttr("class","modal").attr("class","modalshow")' >회원가입</button>
-<div class="modal" id="signup">
-    <div class="modal-dialog  modal-dialog-centered  modal-xl modal-dialog-scrollable">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title" id="modalLoginTitle">회원가입</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body" id="modalbody">
-            <div id="largemodalRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column">
-
-
-            
-                <div class="d-flex justify-content-center flex-column align-items-center" id="loginContainer" >
-
-                    <input type="hidden" id="userId" value="${user.userId}">
-                    <input type="hidden" id="userPassword" value="${user.userPassword}">
-                    <input type="hidden" id="userName" value="${user.userName}">
-                    <input type="hidden" id="userYear" value="${user.userYear}">
-                    <input type="hidden" id="userEmail" value="${user.userEmail}">
-                    <input type="hidden" id="userAddrZip" value="${user.userAddrZip}">
-                    <input type="hidden" id="userAddrBasic" value="${user.userAddrBasic}">
-                    <input type="hidden" id="userAddrDetail" value="${user.userAddrDetail}">
-                    <input type="hidden" id="userGender" value="${user.userGender}">
-                    <input type="hidden" id="profileInterestName1">
-                    <input type="hidden" id="profileInterestName2">
-                    <input type="hidden" id="profileInterestName3">
-                    <input type="hidden" id="profileInterestName4">
-                    <input type="hidden" id="profileInterestName5" style="max-height: ;">
-                    
-                    <input type="file" id="profilePhoto" class="col-4 small ml-2" accept='image/png,image/jpeg,image/jpg' style="display: none;" onchange="fn_changed()" >
-                    
                     <div class="p-0 m-2 col-12  d-lg-flex d-flex flex-column flex-lg-row justify-content-around align-content-around" style="min-height: 300px;">
                         
                         <div class="col-lg-5 col-10 m-lg-1 m-2 ml-5 d-flex flex-column p-1 justify-content-between align-items-center" >
                             <div>
-                                <img alt="사진" src="${pageContext.request.ContextPath}/resources/images/user/default.png" style="min-height: 300px; width: 100%;"  class="mt-5"id="profilepreview">
+                                <img alt="사진" src="<%=request.getContextPath()%>/resources/images/user/default.png"  style="height: 300px;  width: 100%;" id="profilepreview">
                                 
-                                <div style="width: fit-content;" class="p-1 mt-5">
+                                <div style="width: fit-content;" class="p-1 mt-2">
                                     <input type="button" value="프로필 사진 삭제" class="col-md-5  m-2 btn btn-danger " style="font-size: 12px;" onclick="fn_photoDel()">
                                     <input type="button" value="프로필 사진 추가" class="col-md-5  m-2 btn btn-primary" style="font-size: 12px;" onclick="fn_photo()" >
                                 </div>
@@ -81,7 +37,7 @@
                         <div class="col-lg-5 col-10 m-lg-1  m-2 ml-5 d-flex flex-column p-1 justify-content-around align-items-center">
                             <div class="col-12 p-3 overflow-auto">
                                 
-                                <div style="overflow-y: scroll;">
+                                <div>
                                     <p>관심사</p>
                                     <div id="interestboard" class="col-12 p-2 d-flex flex-wrap">
 
@@ -90,7 +46,7 @@
                                     <p onclick="fn_athletic()" class="pl-2">운동</p>
                                     <div id="athletic" class="p-1 " style="display: none;">
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center " onclick="addInterest(event)">축구</span>
+                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">축구</span>
                                             <span class="col-3 m-2 text-center" onclick="addInterest(event)">농구</span>
                                             <span class="col-3 m-2 text-center" onclick="addInterest(event)">야구</span>
                                         </div>
@@ -207,31 +163,14 @@
                     </div>
             
                     <div class="d-flex justify-content-center col-8 pr-4 pl-4">
-                        <input type="button" value="이전으로" class="col-3 m-2 mr-4" onclick="signupsecond()" >
+                        <input type="button" value="이전으로" class="col-3 m-2 mr-4" onclick="signupfirst()" >
                         <input type="button" value="다음으로" class="col-3 m-2 ml-4" onclick="signupthird()">
                     </div>
             
                     
                 </div>
                 <script>
-                    function signupthird(){
-                        
-					
-					$("#largemodalRoot").html(
-							$("<div>").append(
-								$("<img>").attr("scr","${pageContext.request.contextPath}/resources/images/user/check.png")
-							)
-					).append(
-							$("<div>").append(
-									$("<h1>").html("가입을 축하드립니다!")
-								)
-					)
-					
-					
-				}
-
                     
-
                     const fn_photo=()=>{
                         $("#profilePhoto").trigger("click")
                     }
@@ -351,26 +290,10 @@
 
                     function valueInjection(){
                         Interestarray.forEach((v,i)=>{
-
-                            $("#profileInterestName"+i).val(v);
-
+                                console.log(v+"_:_"+i)
+                            $("#profileInterestName"+(i+1)).val(v);
+                                console.log($("#profileInterestName"+i).val())
                         })
                     }
 
                 </script>
-                
-            </div>
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-  
-      </div>
-</div>
-
-</body>
-</html>
-
-

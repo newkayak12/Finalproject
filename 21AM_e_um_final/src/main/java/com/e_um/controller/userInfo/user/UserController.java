@@ -1,14 +1,21 @@
 package com.e_um.controller.userInfo.user;
 
-import java.util.Date;
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
+
+import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
+import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +27,7 @@ public class UserController {
 
 	@Autowired
 	UserServiceInterface service;
+	BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
 
 	@RequestMapping(value="/user/login/start")
 	public String loginPagin(){
@@ -61,5 +69,41 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "components/user/signupsecond";
 	}
+	@RequestMapping("/user/signup/start/third")
+	@ResponseBody
+	public int signupthird(User user, Interest interest, MultipartFile profilePhoto, HttpServletRequest rq) {
+		
+		
+		
+		user.setInterest(interest);
+		user.setProfileImageFile(renamepolicy(rq, profilePhoto, "profile"));
+		user.setUserPassword(encrypt.encode(user.getUserPassword()));
+		SimpleDateFormat fDate = new SimpleDateFormat("yyMMdd");
+		log.warn("{}",user);
+		
+		return service.InsertUser(user);
+	}
 	
+	@RequestMapping("/user/nickCheker")
+	@ResponseBody
+	public int nickChecker(String userNick) {
+		
+		return service.nickChecker(userNick);
+	}
+	
+	@RequestMapping("/user/idchecker")
+	@ResponseBody
+	public int idChecker(String userId) {
+		
+		log.warn(userId);
+		
+		return service.idChecker(userId);
+	}
+	@RequestMapping("/user/emailchecker")
+	@ResponseBody
+	public int emailChecker(String userEmail) {
+		
+		
+		return service.emailChecker(userEmail);
+	}
 }

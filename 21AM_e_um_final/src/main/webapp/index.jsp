@@ -110,8 +110,6 @@
 	}
 	function signupsecond(){
 		
-		console.log($("#userId").val())
-				console.log($("#userBirth").val())
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/signup/start/second",
 			data:{
@@ -123,13 +121,50 @@
 				"userAddrZip":$("#userAddrZip").val(),
 				"userAddrBasic":$("#userAddrBasic").val(),
 				"userAddrDetail":$("#userAddrDetail").val(),
-				"userGender":$("input[name=userGender]").val()
+				"userGender":$("input[name=userGender]").val(),
+				"userPhone":$("#userPhone").val(),
+				"userNick":$("#userNick").val()
 			},success:data=>{
 				$("#largemodalRoot").html(data)
 			}
 		})
 	}
-	
+	function signupthird(){
+		
+		valueInjection();
+		let formData = new FormData($("#formdatas")[0])
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/signup/start/third",
+			type:"post",
+			enctype:"multipart/form-data",			
+			data:/* {
+				"userId":$("#userId").val(),
+				"userPassword":$("#userPassword").val(),
+				userName:$("#userName").val(),
+				"userYear":$("#userBirth").val(),
+				"userEmail":$("#userEmail").val(),
+				"userAddrZip":$("#userAddrZip").val(),
+				"userAddrBasic":$("#userAddrBasic").val(),
+				"userAddrDetail":$("#userAddrDetail").val(),
+				"userGender":$("#userGender").val(),
+				
+				"profileInterestName1":$("#profileInterestName1").val(),
+				"profileInterestName1":$("#profileInterestName2").val(),
+				"profileInterestName1":$("#profileInterestName3").val(),
+				"profileInterestName1":$("#profileInterestName4").val(),
+				"profileInterestName1":$("#profileInterestName5").val()
+			} */formData,
+			contentType:false,
+			processData:false,
+			
+			
+			success:data=>{
+				$("#signup").hide
+				$("#signin").show
+			}
+		})
+		
+	}
 
 	
 	
@@ -168,15 +203,15 @@
 	}
 	const fn_signupzero=()=>{
 		signupzero()
-		
-		
 	}
 	const fn_signupfirst=()=>{
 		signupfirst()	
-		
 	}
 	const fn_signupsecond=()=>{
-		
+		signupsecond()
+	}
+	const fn_signupthrid=()=>{
+		signupthrid()
 	}
 	
 	
@@ -187,7 +222,7 @@
 <body >
 	<div id="root" class="container m-auto pt-5 pr-3 pl-3" style="border: 1px red solid;"></div>
 		<!-- header -->
-		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-ligth bg-light">
+		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
 				<span class="mr-3 right">
 					<button class="btn btn-secondary" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
