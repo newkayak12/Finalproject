@@ -32,5 +32,6 @@ public class Food {
 	private List<FoodMenu> menus = new ArrayList();
 	
 	private String foodUrl;
+	private int foodLikeCount;
 
 }

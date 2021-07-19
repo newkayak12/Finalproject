@@ -2,8 +2,6 @@ package com.e_um.model.vo.placeinfo.food.menu;
 
 import org.springframework.stereotype.Component;
 
-import com.e_um.model.vo.placeinfo.food.category.FoodCategorySub;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
