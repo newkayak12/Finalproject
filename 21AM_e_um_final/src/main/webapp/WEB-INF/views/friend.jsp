@@ -4,8 +4,8 @@
     
 <link href="<c:url value="${path }/resources/css/hyelin.css" />" rel="stylesheet">
     
- <section>
-    <div id="root" class="container">
+ <section class="mt-5 pt-5">
+    <div id="root" class="container mt-5">
 		<form action="" method="post" class="mt-3 mx-md-5">
 	        <div class="input-group mb-3 searchFri_size">
 	            <input type="text" class="form-control" id="search_friend" name="searchFri" placeholder="나와 꼭 맞는 친구를 찾아보세요!">

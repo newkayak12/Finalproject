@@ -111,14 +111,14 @@
 	function signupsecond(){
 		
 		console.log($("#userId").val())
+				console.log($("#userBirth").val())
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/signup/start/second",
-			method:"post",
 			data:{
 				"userId":$("#userId").val(),
 				"userPassword":$("#userPassword").val(),
 				userName:$("#userName").val(),
-				"userBirth":$("#userBirth").val(),
+				"userYear":$("#userBirth").val(),
 				"userEmail":$("#userEmail").val(),
 				"userAddrZip":$("#userAddrZip").val(),
 				"userAddrBasic":$("#userAddrBasic").val(),

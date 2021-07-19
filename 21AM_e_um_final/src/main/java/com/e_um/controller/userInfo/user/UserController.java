@@ -56,10 +56,9 @@ public class UserController {
 		return "components/user/signupfirst";
 	}
 	@RequestMapping("/user/signup/start/second")
-	public String signupsecond(User user, String userBirth) {
-		log.warn(userBirth);
-		user.builder().userYear(new Date(userBirth)).build();
-		log.warn("{}",user);
+	public String signupsecond(User user, Model model) {
+		log.warn("{}", user);
+		model.addAttribute("user",user);
 		return "components/user/signupsecond";
 	}
 	
