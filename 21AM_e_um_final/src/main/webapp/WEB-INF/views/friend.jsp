@@ -49,11 +49,10 @@
 	            <div>
 	                <div style="font-family: 'twayair';">연령</div>
 	                <div class="row">
+	                	<div class="col-3 col-xl-2 fribtn"><span>무관</span></div>
 	                    <div class="col-3 col-xl-2 fribtn"><span>20대</span></div>
 	                    <div class="col-3 col-xl-2 fribtn"><span>30대</span></div>
 	                    <div class="col-3 col-xl-2 fribtn"><span>40대</span></div>
-	                    <div class="col-3 col-xl-2 fribtn"><span>50대</span></div>
-	                    <div class="col-3 col-xl-2 fribtn"><span>60대</span></div>
 	                </div>
 	            </div><br>
 	            <div>
