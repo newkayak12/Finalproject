@@ -18,7 +18,6 @@ public class FriendController {
 	
 	@RequestMapping("/friend/main")
 	public String friendMain() {
-		
 		return "friend";
 	}
 

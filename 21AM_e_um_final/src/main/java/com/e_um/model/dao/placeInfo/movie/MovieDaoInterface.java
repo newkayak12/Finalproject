@@ -11,4 +11,10 @@ public interface MovieDaoInterface {
 	
 	public Movie moviePoster(String movieSeq, SqlSessionTemplate session);
 	
+	public Movie movieVideo(SqlSessionTemplate session);
+	
+	public Movie movieDetail(String movieSeq,SqlSessionTemplate session);
+	
+	public List<Movie> movieSearch(String search,SqlSessionTemplate session);
+	
 }
