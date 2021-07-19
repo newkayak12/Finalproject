@@ -77,36 +77,52 @@
       div.modal-info {
         padding: 10 10 10 10;
       }
+      
+     div.search-container{
+        margin: 30px;
+      }
+      .search-container input[type="search"]{
+        height: 40px;
+      }
+      .search-container button{
+        height: 40px;
+        width: 60px;
+        background-color: rgb(165, 205, 230);
+      }
+      
+      /*section css*/
+		/* #root{
+		    border:1px red solid;
+		    min-height: 500px;
+		    margin: 30px 10% 10px 10%;
+		} */
     </style>
 </head>
 
 <body>
   
-  <c:out value="${ list }"/>
+   <c:out value="${ list }"/>
   
   <section>
-  	<div>
-  		<form class="navbar-search">
-        	<div class="input-group">
-        		<input class="bg-light form-control border-0 small" type="text" placeholder="지역, 식당, 음식으로 검색해보세요">
-        		<button class="btn btn-primary py-0" type="button">
-        			<i class="fas fa-search"></i>
-        		</button>
-        	</div>
-        </form>
-  	</div>
+   <div class="search-container">
+      <form>
+      <!-- col-8 col-md-6 -->
+          <input class="col-8 col-md-6 form-control" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
+          <button type="submit" class="btn" >검색</button>
+      </form>
+    </div>
+    
+    <button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
   </section>
   
   <section class="features-boxed">
     <div class="container">
-        <!-- <div class="intro">
-            <h2 class="">평점이 높은 맛집</h2>
-        </div> -->
+       
         <h3 class="">평점이 높은 맛집</h3>
-        <!--1-->
+     
         <div id="" class="row justify-content-center features">
 
-          <!--1-->
+        
           <c:forEach begin="1" end="8">
             <div class="col-6 col-md-3 item">
                 <div class="box">

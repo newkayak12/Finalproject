@@ -24,7 +24,25 @@ public class FoodService implements FoodServiceInterface {
 	
 	@Override
 	public List<Food> selectAllFood() {
-		
 		return dao.selectAllFood(session);
+	}
+
+	@Override
+	public int foodInsert(Food food) {
+		
+//		if(dao.foodInsert(session, food) != null) {
+//			return dao.foodMenuInsert();
+//		}
+		return dao.foodInsert(session, food);
+	}
+
+	@Override
+	public List<String> selectFoodCategoryMain() {
+		return dao.selectFoodCategoryMain(session);
+	}
+
+	@Override
+	public List<String> selectFoodCategorySub() {
+		return dao.selectFoodCategorySub(session);
 	}
 }

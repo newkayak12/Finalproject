@@ -8,4 +8,10 @@ public interface FoodServiceInterface {
 
 	List<Food> selectAllFood();
 
+	int foodInsert(Food food);
+
+	List<String> selectFoodCategoryMain();
+
+	List<String> selectFoodCategorySub();
+
 }
