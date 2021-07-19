@@ -39,4 +39,25 @@ public class MovieController {
 		
 	}
 	
+	@RequestMapping("/movie/movieVideo")
+	@ResponseBody
+	public Movie movieVideo() {
+		return service.movieVideo();
+	}
+	
+	@RequestMapping("/movie/movieDetail")
+	public String movieDetail(@RequestParam(value="movieSeq")String movieSeq, Model model) {
+		Movie movie = service.movieDetail(movieSeq);
+		model.addAttribute(movie);
+		return "movie/movieDetail";
+	}
+	
+	@RequestMapping("/movie/searchMovie")
+	public String movieSearch(@RequestParam(value="search")String search,Model model) {
+		List<Movie> list = service.movieSearch(search);
+			
+			model.addAttribute(list);
+		return "movie/movieSearch";
+	}
+	
 }

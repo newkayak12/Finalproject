@@ -4,7 +4,16 @@
 	--eumbackground: #70b3d9;
 	--eumfontcolorwhite: white;
 }
-
+.wrapping{
+	padding:10px;
+    overflow: auto;
+    white-space: pre-line;
+    
+}
+.eumbtn{
+	background-color:var(--eumbackground);
+	border-radius: 8%;
+}
 
 
 .headerColor{
@@ -13,7 +22,9 @@
 .w-fitcontent{
     width: fit-content;
 }
-
+.h-fitcontent{
+    height: fit-content;
+}
 .lostbox:hover{
 	background-color:var(--eumbackground); 
 	color:var(--eumfontcolorwhite)

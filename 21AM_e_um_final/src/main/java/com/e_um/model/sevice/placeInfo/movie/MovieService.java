@@ -29,6 +29,21 @@ public class MovieService implements MovieServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.moviePoster(movieSeq, session);
 	}
+	@Override
+	public Movie movieVideo() {
+		// TODO Auto-generated method stub
+		return dao.movieVideo(session);
+	}
+	@Override
+	public Movie movieDetail(String movieSeq) {
+		// TODO Auto-generated method stub
+		return dao.movieDetail(movieSeq,session);
+	}
+	@Override
+	public List<Movie> movieSearch(String search) {
+		// TODO Auto-generated method stub
+		return dao.movieSearch(search,session);
+	}
 	
 	
 	

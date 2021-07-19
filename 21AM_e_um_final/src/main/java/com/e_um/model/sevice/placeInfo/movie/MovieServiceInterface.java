@@ -9,5 +9,9 @@ public interface MovieServiceInterface {
 
 	public Movie moviePoster(String movieSeq);
 
-
+	public Movie movieVideo();
+	
+	public Movie movieDetail(String movieSeq);
+	
+	public List<Movie> movieSearch(String search);
 }

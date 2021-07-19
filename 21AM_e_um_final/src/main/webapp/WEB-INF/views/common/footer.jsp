@@ -66,7 +66,7 @@
         }
     </style>
     
-    <footer class="footer-basic">
+    <footer class="footer-basic mt-5">
         <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Home</a></li>
             <li class="list-inline-item"><a href="#">Services</a></li>

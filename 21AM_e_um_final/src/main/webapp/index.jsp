@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -67,9 +68,11 @@
 	}
 	function findmyidajaxmiddle(flag){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/user/findmyid/middle",
+			url:"${pageContext.request.contextPath}/user/findmy/middle",
 			data:{
-				"flag":flag
+				"flag":flag,
+				"userName":$("#userName").val(),
+				"userEmail":$("#userEmail").val()
 			},
 			success:data=>{
 				$("#minimodalRoot").html(data)
@@ -78,15 +81,91 @@
 	}
 	function findmypwajaxmiddle(flag){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/user/findmypw/middle",
+			url:"${pageContext.request.contextPath}/user/findmy/middle",
 			data:{
-				"flag":flag
+				"flag":flag,
+				"userId":$("#userId").val(),
+				"userEmail":$("#userEmail").val()
 			},
 			success:data=>{
 				$("#minimodalRoot").html(data)
 			}
 		})
 	}
+	function signupzero(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/signup/start/zero",
+			success: data=>{
+				$("#largemodalRoot").html(data)
+			}
+		})
+	}
+	function signupfirst(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/signup/start/first",
+			success:data=>{
+				$("#largemodalRoot").html(data)
+			}
+		})
+	}
+	function signupsecond(){
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/signup/start/second",
+			data:{
+				"userId":$("#userId").val(),
+				"userPassword":$("#userPassword").val(),
+				userName:$("#userName").val(),
+				"userYear":$("#userBirth").val(),
+				"userEmail":$("#userEmail").val(),
+				"userAddrZip":$("#userAddrZip").val(),
+				"userAddrBasic":$("#userAddrBasic").val(),
+				"userAddrDetail":$("#userAddrDetail").val(),
+				"userGender":$("input[name=userGender]").val(),
+				"userPhone":$("#userPhone").val(),
+				"userNick":$("#userNick").val()
+			},success:data=>{
+				$("#largemodalRoot").html(data)
+			}
+		})
+	}
+	function signupthird(){
+		
+		valueInjection();
+		let formData = new FormData($("#formdatas")[0])
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/signup/start/third",
+			type:"post",
+			enctype:"multipart/form-data",			
+			data:/* {
+				"userId":$("#userId").val(),
+				"userPassword":$("#userPassword").val(),
+				userName:$("#userName").val(),
+				"userYear":$("#userBirth").val(),
+				"userEmail":$("#userEmail").val(),
+				"userAddrZip":$("#userAddrZip").val(),
+				"userAddrBasic":$("#userAddrBasic").val(),
+				"userAddrDetail":$("#userAddrDetail").val(),
+				"userGender":$("#userGender").val(),
+				
+				"profileInterestName1":$("#profileInterestName1").val(),
+				"profileInterestName1":$("#profileInterestName2").val(),
+				"profileInterestName1":$("#profileInterestName3").val(),
+				"profileInterestName1":$("#profileInterestName4").val(),
+				"profileInterestName1":$("#profileInterestName5").val()
+			} */formData,
+			contentType:false,
+			processData:false,
+			
+			
+			success:data=>{
+				$("#signup").hide
+				$("#signin").show
+			}
+		})
+		
+	}
+
 	
 	
 	const fn_login=()=>{
@@ -110,24 +189,46 @@
 		
 		if(findflag=='id'){
 			findmyidajaxmiddle(findflag)
-		} else if(findflag=='pw'){}
+		} else if(findflag=='pw'){
 			findmyidajaxmpwdle(findflag)
+		}
 	}
+	
+	const fn_agree=()=>{
+		if($("#agreebtn").attr("disabled")=="disabled"){
+			$("#agreebtn").attr("disabled",false)
+		} else {
+			$("#agreebtn").attr("disabled",true)
+		} 
+	}
+	const fn_signupzero=()=>{
+		signupzero()
+	}
+	const fn_signupfirst=()=>{
+		signupfirst()	
+	}
+	const fn_signupsecond=()=>{
+		signupsecond()
+	}
+	const fn_signupthrid=()=>{
+		signupthrid()
+	}
+	
+	
 	
 	
 </script>
 </head >
-
 <body >
 	<div id="root" class="container m-auto pt-5 pr-3 pl-3" style="border: 1px red solid;"></div>
 		<!-- header -->
-		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-ligth bg-light">
+		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
 				<span class="mr-3 right">
-					<button class="btn btn-secondary"  data-toggle="modal" data-target="#modal" >회원가입</button>
+					<button class="btn btn-secondary" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
 				</span>
 				<span class=" justify-content-end mr-3">
-					<button class="btn btn-success" onclick="fn_login()" data-toggle="modal" data-target="#modal" >로그인</button>
+					<button class="btn btn-success" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
 				</span>
 			</div>
 		</header>
@@ -220,7 +321,7 @@
 	modal-xl
 	modal-dialog-scrollable
  -->
-	<div class="modal" id="modal">
+	<div class="modal" id="signin">
 		<div class="modal-dialog  modal-dialog-centered ">
 		  <div class="modal-content">
 	  
@@ -243,6 +344,34 @@
 			</div>
 	  
 		  </div>
+		</div>
+	</div>
+		<!--  -->
+		
+		
+		<div class="modal" id="signup">
+			<div class="modal-dialog  modal-dialog-centered  modal-xl modal-dialog-scrollable">
+			  <div class="modal-content">
+		  
+				<!-- Modal Header -->
+				<div class="modal-header">
+				  <h4 class="modal-title" id="xlmodalLoginTitle">회원가입</h4>
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+		  
+				<!-- Modal body -->
+				<div class="modal-body" id="xlmodalbody">
+					<div id="largemodalRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column"style="min-height: 300px">
+					
+					</div>
+				</div>
+		  
+				<!-- Modal footer -->
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+		  
+			  </div>
 		</div>
 
 
