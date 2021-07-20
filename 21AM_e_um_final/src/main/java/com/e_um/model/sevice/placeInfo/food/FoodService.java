@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.placeInfo.food.FoodDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
@@ -28,6 +29,8 @@ public class FoodService implements FoodServiceInterface {
 		return dao.selectAllFood(session);
 	}
 
+	
+	// @Transactional
 	@Override
 	public int foodInsert(Food food) {
 		

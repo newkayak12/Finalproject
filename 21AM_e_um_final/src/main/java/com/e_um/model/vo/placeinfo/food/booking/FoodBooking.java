@@ -25,8 +25,8 @@ public class FoodBooking {
 	 * 필요하면 바꿔주세요
 	 */
 	private String foodBookingSeq;
-	private User user;
 	private Food food;
+	private User user;
 	private Date bookingDateDay;
 	private Date bookingDateTime;
 	private int bookingHead;

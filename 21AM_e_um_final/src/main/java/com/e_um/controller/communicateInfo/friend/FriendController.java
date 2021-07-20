@@ -1,8 +1,11 @@
 package com.e_um.controller.communicateInfo.friend;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.e_um.model.sevice.communicateInfo.friend.FriendServiceInterface;
 
@@ -17,8 +20,11 @@ public class FriendController {
 	
 	
 	@RequestMapping("/friend/main")
-	public String friendMain() {
-		return "friend";
+	public ModelAndView friendMain(ModelAndView mv, HttpSession session) {
+		System.out.println(session.getAttribute("user"));
+		mv.addObject("list",service.selectAllUser());
+		mv.setViewName("friend");
+		return mv;
 	}
 
 
