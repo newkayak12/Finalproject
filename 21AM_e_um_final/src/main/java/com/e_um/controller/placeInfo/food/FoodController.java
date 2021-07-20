@@ -123,7 +123,7 @@ public class FoodController {
 		
 	}
 	
-	@RequestMapping("/food/FoodReview/First")
+	@RequestMapping("/food/foodReview/first")
 	public String foodReview(String foodSeq, Model model) {
 		
 		Food food = service.selectFood(foodSeq);
