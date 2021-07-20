@@ -57,7 +57,7 @@ public class GroupController {
 		
 		param.put("file", renamepolicy(rq, file, "group"));
 		int result = service.groupInsert(param,user.getUserId());
-		return "redirect:group";
+		return "redirect:/group/groupMain.do";
 	}
 	 
 	@RequestMapping("group/groupSigned.do")
