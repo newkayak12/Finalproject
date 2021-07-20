@@ -18,6 +18,7 @@
     			url:"<%=request.getContextPath()%>/movie/moviePoster",
     			data:{"movieSeq":movieSeq},
     			success:data=>{
+    				console.log(data);
     				let date = data["movieOpenDate"];
     				let result = date.split("-");
     				$("#modalImage").attr("src","${applicationScope.path}/resources/upload/movie/movie_poster/"+data["moviePhoto"])
@@ -44,7 +45,7 @@
     		location.assign("<%=request.getContextPath()%>/movie/movieDetail?movieSeq="+e.target.value);
     	}
     	
-    	const movieSearch=()=>{
+    	/* const movieSearch=()=>{
     		let search = $("#search");
     		if(search.val().length<2){
     			alert("검색어는 두글자 이상 입력하세요");
@@ -52,7 +53,7 @@
     			$("#searchForm").submit();
     		}
     		
-    	}
+    	} */
     
     	
     </script>
