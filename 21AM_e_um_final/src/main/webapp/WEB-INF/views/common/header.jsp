@@ -40,8 +40,8 @@
                 <li class="nav-item dropdown col-4">
                     <a class="nav-link dropdown-toggle col-6" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="">맛집</a>
-                        <a class="dropdown-item" href="">영화</a>
+                        <a class="dropdown-item" href="${path }/food/foodMain">맛집</a>
+                        <a class="dropdown-item" href="${path }/movie/movieInfo">영화</a>
                     </div>
                 </li>
             </ul>
