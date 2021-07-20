@@ -41,7 +41,7 @@
 	
 	
 	
-	<section class="mt-5 pt-5">
+	<section class="mt-7 pt-7 pb-5 mb-5">
 	   <div id="root" class="container mt-5">
 	       <div class="movie-detail">
 	        <div class="title"><h3>영화상세</h3></div>
@@ -312,4 +312,4 @@
 
 
 
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+ <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

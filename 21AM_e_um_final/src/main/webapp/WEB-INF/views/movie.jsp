@@ -35,6 +35,7 @@
     		$.ajax({
     			url:"<%=request.getContextPath()%>/movie/movieVideo",
     			success:data=>{
+    				console.log(data);
     				$("#movieVideo").attr("src",data["movieVideo"])
     			}
     		})
@@ -45,15 +46,15 @@
     		location.assign("<%=request.getContextPath()%>/movie/movieDetail?movieSeq="+e.target.value);
     	}
     	
-    	/* const movieSearch=()=>{
-    		let search = $("#search");
-    		if(search.val().length<2){
+    	const movieSearch=()=>{
+    		let search = $("#search").value;
+    		if(search.length<2){
     			alert("검색어는 두글자 이상 입력하세요");
     		)else{
     			$("#searchForm").submit();
     		}
     		
-    	} */
+    	} 
     
     	
     </script>
@@ -153,13 +154,15 @@
       
     </style>
     
+    
     <div>
     	<form id="searchForm" class="float-right mr-5" action="<%=request.getContextPath() %>/movie/searchMovie">
     		<input type="text" name="search" id="search" style="width:300px; height:24px;" placeholder="보고싶은 영화를 검색하세요">
     		<button class="btn-primary" onclick="movieSearch();">검색</button>
     	</form>
-    </div>
-    <section class="mt-5">
+    </div> 
+ 
+    <section class="mt-7 pt-7 pb-5 mb-5">
 	    <div id="root" class="container mt-5" data-ride="carousel" data-interval="false">
 	    	<h3 style="margin-left:20px">박스오피스 순위</h3>
 	    	
@@ -175,13 +178,13 @@
 			                          data-original=""
 			                          data-error=""/>
 			                   </div>
-		                   <figcaption>
-		                     <div class="info">
-		                       <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
-		                       <span class="search_point "><c:out value="${l.movieStatus}"/></span>
-		                       <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
-		                     </div>
-		                   </figcaption>
+			                   <figcaption>
+			                     <div class="info">
+			                       <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
+			                       <span class="search_point "><c:out value="${l.movieStatus}"/></span>
+			                       <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
+			                     </div>
+			                   </figcaption>
 		                 </figure>
 		               </div>
 		             </div>
