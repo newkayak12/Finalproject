@@ -7,4 +7,6 @@ public interface UserServiceInterface {
 	public int emailChecker(String userEmail);
 	public int nickChecker(String userNick);
 	public int InsertUser(User user);
+	public User login(User user);
+	public User verify(User user);
 }
