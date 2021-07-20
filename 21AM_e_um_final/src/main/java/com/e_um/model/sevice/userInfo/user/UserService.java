@@ -27,25 +27,28 @@ public class UserService implements UserServiceInterface {
 	@Override
 	@Transactional(readOnly = true)
 	public int nickChecker(String userNick) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	@Override
 	@Transactional(readOnly = true)
 	public int emailChecker(String userEmail) {
-		// TODO Auto-generated method stub
 		return dao.emailChecker(userEmail, session);
 	}
 	@Override
 	@Transactional()
 	public int InsertUser(User user) {
 		// TODO Auto-generated method stub
-		
 		int count = dao.InsertUser(user, session);
 			count += dao.InsertInterest(user, session);
-				
-			
-		
 		return count;
+	}
+	@Override
+	public User login(User user) {
+		return dao.login(user, session);
+	}
+	@Override
+	public User verify(User user) {
+		// TODO Auto-generated method stub
+		return dao.verify(user, session);
 	}
 }

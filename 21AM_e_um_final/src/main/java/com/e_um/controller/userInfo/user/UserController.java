@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.e_um.common.verifyCodeMaker.VerifyCodeMaker;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
@@ -23,11 +25,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@SessionAttributes({"user","code"})
 public class UserController {
+	
 
 	@Autowired
 	UserServiceInterface service;
 	BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
+	
+	@Autowired
+	VerifyCodeMaker maker;
 
 	@RequestMapping(value="/user/login/start")
 	public String loginPagin(){
@@ -48,12 +55,21 @@ public class UserController {
 		return"components/user/findmypw";
 	}
 	@RequestMapping("/user/findmy/middle")
-	public String findMiddle(String flag) {
-		/*
-		 *  flag가 id이면 아이디 찾기
-		 *  flag가 pw이면 비밀번호 찾기
-		 */
-		return "components/user/find";
+	public String findMiddle(String flag, User user, Model model) {
+		String code = maker.codeGenerator();
+		
+		
+		User userfin = service.verify(user);
+		log.warn("help!!{}", userfin);
+		if(userfin != null) {
+			model.addAttribute("user",userfin.getUserId());
+			model.addAttribute("code",code);
+			model.addAttribute("flag", flag);
+			return "components/user/verifycode";
+		} else {
+			model.addAttribute("alter", "yes");
+			return "components/user/lostandfound";
+		}
 	}
 	@RequestMapping("/user/signup/start/zero")
 	public String signupzero() {
@@ -105,5 +121,44 @@ public class UserController {
 		
 		
 		return service.emailChecker(userEmail);
+	}
+	@RequestMapping("/user/loginverify")
+	@ResponseBody
+	public int login(Model model, User user) {
+		User userResult = service.login(user);
+		log.warn("{}result: ",userResult);
+		
+		int flag = 0;
+		
+			if(encrypt.matches(user.getUserPassword(), userResult.getUserPassword())) {
+				model.addAttribute("user", userResult);
+				flag =1;
+			}
+			
+			
+		return flag;
+	}
+	@RequestMapping("/user/gotomain")
+	public String gotomain(HttpServletRequest rq, Model model) {
+		Object obj =  model.getAttribute("user");
+		
+		if(obj!=null) {
+			return "main";
+		} else {
+			String path = rq.getContextPath();
+			return "redirect : "+path+"/index.jsp";
+		}
+		
+	}
+	
+	@RequestMapping("/user/idfound")
+	public String idfound(User user, Model model) {
+		model.addAttribute("userId",user.getUserId());
+		return"";
+	}
+	@RequestMapping("/user/pwfound")
+	public String pwfound(User user,Model model) {
+		model.addAttribute("userId",user.getUserId());
+		return"";
 	}
 }

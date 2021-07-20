@@ -123,5 +123,13 @@ public class FoodController {
 		
 	}
 	
+	@RequestMapping("/food/FoodReview/First")
+	public String FoodReview(String foodName, Model model) {
+		
+		model.addAttribute("foodName", foodName);
+		
+		return "/food/foodReview";
+	}
+	
 	
 }

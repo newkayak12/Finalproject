@@ -159,13 +159,26 @@
 			
 			
 			success:data=>{
-				$("#signup").hide
-				$("#signin").show
+				loginAjax();
+				$("#signup").modal("hide");
+				$("#signin").modal("show");
 			}
 		})
 		
 	}
-
+	function loginVerifyAjax(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/loginverify",
+			data:{userId:$("#userId").val(), userPassword:$("#userPassword").val()},
+			success:data=>{
+				if(data!=0){
+					location.assign("${pageContext.request.contextPath}/user/gotomain");					
+				} else {
+					alert('존재하지 않는 아이디 입니다.')
+				}
+			}
+		})
+	}
 	
 	
 	const fn_login=()=>{
@@ -190,7 +203,7 @@
 		if(findflag=='id'){
 			findmyidajaxmiddle(findflag)
 		} else if(findflag=='pw'){
-			findmyidajaxmpwdle(findflag)
+			findmypwajaxmiddle(findflag)
 		}
 	}
 	
@@ -213,6 +226,8 @@
 	const fn_signupthrid=()=>{
 		signupthrid()
 	}
+	
+	
 	
 	
 	

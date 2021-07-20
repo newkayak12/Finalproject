@@ -49,6 +49,18 @@ public class UserDao implements UserDaoInterface {@Override
 		return session.insert("user.insertInterest", info);
 	}
 
+	@Override
+	public User login(User user, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("user.login", user);
+	}
+
+	@Override
+	public User verify(User user, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("user.verify",user);
+	}
+
 	
 
 }
