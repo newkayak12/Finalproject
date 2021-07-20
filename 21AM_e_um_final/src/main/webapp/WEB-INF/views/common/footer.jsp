@@ -1,7 +1,8 @@
 
 <style>
 	.footer {
-	  /* position: fixed; */
+	  position: relative;
+	  height : 130px;
 	  left: 0;
 	  bottom: 0;
 	  width: 100%;
@@ -25,7 +26,7 @@
     .list-inline-item a {
         text-decoration: none;
         color: rgb(47, 50, 57);
-        font-family: twayair;
+        font-family:'Noto Sans KR';
     }
     .footer-basic .copyright {
         margin-top: 15px;
@@ -36,7 +37,7 @@
     }
 </style>
 
-<footer class="footer">
+<footer class="footer mt-5">
     <ul class="list-inline">
         <li class="list-inline-item"><a href="#">Home</a></li>
         <li class="list-inline-item"><a href="#">Services</a></li>

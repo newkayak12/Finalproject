@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
+import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
 
 public interface MovieDaoInterface {
 	public List<Movie> movieList(SqlSessionTemplate session);
@@ -16,5 +17,7 @@ public interface MovieDaoInterface {
 	public Movie movieDetail(String movieSeq,SqlSessionTemplate session);
 	
 	public List<Movie> movieSearch(String search,SqlSessionTemplate session);
+	
+	public MoviePersonInfo moviePerson(String person, SqlSessionTemplate session);
 	
 }

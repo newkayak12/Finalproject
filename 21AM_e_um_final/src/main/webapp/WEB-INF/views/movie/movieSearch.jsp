@@ -1,9 +1,100 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+ <style>
+     
+     #root{
+     	font-family:'NanumBarunGothic';
+     }
+     .features-boxed {
+        
+      }
 
+      .features-boxed p {
+        color: #7d8285;
+      }
 
-	<section class="mt-5 mb-5">
+      .features-boxed h3 {
+        font-weight: bold;
+        /* margin-bottom: 40px; */
+        padding-top: 40px;
+        color: inherit;
+      }
+
+      @media (max-width:500px) {
+        .features-boxed h2 {
+          margin-bottom: 25px;
+          padding-top: 25px;
+          font-size: 24px;
+        }
+      }
+
+      .features-boxed .intro {
+        font-size: 16px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .features-boxed .intro p {
+        margin-bottom: 0;
+      }
+
+      .features-boxed .features {
+        padding: 50xp 0;
+      }
+
+      .movieBox {
+        text-align: center;
+      }
+
+      .features-boxed .item .box {
+        text-align: center;
+        
+        background-color: #fff;
+        margin-bottom: 30px;
+      }
+
+      .title {
+        font-size: 22px;
+        margin-bottom: 8px;
+        margin-top: 0;
+        color: black;
+      }
+
+      .features-boxed .item {
+        font-size: 25px;
+        margin-bottom: 8px;
+        margin-top: 0;
+        color: skyblue;
+      }
+
+      .thumb-size {
+        width: 200px;
+        height: 280px; 
+      }
+      .modal-body .thumb-size {
+        float: left;
+      }
+
+      div.modal-info {
+        padding: 10 10 10 10;
+      }
+      .title{
+      	text-align:center;
+      }
+      .search_point{
+      	font-size : 16px;
+      }
+      .etc{
+      	font-size : 16px;
+      }
+      #movie_video{
+      	margin-top:50px;
+      }
+      
+    </style>
+
+	<%-- <section class="mt-5 mb-5 mt-5">
 	    <div id="root" class="container mt-5" data-ride="carousel" data-interval="false">
 	    	<h3 style="margin-left:20px">검색된 영화</h3>
 	    	
@@ -33,7 +124,7 @@
 	    		</c:forEach>
 	    	</div>
 	    </div>
-   </section>
+   </section> --%>
 	
 
 

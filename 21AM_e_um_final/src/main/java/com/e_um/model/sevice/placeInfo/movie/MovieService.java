@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.e_um.model.dao.placeInfo.movie.MovieDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
+import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,6 +44,11 @@ public class MovieService implements MovieServiceInterface {
 	public List<Movie> movieSearch(String search) {
 		// TODO Auto-generated method stub
 		return dao.movieSearch(search,session);
+	}
+	@Override
+	public MoviePersonInfo moviePerson(String person) {
+		// TODO Auto-generated method stub
+		return dao.moviePerson(person , session);
 	}
 	
 	

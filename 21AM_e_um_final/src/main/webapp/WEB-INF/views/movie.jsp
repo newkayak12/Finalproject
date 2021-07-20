@@ -18,6 +18,7 @@
     			url:"<%=request.getContextPath()%>/movie/moviePoster",
     			data:{"movieSeq":movieSeq},
     			success:data=>{
+    				console.log(data);
     				let date = data["movieOpenDate"];
     				let result = date.split("-");
     				$("#modalImage").attr("src","${applicationScope.path}/resources/upload/movie/movie_poster/"+data["moviePhoto"])
@@ -34,6 +35,7 @@
     		$.ajax({
     			url:"<%=request.getContextPath()%>/movie/movieVideo",
     			success:data=>{
+    				console.log(data);
     				$("#movieVideo").attr("src",data["movieVideo"])
     			}
     		})
@@ -44,15 +46,15 @@
     		location.assign("<%=request.getContextPath()%>/movie/movieDetail?movieSeq="+e.target.value);
     	}
     	
-    	const movieSearch=()=>{
-    		let search = $("#search");
-    		if(search.val().length<2){
+    	/* const movieSearch=()=>{
+    		let search = $("#search").value;
+    		if(search.length<2){
     			alert("검색어는 두글자 이상 입력하세요");
-    		)else{
+    		}else{
     			$("#searchForm").submit();
     		}
     		
-    	}
+    	}  */
     
     	
     </script>
@@ -113,7 +115,7 @@
       }
 
       .title {
-        font-size: 22px;
+        font-size: 20px;
         margin-bottom: 8px;
         margin-top: 0;
         color: black;
@@ -152,94 +154,95 @@
       
     </style>
     
-    <div>
-    	<form id="searchForm" class="float-right mr-5" action="<%=request.getContextPath() %>/movie/searchMovie">
-    		<input type="text" name="search" id="search" style="width:300px; height:24px;" placeholder="보고싶은 영화를 검색하세요">
-    		<button class="btn-primary" onclick="movieSearch();">검색</button>
-    	</form>
-    </div>
-    <section class="mt-5">
-	    <div id="root" class="container mt-5" data-ride="carousel" data-interval="false">
-	    	<h3 style="margin-left:20px">박스오피스 순위</h3>
-	    	
-	    	<div class="row justify-content-center features">
-	    		<c:forEach var="l" items="${list }" begin="0" end="3">
-	    			 <div class="col-6 col-md-3 item active">
-		                <div class="box">
-		                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#myModal" data-toggle="modal">
-			                 <figure class="movie_list">
-			                   <div class="thumb">
-			                     <img class="thumb-size col-12"
-			                          src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
-			                          data-original=""
-			                          data-error=""/>
-			                   </div>
-		                   <figcaption>
-		                     <div class="info">
-		                       <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
-		                       <span class="search_point "><c:out value="${l.movieStatus}"/></span>
-		                       <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
-		                     </div>
-		                   </figcaption>
-		                 </figure>
-		               </div>
-		             </div>
-		            </div>
-	    		</c:forEach>
-	    	</div>
-	    </div>
-   </section>
-   
-   <section id="movie_video">
-   		<div class="wrapper col-8 mb-5" style="border: 1px solid black; height:500px; margin:0 auto;">
-   			<div><h3>흥행 영화 예고편</h3></div>
-   			<div>
-   				<iframe id="movieVideo" src=""
-   				style="width:100%; height:450px;"
-   				frameborder="0" allow="accelermeter; clipboard-white; encrypted-media; gyroscope; picture-in-picture" allowfullscreen" >
-   					
-   				</iframe>
-   				
-   			</div>
-   		</div>
-   
-   </section>
-   
-   <section>
-   		<div class="modal" id="myModal">
-		    <div class="modal-dialog modal-dialog-centered">
-		      <div class="modal-content">
-		
-		        <!-- Modal Header -->
-		        <div class="modal-header">
-		          <!-- <h4 class="modal-title">Modal Heading</h4> -->
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        </div>
-		
-		        <!-- Modal body -->
-		        <div class="modal-body">
-		          <div id="modal-content">
-			          <div class="text-center mb-4">  
-			            <img id="modalImage" class="thumb-size" src="">
-			            <div class="modal-info">
-			              <h3 id="modalTitleKr"></h3>
-			              <h5 id="modalTitleEn"></h5>
-			              <p id="modalOpenDate"></p>
-			              <p id="modalReserveRate"></p>
-		              </div>
-		              <div class="mt-4 p-4 d-flex justify-content-around">
-		              	<button id="btn1" class="btn btn-success" onclick="move_movieDetail(event);">상세보기</button><button class="btn btn-primary">예매하기</button>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-		
-		        
-		
-	      </div>
-	    </div>
-	  </div>
-   </section>
+    
+    <section class="mt-5 pt-5">
+        <div id="root" class="container mt-5">
+            <div>
+                <form id="searchForm" class="float-right mr-5" action="<%=request.getContextPath() %>/movie/searchMovie">
+                    <input type="text" name="search" id="search" style="width:300px; height:24px;" placeholder="보고싶은 영화를 검색하세요">
+                    <button class="btn-primary" onclick="movieSearch();">검색</button>
+                </form>
+            </div>           
+            <section class="mt-7 pt-7 pb-5 mb-5">
+                <div  data-ride="carousel" data-interval="false">
+                    <h3 style="margin-left:20px">박스오피스 순위</h3>
+                    
+                    <div class="row justify-content-center features">
+                        <c:forEach var="l" items="${list }" begin="0" end="3">
+                             <div class="col-6 col-md-3 item active">
+                                <div class="box">
+                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#myModal" data-toggle="modal">
+                                     <figure class="movie_list">
+                                       <div class="thumb">
+                                         <img class="thumb-size col-12"
+                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+                                              data-original=""
+                                              data-error=""/>
+                                       </div>
+                                       <figcaption>
+                                         <div class="info">
+                                           <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
+                                           <span class="search_point "><c:out value="${l.movieStatus}"/></span>
+                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
+                                         </div>
+                                       </figcaption>
+                                 </figure>
+                               </div>
+                             </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+           </section>
+           <section id="movie_video">
+            <div class="wrapper col-8 mb-5" style="border: 1px solid black; height:500px; margin:0 auto;">
+                <div><h3>흥행 영화 예고편</h3></div>
+                <div>
+                    <iframe id="movieVideo" src=""
+                    style="width:100%; height:450px;"
+                    frameborder="0" allow="accelermeter; clipboard-white; encrypted-media; gyroscope; picture-in-picture" allowfullscreen" >
+                        
+                    </iframe>
+                    
+                </div>
+             </div>
+            </section>
+            <section>
+                <div class="modal" id="myModal">
+                 <div class="modal-dialog modal-dialog-centered">
+                   <div class="modal-content">
+             
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                       <!-- <h4 class="modal-title">Modal Heading</h4> -->
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+             
+                     <!-- Modal body -->
+                     <div class="modal-body">
+                       <div id="modal-content">
+                           <div class="text-center mb-4">  
+                             <img id="modalImage" class="thumb-size" src="">
+                             <div class="modal-info">
+                               <h4 id="modalTitleKr"></h4>
+                               <h5 id="modalTitleEn"></h5>
+                               <p id="modalOpenDate"></p>
+                               <p id="modalReserveRate"></p>
+                           </div>
+                           <div class="mt-4 p-4 d-flex justify-content-around">
+                               <button id="btn1" class="btn btn-success" onclick="move_movieDetail(event);">상세보기</button><button class="btn btn-primary">예매하기</button>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </section>
    
    
    
