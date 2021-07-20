@@ -9,4 +9,5 @@ public interface UserServiceInterface {
 	public int InsertUser(User user);
 	public User login(User user);
 	public User verify(User user);
+	public int changepw(User user);
 }

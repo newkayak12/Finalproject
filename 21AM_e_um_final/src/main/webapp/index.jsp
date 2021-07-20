@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +24,7 @@
  <style>
  
  *{
-    border:1px black solid
+    /* border:1px black solid */
 }
 
 
@@ -169,7 +169,7 @@
 	function loginVerifyAjax(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/loginverify",
-			data:{userId:$("#userId").val(), userPassword:$("#userPassword").val()},
+			data:{userId:$("#userId").val(), userPassword:$("#userPassword").val(), persistlogin:$("#persistlogin").prop("checked") },
 			success:data=>{
 				if(data!=0){
 					location.assign("${pageContext.request.contextPath}/user/gotomain");					
@@ -225,6 +225,21 @@
 	}
 	const fn_signupthrid=()=>{
 		signupthrid()
+	}
+	
+	const fn_changepw=()=>{
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/changepw",
+			data:{"userId":$("#userId").val(),"userPassword":$("#userPassword").val()},
+			success:data=>{
+				if(data!=0){
+					alert('비밀번호 변경을 완료했습니다.')
+				  fn_login() 
+				} else {
+					alert('비밀번호 변경에 실패했습니다.')
+				}		
+			}
+		})
 	}
 	
 	

@@ -12,4 +12,6 @@ public interface UserDaoInterface {
 	public int InsertInterest(User user, SqlSessionTemplate session);
 	public User login(User user, SqlSessionTemplate session);
 	public User verify(User user, SqlSessionTemplate session);
+	public int changepw(User user, SqlSessionTemplate session);
+	
 }	

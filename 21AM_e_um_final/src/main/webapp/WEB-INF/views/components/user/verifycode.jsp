@@ -16,7 +16,7 @@
                              &nbsp;&nbsp; 
                          </span>
                          <input type="hidden" id="findmyflag" value="${flag}">
-                         <input type="hidden" id="userId" value="${user}">
+                         <input type="hidden" id="userId" value="${userId}">
                      </div>
                  </div>
                  <script>
@@ -31,18 +31,18 @@
                                 if($("#verifyCode").val()==code){
                                         if(flag=='id'){
                                                    $.ajax({
-                                                       url:"${pageContext.request.contexPath}/user/idfound",
-                                                       data:{userId:$("userId").val()}
+                                                       url:"${pageContext.request.contextPath}/user/idfound",
+                                                       data:{"userId":$("#userId").val()},
                                                        success:data=>{
-
+                                                            $("#minimodalRoot").html(data)
                                                        }
                                                    })
                                         } else if(flag=='pw') {
                                             $.ajax({
-                                                       url:"${pageContext.request.contexPath}/user/pwfound",
-                                                       data:{userId:$("userId").val()}
+                                                       url:"${pageContext.request.contextPath}/user/pwfound",
+                                                       data:{"userId":$("#userId").val()},
                                                        success:data=>{
-                                                           
+                                                           $("#minimodalRoot").html(data)
                                                        }
                                                    })
                                         }

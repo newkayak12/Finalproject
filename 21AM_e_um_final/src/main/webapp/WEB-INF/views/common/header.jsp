@@ -3,6 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
 <c:set var="path" value="<%=request.getContextPath() %>" scope="application"/>
 <!DOCTYPE html>
@@ -34,13 +35,13 @@
         <!--메뉴-->
         <div id="head_menu" class="">
             <ul class="navbar-nav">
-                <li class="nav-item col-5"><a class="nav-link" href="">친구 찾기</a></li>
-                <li class="nav-item col-4"><a class="nav-link" href="">소모임</a></li>
+                <li class="nav-item col-5"><a class="nav-link" href="${path }/friend/main">친구 찾기</a></li>
+                <li class="nav-item col-4"><a class="nav-link" href="${path }/group/groupMain.do">소모임</a></li>
                 <li class="nav-item dropdown col-4">
                     <a class="nav-link dropdown-toggle col-6" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">맛집</a>
-                        <a class="dropdown-item" href="#">영화</a>
+                        <a class="dropdown-item" href="">맛집</a>
+                        <a class="dropdown-item" href="">영화</a>
                     </div>
                 </li>
             </ul>
@@ -49,7 +50,6 @@
         <!--아이콘 메뉴-->
         <div id="icon_menu">
             <ul class="navbar-nav">
-                <!-- <li class="nav-item col-3"></li> -->
                 <li class="nav-item col-4"><i class="fas fa-user fa-lg"></i></li>
                 <li class="nav-item col-4"><i class="fas fa-comments fa-lg"></i></li>
                 <li class="nav-item col-4"><i class="fas fa-bell fa-lg"></i></li>

@@ -1,3 +1,170 @@
 @charset "UTF-8";
 
 /* footer */ 
+#root{
+    border:1px red solid;
+    min-height:500px;
+    font-family:'Noto Sans KR';
+}
+
+/* top 버튼 */
+a#MOVE_TOP_BTN {
+					    position: fixed;
+					    right: 5%;
+					    bottom: 50px;
+					    display: none;
+					    z-index: 999;
+}
+a#MOVE_TOP_BTN div {
+						border-radius : 50%;
+						border : 1px solid gray;
+						background-color : #70b3d9;
+						width : 50px;
+						height : 50px;
+						text-align : center;
+						line-height : 50px;
+						color : black;
+}
+
+/* food */
+.features-boxed {
+        border: 1px solid skyblue;
+      }
+
+      .features-boxed p {
+        color: #7d8285;
+      }
+
+      .features-boxed h3 {
+        font-weight: bold;
+        /* margin-bottom: 40px; */
+        padding-top: 40px;
+        color: inherit;
+      }
+
+      @media (max-width:500px) {
+        .features-boxed h2 {
+          margin-bottom: 25px;
+          padding-top: 25px;
+          font-size: 24px;
+        }
+      }
+
+      .features-boxed .intro {
+        font-size: 16px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .features-boxed .intro p {
+        margin-bottom: 0;
+      }
+
+      .features-boxed .features {
+        padding: 50px 0;
+      }
+
+      .features-boxed .item {
+        text-align: center;
+      }
+
+      .features-boxed .item .box {
+        text-align: center;
+        padding: 20px;
+        background-color: #fff;
+        margin-bottom: 30px;
+      }
+
+      .features-boxed .item .info .title {
+        font-size: 25px;
+        margin-bottom: 8px;
+        margin-top: 0;
+        color: black;
+      }
+
+      .features-boxed .item .info .search_point {
+        font-size: 25px;
+        margin-bottom: 8px;
+        margin-top: 0;
+        color: skyblue;
+      }
+
+      .thumb-size {
+        width: 50px;
+        height: 50px; 
+      }
+      
+      .modal-body .thumb-size {
+        float: left;
+      }
+
+      .modal-info {
+        padding: 10 10 10 10;
+      }
+      
+     .search-container{
+        margin: 30px;
+      }
+      .search-container input[type="search"]{
+        height: 40px;
+      }
+      .search-container button{
+        height: 40px;
+        width: 60px;
+        background-color: #70b3d9;
+      }
+
+
+/*  foodView  */
+
+.foodView-info-container {
+		border : 1px solid blue;
+		margin : 10px;
+	}
+	.foodView-info-container table tr td:first-child {
+		color : gray;
+	}
+	
+	.foodView-image-container{
+		height : 200px;
+	}
+	
+	.foodView-menu-container {
+		border : 1px solid blue;
+		margin : 10px;
+		padding : 10px;
+	}
+	
+	.foodView-inner-contents {
+		width : 90%;
+		float : left;
+	}
+	
+	.foodView-inner-sideMenu {
+		width : 100px;
+		float : right;
+	}
+	
+	.foodView-icons {
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	.foodView-icons-inner {
+		margin : 10px;
+	}
+	.foodView-icons-inner a:hover {
+		color : #70b3d9;
+		font-weight: 500;
+	}
+	
+	.font-twayair {
+		font-family: twayair;
+	}
+	
+	.foodView-main a {
+		text-decoration: none;
+		color: black;
+	}
+	
+	

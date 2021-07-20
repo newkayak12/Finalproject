@@ -102,7 +102,7 @@
             $("#nextStep").attr("disabled", true);
             return false;
             }
-            if (id.search(/₩s/) != -1) {
+            if (id.search(/\s/) != -1) {
                 $("#checkSign").html("아이디는 공백없이 입력해주세요.").css("color","red");
                 $("#nextStep").attr("disabled", true);
             return false;
@@ -115,6 +115,34 @@
 
             return true;
         }
+
+        function fn_validateNickname(str) {
+            var id = str;
+            
+            //특수문자가 있는지 확인
+            var spe = id.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+            // 한글이 있는지 확인
+
+            if ((id.length < 4) || (id.length > 10)) {
+            $("#NickSign").html("닉네임을 4자리 ~ 10자리 이내로 입력해주세요.").css("color","red");
+            $("#nextStep").attr("disabled", true);
+            return false;
+            }
+            if (id.search(/\s/) != -1) {
+                $("#NickSign").html("닉네임을 공백없이 입력해주세요.").css("color","red");
+                $("#nextStep").attr("disabled", true);
+            return false;
+            }
+            if (spe > 0) {
+            $("#NickSign").html("닉네임은 한글,영문,숫자만 입력해주세요.").css("color","red");
+            $("#nextStep").attr("disabled", true);
+            return false;
+            }
+            return true;
+        }
+
+
+
 
         function fn_passwordValidate(password){
                 if(!/^[a-zA-Z0-9]{8,16}$/.test(password)){
@@ -157,21 +185,26 @@
         }
 
         const fn_checkNick=()=>{
-            $.ajax({
-                url:"${pageContext.request.contextPath}/user/nickCheker",
-                data:{userNick:$("#userNick").val()},
-                success:data=>{
-                     if(data!=0){
-                            $("#NickSign").html("이미 존재하는 닉네임 입니다.").css("color","red");
-                            $("#nextStep").attr("disabled", true);
-                        } else {
-                            $("#NickSign").html("사용할 수 있는 닉네임 입니다.").css("color","darkgreen");
-                            $("#nextStep").attr("disabled", false);
-                        }
-                }
-            })
 
-        }
+            if(fn_validateNickname($("#userNick").val())){
+
+                        $.ajax({
+                            url:"${pageContext.request.contextPath}/user/nickCheker",
+                            data:{userNick:$("#userNick").val()},
+                            success:data=>{
+                                if(data!=0){
+                                        $("#NickSign").html("이미 존재하는 닉네임 입니다.").css("color","red");
+                                        $("#nextStep").attr("disabled", true);
+                                    } else {
+                                        $("#NickSign").html("사용할 수 있는 닉네임 입니다.").css("color","darkgreen");
+                                        $("#nextStep").attr("disabled", false);
+                                    }
+                            }
+                        })
+
+                    }
+
+            }
 
         const fn_pw_normaliztion=()=>{
 

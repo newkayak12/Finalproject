@@ -7,7 +7,7 @@
         &nbsp;&nbsp;
         <input type="text" id="userId" class="w-20">
         &nbsp;&nbsp;
-        <input type="checkbox" class="w-10">
+        <input type="checkbox" class="w-10" id="persistlogin" >
         &nbsp;&nbsp; 
         <span class="w-10">아이디</span>
     </span>	
@@ -36,3 +36,14 @@
         
     </span>
 </div>
+
+<script>
+$(function(){
+    let cookie = '${persistLogin}'
+    console.log(cookie)
+    if(cookie!='none'){
+        $("#persistlogin").attr("checked",true)
+    }
+
+})
+</script>
