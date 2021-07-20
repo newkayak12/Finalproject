@@ -51,4 +51,9 @@ public class UserService implements UserServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.verify(user, session);
 	}
+	@Override
+	public int changepw(User user) {
+		// TODO Auto-generated method stub
+		return dao.changepw(user, session);
+	}
 }

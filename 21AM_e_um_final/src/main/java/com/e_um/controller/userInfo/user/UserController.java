@@ -4,17 +4,22 @@ import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.e_um.common.MailSender.GoogleSender;
 import com.e_um.common.verifyCodeMaker.VerifyCodeMaker;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.userInfo.interest.Interest;
@@ -25,9 +30,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes({"user","code"})
+@SessionAttributes({"user"})
 public class UserController {
-	
+	@Autowired
+	GoogleSender mail;
 
 	@Autowired
 	UserServiceInterface service;
@@ -35,9 +41,13 @@ public class UserController {
 	
 	@Autowired
 	VerifyCodeMaker maker;
-
 	@RequestMapping(value="/user/login/start")
-	public String loginPagin(){
+	public String loginPagin( Model model, @CookieValue(value = "persistlogin", defaultValue = "none", required = false)String cookie){
+		String cookieValue= "none";
+		
+		if(!cookie.equals("none")) {
+			model.addAttribute("persistLogin",cookie);
+		}
 		return "components/user/login";
 	}
 	@RequestMapping("/user/lostandfound/start")
@@ -54,37 +64,69 @@ public class UserController {
 		model.addAttribute("flag","pw");
 		return"components/user/findmypw";
 	}
+//	여기까지는 창 띄우기
+	
 	@RequestMapping("/user/findmy/middle")
-	public String findMiddle(String flag, User user, Model model) {
+	public String findMiddle(String flag, @RequestParam(value = "userName" , required = false)String userName, @RequestParam(value = "userEmail") String userEmail, @RequestParam(value = "userId", required = false)String userId, Model model) {
+		User user = User.builder().userName(userName).userId(userId).userEmail(userEmail).build();
 		String code = maker.codeGenerator();
-		
-		
 		User userfin = service.verify(user);
-		log.warn("help!!{}", userfin);
+		/*
+		 * 메일보내기
+		 */
+		
+		
+		
+		
+		
 		if(userfin != null) {
-			model.addAttribute("user",userfin.getUserId());
+			model.addAttribute("userId",userfin.getUserId());
 			model.addAttribute("code",code);
 			model.addAttribute("flag", flag);
+			mail.sendMail(userfin.getUserEmail(), code);
 			return "components/user/verifycode";
 		} else {
 			model.addAttribute("alter", "yes");
 			return "components/user/lostandfound";
 		}
 	}
+//	여기까지는 비밀번호 아이디 찾기 중간단계
+	
+	@RequestMapping("/user/idfound")
+	public String idfound(@RequestParam(value = "userId") String userId, Model model) {
+		model.addAttribute("userId",userId);
+		return "components/user/idfound";
+	}
+	@RequestMapping("/user/pwfound")
+	public String pwfound(User user,Model model) {
+		model.addAttribute("userId",user.getUserId());
+		return "components/user/pwfound";
+	}
+//	아이디 비밀번호 찾기 끝단계
+	@ResponseBody
+	@RequestMapping("/user/changepw")
+	public int chagnepw(User user, Model model) {
+		log.warn("{}", user);
+		user.setUserPassword(encrypt.encode(user.getUserPassword()));
+		return service.changepw(user);
+	}
+// 비밀번호 변경
 	@RequestMapping("/user/signup/start/zero")
 	public String signupzero() {
 		return "components/user/signupzero";
 	}
+//	약관
 	@RequestMapping("/user/signup/start/first")
 	public String signupfirst() {
 		return "components/user/signupfirst";
 	}
+// 입력
 	@RequestMapping("/user/signup/start/second")
 	public String signupsecond(User user, Model model) {
-		log.warn("{}", user);
 		model.addAttribute("user",user);
 		return "components/user/signupsecond";
 	}
+//	관심사 닉네
 	@RequestMapping("/user/signup/start/third")
 	@ResponseBody
 	public int signupthird(User user, Interest interest, MultipartFile profilePhoto, HttpServletRequest rq) {
@@ -99,6 +141,8 @@ public class UserController {
 		
 		return service.InsertUser(user);
 	}
+// 회원가입 마무리
+// 회원가입 단계
 	
 	@RequestMapping("/user/nickCheker")
 	@ResponseBody
@@ -122,11 +166,25 @@ public class UserController {
 		
 		return service.emailChecker(userEmail);
 	}
+// 회원가입시 체킹단계
+	
 	@RequestMapping("/user/loginverify")
 	@ResponseBody
-	public int login(Model model, User user) {
+	public int login(Model model, User user, Boolean persistlogin, HttpServletResponse rs) {
 		User userResult = service.login(user);
 		log.warn("{}result: ",userResult);
+			
+			if(persistlogin!=true) {
+				Cookie persist = new Cookie("persistlogin", "checked");
+				persist.setMaxAge(60*60*24*7);
+				persist.setPath("/");
+				rs.addCookie(persist);
+			} else {
+				Cookie persist = new Cookie("persistlogin", "checked");
+				persist.setMaxAge(0);
+				persist.setPath("/");
+				rs.addCookie(persist);
+			}
 		
 		int flag = 0;
 		
@@ -138,6 +196,8 @@ public class UserController {
 			
 		return flag;
 	}
+// 로그인 단계	
+	
 	@RequestMapping("/user/gotomain")
 	public String gotomain(HttpServletRequest rq, Model model) {
 		Object obj =  model.getAttribute("user");
@@ -150,15 +210,6 @@ public class UserController {
 		}
 		
 	}
+//메인으로 포워딩
 	
-	@RequestMapping("/user/idfound")
-	public String idfound(User user, Model model) {
-		model.addAttribute("userId",user.getUserId());
-		return"";
-	}
-	@RequestMapping("/user/pwfound")
-	public String pwfound(User user,Model model) {
-		model.addAttribute("userId",user.getUserId());
-		return"";
-	}
 }

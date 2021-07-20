@@ -1,63 +1,6 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<head>
-    
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<body>
-<style>
-    *{
-        border: 1px black solid;
-    }
-</style>
-<div class="pt-1 pb-1 d-flex justify-content-end ">
-    <span class="mr-3 right">
-        <button class="btn btn-secondary" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
-    </span>
-    <span class=" justify-content-end mr-3">
-        <button class="btn btn-success" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
-    </span>
-</div>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-signupsecond
-  
-        <div class="modal" id="signin">
-            <div class="modal-dialog  modal-dialog-centered ">
-              <div class="modal-content">
-          
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title" id="modalLoginTitle">로그인</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-          
-                <!-- Modal body -->
-                <div class="modal-body" id="modalbody">
-                    <div id="minimodalRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column"style="min-height: 300px">
-
-
-
-
-
-                
-           
-                <form class="col-12 text-center">
+            
+                <div class="col-12 text-center">
 	                    <p class="mb-0 mt-3 small col-6 text-center">비밀번호</p>
 	                    <input type="password" class="mb-2 mt-0 col-7" id="userPassword" placeholder="비밀번호" onkeyup="fn_pw_normaliztion()" required>
                         <br>
@@ -67,6 +10,7 @@ signupsecond
 	                    <input type="password" class="mb-2 mt-0 col-7" id="userPasswordCheck" onkeyup="fn_pwCheck()" placeholder="비밀번호 확인" required>
 	                    <br>
 	                    <span id="passwordSignsecond" class="m-2 h-fitcontent" ></span>
+                        <input type="hidden" id="userId" value="${userId}">
 	                </div>
 
                     <div class="d-flex justify-content-center col-12 pr-4 pl-4">
@@ -78,7 +22,7 @@ signupsecond
                          function fn_passwordValidate(password){
                             if(!/^[a-zA-Z0-9]{8,16}$/.test(password)){
                                 $("#passwordSignfirst").html('숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.').css("color","red");
-                                $("#nextStep").attr("disabled", true);
+                                $("#changePw").attr("disabled", true);
                                 return false;
                             }
 
@@ -87,7 +31,7 @@ signupsecond
 
                             if(checkNum <0 || checkEng <0){
                                 $("#passwordSignfirst").html('숫자와 영문자를 조합하여야 합니다.').css("color","red");
-                                $("#nextStep").attr("disabled", true);
+                                $("#changePw").attr("disabled", true);
                                 return false;
                             }
 
@@ -97,7 +41,7 @@ signupsecond
 
                                 if(fn_passwordValidate($("#userPassword").val())){
                                     $("#passwordSignfirst").html("사용할 수 있는 비밀번호입니다.").css("color","darkgreen")
-                                    $("#nextStep").attr("disabled", true);
+                                    $("#changePw").attr("disabled", false);
                                 }
 
                             }
@@ -107,32 +51,12 @@ signupsecond
 
                             if($("#userPassword").val()==$("#userPasswordCheck").val()){
                                 $("#passwordSignsecond").html("비밀번호가 일치합니다.").css("color","darkgreen")
-                                $("#nextStep").attr("disabled", true);
+                                $("#changePw").attr("disabled", false);
                             } else {
                                 $("#passwordSignsecond").html("비밀번호가 불일치합니다.").css("color","red")
-                                $("#nextStep").attr("disabled", false);
+                                $("#changePw").attr("disabled", true);
                             }
 
                         }
                     </script>
              
-
-            
-              
-                
-            </div>
-        </div>
-
-
-
-                    </div>
-                </div>
-          
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-          
-              </div>
-            </div>
-        </div>
