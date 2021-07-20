@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes("user")
+@SessionAttributes("userSession")
 public class UserController {
 	
 	@Autowired
@@ -177,7 +178,7 @@ public class UserController {
 	
 	@RequestMapping("/user/loginverify")
 	@ResponseBody
-	public int login(Model model, User user, Boolean persistlogin, HttpServletResponse rs) {
+	public int login(Model model, User user, Boolean persistlogin, HttpServletResponse rs, HttpServletRequest rq) {
 		User userResult = service.login(user);
 		log.warn("{}result: ",userResult);
 			
@@ -197,6 +198,9 @@ public class UserController {
 		
 			if(encrypt.matches(user.getUserPassword(), userResult.getUserPassword())) {
 				model.addAttribute("user", userResult);
+				HttpSession session = rq.getSession();
+				session.setAttribute("userSession", userResult);
+				session.setMaxInactiveInterval(60*60*30);
 				flag =1;
 			}
 			
@@ -207,13 +211,13 @@ public class UserController {
 	
 	@RequestMapping("/user/gotomain")
 	public String gotomain(HttpServletRequest rq, Model model) {
-		Object obj =  model.getAttribute("user");
+		Object obj =  rq.getSession().getAttribute("userSession");
 		
 		if(obj!=null) {
 			return "main";
 		} else {
 			String path = rq.getContextPath();
-			return "redirect : "+path+"/index.jsp";
+			return "redirect : index";
 		}
 		
 	}
