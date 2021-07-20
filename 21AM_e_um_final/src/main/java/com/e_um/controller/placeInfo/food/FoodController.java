@@ -28,7 +28,7 @@ public class FoodController {
 	@Autowired
 	FoodServiceInterface service;
 	
-	@RequestMapping("/food")
+	@RequestMapping("/food/foodMain")
 	public String food(Model m) {
 		
 		List<Food> list = service.selectAllFood();
@@ -124,12 +124,24 @@ public class FoodController {
 	}
 	
 	@RequestMapping("/food/FoodReview/First")
-	public String FoodReview(String foodName, Model model) {
+	public String foodReview(String foodSeq, Model model) {
 		
-		model.addAttribute("foodName", foodName);
+		Food food = service.selectFood(foodSeq);
+		
+		model.addAttribute("food", food);
 		
 		return "/food/foodReview";
 	}
 	
+	@RequestMapping("/food/foodReview/end")
+	public String insertFoodComment(String foodSeq) {
+		
+		// 로그인한 유저아이디, 리뷰내용 받기 
+		
+//		int result = service.insertFoodComment();
+		
+		// msg.jsp 반환
+		return "";
+	}
 	
 }
