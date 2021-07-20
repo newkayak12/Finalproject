@@ -22,10 +22,11 @@ public class Member {
  * 
  * ???????
  */
-	private User group_user;
+	private String groupSeq;
+	private User groupUser;
 	
-	
-	private String group_user_role;
-	private Date group_user_date;
-	private String group_user_flag;
+//	private String userId;
+	private String groupUserRole;
+	private Date groupUserDate;
+	private String groupUserFlag;
 }

@@ -35,7 +35,7 @@
         <div id="head_menu" class="">
             <ul class="navbar-nav">
                 <li class="nav-item col-5"><a class="nav-link" href="${path }/friend/main">친구 찾기</a></li>
-                <li class="nav-item col-4"><a class="nav-link" href="">소모임</a></li>
+                <li class="nav-item col-4"><a class="nav-link" href="${path }/group/groupMain.do">소모임</a></li>
                 <li class="nav-item dropdown col-4">
                     <a class="nav-link dropdown-toggle col-6" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
                     <div class="dropdown-menu">
