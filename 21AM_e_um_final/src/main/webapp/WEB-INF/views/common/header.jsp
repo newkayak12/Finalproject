@@ -34,7 +34,7 @@
         <!--메뉴-->
         <div id="head_menu" class="">
             <ul class="navbar-nav">
-                <li class="nav-item col-5"><a class="nav-link" href="">친구 찾기</a></li>
+                <li class="nav-item col-5"><a class="nav-link" href="${path }/friend/main">친구 찾기</a></li>
                 <li class="nav-item col-4"><a class="nav-link" href="">소모임</a></li>
                 <li class="nav-item dropdown col-4">
                     <a class="nav-link dropdown-toggle col-6" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
@@ -49,7 +49,6 @@
         <!--아이콘 메뉴-->
         <div id="icon_menu">
             <ul class="navbar-nav">
-                <!-- <li class="nav-item col-3"></li> -->
                 <li class="nav-item col-4"><i class="fas fa-user fa-lg"></i></li>
                 <li class="nav-item col-4"><i class="fas fa-comments fa-lg"></i></li>
                 <li class="nav-item col-4"><i class="fas fa-bell fa-lg"></i></li>
