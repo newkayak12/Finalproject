@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.e_um.common.MailSender.GoogleSender;
 import com.e_um.common.verifyCodeMaker.VerifyCodeMaker;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.userInfo.interest.Interest;
@@ -30,10 +31,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes({"user"})
+@SessionAttributes("user")
 public class UserController {
+	
 	@Autowired
-	GoogleSender mail;
+	JavaMailSender sender;
 
 	@Autowired
 	UserServiceInterface service;
@@ -79,11 +81,16 @@ public class UserController {
 		
 		
 		
+		
 		if(userfin != null) {
 			model.addAttribute("userId",userfin.getUserId());
 			model.addAttribute("code",code);
 			model.addAttribute("flag", flag);
-			mail.sendMail(userfin.getUserEmail(), code);
+			SimpleMailMessage mail = new SimpleMailMessage();
+			mail.setTo(user.getUserEmail());
+			mail.setSubject("E_um에서 온 인증 메일입니다.");
+			mail.setText("인증 코드는 "+code+"입니다.");
+			sender.send(mail);
 			return "components/user/verifycode";
 		} else {
 			model.addAttribute("alter", "yes");
