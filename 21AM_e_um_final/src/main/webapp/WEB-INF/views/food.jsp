@@ -101,8 +101,6 @@
 
 <body>
   
-   <c:out value="${ list }"/>
-  
   <section>
    <div class="search-container">
       <form>
@@ -123,71 +121,145 @@
         <div id="" class="row justify-content-center features">
 
         
-          <c:forEach begin="1" end="8">
-            <div class="col-6 col-md-3 item">
+		<c:forEach items="${ list }" var="f">
+			<div class="col-6 col-md-3 item">
                 <div class="box">
-                  <a href="/restaurants/DySu_0aeHezN" data-target="#myModal" data-toggle="modal">
-                 <figure class="restaurant-item">
-                   <div class="thumb">
-                     <img class="thumb-size"
-                          src="https://canarywharf.com/wp-content/uploads/2020/05/canary-wharf-eating-drinking-shake-shack-ss20-1-710x690-1.jpg"
-                          data-original=""
-                          data-error=""/>
-                   </div>
-                   <figcaption>
-                     <div class="info">
-                       <span class="title">반서울</span>
-                       <strong class="search_point ">4.3</strong>
-                       <p class="etc"> 신촌/이대 -이탈리안</p>
-                     </div>
-                   </figcaption>
-                 </figure>
-               </a>
-             </div>
-            </div>
-          </c:forEach>
-      
-    </div>
-</section>
+                  <a id="open_food_modal" href="#" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#myModal" data-toggle="modal">
+	                 <figure class="">
+	                   <div class="thumb">
+	                     <img class="thumb-size"
+	                          src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
+	                   </div>
+	                   <figcaption>
+	                     <div class="info">
+	                       <span class="title"><c:out value="${ f.foodName }"/></span>
+	                       <strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
+	                       <p class="etc"><c:out value="${ f.foodAddr }"/><c:out value="${ f.foodCategoryMain }"/></p>
+	                     </div>
+                   		</figcaption>
+                 	</figure>
+	               	</a>
+	             </div>
+	        	</div>
+	     	</c:forEach>
+	      
+	    </div>
+	</section>
 
-<section>
-  
-  <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
+	<section>
+	  
+	  <!-- The Modal -->
+	  <div class="modal" id="myModal">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+	        
+	        <div class="modal-body">
+	          <div id="modal-content">
+	            <img class="thumb-size" src="">
+	            <div class="modal-info">
+	              <p></p> <!-- 대분류 -->
+	              <h5></h5> <!-- 맛집이름 -->
+	              <p></p> <!-- 주소 -->
+	              <p></p> <!-- 전화번호 -->
+	              <p></p> <!-- 영업시간 -->
+	              <p></p> <!-- 별점 -->
+	              <input type="hidden" value="">
+	            </div>
+	          </div>
+	        </div>
+	
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-primary" onclick="">예약하기</button>
+	          <button type="button" class="btn btn-primary" onclick="fn_foodView();">상세보기</button>
+	        </div>
+	
+	      </div>
+	    </div>
+	  </div>
+	  
+	  <script>
+	  	// 모달열기 함수 
+		const fn_foodmodal=(seq)=>{
+		    	 
+			$.ajax({
+		    	url : "${ path }/food/foodModal",
+		    	data : {"foodSeq":seq},
+		    	success : data => {
+		    		console.log(data);
+		    		$("#modal-content").find("img").attr("src", "${ path }/resources/upload/food/" + data.menus[0].menuPhoto);
+		    		$("#modal-content").find("p").first().text(data.foodCategoryMain);
+		    		$("#modal-content").find("h5").text(data.foodName);
+		    		$("#modal-content").find("p").eq(1).text(data.foodAddr);
+		    		$("#modal-content").find("p").eq(2).text(data.foodCall);
+		    		$("#modal-content").find("p").eq(3).text(data.foodTimeFirst.concat(' ~ ', data.foodTimeLast));
+		    		$("#modal-content").find("p").eq(4).text(data.foodStar);
+		    		$("#modal-content").find("input").attr("value", data.foodSeq);
+		    		
+		    	}
+		    		 
+		     })
+		}
+		
+		// 상세보기페이지로 전환
+		const fn_foodView = () => {
+			
+			// 맛집 시퀀스 가져오기 
+			let foodSeq = $("#modal-content").find("input").val();
+			
+					// console.log(foodSeq);
+					
+			location.assign("${path}/food/foodView?foodSeq=" + foodSeq);
+			
+		}
+		</script>
+	
+	
+	</section>
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <!-- <h4 class="modal-title">Modal Heading</h4> -->
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
+	<section>
+		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
+		<style>
+			a#MOVE_TOP_BTN {
+			    position: fixed;
+			    right: 5%;
+			    bottom: 50px;
+			    display: none;
+			    z-index: 999;
+			}
+			a#MOVE_TOP_BTN div {
+				border-radius : 50%;
+				background-color : #70b3d9;
+				width : 50px;
+				height : 50px;
+				text-align : center;
+				line-height : 50px;
+				color : black;
+			}
+		</style>
+		<script>
+		    $(function() {
+		        $(window).scroll(function() {
+		            if ($(this).scrollTop() > 500) {
+		                $('#MOVE_TOP_BTN').fadeIn();
+		            } else {
+		                $('#MOVE_TOP_BTN').fadeOut();
+		            }
+		        });
+		        
+		        $("#MOVE_TOP_BTN").click(function() {
+		            $('html, body').animate({
+		                scrollTop : 0
+		            }, 400);
+		            return false;
+		        });
+		    });
+		</script>
+	</section>
 
-        <!-- Modal body -->
-        <div class="modal-body">
-          <div id="modal-content">
-            <img class="thumb-size" src="https://canarywharf.com/wp-content/uploads/2020/05/canary-wharf-eating-drinking-shake-shack-ss20-1-710x690-1.jpg">
-            <div class="modal-info">
-              <p>이탈리안</p>
-              <h5>반서울</h5>
-              <p>서울특별시 서대문구 이화여대길 87 2F</p>
-              <p>02-555-5555</p>
-              <p>영업시간</p>
-              <p>별점</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-</section>
 
    
 
