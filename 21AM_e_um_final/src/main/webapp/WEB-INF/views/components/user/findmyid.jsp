@@ -24,7 +24,7 @@
 	            <input type="button" id="findid" class="w-20 " value="아이디 찾기" onclick="findmyidpwmiddle()">
 	            &nbsp;&nbsp; 
 	        </span>
-	        <input type="hidden" id="findmyflag" value="${flag}">;
+	        <input type="hidden" id="findmyflag" value="${flag}">
 	    </div>
     </div>
 

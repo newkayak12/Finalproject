@@ -10,4 +10,6 @@ public interface UserDaoInterface {
 	public int nickChecker(String userNick, SqlSessionTemplate session);
 	public int InsertUser(User user, SqlSessionTemplate session);
 	public int InsertInterest(User user, SqlSessionTemplate session);
-}
+	public User login(User user, SqlSessionTemplate session);
+	public User verify(User user, SqlSessionTemplate session);
+}	
