@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
@@ -60,9 +62,9 @@ public class FoodController {
 		
 		for(int i=0; i<menuName.length; i++) {
 		
-			log.warn("{}",menuName[i]);
-			log.warn("{}",menuPrice[i]);
-			log.warn("{}",menuPhoto[i].getOriginalFilename());
+//			log.warn("{}",menuName[i]);
+//			log.warn("{}",menuPrice[i]);
+//			log.warn("{}",menuPhoto[i].getOriginalFilename());
 			
 			foodMenu = new FoodMenu();
 					 
@@ -80,7 +82,7 @@ public class FoodController {
 			menuList.add(foodMenu);
 		}
 				 
-				 System.out.println("test, food : " + food);
+				 // System.out.println("test, food : " + food);
 		
 		int result = service.foodInsert(food);
 		
@@ -88,6 +90,45 @@ public class FoodController {
 		model.addAttribute("loc", "/food");
 		
 		return "/common/msg";
+	}
+	
+	
+	
+	@RequestMapping("/food/foodModal")
+	@ResponseBody
+	// public String openFoodModal(HttpServletRequest req, HttpServletRequest res) throws Exception {
+	public Food openFoodModal(String foodSeq) throws Exception {
+		
+		// log.warn("{}", req.getParameter("foodSeq"));
+				// log.warn("{}", foodSeq);
+		
+		Food food = service.selectFood(foodSeq);
+		
+				// log.warn("{}", food);
+		
+		// return "success!!!";
+		return food;
+		
+	}
+	
+
+	@RequestMapping("/food/foodView")
+	public String foodView(String foodSeq, Model model) throws Exception {
+		
+		Food food = service.selectFood(foodSeq);
+		
+		model.addAttribute("food", food);
+		
+		return "/food/foodView";
+		
+	}
+	
+	@RequestMapping("/food/FoodReview/First")
+	public String FoodReview(String foodName, Model model) {
+		
+		model.addAttribute("foodName", foodName);
+		
+		return "/food/foodReview";
 	}
 	
 	

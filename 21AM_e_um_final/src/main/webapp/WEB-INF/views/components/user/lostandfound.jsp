@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
  	<div style="min-height:300px">
+
        	<div class="mb-3">
        		<img src="#.jpg" alt="뒤로가기" onclick="fn_login()">
        	</div>
@@ -14,3 +15,11 @@
             </span>
         </div>        
    </div>
+
+   <script>
+     
+        //  if(${alter} ==yes}){
+        //      alert('존재하지 않습니다.')
+        //  }
+     
+   </script>

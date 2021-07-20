@@ -14,4 +14,6 @@ public interface FoodServiceInterface {
 
 	List<String> selectFoodCategorySub();
 
+	Food selectFood(String foodSeq);
+
 }

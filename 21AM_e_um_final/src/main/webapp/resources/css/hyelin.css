@@ -1,11 +1,14 @@
 @charset "UTF-8";
 
 /*section css*/
- #root{
+#root{
     border:1px red solid;
     min-height:500px;
-    font-family:'NanumBarunGothic';
+    font-family:'Noto Sans KR';
 }
+
+
+/*friend.jsp*/
 #searchFriBtn{
     padding: .375rem 2rem;
     background-color: rgb(165, 205, 230);
@@ -26,4 +29,7 @@
     border:rgb(165, 205, 230) solid 2px;
     padding:5px 10px 5px 10px;
     border-radius: 10%;
+}
+.frismImg{
+    object-fit: cover;
 }

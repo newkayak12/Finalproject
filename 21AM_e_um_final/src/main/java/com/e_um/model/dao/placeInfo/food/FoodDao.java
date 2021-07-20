@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +24,11 @@ public class FoodDao implements FoodDaoInterface {
 	public int foodInsert(SqlSessionTemplate session, Food food) {
 		return session.insert("food.foodInsert", food);
 	}
+	
+	@Override
+	public int foodMenuInsert(SqlSessionTemplate session, FoodMenu menu) {
+		return session.insert("food.foodMenuInsert", menu);
+	}
 
 	@Override
 	public List<String> selectFoodCategoryMain(SqlSessionTemplate session) {
@@ -33,5 +39,12 @@ public class FoodDao implements FoodDaoInterface {
 	public List<String> selectFoodCategorySub(SqlSessionTemplate session) {
 		return session.selectList("food.selectFoodCategorySub");
 	}
+
+	@Override
+	public Food selectFood(SqlSessionTemplate session, String foodSeq) {
+		return session.selectOne("food.selectFood", foodSeq);
+	}
+
+	
 
 }
