@@ -32,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes("userSession")
 public class UserController {
 	
 	@Autowired
@@ -44,6 +43,13 @@ public class UserController {
 	
 	@Autowired
 	VerifyCodeMaker maker;
+	@RequestMapping("/")
+	public String gotoIndex() {
+		
+		return "../../index";
+	}
+	
+	
 	@RequestMapping(value="/user/login/start")
 	public String loginPagin( Model model, @CookieValue(value = "persistlogin", defaultValue = "none", required = false)String cookie){
 		String cookieValue= "none";
@@ -217,7 +223,7 @@ public class UserController {
 			return "main";
 		} else {
 			String path = rq.getContextPath();
-			return "redirect : index";
+			return "redirect : /";
 		}
 		
 	}

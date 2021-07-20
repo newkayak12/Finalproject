@@ -4,6 +4,23 @@
 	--eumbackground: #70b3d9;
 	--eumfontcolorwhite: white;
 }
+.eumbtn-1{
+	background-color: rgb(199, 143, 214);
+	border:1px black solid;
+	color:white;
+}
+
+.eumbtn-2{
+	background-color: #70b3d9;
+	border:1px black solid;
+	color:white;
+}
+
+.eumbtn-3{
+	background-color: #DB4455;
+	border:1px black solid;
+	color:white;
+}
 .wrapping{
 	padding:10px;
     overflow: auto;

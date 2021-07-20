@@ -12,7 +12,7 @@
                              &nbsp;&nbsp;
                              </span>	
                          
-                             <input type="button" id="findid" class="w-20 " value="인증번호 입력" onclick="verifyCodes()">
+                             <input type="button" id="findid" class="w-20 eumbtn-2" value="인증번호 입력" onclick="verifyCodes()">
                              &nbsp;&nbsp; 
                          </span>
                          <input type="hidden" id="findmyflag" value="${flag}">
