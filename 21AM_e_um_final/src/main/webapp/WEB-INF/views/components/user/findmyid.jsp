@@ -2,7 +2,7 @@
     
    <div style="min-height:300px">
 	    <div class="mb-3">
-	       		<img src="#.jpg" alt="뒤로가기" onclick="fn_lostAndFound()">
+	       		<img src="${pageContext.request.contextPath}/resources/images/user/previous.png" alt="뒤로가기" onclick="fn_lostAndFound()" width="20px" class="m-1">
 	      	</div>
 	    <div class="d-flex justify-content-center flex-column align-items-center" id="loginContainer">
 	        <span class="m-2 d-flex justify-content-center align-items-center p-3 w-fitcontent">

@@ -8,7 +8,7 @@
 <div id="root" class="container mt-5">
     <form action="" method="post" class="mt-3 mx-md-5">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="search_friend" name="searchFri" placeholder="나와 꼭 맞는 친구를 찾아보세요!">
+            <input type="text" class="form-control" id="search_friend" name="searchFri" placeholder="닉네임, 지역, 관심사로 나와 꼭 맞는 친구를 찾아보세요!">
             <div class="input-group-append">
                 <button id="searchFriBtn" class="btn btn-success" type="submit">검색</button>
             </div>
@@ -19,40 +19,40 @@
             <div>
                 <div style="font-family: 'twayair';">성별</div>
                 <div class="row">
-                    <div class="col-3 col-xl-1 fribtn"><span>남</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span>여</span></div>
-                    <div class="col-4 col-xl-2 fribtn"><span>무관</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="genBtn">남</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="genBtn">여</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="genBtn">무관</span></div>
                 </div>
             </div><br>
             <div>
                 <div style="font-family: 'twayair';">지역</div>
                 <div class="row">
-                    <div class="col-6 col-lg-2 fribtn"><span>서울특별시</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>인천광역시</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>부산광역시</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>대전광역시</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>광주광역시</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>대구광역시</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>울산광역시</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>경기도</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>강원도</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>충청북도</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>충청남도</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>전라북도</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>전라남도</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>경상북도</span></div>
-                    <div class="col-6 col-lg-2 fribtn"><span>경상남도</span></div>
-                    <div class="col-6 col-lg-3 fribtn"><span>세종특별자치시</span></div>
-                    <div class="col-6 col-lg-3 fribtn"><span>제주특별자치도</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">서울</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">인천</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">부산</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">대전</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">광주</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">대구</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">울산</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">경기</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">강원</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">충북</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">충남</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">전북</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">전남</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">경북</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">경남</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">세종</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">제주</span></div>
                 </div>
             </div><br>
             <div>
                 <div style="font-family: 'twayair';">연령</div>
                 <div class="row">
-                    <div class="col-3 col-xl-2 fribtn"><span>무관</span></div>
-                    <div class="col-3 col-xl-2 fribtn"><span>20대</span></div>
-                    <div class="col-3 col-xl-2 fribtn"><span>30대</span></div>
-                    <div class="col-3 col-xl-2 fribtn"><span>40대</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">무관</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">20대</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">30대</span></div>
+                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">40대</span></div>
                 </div>
             </div><br>
             <div>
@@ -65,12 +65,14 @@
 
     <div id="friList" class="row mt-5">
         <!--9~12개만 뽑고 나머지는 무한 스크롤-->
-        <div class="col-sm-6 col-lg-4 mb-4">
-            <button class="container btn btn-outline-light text-dark border d-flex p-3 align-items-center" data-toggle="modal" data-target="#friSmModal">
-                <img src="https://blog.kakaocdn.net/dn/IOYEi/btq1JzPmm2w/Jn7TB4RqutJNkyeAS8K0U1/img.jpg" class="frismImg border col w-50 h-100">
-                <div class="col border">이름<br>관심사</div>
-            </button>
-        </div>
+        <c:forEach var="u" items="${list }">
+	        <div class="col-sm-6 col-lg-4 mb-4">
+	            <button class="container btn btn-outline-light text-dark border d-flex p-3 align-items-center" data-toggle="modal" data-target="#friSmModal">
+	                <img src="https://blog.kakaocdn.net/dn/IOYEi/btq1JzPmm2w/Jn7TB4RqutJNkyeAS8K0U1/img.jpg" class="frismImg border col w-50 h-100">
+	                <div class="col border"><c:out value="${u.userNick }"/><br>관심사</div>
+	            </button>
+	        </div>
+        </c:forEach>
     </div>
 
     <!-- 친구 누르면 나오는 모달창 -->
@@ -99,6 +101,15 @@
     </div>
 
     <script>
+    	$(".fribtn").click(e=>{
+    		$(e.target).toggleClass("choCon");
+    		if($(e.target).hasClass("choCon")){
+    			$(e.target).parent().siblings().find("span").removeClass("choCon");
+    		}
+    		console.log($(e.target));
+    		console.log($(e.target).html());
+    	})	
+    
         // $(function(){
         //     let index=0;
         //     $(window).scroll(function(){

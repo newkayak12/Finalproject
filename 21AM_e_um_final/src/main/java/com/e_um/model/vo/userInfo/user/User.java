@@ -23,6 +23,7 @@ public class User {
 	 * 
 	 * */
 
+	
 	private String userId, userPassword, userName, userNick, userEmail, userAddrBasic, userAddrDetail, userAddrZip, userPhone, userRole;
 	private Date userDate;
 	private String userGender;

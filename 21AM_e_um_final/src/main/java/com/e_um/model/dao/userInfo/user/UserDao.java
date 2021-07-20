@@ -61,6 +61,12 @@ public class UserDao implements UserDaoInterface {@Override
 		return session.selectOne("user.verify",user);
 	}
 
+	@Override
+	public int changepw(User user, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("user.userchage",user);
+	}
+
 	
 
 }

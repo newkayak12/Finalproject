@@ -24,13 +24,13 @@ public class Group {
 	 * collection을 사용하면 좋을 듯
 	 */
 
-	private String group_seq, group_master, group_theme;
-	private String group_limit;
-	private String group_gender;
-	private String group_comment;
-	private int group_count_today, group_count_total;
-	private Date group_date;
-	private String group_file_upload, group_title, group_age, group_destroy_flag;
+	private String groupSeq, groupMaster, groupTheme;
+	private String groupLimit;
+	private String groupGender;
+	private String groupComment;
+	private int groupCountToday, groupCountTotal;
+	private Date groupDate;
+	private String groupFileUpload, groupTitle, groupAge, groupDestroyFlag;
 	
 	private List<Member> members = new ArrayList<>();
 	
