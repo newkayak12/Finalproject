@@ -34,8 +34,6 @@ public class MovieController {
 	@ResponseBody
 	public Movie moviePoster(@RequestParam(value="movieSeq")String movieSeq){
 		
-		System.out.println("movieSeq : " + movieSeq);
-		
 		Movie m = service.moviePoster(movieSeq);
 		
 		
@@ -52,14 +50,12 @@ public class MovieController {
 	@RequestMapping("/movie/movieDetail")
 	public String movieDetail(@RequestParam(value="movieSeq")String movieSeq, Model model) {
 		Movie movie = service.movieDetail(movieSeq);
-		System.out.println(movie);
 		model.addAttribute(movie);
 		return "movie/movieDetail";
 	}
 	
 	@RequestMapping("/movie/searchMovie")
 	public String movieSearch(@RequestParam(value="search")String search,Model model) {
-		System.out.println(search);
 		List<Movie> list = service.movieSearch(search);	
 		model.addAttribute("list",list);
 		return "movie/movieSearch";
