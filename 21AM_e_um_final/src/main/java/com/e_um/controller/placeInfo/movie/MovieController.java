@@ -1,6 +1,9 @@
 package com.e_um.controller.placeInfo.movie;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import com.e_um.model.sevice.placeInfo.movie.MovieServiceInterface;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
+import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,7 +77,6 @@ public class MovieController {
 	@ResponseBody
 	public Movie selectMovieVideo(@RequestParam(value="movieSeq")String movieSeq) {
 		Movie m = service.moviePoster(movieSeq);
-		System.out.println(m);
 		return m;
 	}
 	
@@ -81,8 +84,46 @@ public class MovieController {
 	@ResponseBody
 	public List<MovieReview> movieReview(@RequestParam(value="movieSeq")String movieSeq) {
 		List<MovieReview> list = service.movieReview(movieSeq);
-		System.out.println(list);
+
 		return list;
+	}
+	
+	@RequestMapping("/movie/movieWriteStart")
+	public String movieWritePage(@RequestParam(value="movieSeq")String movieSeq, Model m) {
+		System.out.println(movieSeq);
+		m.addAttribute("movieSeq",movieSeq);
+		return "movie/reviewWrite";
+	}
+	
+	@RequestMapping("/movie/movieWriteEnd")
+	public String movieWriteEnd(@RequestParam Map param, HttpServletRequest hsr) {
+		
+		User user = (User)hsr.getSession().getAttribute("userSession");
+		String userId=user.getUserId();
+		 
+		int direct = Integer.parseInt((String)param.get("direct"));
+		int visual = Integer.parseInt((String)param.get("visual"));
+		int story = Integer.parseInt((String)param.get("story"));
+		int acting = Integer.parseInt((String)param.get("acting"));
+		int ost = Integer.parseInt((String)param.get("ost"));
+		double total = (direct+visual+story+acting+ost)/5;
+		String movieSeq = (String)param.get("movieSeq");
+		String content = (String)param.get("content");
+		//System.out.println(userId);
+		param.clear();
+		param.put("movieSeq",movieSeq);
+		param.put("userId", userId);
+		param.put("content", content);
+		param.put("direct", direct);
+		param.put("visual", visual);
+		param.put("story", story);
+		param.put("acting", acting);
+		param.put("ost", ost);
+		param.put("total", total);
+		System.out.println(param);
+		int movieReview = service.movieWrite(param);
+		
+		return "redirect:movie/reviewWrite";
 	}
 	
 }

@@ -21,7 +21,7 @@ public class MovieReview {
 	private String movieReviewSeq;
 	private Movie movieSeq;
 	private User userId;
-	private String movieReviewTitle, movieReviewContent;
+	private String movieReviewContent;
 	private int movieDirect,movieVisualQuality,movieStroy, movieActingPerformance, movieOst;
 	private double movieEvaluationAvg;
 	private Date movieReviewWriteDate;
