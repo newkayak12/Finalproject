@@ -26,8 +26,11 @@
 					</div>
 					
 					<div class=" foodView-info-container foodView-icons">
+						<%-- <div class="foodView-icons-inner"><a href="${ path }/food/foodBooking/first?foodSeq=${ food.foodSeq }&userId=${}"><div style="font-size:50px;">💛</div><span class=" ">가고싶다</span></a></div>
+						<div class="foodView-icons-inner"><a href="${ path }/food/foodReview/first?foodSeq=${ food.foodSeq }&userId=${}"><div style="font-size:50px;">✏</div><span class=" ">리뷰쓰기</span></a></div> --%>
 						<div class="foodView-icons-inner"><a href=""><div style="font-size:50px;">💛</div><span class=" ">가고싶다</span></a></div>
-						<div class="foodView-icons-inner"><a href="${ path }/food/FoodReview/First?foodSeq=${ food.foodSeq }"><div style="font-size:50px;">✏</div><span class=" ">리뷰쓰기</span></a></div>
+						<div class="foodView-icons-inner"><a href="${ path }/food/foodBooking/first?foodSeq=${ food.foodSeq }"><div style="font-size:50px;">📅</div><span class=" ">예약하기</span></a></div>
+						<div class="foodView-icons-inner"><a href="${ path }/food/foodReview/first?foodSeq=${ food.foodSeq }"><div style="font-size:50px;">✏</div><span class=" ">리뷰쓰기</span></a></div>
 					</div>
 					
 				</div>
