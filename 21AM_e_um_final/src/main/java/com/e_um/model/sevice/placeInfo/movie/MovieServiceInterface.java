@@ -4,18 +4,21 @@ import java.util.List;
 
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 
 public interface MovieServiceInterface {
-	public List<Movie> movieList();
+	List<Movie> movieList();
 
-	public Movie moviePoster(String movieSeq);
+	Movie moviePoster(String movieSeq);
 
-	public Movie movieVideo();
+	Movie movieVideo();
 	
-	public Movie movieDetail(String movieSeq);
+	Movie movieDetail(String movieSeq);
 	
-	public List<Movie> movieSearch(String search);
+	List<Movie> movieSearch(String search);
 	
-	public MoviePersonInfo moviePerson(String person);
+	MoviePersonInfo moviePerson(String person);
+	
+	List<MovieReview> movieReview(String movieSeq);
 	
 }
