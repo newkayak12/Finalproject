@@ -1,9 +1,121 @@
 @charset "UTF-8";
-
-
-:root{
+:root
+{
 	--eumbackground: #70b3d9;
 	--eumfontcolorwhite: white;
+	--mobile: 575px;
+	--pc:576px;
+}
+
+@media(max-width: 575px){
+	.footer{
+		padding:0px !important;
+	}
+	#head_menu{
+		display:none;
+	}
+	
+	.iconbox{
+		display:none;
+	}
+	.iconboxfooter{
+		display:flex;
+		justify-content: space-between;
+		
+	}
+	#submenu{
+		display:none;
+	}
+	
+	.footerInfo{
+		display:none;
+	}
+	
+	.carubtn{
+		width:30px !important;
+	}
+	
+	.dockbar{
+		position:fixed !important;
+		height: fit-content !important;
+		
+		
+	}
+}
+@media(min-width: 576px){
+		.hamdown{
+		display:none;
+		}
+		.hamback{
+		display:none;
+		}
+	
+	
+	#hamburgerbtn{
+		display:none;
+	}
+	
+	.iconbox{
+		display:block;
+	}
+	.iconboxfooter{
+		display:none;
+	}
+	.footerInfo{
+		display:block;
+	}
+	
+	.carubtn{
+		width:60px !important;
+	
+	}
+	
+	.dockbar{
+		position: relative;;
+	}
+}
+.hamback{
+/* 	position: absolute; */
+	position: fixed;
+	display:none;
+	/* width:2000px; */
+	height:100%;
+	width:100%;
+	background-color: gray !important;
+	opacity: 0.8;
+	z-index: 200;
+	right:0px;
+	border:none;
+}
+
+
+.hamdown{
+	position: absolute; 
+	/* position: fixed; */
+	display:none;
+	right:0px;
+	height:99999999999px;
+	width:50%;
+	background-color: white;
+	opacity: 1;
+	z-index: 300;
+	
+}
+.hamnav a{
+	margin-top: 10px;
+}
+.hamnav{
+	position: fixed;
+	top: 80px;
+	
+}
+#submenu{
+	position: fixed;
+	top:240px
+}
+.closeham{
+	position: fixed;
+	right:10px;
 }
 
 /*header css*/

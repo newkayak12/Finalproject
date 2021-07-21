@@ -5,7 +5,7 @@
     <span class="m-2 d-flex justify-content-center align-items-center p-3 w-fitcontent">
         <span class="w-10">ID</span>
         &nbsp;&nbsp;
-        <input type="text" id="userId" class="w-20">
+        <input type="text" id="userId" class="w-20" style="height:30px" placeholder="아이디">
         &nbsp;&nbsp;
         <input type="checkbox" class="w-10" id="persistlogin" >
         &nbsp;&nbsp; 
@@ -14,7 +14,7 @@
     <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
         <span class="w-10">PW</span>
         &nbsp;&nbsp; 
-        <input type="password" id="userPassword" class="w-20 ">
+        <input type="password" id="userPassword" class="w-20 " style="height:30px" placeholder="비밀번호">
          
         &nbsp;&nbsp; 
         <input type="button" onclick="loginVerifyAjax()" class=" eumbtn-2 btn " value="로그인">
@@ -40,9 +40,9 @@
 <script>
 $(function(){
     let cookie = '${persistLogin}'
-    console.log(cookie)
-    if(cookie!='none'){
+    if(cookie!='none'&&cookie!=''){
         $("#persistlogin").attr("checked",true)
+        $("#userId").val(cookie);
     }
 
 })

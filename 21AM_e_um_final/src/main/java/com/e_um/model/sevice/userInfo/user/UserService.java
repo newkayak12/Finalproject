@@ -1,5 +1,7 @@
 package com.e_um.model.sevice.userInfo.user;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,11 +42,28 @@ public class UserService implements UserServiceInterface {
 		// TODO Auto-generated method stub
 		int count = dao.InsertUser(user, session);
 			count += dao.InsertInterest(user, session);
+			
+			if(count>0) {
+				dao.insertalarm1(user, session);
+				dao.insertalarm2(user, session);
+				dao.insertalarm3(user, session);
+				dao.insertalarm4(user, session);
+				dao.insertalarm5(user, session);
+				dao.insertalarm6(user, session);
+				dao.insertalarm7(user, session);
+				dao.insertalarm8(user, session);
+				dao.insertalarm9(user, session);
+				
+			}
 		return count;
 	}
 	@Override
+	@Transactional
 	public User login(User user) {
-		return dao.login(user, session);
+		User users = dao.login(user, session);
+		
+		
+		return users;
 	}
 	@Override
 	public User verify(User user) {
@@ -55,5 +74,10 @@ public class UserService implements UserServiceInterface {
 	public int changepw(User user) {
 		// TODO Auto-generated method stub
 		return dao.changepw(user, session);
+	}
+	@Override
+	public List<User> recommandFriend() {
+		// TODO Auto-generated method stub
+		return dao.recommandFriend(session);
 	}
 }

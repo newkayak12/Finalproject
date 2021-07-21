@@ -1,5 +1,7 @@
 package com.e_um.model.sevice.userInfo.user;
 
+import java.util.List;
+
 import com.e_um.model.vo.userInfo.user.User;
 
 public interface UserServiceInterface {
@@ -10,4 +12,5 @@ public interface UserServiceInterface {
 	public User login(User user);
 	public User verify(User user);
 	public int changepw(User user);
+	public List<User> recommandFriend();
 }

@@ -6,6 +6,8 @@ import com.e_um.model.vo.userInfo.user.User;
 
 public interface FriendServiceInterface {
 	
-	List<User> selectAllUser();
+	List<User> selectAllUser(String userId);
+	
+	User selectUserOne(String userId);
 
 }
