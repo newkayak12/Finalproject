@@ -39,127 +39,128 @@
 	</script>
 	
 	
-	
-	
-	<section class="mt-7 pt-7 pb-5 mb-5">
-	   <div id="root" class="container mt-5">
-	       <div class="movie-detail">
-	        <div class="title"><h3>영화상세</h3></div>
-	        <div class="sect-base-movie pb-3">
-	            <div class="box-image">
-	                <span class="thumb-image justify-content-center">
-	                    <img class="thumb-size col-12" src="${applicationScope.page }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
-	                </span>
-	            </div>
-	            <div class="box-contents ml-5 pt-5">
-	                <div class="title_all">
-	                    <strong>${movie.movieTitleKr }</strong>
-	                    <span style="border : 2px solid lightgreen; color:lightgreen;">${movie.movieStatus }</span>
-	                    <p>${movie.movieTitleEn }</p>
-	                </div>
-	                <div class="score">
-	                    <span>예매율 &nbsp;
-	                        <strong>${movie.movieReserveRate }</strong>
-	                    </span><br>
-	                    <span>영화평점 &nbsp;
-	                        <strong>${movie.movieTotalEvalution }</strong>
-	                    </span>
-	                </div>
-	                <button class="btn btn-success mt-5">예매하기</button>
-	            </div>
-	        </div>
-	        
-	        
-	         <div class="cols-content mt-5" id="menu">
-	            <div class="col-detail pb-5">
-	                <ul class="tab-menu pb-5 text-center">
-	                    <li><button class="btn">기본정보</button></li>
-	                    <li><button class="btn">트레일러</button></li>
-	                    <li><button class="btn">관람평</button></li>
-	                    <li><button class="btn">예매분포</button></li>
-	                </ul>
-	                <div class="sect-story">
-	                    <p>${movie.movieContents }</p>
-	                </div>
-	            </div>
-	        </div> 
-	        
-	        <div class="container">
-			  <table class="table table-bordered">
-			    <thead>
-			      <tr>
-			        <th>원제</th>
-			        <td>${movie.movieTitleEn }</td>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
-			        <th>개봉일</th>
-			        <td><fmt:formatDate value="${movie.movieOpenDate }" pattern="yyyy년 MM월 dd일"/></td>
-			      </tr>
-			      <tr>
-			        <th>상영시간</th>
-			        <td>${movie.movieRunningTime }</td>
-			      </tr>
-			      <tr>
-			        <th>연령등급</th>
-			        <td>${movie.movieAge }</td>
-			      </tr>
-			      <tr>
-			        <th>감독</th>
-			        <td>${movie.movieDirector }</td>
-			      </tr>	
-			      <tr>
-			        <th>배우</th>
-			          <td> 
-				          <c:forEach var="r" items="${movie.moviePersonName }" varStatus="i" >
-				      		 <a href="" class="movieBox" onclick="moveFn('${r.moviePersonName}');" data-target="#myModal" data-toggle="modal"> 
-				      		 	<c:out value="${r.moviePersonName }"/>
-				      		 	<c:if test="${ !i.last }">,</c:if>
-				      	  	</a>
-				      	  </c:forEach>
-			      	  </td>
-			      </tr>
-			    </tbody>
-			  </table>
+	<section class="mt-5 pt-5">
+		<div id="root" class="container mt-5">
+			<section>
+			   <div>
+			       <div class="movie-detail">
+			        <div class="title"><h3>영화상세</h3></div>
+			        <div class="sect-base-movie pb-3">
+			            <div class="box-image">
+			                <span class="thumb-image justify-content-center">
+			                    <img class="thumb-size col-12" src="${applicationScope.page }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
+			                </span>
+			            </div>
+			            <div class="box-contents ml-5 pt-5">
+			                <div class="title_all">
+			                    <strong>${movie.movieTitleKr }</strong>
+			                    <span style="border : 2px solid lightgreen; color:lightgreen;">${movie.movieStatus }</span>
+			                    <p>${movie.movieTitleEn }</p>
+			                </div>
+			                <div class="score">
+			                    <span>예매율 &nbsp;
+			                        <strong>${movie.movieReserveRate }</strong>
+			                    </span><br>
+			                    <span>영화평점 &nbsp;
+			                        <strong>${movie.movieTotalEvalution }</strong>
+			                    </span>
+			                </div>
+			                <button class="btn btn-success mt-5">예매하기</button>
+			            </div>
+			        </div>
+			        
+			        
+			         <div class="cols-content mt-5" id="menu">
+			            <div class="col-detail pb-5">
+			                <ul class="tab-menu pl-0 pb-5 text-center">
+			                    <li><button class="btn">기본정보</button></li>
+			                    <li><button class="btn">트레일러</button></li>
+			                    <li><button class="btn">관람평</button></li>
+			                    <li><button class="btn">예매분포</button></li>
+			                </ul>
+			                <div class="sect-story">
+			                    <p>${movie.movieContents }</p>
+			                </div>
+			            </div>
+			        </div> 
+			        
+			        <div class="container">
+					  <table class="table table-bordered">
+					    <thead>
+					      <tr>
+					        <th>원제</th>
+					        <td>${movie.movieTitleEn }</td>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr>
+					        <th>개봉일</th>
+					        <td><fmt:formatDate value="${movie.movieOpenDate }" pattern="yyyy년 MM월 dd일"/></td>
+					      </tr>
+					      <tr>
+					        <th>상영시간</th>
+					        <td>${movie.movieRunningTime }</td>
+					      </tr>
+					      <tr>
+					        <th>연령등급</th>
+					        <td>${movie.movieAge }</td>
+					      </tr>
+					      <tr>
+					        <th>감독</th>
+					        <td>${movie.movieDirector }</td>
+					      </tr>	
+					      <tr>
+					        <th>배우</th>
+					          <td> 
+						          <c:forEach var="r" items="${movie.moviePersonName }" varStatus="i" >
+						      		 <a href="" class="movieBox" onclick="moveFn('${r.moviePersonName}');" data-target="#myModal" data-toggle="modal"> 
+						      		 	<c:out value="${r.moviePersonName }"/>
+						      		 	<c:if test="${ !i.last }">,</c:if>
+						      	  	</a>
+						      	  </c:forEach>
+					      	  </td>
+					      </tr>
+					    </tbody>
+					  </table>
+					</div>
+			    </div>
 			</div>
-	    </div>
-	</div>
-	</section>
-
-	<section>
-   		<div class="modal" id="myModal">
-		    <div class="modal-dialog modal-dialog-centered">
-		      <div class="modal-content">
+			</section>
 		
-		        <!-- Modal Header -->
-		        <div class="modal-header">
-		          <!-- <h4 class="modal-title">Modal Heading</h4> -->
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        </div>
-		
-		        <!-- Modal body -->
-		        <div class="modal-body">
-		          <div id="modal-content">
-			          <div class="text-center mb-4">  
-			            <img id="modalImage" class="thumb-size" src="">
-			            <div class="modal-info">
-			              <h3 id="modalPersonName"></h3>
-			              <h5 class="mt-2" id="modalBirth"></h5>
-			              <h4 class="pt-2">필모그래피</h4>
-			              <ul id="modalPhilmo" class="list-group text-center">
-			              
-			              <ul>
-		              	</div>
-		              
-		            </div>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-	   </section>
-
+			<section>
+		   		<div class="modal" id="myModal">
+				    <div class="modal-dialog modal-dialog-centered">
+				      <div class="modal-content">
+				
+				        <!-- Modal Header -->
+				        <div class="modal-header">
+				          <!-- <h4 class="modal-title">Modal Heading</h4> -->
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        </div>
+				
+				        <!-- Modal body -->
+				        <div class="modal-body">
+				          <div id="modal-content">
+					          <div class="text-center mb-4">  
+					            <img id="modalImage" class="thumb-size" src="">
+					            <div class="modal-info">
+					              <h3 id="modalPersonName"></h3>
+					              <h5 class="mt-2" id="modalBirth"></h5>
+					              <h4 class="pt-2">필모그래피</h4>
+					              <ul id="modalPhilmo" class="list-group text-center">
+					              
+					              <ul>
+				              	</div>
+				              
+				            </div>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			   </section>
+		</div>
+	</section>	
 
 
 <style>
@@ -240,9 +241,7 @@
       div.modal-info {
         padding: 10 10 10 10;
       }
-      .title{
-      	text-align:center;
-      }
+     
       .search_point{
       	font-size : 16px;
       }

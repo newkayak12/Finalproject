@@ -46,7 +46,7 @@
     		location.assign("<%=request.getContextPath()%>/movie/movieDetail?movieSeq="+e.target.value);
     	}
     	
-    	/* const movieSearch=()=>{
+    	 const movieSearch=()=>{
     		let search = $("#search").value;
     		if(search.length<2){
     			alert("검색어는 두글자 이상 입력하세요");
@@ -54,7 +54,7 @@
     			$("#searchForm").submit();
     		}
     		
-    	}  */
+    	} 
     
     	
     </script>
@@ -224,7 +224,7 @@
                            <div class="text-center mb-4">  
                              <img id="modalImage" class="thumb-size" src="">
                              <div class="modal-info">
-                               <h4 id="modalTitleKr"></h4>
+                               <h3 id="modalTitleKr"></h3>
                                <h5 id="modalTitleEn"></h5>
                                <p id="modalOpenDate"></p>
                                <p id="modalReserveRate"></p>
