@@ -9,26 +9,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-<link href="<c:url value="${path }/resources/css/main.css" />" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="${path }/resources/js/jquery-3.6.0.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!--폰트 타이틀-->
-<link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
-<!--폰트 내용-->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<meta charset="UTF-8">
-<title>E_um</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link href="<c:url value="${path }/resources/css/main.css" />" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="${path }/resources/js/jquery-3.6.0.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!--폰트 타이틀-->
+	<link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+	<!--폰트 내용-->
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
+
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>E_um</title>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
-
+	
         <!--로고 자리-->
         <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div>
 
@@ -48,7 +52,7 @@
     </div>
 
         <!--아이콘 메뉴-->
-        <div id="icon_menu">
+        <div id="icon_menu" class="iconbox">
             <ul class="navbar-nav">
                 <li class="nav-item col-4"><i class="fas fa-user fa-lg"></i></li>
                 <li class="nav-item col-4"><i class="fas fa-comments fa-lg"></i></li>

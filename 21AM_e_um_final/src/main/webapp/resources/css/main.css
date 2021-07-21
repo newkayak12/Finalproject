@@ -1,10 +1,26 @@
 @charset "UTF-8";
-
-
-:root{
+:root
+{
 	--eumbackground: #70b3d9;
 	--eumfontcolorwhite: white;
+	--mobile: 575px;
+	--pc:576px;
 }
+
+@media(max-width: 575px){
+	.iconbox{
+		display:none;
+	}
+}
+@media(min-width: 576px){
+	.iconbox{
+		display:block;
+	}
+}
+
+
+
+
 
 /*header css*/
 #head_menu ul li{
