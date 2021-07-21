@@ -6,32 +6,30 @@
 }
 .eumbtn-1{
 	background-color: rgb(199, 143, 214);
-	border:1px black solid;
+	border:1px  rgb(157, 121, 174) solid;
 	color:white;
 }
 
 .eumbtn-2{
 	background-color: #70b3d9;
-	border:1px black solid;
+	border:1px black  rgb(106, 148, 181);;
 	color:white;
 }
 
 .eumbtn-3{
 	background-color: #DB4455;
-	border:1px black solid;
+	border:1px rgb(167, 66, 74) solid;
 	color:white;
 }
+/* button */
+
 .wrapping{
 	padding:10px;
     overflow: auto;
     white-space: pre-line;
     
 }
-.eumbtn{
-	background-color:var(--eumbackground);
-	border-radius: 8%;
-}
-
+/* wrapping */
 
 .headerColor{
     background-color: rgba(255, 255, 255, 0.9);
@@ -48,6 +46,7 @@
 	/* background-color:red;*/
 	
 }
+/* header */
 
 .footer-basic {
     padding: 40px 0;
@@ -108,3 +107,4 @@ font-size: 13px;
 color: white;
 margin-bottom: 0;
 }
+/* footer */

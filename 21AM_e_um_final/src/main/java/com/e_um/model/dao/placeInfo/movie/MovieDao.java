@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,6 +49,12 @@ public class MovieDao implements MovieDaoInterface {
 	public MoviePersonInfo moviePerson(String person, SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
 		return session.selectOne("movie.moviePerson",person);
+	}
+
+	@Override
+	public List<MovieReview> movieReview(String movieSeq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("movie.movieReview",movieSeq);
 	}
 	
 	

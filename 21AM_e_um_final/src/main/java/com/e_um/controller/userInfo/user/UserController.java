@@ -143,12 +143,16 @@ public class UserController {
 //	관심사 닉네
 	@RequestMapping("/user/signup/start/third")
 	@ResponseBody
-	public int signupthird(User user, Interest interest, MultipartFile profilePhoto, HttpServletRequest rq) {
+	public int signupthird(User user, Interest interest, @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto, HttpServletRequest rq) {
 		
 		
-		
+		log.error("{}",profilePhoto.getOriginalFilename());
 		user.setInterest(interest);
-		user.setProfileImageFile(renamepolicy(rq, profilePhoto, "profile"));
+		String fileName ="default.png";
+		if(profilePhoto.getOriginalFilename().length()>3) {
+			fileName=profilePhoto.getOriginalFilename();
+		}
+		user.setProfileImageFile(fileName);
 		user.setUserPassword(encrypt.encode(user.getUserPassword()));
 		SimpleDateFormat fDate = new SimpleDateFormat("yyMMdd");
 		log.warn("{}",user);

@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
     
-    
-   
+ <section class="mt-5 pt-5">   
+   	<div id="root" class="container mt-5">
+   	
+   	</div>
 
-
-</body>
-</html>
+</section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
    
