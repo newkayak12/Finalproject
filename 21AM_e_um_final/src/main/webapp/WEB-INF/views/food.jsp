@@ -81,7 +81,7 @@
 					</div>
 			
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="">예약하기</button>
+						<button type="button" class="btn btn-primary" onclick="fn_foodBooking();">예약하기</button>
 						<button type="button" class="btn btn-primary" onclick="fn_foodView();">상세보기</button>
 					</div>
 			
@@ -123,6 +123,12 @@
 		let foodSeq = $("#modal-content").find("input").val();
 		// console.log(foodSeq);
 		location.assign("${path}/food/foodView?foodSeq=" + foodSeq);
+	}
+	
+	// 예약페이지로 전환
+	const fn_foodBooking = () => {
+		
+		location.assign('${ path }/food/foodBooking/first?foodSeq=${ food.foodSeq }');
 	}
 	
 	// top버튼 

@@ -59,6 +59,7 @@
 	
 			<div><span class="foodReviewForm-foodName"><c:out value="${ food.foodName }"/></span> 에 대한 솔직한 리뷰를 작성해주세요</div>
 			<form action="${ path }/food/foodReview/end?foodSeq=${ food.foodSeq }" method="post">
+				<p>별점이미지들어갈부분</p>
 				<textarea id="DOC_TEXT" name="foodContents" class="foodReviewForm-textarea" rows="13"></textarea>
 				<div style="color:#aaa;" id="counter">(0 / 300)</div>
 				<br>

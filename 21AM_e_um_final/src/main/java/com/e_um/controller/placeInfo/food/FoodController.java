@@ -87,7 +87,7 @@ public class FoodController {
 		int result = service.foodInsert(food);
 		
 		model.addAttribute("msg", result > 0 ? "맛집등록성공" : "맛집등록실패");
-		model.addAttribute("loc", "/food");
+		model.addAttribute("loc", "/food/foodMain");
 		
 		return "/common/msg";
 	}
@@ -142,6 +142,16 @@ public class FoodController {
 		
 		// msg.jsp 반환
 		return "";
+	}
+	
+	@RequestMapping("/food/foodBooking/first")
+	public String foodBookingStart(String foodSeq, Model model) {
+		
+		Food food = service.selectFood(foodSeq);
+		
+		model.addAttribute("food", food);
+		
+		return "/food/foodBooking";
 	}
 	
 }
