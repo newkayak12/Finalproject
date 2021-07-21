@@ -32,8 +32,9 @@
     <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
 
         <!--로고 자리-->
-        <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div>
-
+        <!-- <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div> -->
+		<div style="margin:0px;"><a href="#" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div>
+		
         <!--메뉴-->
      <div id="head_menu" class="col-6 p-0">
         <ul class="navbar-nav p-0 col-12 d-flex flex-row justify-content-around">
