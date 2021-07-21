@@ -14,51 +14,116 @@
             </div>
         </div>
 
-        <div id="searchFriDetail" data-toggle="collapse" data-target="#demo" style="font-weight:bold">> 상세검색</div>
+        <div id="searchFriDetail" data-toggle="collapse" data-target="#demo" style="font-weight:bold">> 상세 검색</div>
         <div id="demo" class="container p-3 my-3 border collapse searchFri_size">
             <div>
                 <div style="font-family: 'twayair';">성별</div>
                 <div class="row">
-                    <div class="col-3 col-xl-1 fribtn"><span class="genBtn">남</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="genBtn">여</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="genBtn">무관</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="genBtn">남</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="genBtn">여</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="genBtn">무관</span></div>
                 </div>
             </div><br>
             <div>
                 <div style="font-family: 'twayair';">지역</div>
                 <div class="row">
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">서울</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">인천</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">부산</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">대전</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">광주</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">대구</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">울산</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">경기</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">강원</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">충북</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">충남</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">전북</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">전남</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">경북</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">경남</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">세종</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="addBtn">제주</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">서울</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">인천</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">부산</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">대전</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">광주</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">대구</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">울산</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">경기</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">강원</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">충북</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">충남</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">전북</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">전남</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">경북</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">경남</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">세종</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="addBtn">제주</span></div>
                 </div>
             </div><br>
             <div>
                 <div style="font-family: 'twayair';">연령</div>
                 <div class="row">
-                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">무관</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">20대</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">30대</span></div>
-                    <div class="col-3 col-xl-1 fribtn"><span class="ageBtn">40대</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="ageBtn">무관</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="ageBtn">20대</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="ageBtn">30대</span></div>
+                    <div class="fribtn choice-1 m-2"><span class="ageBtn">40대</span></div>
                 </div>
             </div><br>
             <div>
-                <div style="font-family: 'twayair';">관심사</div><!--부트 Filter Anything 사용-->
-                <input type="text" class="form-control w-50 mt-2" id="searchInterest">
-                <div id="interResult"></div>
+                <div style="font-family: 'twayair';">관심사</div>
+                <div class="d-flex mt-1" style="display:inline-block">
+                	<div class="mark col-1"><b>운동</b></div>
+                	<div class="d-flex flex-wrap col-11">
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">축구</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">농구</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">야구</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">eSports</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">골프</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">등산</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">헬스</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">요가</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">자전거</span></div>
+                	</div>
+                </div>
+                <div class="d-flex mt-1" style="display:inline-block">
+                	<div class="mark col-1"><b>MBIT</b></div>
+                	<div class="d-flex flex-wrap col-11">
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">INTJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">INTP</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ENTJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ENTP</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">INFJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">INFP</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ENFJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ENFP</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ISTJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ISFJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ESTJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ESFJ</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ISTP</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ISFP</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ESTP</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">ESFP</span></div>
+                	</div>
+                </div>
+                <div class="d-flex mt-1" style="display:inline-block">
+                	<div class="mark col-1"><b>취미</b></div>
+                	<div class="d-flex flex-wrap col-11">
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">노래방</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">전시회</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">영화감상</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">콘서트</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">근교드라이브</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">애니메이션</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">달다구리</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">정치</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">보드게임</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">강아지</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">고양이</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">타로</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">넷플릭스</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">박물관</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">음악</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">봉사활동</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">와인</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">종이접기</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">솔직한 대화</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">동네 산책</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">낚시</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">캠핑</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">작가</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">비건</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">피씨방</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">맛집</span></div>
+	                    <div class="fribtn choice-5 m-2"><span class="interBtn">사진</span></div>
+                	</div>
+                </div>
             </div><br>
         </div>
     </form>
@@ -66,10 +131,37 @@
     <div id="friList" class="row mt-5">
         <!--9~12개만 뽑고 나머지는 무한 스크롤-->
         <c:forEach var="u" items="${list }">
-	        <div class="col-sm-6 col-lg-4 mb-4">
-	            <button class="container btn btn-outline-light text-dark border d-flex p-3 align-items-center" data-toggle="modal" data-target="#friSmModal">
-	                <img src="https://blog.kakaocdn.net/dn/IOYEi/btq1JzPmm2w/Jn7TB4RqutJNkyeAS8K0U1/img.jpg" class="frismImg border col w-50 h-100">
-	                <div class="col border"><c:out value="${u.userNick }"/><br>관심사</div>
+	        <div class="col-sm-6 col-lg-4 mb-5">
+	            <button class="container btn btn-outline-light text-dark border d-flex p-3 align-items-center h-100" data-toggle="modal">
+	                <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg border col w-50 h-100">
+	                <div class="col border">
+	                	<c:out value="${u.userNick }"/>
+	                	<span>
+		                	<c:if test="${u.interest.profileInterestName1 !=null}">
+		                		<c:out value="${u.interest.profileInterestName1 }"/>
+		                	</c:if>
+	                	</span>
+	                	<span>
+		                	<c:if test="${u.interest.profileInterestName2 !=null}">
+		                		<c:out value="${u.interest.profileInterestName2 }"/>
+		                	</c:if>
+	                	</span>
+	                	<span>
+		                	<c:if test="${u.interest.profileInterestName3 !=null}">
+		                		<c:out value="${u.interest.profileInterestName3 }"/>
+		                	</c:if>
+	                	</span>
+	                	<span>
+		                	<c:if test="${u.interest.profileInterestName4 !=null}">
+		                		<c:out value="${u.interest.profileInterestName4 }"/>
+		                	</c:if>
+	                	</span>
+	                	<span>
+		                	<c:if test="${u.interest.profileInterestName5 !=null}">
+		                		<c:out value="${u.interest.profileInterestName5 }"/>
+		                	</c:if>
+	                	</span>
+	                </div>
 	            </button>
 	        </div>
         </c:forEach>
@@ -101,14 +193,27 @@
     </div>
 
     <script>
-    	$(".fribtn").click(e=>{
+    	$(".choice-1").click(e=>{
     		$(e.target).toggleClass("choCon");
     		if($(e.target).hasClass("choCon")){
     			$(e.target).parent().siblings().find("span").removeClass("choCon");
     		}
     		console.log($(e.target));
     		console.log($(e.target).html());
-    	})	
+    	})
+    	
+    	$(".choice-5").click(e=>{
+    		let inter_su=$(".choice-5").find(".choCon").length;
+    		if($(e.target).hasClass("choCon")){
+	    		$(e.target).removeClass("choCon");    			
+    		} else{
+    			if(inter_su>4){
+    				alert("관심사는 5개까지 선택 가능합니다.");
+    			}else{
+    				$(e.target).addClass("choCon");  
+    			}
+    		}
+    	})
     
         // $(function(){
         //     let index=0;

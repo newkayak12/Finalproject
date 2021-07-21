@@ -21,9 +21,12 @@ public class FriendController {
 	
 	@RequestMapping("/friend/main")
 	public ModelAndView friendMain(ModelAndView mv, HttpSession session) {
-		System.out.println(session.getAttribute("user"));
+//		log.warn("로그인한 회원 정보: {}",session.getAttribute("user"));
 		mv.addObject("list",service.selectAllUser());
 		mv.setViewName("friend");
+//		for(User u:service.selectAllUser()) {
+//			log.warn("user: {}",u);
+//		}
 		return mv;
 	}
 
