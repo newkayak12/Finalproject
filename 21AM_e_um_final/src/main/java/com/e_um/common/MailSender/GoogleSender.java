@@ -17,9 +17,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-@Component
+@Configuration
 public class GoogleSender {
 	public void sendMail( String content, String target) {
 		final String bodyEncoding ="UTF-8";
@@ -30,7 +31,7 @@ public class GoogleSender {
 		String toEmail = target;
 		
 		final String username = "idfordev12";
-		final String password = "qwer1234%";
+		final String password = "mxkxztagmrxckfzx";
 		
 		StringBuffer sb=new StringBuffer();
 		sb.append("<div>");
@@ -43,7 +44,7 @@ public class GoogleSender {
 		
 		Properties prop = new Properties();
 		prop.put("mail.transport.protocol", "smtp");
-		prop.put("mail.smtp.host", "smpt.gmail.com");
+		prop.put("mail.smtp.host", "smtp.gmail.com");
 		prop.put("mail.smtp.port", "465");
 		prop.put("mail.smtp.auth", "true");
 		

@@ -163,8 +163,8 @@
                     </div>
             
                     <div class="d-flex justify-content-center col-8 pr-4 pl-4">
-                        <input type="button" value="이전으로" class="col-3 m-2 mr-4" onclick="signupfirst()" >
-                        <input type="button" value="다음으로" class="col-3 m-2 ml-4" onclick="signupthird()">
+                        <input type="button" value="이전으로" class="col-3 m-2 mr-4 eumbtn-1" onclick="signupfirst()" >
+                        <input type="button" value="다음으로" class="col-3 m-2 ml-4 eumbtn-2" onclick="signupthird()">
                     </div>
             
                     

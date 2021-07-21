@@ -3,16 +3,19 @@ package com.e_um.controller.groupInfo.group;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.model.sevice.groupInfo.group.GroupServiceInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.userInfo.user.User;
-
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -48,13 +51,13 @@ public class GroupController {
 	}
 	
 	@RequestMapping("/group/Gomain.do") 
-	public String  groupInsert(@RequestParam Map param, Model model){ 
-		System.out.println(param);
+	public String  groupInsert(@RequestParam Map param, Model model, HttpServletRequest rq, MultipartFile file){ 
 		
-		User user = (User)model.getAttribute("user");
-		log.warn(user.getUserId());
+		User user = (User) rq.getSession().getAttribute("userSession");
+		
+		param.put("file", renamepolicy(rq, file, "group"));
 		int result = service.groupInsert(param,user.getUserId());
-		return "redirect:group";
+		return "redirect:/group/groupMain.do";
 	}
 	 
 	@RequestMapping("group/groupSigned.do")
