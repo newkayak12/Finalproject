@@ -255,10 +255,10 @@
 		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
 				<span class="mr-3 right">
-					<button class="btn btn-secondary" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
+					<button class="btn btn-secondary eumbtn-1" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
 				</span>
 				<span class=" justify-content-end mr-3">
-					<button class="btn btn-success" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
+					<button class="btn btn-success eumbtn-2" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
 				</span>
 			</div>
 		</header>
@@ -358,7 +358,7 @@
 			<!-- Modal Header -->
 			<div class="modal-header">
 			  <h4 class="modal-title" id="modalLoginTitle">로그인</h4>
-			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <button type="button eumbtn-3" class="close" data-dismiss="modal">&times;</button>
 			</div>
 	  
 			<!-- Modal body -->
@@ -398,7 +398,7 @@
 		  
 				<!-- Modal footer -->
 				<div class="modal-footer">
-				  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				  <button type="button" class="btn btn-danger eumbtn-3" data-dismiss="modal">Close</button>
 				</div>
 		  
 			  </div>

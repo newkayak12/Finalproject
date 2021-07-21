@@ -55,7 +55,7 @@
 	                    <p class="mb-0 mt-3 pl-0 small col-6 text-center">주소</p>
 	                    <div>
 	                        <input type="text" class="mb-2 mt-1 ml -0 col-4" id="userAddrZip" placeholder="우편번호" readonly required>
-	                        <input type="button" value="주소 찾기" class="mb-2 mt-1 col-3 eumbtn" onclick="addrSearch()">
+	                        <input type="button" value="주소 찾기" class="mb-2 mt-1 col-3 eumbtn-2" onclick="addrSearch()">
 	                        <br>
 	                        <input type="text" class="mb-2 mt-0 col-7" id="userAddrBasic"  placeholder="주소1" readonly required>
 	                        <br>
@@ -80,8 +80,8 @@
 	        </div>
 	
 	        <div class="d-flex justify-content-center col-8 pr-4 pl-4">
-	            <input type="button" value="이전으로" class="col-3 m-2 mr-4" onclick="signupzero()" >
-	            <input type="submit" id="nextStep" value="다음으로" class="col-3 m-2 ml-4" >
+	            <input type="button" value="이전으로" class="col-3 m-2 mr-4 eumbtn-1 btn" onclick="signupzero()" >
+	            <input type="submit" id="nextStep" value="다음으로" class="col-3 m-2 ml-4 eumbtn-2 btn" >
 	        </div>
         </form>
     </div>

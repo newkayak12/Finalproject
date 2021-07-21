@@ -25,7 +25,7 @@
 <!-- fullcalendar -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>E_um</title>
 </head>
 <body>
 <header>
@@ -35,19 +35,19 @@
         <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div>
 
         <!--메뉴-->
-        <div id="head_menu" class="">
-            <ul class="navbar-nav">
-                <li class="nav-item col-5"><a class="nav-link" href="${path }/friend/main">친구 찾기</a></li>
-                <li class="nav-item col-4"><a class="nav-link" href="${path }/group/groupMain.do">소모임</a></li>
-                <li class="nav-item dropdown col-4">
-                    <a class="nav-link dropdown-toggle col-6" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="${path }/food/foodMain">맛집</a>
-                        <a class="dropdown-item" href="${path }/movie/movieInfo">영화</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+     <div id="head_menu" class="col-6 p-0">
+        <ul class="navbar-nav p-0 col-12 d-flex flex-row justify-content-around">
+            <li class="nav-item col-4 col-sm-4  col-md-3  p-0"><a class="nav-link text-center" href="${path }/friend/main">친구 찾기</a></li>
+            <li class="nav-item col-3  col-sm-3 col-md-3 p-0"><a class="nav-link text-center" href="${path }/group/groupMain.do">소모임</a></li>
+            <li class="nav-item dropdown col-4  col-md-3 p-0">
+                <a class="nav-link dropdown-toggle col-12 text-center" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${path }/food/foodMain">맛집</a>
+                    <a class="dropdown-item" href="${path }/movie/movieInfo">영화</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 
         <!--아이콘 메뉴-->
         <div id="icon_menu">

@@ -22,10 +22,10 @@ public class GroupDao implements GroupDaoInterface {
 	
 	@Override 
 	public int groupInsert(SqlSessionTemplate session, Map param, String userId) {
-		HashMap map = new HashMap();
-		map.put("param", param);
-		map.put("userId", userId);
-		return session.insert("group.groupInsert",map);
+		param.put("userId", userId);
+		
+		log.error("이거맞음?{}",param);
+		return session.insert("group.groupInsert",param);
 	}
 	
 	@Override

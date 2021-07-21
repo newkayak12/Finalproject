@@ -7,8 +7,11 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.e_um.common.MailSender.GoogleSender;
 import com.e_um.common.verifyCodeMaker.VerifyCodeMaker;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.userInfo.interest.Interest;
@@ -30,10 +32,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes({"user"})
 public class UserController {
+	
 	@Autowired
-	GoogleSender mail;
+	JavaMailSender sender;
 
 	@Autowired
 	UserServiceInterface service;
@@ -41,6 +43,13 @@ public class UserController {
 	
 	@Autowired
 	VerifyCodeMaker maker;
+	@RequestMapping("/")
+	public String gotoIndex() {
+		
+		return "../../index";
+	}
+	
+	
 	@RequestMapping(value="/user/login/start")
 	public String loginPagin( Model model, @CookieValue(value = "persistlogin", defaultValue = "none", required = false)String cookie){
 		String cookieValue= "none";
@@ -79,11 +88,16 @@ public class UserController {
 		
 		
 		
+		
 		if(userfin != null) {
 			model.addAttribute("userId",userfin.getUserId());
 			model.addAttribute("code",code);
 			model.addAttribute("flag", flag);
-			mail.sendMail(userfin.getUserEmail(), code);
+			SimpleMailMessage mail = new SimpleMailMessage();
+			mail.setTo(user.getUserEmail());
+			mail.setSubject("E_um에서 온 인증 메일입니다.");
+			mail.setText("인증 코드는 "+code+"입니다.");
+			sender.send(mail);
 			return "components/user/verifycode";
 		} else {
 			model.addAttribute("alter", "yes");
@@ -129,12 +143,16 @@ public class UserController {
 //	관심사 닉네
 	@RequestMapping("/user/signup/start/third")
 	@ResponseBody
-	public int signupthird(User user, Interest interest, MultipartFile profilePhoto, HttpServletRequest rq) {
+	public int signupthird(User user, Interest interest, @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto, HttpServletRequest rq) {
 		
 		
-		
+		log.error("{}",profilePhoto.getOriginalFilename());
 		user.setInterest(interest);
-		user.setProfileImageFile(renamepolicy(rq, profilePhoto, "profile"));
+		String fileName ="default.png";
+		if(profilePhoto.getOriginalFilename().length()>3) {
+			fileName=profilePhoto.getOriginalFilename();
+		}
+		user.setProfileImageFile(fileName);
 		user.setUserPassword(encrypt.encode(user.getUserPassword()));
 		SimpleDateFormat fDate = new SimpleDateFormat("yyMMdd");
 		log.warn("{}",user);
@@ -170,7 +188,7 @@ public class UserController {
 	
 	@RequestMapping("/user/loginverify")
 	@ResponseBody
-	public int login(Model model, User user, Boolean persistlogin, HttpServletResponse rs) {
+	public int login(Model model, User user, Boolean persistlogin, HttpServletResponse rs, HttpServletRequest rq) {
 		User userResult = service.login(user);
 		log.warn("{}result: ",userResult);
 			
@@ -190,6 +208,9 @@ public class UserController {
 		
 			if(encrypt.matches(user.getUserPassword(), userResult.getUserPassword())) {
 				model.addAttribute("user", userResult);
+				HttpSession session = rq.getSession();
+				session.setAttribute("userSession", userResult);
+				session.setMaxInactiveInterval(60*60*30);
 				flag =1;
 			}
 			
@@ -200,13 +221,13 @@ public class UserController {
 	
 	@RequestMapping("/user/gotomain")
 	public String gotomain(HttpServletRequest rq, Model model) {
-		Object obj =  model.getAttribute("user");
+		Object obj =  rq.getSession().getAttribute("userSession");
 		
 		if(obj!=null) {
 			return "main";
 		} else {
 			String path = rq.getContextPath();
-			return "redirect : "+path+"/index.jsp";
+			return "redirect : /";
 		}
 		
 	}

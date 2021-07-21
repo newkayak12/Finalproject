@@ -17,7 +17,7 @@
         <input type="password" id="userPassword" class="w-20 ">
          
         &nbsp;&nbsp; 
-        <input type="button" onclick="loginVerifyAjax()" value="로그인" class="w-10">
+        <input type="button" onclick="loginVerifyAjax()" class=" eumbtn-2 btn " value="로그인">
     </span>
     <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
         &nbsp;&nbsp; 
