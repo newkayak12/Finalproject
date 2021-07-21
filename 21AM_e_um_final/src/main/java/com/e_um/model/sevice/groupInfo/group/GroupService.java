@@ -36,6 +36,12 @@ public class GroupService implements GroupServiceInterface {
 	public List<Group> selectGroupListTop(){
 		return dao.selectGroupListTop(session);
 	}
+
+	@Override
+	public List<Group> selectGroupListConditional() {
+		// TODO Auto-generated method stub
+		return dao.selectGroupListConditional(session);
+	}
 	
 	
 }

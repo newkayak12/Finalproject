@@ -8,6 +8,7 @@ import com.e_um.model.vo.groupinfo.group.Group;
 public interface GroupServiceInterface {
 	
 	List<Group> selectGroupList();
+	List<Group> selectGroupListConditional();
 	
 	int groupInsert(Map param, String userId);
 	

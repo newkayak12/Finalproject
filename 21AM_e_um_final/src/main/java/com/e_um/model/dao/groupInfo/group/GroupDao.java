@@ -33,6 +33,12 @@ public class GroupDao implements GroupDaoInterface {
 		return session.selectList("group.selectGroupListTop");
 	}
 
+	@Override
+	public List<Group> selectGroupListConditional(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectGroupListConditional");
+	}
+
 	
 	
 	

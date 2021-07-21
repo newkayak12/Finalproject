@@ -50,7 +50,9 @@
 	<!-- 내가 가입한 소모임 리스트 -->
 		<p>내가 가입한 소모임</p>
 		  <table id="tbl-signed-group" class="table">
+		  
 		  	<c:forEach var="g" items="${list }">
+		  	<c:if test="${g.groupMaster} ">
 		  	<tbody>
 			  	<tr>
 			  		<td><c:out value="${g.groupFileUpload }"/></td>
@@ -59,7 +61,9 @@
 			  		onclick="location.assign('${path}/group/groupSigned.do')">입장</button></td>
 			  	</tr>
 		  	</tbody>
+		  	</c:if>
 		  	</c:forEach>
+		  	
 		  </table>
 		  
 		 
@@ -68,19 +72,20 @@
 		  <table id="tbl-popular-group" class="table-scroll" style="overflow-x: scroll;">
 		  	
 		  </table>
+		  <div class="d-flex justify-content-start" style="overflow-x: hidden;">
 		  <c:forEach var="g" items="${list }">
 		  	<div>
 		  		<a href="${rqeust.getContextPath }/group/groupboardDetail.do?groupSeq="+${g.groupSeq }>
-		  			<%-- <img alt="" src="${request.getContextPath}/resources/upload/group/group_mainphoto/${g.groupFileUpload } "> --%>
-		  			<img alt="" src="https://mblogthumb-phinf.pstatic.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w2" class="col-4" style="width:100%">
+		  			<img src="${request.getContextPath}/resources/upload/group/${g.groupFileUpload } " class="round-circle" width="150" height="150">
+		  			<!-- <img alt="" src="https://mblogthumb-phinf.pstatic.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w2" class="col-4" style="width:100%"> -->
 		  		</a>
 		  		<div class="d-flex justify-content-start">
-		  			<p>${g.groupTitle }</p> <p>${g.groupLimit }</p>
-		  		</div>
-		  		
-		  		
+		  			<p>${g.groupTitle }</p> 
+		  			<p>${g.groupLimit }</p>
+		  		</div>		
 		  	</div>
 		  </c:forEach>
+		  </div>
 		  <div>
 			  <div class="clearfix">
 			  	<span class="float-left">
@@ -115,8 +120,7 @@
 	<!-- 소모임 전체 보기 리스트 -->	 
 		<p>소모임</p>
 		  <table id="tbl-nomal-group" class="table">
-		  	<c:forEach var="g" items="${list }">
-		  	<thead>
+		  <thead>
 		  		<tr>
 		  			<th>번호</th>
 		  			<th>카테고리</th>
@@ -128,6 +132,7 @@
 		  			<th>생성날짜</th>
 		  		</tr>
 		  	</thead>
+		  	<c:forEach var="g" items="${list }">
 		  	<tbody>
 			  	<tr>
 			  		<td><c:out value="${g.groupSeq }"/></td>

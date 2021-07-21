@@ -10,10 +10,10 @@ import com.e_um.model.vo.groupinfo.group.Group;
 public interface GroupDaoInterface {
 	
 	List<Group> selectGroupList(SqlSessionTemplate session);
+	List<Group> selectGroupListConditional(SqlSessionTemplate session);
 	
 	int groupInsert(SqlSessionTemplate session, Map param, String userId);
 	
 	List<Group> selectGroupListTop(SqlSessionTemplate session);
-	
 	
 }
