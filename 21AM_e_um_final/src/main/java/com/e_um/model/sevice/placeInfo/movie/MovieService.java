@@ -10,6 +10,7 @@ import com.e_um.model.dao.placeInfo.movie.MovieDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +50,11 @@ public class MovieService implements MovieServiceInterface {
 	public MoviePersonInfo moviePerson(String person) {
 		// TODO Auto-generated method stub
 		return dao.moviePerson(person , session);
+	}
+	@Override
+	public List<MovieReview> movieReview(String movieSeq) {
+		// TODO Auto-generated method stub
+		return dao.movieReview(movieSeq,session);
 	}
 	
 	
