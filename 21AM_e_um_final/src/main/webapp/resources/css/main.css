@@ -20,14 +20,18 @@
 
 
 /*section css*/
-#root{
+/* #root{
     border:1px red solid;
     min-height:500px;
-}
+} */
 body{
     width: 100%;
 }
-
+#root{
+    border:1px red solid;
+    min-height:500px;
+    font-family:'Noto Sans KR';
+}
 
 
 /* 폰트-타이틀 */
