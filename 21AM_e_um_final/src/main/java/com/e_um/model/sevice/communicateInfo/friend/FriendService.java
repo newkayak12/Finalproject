@@ -21,7 +21,13 @@ public class FriendService implements FriendServiceInterface {
 	SqlSessionTemplate session;
 	
 	@Override
-	public List<User> selectAllUser() {
-		return dao.selectAllUser(session);
+	public List<User> selectAllUser(String userId) {
+		return dao.selectAllUser(session, userId);
+	}
+
+	
+	@Override
+	public User selectUserOne(String userId) {
+		return dao.selectUserOne(session, userId);
 	}
 }

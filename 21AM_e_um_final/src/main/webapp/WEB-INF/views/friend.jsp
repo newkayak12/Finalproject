@@ -131,36 +131,41 @@
     <div id="friList" class="row mt-5">
         <!--9~12개만 뽑고 나머지는 무한 스크롤-->
         <c:forEach var="u" items="${list }">
-	        <div class="col-sm-6 col-lg-4 mb-5">
-	            <button class="container btn btn-outline-light text-dark border d-flex p-3 align-items-center h-100" data-toggle="modal">
-	                <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg border col w-50 h-100">
-	                <div class="col border">
-	                	<c:out value="${u.userNick }"/>
-	                	<span>
-		                	<c:if test="${u.interest.profileInterestName1 !=null}">
-		                		<c:out value="${u.interest.profileInterestName1 }"/>
-		                	</c:if>
-	                	</span>
-	                	<span>
-		                	<c:if test="${u.interest.profileInterestName2 !=null}">
-		                		<c:out value="${u.interest.profileInterestName2 }"/>
-		                	</c:if>
-	                	</span>
-	                	<span>
-		                	<c:if test="${u.interest.profileInterestName3 !=null}">
-		                		<c:out value="${u.interest.profileInterestName3 }"/>
-		                	</c:if>
-	                	</span>
-	                	<span>
-		                	<c:if test="${u.interest.profileInterestName4 !=null}">
-		                		<c:out value="${u.interest.profileInterestName4 }"/>
-		                	</c:if>
-	                	</span>
-	                	<span>
-		                	<c:if test="${u.interest.profileInterestName5 !=null}">
-		                		<c:out value="${u.interest.profileInterestName5 }"/>
-		                	</c:if>
-	                	</span>
+	        <div class="friUser col-sm-6 col-lg-4 mb-5">
+	            <button class="container btn btn-outline-light align-items-center text-dark d-flex p-2 mh-100" data-toggle="modal" title="${u.userId }">
+	                <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg col mw-75 mh-100" title="${u.userId }">
+	                <div class="col" title="${u.userId }">
+	                	<div><h5 title="${u.userId }"><b><c:out value="${u.userNick }"/></b></h5></div><br>
+	                	<small><b>
+	                		<div class="d-flex flex-wrap" title="${u.userId }">
+			                	<span title="${u.userId }" class="mx-1">
+				                	<c:if test="${u.interest.profileInterestName1 !=null}">
+				                		<c:out value="${u.interest.profileInterestName1 }"/>
+				                	</c:if>
+			                	</span>
+			                	
+			                	<span title="${u.userId }" class="mx-1">
+				                	<c:if test="${u.interest.profileInterestName2 !=null}">
+				                		<c:out value="${u.interest.profileInterestName2 }"/>
+				                	</c:if>
+			                	</span>
+			                	<span title="${u.userId }" class="mx-1">
+				                	<c:if test="${u.interest.profileInterestName3 !=null}">
+				                		<c:out value="${u.interest.profileInterestName3 }"/>
+				                	</c:if>
+			                	</span>
+			                	<span title="${u.userId }" class="mx-1">
+				                	<c:if test="${u.interest.profileInterestName4 !=null}">
+				                		<c:out value="${u.interest.profileInterestName4 }"/>
+				                	</c:if>
+			                	</span>
+			                	<span title="${u.userId }" class="mx-1">
+				                	<c:if test="${u.interest.profileInterestName5 !=null}">
+				                		<c:out value="${u.interest.profileInterestName5 }"/>
+				                	</c:if>
+			                	</span>
+	                		</div>
+	                	</b></small>
 	                </div>
 	            </button>
 	        </div>
@@ -176,18 +181,9 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-        
-                <!-- Modal body -->
-                <div class="modal-body d-flex align-items-center">
-                    <img src="https://blog.kakaocdn.net/dn/IOYEi/btq1JzPmm2w/Jn7TB4RqutJNkyeAS8K0U1/img.jpg" class="frismImg border col w-50 h-100">
-                    <div class="col border">이름<br>관심사<br>상태 메세지</div>
-                </div>
-        
-                <!-- Modal footer -->
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-info mx-2" data-dismiss="modal">프로필로 이동</button>
-                    <button type="button" class="btn btn-info mx-2" data-dismiss="modal">친구 신청</button>
-                </div>
+        		
+				<div id="userInfoModal">
+               	</div>
             </div>
         </div>
     </div>
@@ -213,6 +209,22 @@
     				$(e.target).addClass("choCon");  
     			}
     		}
+    	})
+    	
+    	$(".friUser").click(e=>{
+    		/* let boxId=e.target.title; */
+    		console.log(e.target);
+    		console.log(e.target.title);
+    		//console.log($(e.target).title);
+    		$.ajax({
+    			type:"post",
+    			url:"${pageContext.request.contextPath}/friend/openmodal/start",
+    			data:{"userId":e.target.title},
+    			success:data=>{
+    				$("#userInfoModal").html(data);
+    				$('#friSmModal').modal("show");
+    			}
+    		})
     	})
     
         // $(function(){
@@ -246,7 +258,7 @@
         //     })
         // }
         
-        $('#modal').modal("show"); //열기
+        //$('#modal').modal("show"); //열기
     </script>
 </div>
    
