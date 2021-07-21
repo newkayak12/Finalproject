@@ -34,7 +34,62 @@
 				}
 			});
 		}
-	
+		
+		<%-- function trailerAjax(){
+    		console.log(movieSeq);
+			$.ajax({
+    			url:"<%=request.getContextPath()%>/movie/selectMovieVideo",
+    			data:{"movieSeq":movieSeq},
+    			success:data=>{
+    				$("#movieVideo").attr("src",data["movieVideo"])
+    			}
+    		})
+    	} --%>
+		
+		const basicInfoShow=()=>{
+			$("#basicInfocontainer").css("display","block")
+			$("#trailercontainer").css("display","none")
+			$("#reviewcontainer").css("display","none")
+			$("#graphcontainer").css("display","none")
+		}
+		const trailerShow=(movieSeq)=>{
+			$("#basicInfocontainer").css("display","none")
+			$("#trailercontainer").css("display","block")
+			$("#reviewcontainer").css("display","none")
+			$("#graphcontainer").css("display","none")
+			
+			$.ajax({
+    			url:"<%=request.getContextPath()%>/movie/selectMovieVideo",
+    			data:{"movieSeq":movieSeq},
+    			success:data=>{
+    				$("#movieVideo").attr("src",data["movieVideo"])
+    			}
+    		})
+			
+			
+		}
+		const reviewShow=(movieSeq)=>{
+			$.ajax({
+    			url:"<%=request.getContextPath()%>/movie/movieReview",
+    			data:{"movieSeq":movieSeq},
+    			success:data=>{
+    				console.log(data);
+    			}
+    		})
+			
+			$("#basicInfocontainer").css("display","none")
+			$("#trailercontainer").css("display","none")
+			$("#reviewcontainer").css("display","block")
+			$("#graphcontainer").css("display","none")
+			
+		}
+		const graphShow=()=>{
+			$("#basicInfocontainer").css("display","none")
+			$("#trailercontainer").css("display","none")
+			$("#reviewcontainer").css("display","none")
+			$("#graphcontainer").css("display","block")
+			
+		}
 	
 	</script>
 	
@@ -73,55 +128,70 @@
 			         <div class="cols-content mt-5" id="menu">
 			            <div class="col-detail pb-5">
 			                <ul class="tab-menu pl-0 pb-5 text-center">
-			                    <li><button class="btn">기본정보</button></li>
-			                    <li><button class="btn">트레일러</button></li>
-			                    <li><button class="btn">관람평</button></li>
-			                    <li><button class="btn">예매분포</button></li>
+			                    <li><button class="btn" id="basicinfobtn" onclick="basicInfoShow()">기본정보</button></li>
+			                    <li><button class="btn" id="trailerbtn" onclick="trailerShow('${movie.movieSeq}')">트레일러</button></li>
+			                    <li><button class="btn" id="reviewbtn" onclick="reviewShow('${movie.movieSeq}')">관람평</button></li>
+			                    <li><button class="btn" id="graphbtn" onclick="graphShow()">예매분포</button></li>
 			                </ul>
-			                <div class="sect-story">
-			                    <p>${movie.movieContents }</p>
-			                </div>
+			               
 			            </div>
 			        </div> 
 			        
-			        <div class="container">
-					  <table class="table table-bordered">
-					    <thead>
-					      <tr>
-					        <th>원제</th>
-					        <td>${movie.movieTitleEn }</td>
-					      </tr>
-					    </thead>
-					    <tbody>
-					      <tr>
-					        <th>개봉일</th>
-					        <td><fmt:formatDate value="${movie.movieOpenDate }" pattern="yyyy년 MM월 dd일"/></td>
-					      </tr>
-					      <tr>
-					        <th>상영시간</th>
-					        <td>${movie.movieRunningTime }</td>
-					      </tr>
-					      <tr>
-					        <th>연령등급</th>
-					        <td>${movie.movieAge }</td>
-					      </tr>
-					      <tr>
-					        <th>감독</th>
-					        <td>${movie.movieDirector }</td>
-					      </tr>	
-					      <tr>
-					        <th>배우</th>
-					          <td> 
-						          <c:forEach var="r" items="${movie.moviePersonName }" varStatus="i" >
-						      		 <a href="" class="movieBox" onclick="moveFn('${r.moviePersonName}');" data-target="#myModal" data-toggle="modal"> 
-						      		 	<c:out value="${r.moviePersonName }"/>
-						      		 	<c:if test="${ !i.last }">,</c:if>
-						      	  	</a>
-						      	  </c:forEach>
-					      	  </td>
-					      </tr>
-					    </tbody>
-					  </table>
+			        <div class="container" id="basicInfocontainer">
+		         		<div class="sect-story">
+		                    <p>${movie.movieContents }</p>
+	               		 </div>
+						  <table class="table table-bordered">
+						    <thead>
+						      <tr>
+						        <th>원제</th>
+						        <td>${movie.movieTitleEn }</td>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr>
+						        <th>개봉일</th>
+						        <td><fmt:formatDate value="${movie.movieOpenDate }" pattern="yyyy년 MM월 dd일"/></td>
+						      </tr>
+						      <tr>
+						        <th>상영시간</th>
+						        <td>${movie.movieRunningTime }</td>
+						      </tr>
+						      <tr>
+						        <th>연령등급</th>
+						        <td>${movie.movieAge }</td>
+						      </tr>
+						      <tr>
+						        <th>감독</th>
+						        <td>${movie.movieDirector }</td>
+						      </tr>	
+						      <tr>
+						        <th>배우</th>
+						          <td> 
+							          <c:forEach var="r" items="${movie.moviePersonName }" varStatus="i" >
+							      		 <a href="" class="movieBox" onclick="moveFn('${r.moviePersonName}');" data-target="#myModal" data-toggle="modal"> 
+							      		 	<c:out value="${r.moviePersonName }"/>
+							      		 	<c:if test="${ !i.last }">,</c:if>
+							      	  	</a>
+							      	  </c:forEach>
+						      	  </td>
+						      </tr>
+						    </tbody>
+						  </table>
+					</div>
+					<!-- 기본정보 -->
+					<div id="trailercontainer" class="p-3 pt-0 " >
+						<iframe id="movieVideo" src=""
+		                    style="width:100%; height:450px;"
+		                    frameborder="0" allow="accelermeter; clipboard-white; encrypted-media; gyroscope; picture-in-picture" allowfullscreen" >
+                        
+                   		 </iframe>
+					</div>
+					<div id="reviewcontainer">
+					review
+					</div>
+					<div id="graphcontainer">
+					graph
 					</div>
 			    </div>
 			</div>
@@ -164,6 +234,15 @@
 
 
 <style>
+     #trailercontainer{
+     	display:none;
+     }
+     #reviewcontainer{
+     	display:none;
+     }
+     #graphcontainer{
+     	display:none;
+     }
      
      #root{
      	font-family:'NanumBarunGothic';

@@ -6,18 +6,20 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 
 public interface MovieDaoInterface {
-	public List<Movie> movieList(SqlSessionTemplate session);
+	List<Movie> movieList(SqlSessionTemplate session);
 	
-	public Movie moviePoster(String movieSeq, SqlSessionTemplate session);
+	Movie moviePoster(String movieSeq, SqlSessionTemplate session);
 	
-	public Movie movieVideo(SqlSessionTemplate session);
+	Movie movieVideo(SqlSessionTemplate session);
 	
-	public Movie movieDetail(String movieSeq,SqlSessionTemplate session);
+	Movie movieDetail(String movieSeq,SqlSessionTemplate session);
 	
-	public List<Movie> movieSearch(String search,SqlSessionTemplate session);
+	List<Movie> movieSearch(String search,SqlSessionTemplate session);
 	
-	public MoviePersonInfo moviePerson(String person, SqlSessionTemplate session);
+	MoviePersonInfo moviePerson(String person, SqlSessionTemplate session);
 	
+	List<MovieReview> movieReview(String movieSeq,SqlSessionTemplate session);
 }

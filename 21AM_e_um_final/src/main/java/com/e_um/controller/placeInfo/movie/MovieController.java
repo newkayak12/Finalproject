@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.e_um.model.sevice.placeInfo.movie.MovieServiceInterface;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 
 @Controller
@@ -67,8 +69,20 @@ public class MovieController {
 		return service.moviePerson(person);
 	}
 	
+	@RequestMapping("/movie/selectMovieVideo")
+	@ResponseBody
+	public Movie selectMovieVideo(@RequestParam(value="movieSeq")String movieSeq) {
+		Movie m = service.moviePoster(movieSeq);
+		System.out.println(m);
+		return m;
+	}
 	
-	
-	
+	@RequestMapping("/movie/movieReview")
+	@ResponseBody
+	public List<MovieReview> movieReview(@RequestParam(value="movieSeq")String movieSeq) {
+		List<MovieReview> list = service.movieReview(movieSeq);
+		System.out.println(list);
+		return list;
+	}
 	
 }
