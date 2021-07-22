@@ -28,47 +28,44 @@
 </style>   
 
  <body>   
-
-    <div class="modal-show" id="profile">
-        <div class="modal-dialog  modal-dialog-centered">
-          <div class="modal-content">
-      
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title" id="xlmodalLoginTitle">회원가입</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-      
-            <!-- Modal body -->
-            <div class="modal-body" id="xlmodalbody">
-                <div id="profileRoot" class= "p-0 d-flex justify-content-center align-content-center flex-row"style="min-height: 300px">
-                    <div class="col-6 d-flex flex-column p-1 justify-content-around align-items-center">
-                        <img src="" id="modalProfilePhoto" alt="프로필 사진" style=" border: 1px black solid; " class="col-10 mb-1 mt-1" >
-                        <p id="modaluserNick" class=" text-center mt-1 mb-0">닉네임</p>
-                    </div>
-                    <div class="col-6 d-flex flex-column p-1 justify-content-around align-items-center">
-                        <div class="col-4">
-                            <div>1</div>
-                            <div>2</div>
-                            <div>3</div>
-                        </div>
-                        <div class="col-4">
-                            관심사
-                        </div>
-
-                    </div>
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <style>
+    	*{
+    		 border: 1px black solid 
+    	}
+    </style>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
+    
+    
+    <div class="col-9 mt-3 mb-3 p-0" id="feed-innerContainer">
+	  			
+        <div class="d-flex flex-row justify-content-start col-12" style="max-height: 80px;" >
+            <img alt="프사" width="85px" class="m-2">
+                <div class="d-flex flex-column justify-content-center col-6" >
+                    <p class="mt-1 mb-1 m-0">닉네임</p>
+                    <p class="mt-1 mb-1 m-0">날짜</p>
                 </div>
-            </div>
-      
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger eumbtn-3" data-dismiss="modal">Close</button>
-            </div>
-      
-          </div>
-    </div>
-</div>
+        
+         </div>
+     <!-- feed-body -->
+            <div>
+                    <div>
 
+
+                    </div>
+
+                    <div>
+
+
+                    </div>
+            </div>
+     <!-- feed-footer -->
+            <div>
+
+            </div>
+    </div>
 
 </body>
 </html>

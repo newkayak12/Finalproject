@@ -59,15 +59,15 @@
       	<label>성별</label>
       	<div class="form-check">
       		<label class="form-check-label">
-      			<input type="radio" class="form-check-input" id="group-gender-all" name="gender" value="genderall" checked>무관
+      			<input type="radio" class="form-check-input" id="group-gender-all" name="gender" value="all" checked>무관
       		</label>
       		
       		<label class="form-check-label">
-      			<input type="radio" class="form-check-input" id="group-gender-men" name="gender" value="gendermen">남자
+      			<input type="radio" class="form-check-input" id="group-gender-men" name="gender" value="M">남자
       		</label>
       		
       		<label class="form-check-label">
-      			<input type="radio" class="form-check-input" id="group-gender-women" name="gender" value="genderwomen">여자
+      			<input type="radio" class="form-check-input" id="group-gender-women" name="gender" value="F">여자
       		</label>
       	</div>
       	

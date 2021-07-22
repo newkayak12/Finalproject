@@ -6,14 +6,76 @@
     		 border: 1px black solid 
     	}
     </style>
-    
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
     <script>
     	 $('.carousel').carousel({ interval: 5000 }); 
     	 
-    	 const profileRoot=(index)=>{
-    		 console.log(index)
+    	 const profileRoot=(profile, nick,addr, status, gender, interest1, interest2, interest3, interest4, interest5 )=>{
+    		
+    		  $("#modaluserstatus").html("")
+    		  $("#interest1").html("")
+    		  $("#interest2").html("")
+    		  $("#interest3").html("")
+    		  $("#interest4").html("")
+    		  $("#interest5").html("")
+    		
+    		 
+    		 $("#modalProfilePhoto").attr("src","${pageContext.request.contextPath }/resources/upload/profile/"+profile)
+    		 $("#modaluserNick").html(nick)
+    		 $("#modaluserstatus").html(status)
+    		 let genderKr = "";
+	    		 if(gender == "F"||gender=="f"){
+	    			 genderKr = "여성";
+	    		 } else{
+	    			 genderKr = "남성";
+	    		 }
+    		 $("#modaluserGender").html(genderKr)
+    		 $("#modaluserAddr").html(addr.substring(0,2));
+
+    		 if(interest1==""){
+	    		 $("#interest1").html('선택안함')
+    		 }
+    		 
+    		 if(interest1!=""){
+	    		 $("#interest1").html('#'+interest1)
+    		 }
+    		 if(interest2!=""){
+	    		 $("#interest2").html('#'+interest2)
+    		 }
+    		 if(interest3!=""){
+	    		 $("#interest3").html('#'+interest3)
+    		 }
+    		 if(interest4!=""){
+	    		 $("#interest4").html('#'+interest4)
+    		 }
+    		 if(interest5!=""){
+	    		 $("#interest5").html('#'+interest5)
+    		 }
+    		 
     		 
     	 }
+    	 
+    	 
+    	 $(function(){
+    		/*  feedAjaxContainer(); */
+    	 })
+    	 
+    	
+    	 function feedAjax(e){
+		        $.ajax({
+		            url:"${pageContext.request.contextPath}/feed/feedList",
+		            data:{"cPage":e},
+		            success:data=>{
+		                $("#feed-container").html(data)
+		            }
+		        })
+    	}
+
+	    const feedAjaxContainer=()=>{
+	        let cPage =1;
+	        feedAjax(cPage)
+	        cPage+=1;
+	    }
     </script>
     
  <section class="mt-5 pt-5">   
@@ -26,7 +88,7 @@
         </div>
         
         
-		     <div >
+		     <div class="mt-4 mb-5" >
 		     <h5 class="mt-4 mb-0 text-left">&nbsp;&nbsp;추천 친구</h5>
 	        <div id="recommand-container" class="carousel slide col-12 col-lg-10 mt-0 container p-2 pt-4 border" data-ride="carousel">
 		       
@@ -37,7 +99,7 @@
 		            	 	<c:forEach begin="0" end="3" items="${list }" var="i" varStatus="var" >
 		            	 
 			            	 		<c:if test="${fn:length(list)>4}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${list.indexOf(i) })">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -51,7 +113,7 @@
 					    	<c:forEach begin="4" end="7" items="${list }" var="i">
 		            	 	
 			            	 		<c:if test="${fn:length(list)>8}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${i.userName })">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -64,7 +126,7 @@
 					    	<div class="d-flex justify-content-around pl-5 pr-5">
 						      	<c:forEach begin="8" end="${fn:length(list)}" items="${list }" var="i">
 		            	 	
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${i.userName })">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -89,13 +151,35 @@
    		
    		</div>
    		
-   		<div id="feed-container" class="container border mt-4">
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+   		<div id="feed-container" class="container border mt-4 col-12 d-flex flex-row justify-content-center align-content-center">
+   			
+  			<div class="col-9 mt-3 mb-3" id="feed-innerContainer">
+	  			
+	   				<div class="d-flex flex-row justify-content-between col-12">
+	                   <div class="d-flex flex-row align-content-center justify-content-center" style="width: 40%;">
+		                     <img alt="프사" width="40%" class="m-2">
+		                     <p class="text-center m-2 pt-2" style="width:50%">닉네임</p>
+	                   </div>
+	                   
+		                <p class="pt-2 mt-3">날짜</p>
+		            </div>
+	            
+	            
+	            
+	                <!-- feed-body -->
+		            <div>
+		
+		
+		
+		
+		
+		            </div>
+	                <!-- feed-footer -->
+		            <div>
+		
+		            </div>
+   			</div>
    		</div>
-   		
    	</div>
 
 </section>
@@ -107,21 +191,52 @@
 			  <div class="modal-content">
 		  
 				<!-- Modal Header -->
-				<div class="modal-header">
-				  <h4 class="modal-title" id="xlmodalLoginTitle">회원가입</h4>
-				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="modal-header eumbtn-2">
+				  <h4 class="modal-title" id="modalPrifileHeader">프로필 정보</h4>
+				  <button type="button" class="close" data-dismiss="modal" style="color:white;">&times;</button>
 				</div>
 		  
 				<!-- Modal body -->
 				<div class="modal-body" id="xlmodalbody">
-					<div id="profileRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column"style="min-height: 300px">
-					
-					</div>
+					 <div id="profileRoot" class= "p-0 d-flex justify-content-center align-content-center flex-row"style="min-height: 300px">
+                    <div class="col-6 d-flex flex-column p-1 pl-0 pr-0 justify-content-around align-items-center">
+                        <img src="" id="modalProfilePhoto" alt="프로필 사진" style=" border: 1px black solid; " class="col-8 mb-1 mt-2 p-0" >
+                        <p id="modaluserNick" class=" text-center  mb-1">닉네임</p>
+                        <p id="modaluserstatus" class=" text-center  mt-1">상메</p>
+                    </div>
+                    <div class="col-6 p-4 pt-2">
+                        <div class="col-12 pt-2 pb-2 pl-2 pr-2" >
+                            <div class="mt-2 mb-2">
+                                <span class="ml-3 mr-4">성별 : </span>
+                                <span id="modaluserGender"></span>
+                            </div>
+                            <div class="mt-2 mb-2">
+                                <span class="ml-3 mr-4">지역 : </span>
+                                <span id="modaluserAddr"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 p-1 mt-2 " id="modaluserInterest">
+                            <p>관심사</p>
+                            <div class="d-flex flex-wrap">
+	                            <span class="m-1" id="interest1"></span>
+	                            <span class="m-1" id="interest2"></span>
+	                            <span class="m-1" id="interest3"></span>
+	                            <span class="m-1" id="interest4"></span>
+	                            <span class="m-1" id="interest5"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 				</div>
 		  
 				<!-- Modal footer -->
 				<div class="modal-footer">
-				  <button type="button" class="btn btn-danger eumbtn-3" data-dismiss="modal">Close</button>
+				<!-- 추가적으로 채워야하는 부 -->
+				  <button type="button" class="btn btn-warning eumbtn-2" >신고</button>
+				  <button type="button" class="btn btn-primary eumbtn-2" >친구 요청</button>
+				  <button type="button" class="btn btn-primary eumbtn-1" >프로필로 이동</button>
 				</div>
 		  
 			  </div>

@@ -53,6 +53,8 @@ public class UserDao implements UserDaoInterface {@Override
 	@Override
 	public User login(User user, SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
+		
+		log.warn("dao{}",user);
 		return session.selectOne("user.login", user);
 	}
 

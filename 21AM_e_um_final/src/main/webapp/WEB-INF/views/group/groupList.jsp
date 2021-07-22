@@ -31,7 +31,7 @@
    			<tr>
    				<td><c:out value="${g.groupSeq }"/></td>
 			  	<td><c:out value="${g.groupTheme }"/></td>
-			  	<td><c:out value="${g.groupTitle }"/></td>
+			  	<td onClick="location.href='${rqeust.getContextPath }/group/groupSigned.do?groupSeq='"><c:out value="${g.groupTitle }"/></td>
 			  	<td><c:out value="${g.groupLimit }"/></td>
 			  	<td><c:out value="${g.groupGender }"/></td>
 			  	<td><c:out value="${g.groupAge }"/></td>
