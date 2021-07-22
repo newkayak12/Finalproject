@@ -21,153 +21,60 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<body>
 <style>
     *{
         border: 1px black solid;
     }
-    .footer {
-	  position: relative;
-	  height : 130px;
-	  left: 0;
-	  bottom: 0;
-	  width: 100%;
-	  background-color: #70b3d9;
-	  color: white;
-	  text-align: center;
-	  padding : 10px;
-	}
-	.footer p {
-		margin: 1px;
-		font-size : 10px;
-	}
-    .list-inline {
-        text-align: center;
-    }
-    .list-inline-item {
-        display: inline-block;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .list-inline-item a {
-        text-decoration: none;
-        color: rgb(47, 50, 57);
-        font-family:'Noto Sans KR';
-    }
-    .footer-basic .copyright {
-        margin-top: 15px;
-        text-align: center;
-        font-size: 13px;
-        color: white;
-        margin-bottom: 0;
-    }
+</style>   
 
-    .headerColor{
-        background-color: rgba(255, 255, 255, 0.9);
-    }
-    .w-fitcontent{
-        width: fit-content;
-    }
-    .h-fitcontent{
-        height: fit-content;
-    }
-    .lostbox:hover{
-        background-color:var(--eumbackground); 
-        color:var(--eumfontcolorwhite)
-        /* background-color:red;*/
-        
-    }
+ <body>   
 
-    @media(max-width: 575px){
-	    .iconbox{
-		display:none;
-	    }
-    }   
-    @media(min-width: 576px){
-        .iconbox{
-            display:block;
-        }
-    }
- 
+    <div class="modal-show" id="profile">
+        <div class="modal-dialog  modal-dialog-centered">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title" id="xlmodalLoginTitle">회원가입</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body" id="xlmodalbody">
+                <div id="profileRoot" class= "p-0 d-flex justify-content-center align-content-center flex-row"style="min-height: 300px">
+                    <div class="col-6 d-flex flex-column p-1 justify-content-around align-items-center">
+                        <img src="" id="modalProfilePhoto" alt="프로필 사진" style=" border: 1px black solid; " class="col-9 mb-1 mt-2" >
+                        <p id="modaluserNick" class=" text-center  mb-0">닉네임</p>
+                        <p id="modaluserstatus" class=" text-center  mb-0">상메</p>
+                    </div>
+                    <div class="col-6 p-4 pt-2">
+                        <div class="col-12 pt-2 pb-2 pl-2 pr-2" >
+                            <div class="mt-2 mb-2">
+                                <span class="ml-3">성별</span>
+                                <span id="modaluserGender"></span>
+                            </div>
+                            <div class="mt-2 mb-2">
+                                <span class="ml-3">지역</span>
+                                <span id="modaluserAddr"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 pt-4 mt-2" id="modaluserInterest">
+                            관심사
+                        </div>
 
-</style>
-
-
-<nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
-
-    <!--로고 자리-->
-    <div style="font-family: 'Arizonia', cursive; font-weight: bold; col-3">
-        <a href="#" class="navbar_brand ml-2 text-body col-12">E_UM</a>
-    </div>
-
-    <!--메뉴-->
-    <div id="head_menu" class="col-6 p-0">
-        <ul class="navbar-nav p-0 col-12 d-flex flex-row justify-content-around">
-            <li class="nav-item col-4 col-sm-4  col-md-3  p-0"><a class="nav-link text-center" href="${path }/friend/main">친구 찾기</a></li>
-            <li class="nav-item col-3  col-sm-3 col-md-3 p-0"><a class="nav-link text-center" href="${path }/group/groupMain.do">소모임</a></li>
-            <li class="nav-item dropdown col-4  col-md-3 p-0">
-                <a class="nav-link dropdown-toggle col-12 text-center" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${path }/food/foodMain">맛집</a>
-                    <a class="dropdown-item" href="${path }/movie/movieInfo">영화</a>
+                    </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger eumbtn-3" data-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
     </div>
-
-    <!--아이콘 메뉴-->
-    <div id="icon_menu" class="iconbox">
-        <ul class="navbar-nav">
-            <li class="nav-item col-4"><i class="fas fa-user fa-lg"></i></li>
-            <li class="nav-item col-4"><i class="fas fa-comments fa-lg"></i></li>
-            <li class="nav-item col-4"><i class="fas fa-bell fa-lg"></i></li>
-        </ul>
-    </div>
-</nav>
-
-
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp" %> -->
-    
- <section class="mt-5 pt-5">   
-   	<div id="root" class="container">
-   	
-
-        <div class="container d-flex justify-content-around align-items-center col-12 col-md-8  mt-4">
-             <h5 class='mt-2  ml-2 mr-2 p-0 col-3 text-center col-xl-2 '>친구 찾기</h5>
-            <input type="text" id="friendSearch" class=" ml-2 mr-2 col-6">
-            <button type="button" class="small ml-2 mr-2">검색</button>
-        </div>
-        <div class="container d-flex justify-content-around align-items-center col-9 mt-4" id="friendrecommand">
-
-
-        </div>
-        
-        <br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br>
-
-
-
-
-   	</div>
-</section>
-<!-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> -->
-   
-
-
-<footer class="footer mt-5">
-    <ul class="list-inline">
-        <li class="list-inline-item"><a href="#">Home</a></li>
-        <li class="list-inline-item"><a href="#">Services</a></li>
-        <li class="list-inline-item"><a href="#">About</a></li>
-        <li class="list-inline-item"><a href="#">Terms</a></li>
-        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-    </ul>
-    <p class="copyright">E_um | address : ... | email : eum@eum.com</p>
-    <p class="copyright">team | kimyejin kimtaehui leewoosik janghyerin</p>
-    <p class="copyright">Copyright Â©2021 E_um Co.Ltd.All rights reserved</p>
-</footer>
+</div>
 
 
 </body>

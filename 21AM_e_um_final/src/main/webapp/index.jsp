@@ -120,7 +120,7 @@
 				"userEmail":$("#userEmail").val(),
 				"userAddrZip":$("#userAddrZip").val(),
 				"userAddrBasic":$("#userAddrBasic").val(),
-				"userAddrDetail":$("#userAddrDetail").val(),
+				"userAddrDetails":$("#userAddrDetail").val(),
 				"userGender":$("input[name=userGender]").val(),
 				"userPhone":$("#userPhone").val(),
 				"userNick":$("#userNick").val()

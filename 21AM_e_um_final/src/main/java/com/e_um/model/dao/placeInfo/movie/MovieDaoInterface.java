@@ -1,6 +1,7 @@
 package com.e_um.model.dao.placeInfo.movie;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -22,4 +23,15 @@ public interface MovieDaoInterface {
 	MoviePersonInfo moviePerson(String person, SqlSessionTemplate session);
 	
 	List<MovieReview> movieReview(String movieSeq,SqlSessionTemplate session);
+
+	int movieWrite(Map param, SqlSessionTemplate session);
+
+
+
+
+
+
+
+
+
 }

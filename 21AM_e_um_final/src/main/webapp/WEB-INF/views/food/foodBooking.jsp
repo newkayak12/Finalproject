@@ -2,83 +2,213 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <style>
-	.date {
-            display : flex;
-           
-        }
-        .date * {
-            border: 1px solid black;
-            width : 50px;
-            text-align: center;
-        }
-</style>
+/* 캘린더 */
+.foodBookingCalendar {
+	width : 400px;
+	height : 550px;
+}
+.calendar {
+    width: 400px;
+    padding-bottom: 50px;
+}
 
-<script>
-    let date = new Date();
+.calendar-header {
+	margin-top: 20px;
+    display: inline-block; 
+}
 
-    let year = date.getFullYear();
-        console.log(year);
-    let month = date.getMonth() + 1;
-        console.log(month);
-    let date = date.getDate();
-        console.log(date);
+.ym-wrapper {
+    font-size: 15px;
+    text-align: center;
+}
 
-    $(function(){
-        for(let i=0; i < 5; i++) {
-            $("#dates").append("div").text("test").attr({
-            "width" : "100px",
-            "height" : "100px"
-            }).css({
-            	"border" : "1px solid black"
-            });
-        }
-    });
-</script>
-<script>
+.calendar-nav {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+}
 
-</script>
+.nav-btn {
+    width: 28px;
+    height: 30px;
+    border: none;
+    font-size: 16px;
+    line-height: 34px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.go-today {
+    width: 80%;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+.calendar-main{
+    border-collapse: collapse;
+    width: 400px;
+}
+
+.days {
+    display: flex;
+    margin: 25px 0 10px;
+}
+
+.day {
+    width: 100px;
+    text-align: center;
+    transition: all .3s;
+    font-weight: bolder;
+}
+
+.dates {
+    display: flex;
+    flex-flow: row wrap;
+    border: 1px solid gray;
+    
+}
+
+.date {
+    cursor: pointer;
+    width: 56.85px;
+    padding: 5% 2%;
+    text-align: center;
+    border: 1px solid gray;
+    transition: all .3s;
+}
+
+.day:nth-child(7n + 1),
+.date:nth-child(7n + 1) {
+    color: #D13E3E;
+}
+
+.day:nth-child(7n),
+.date:nth-child(7n) {
+    color: #396EE2;
+}
+
+.other {
+    color: rgba(88, 88, 88, 0.315) !important;
+}
+
+.today {
+    position: relative;
+    background-color: #b8dbee;
+}
+
+.selected{
+    background-color: black;
+    color: #ffffff !important;
+}
+.year, .month {
+	
+}
+/* 정보 영역 */
+.bookingFoodTitle {
+	font-size: 40px;
+	font-weight: 900;
+}
+.foodBookingTitle {
+	font-weight: 900;
+}
+    </style>
 
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
 	
-		<div>
-			<!-- 정보 영역 -->
+		<!-- 정보 영역 -->
+		<div class="info ml-5 mr-5 mt-5 mb-3" style="display:inline-block;">
+				<div class="bookingFoodTitle" style="float:left;">&nbsp;&nbsp;<c:out value="${ food.foodName }"/></div>
+				<div class="ml-5" style="float:right;">
+					<span class="etc"><c:out value="😋 ${ food.foodAddr }"/></span>
+					<br>
+					<span class="etc"><c:out value="📞 ${ food.foodCall }"/></span>&nbsp;&nbsp;&nbsp;
+					<span class="etc"><c:out value="🍽 ${ food.foodTimeFirst } - ${ food.foodTimeLast }"/></span>
+				</div>
 		</div>
-		
-		<div>
-			<form>
-				<div class="foodBookingCalendar">
-					<!-- 날짜 선택 영역 -->
-					<div>월</div>
-				        <div>화</div>
-				        <div>수</div>
-				        <div>목</div>
-				        <div>금</div>
-				        <div>토</div>
-				        <div>일</div>
-					</div>
+	
+		<form action="${ path }/food/foodBooking/end" method="post" class="row ml-5 mr-3">
+			<!-- 날짜 선택 영역 -->
+			<div class="foodBookingCalendar col-md-6">
+					<p class="foodBookingTitle">&nbsp; 1. 날짜 선택</p>
+					<div class="calendar">
+				        <div class="calendar-header">
+				            <div class="ym-wrapper">
+				                <span class="year"></span>년
+				                <span class="month"></span>월
+				            </div>
+				            <div class="calendar-nav">
+				                <button type="button" class="nav-btn go-prev" onclick="prevMonth();">&lt;</button>
+				                <button type="button" class="nav-btn go-today" onclick="goToday();" >오늘</button>
+				                <button type="button" class="nav-btn go-next" onclick="nextMonth();">&gt;</button>
+				            </div>
+				        </div>
+				        <div class="calendar-main">
+				            <div class="days">
+				                <div class="day">일</div>
+				                <div class="day">월</div>
+				                <div class="day">화</div>
+				                <div class="day">수</div>
+				                <div class="day">목</div>
+				                <div class="day">금</div>
+				                <div class="day">토</div>
+				            </div>
+				            <div class="dates">
+				            	<!-- 여기에 class="date"인 div가 들어옴 -->
+				            </div>
+				        </div>
+				    </div>
 					
+			</div>	
+			
+			<div class="col-md-6">	
+				<!-- 시간 선택 영역 -->	
+				<div style="width:400px;">
+					<p class="foodBookingTitle">&nbsp; 2. 시간대 선택</p>
+					<c:forEach var="time" items="${ realTimeList }">
+						<button onclick="" name="foodBookingTime" type="button" class="btn m-1" style="border:1px solid gray; background-color: #f7f7f7; margin:1px;"><c:out value="${ time }"/></button>
+					</c:forEach>
+				</div>
+					
+				<!-- 인원수 선택 영역 -->	
 				<div>
-					<!-- 시간 선택 영역 -->
+					<br>
+					<p class="foodBookingTitle">&nbsp; 3. 인원수 선택</p>
+					<select name="foodBookingHead" class="form-control" style="display:inline-block; width:400px; border:1px solid gray;">
+						<option disabled="disabled">인원수를 선택하세요</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+					</select>
 				</div>
 				
+				<!-- 요청사항 영역 -->	
 				<div>
-					<!-- 인원수 선택 영역 -->
+					<br>
+					<p class="foodBookingTitle">&nbsp; 4.요청사항 작성</p>
+					<textarea name="foodBookingContents" class="form-control" style="display:inline-block; width:400px; border:1px solid gray;" rows="5" cols="60"></textarea>
 				</div>
-				
-				<div>
-					<!-- 요청사항 영역 -->
+				<!-- 버튼 영역 -->
+				<div class="mb-5">
+					<br>
+					<button class="btn btn-eum border-eum textcolor-eum m-1" onclick="" style="border:1px solid #70b3d9;">취소</button>
+					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum m-1" style="background-color: #70b3d9;">
 				</div>
-				
-				<div>
-					<button class="btn btn-eum border-eum textcolor-eum" onclick="">취소</button>
-					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum">
-				</div>
-			</form>
-		</div>
+			</div>	
+			
+		</form>
 		
 	
 	</div>
+	<script src="${ path }/resources/js/cal.js"></script>
 </section>
+
+<script>
+	
+</script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

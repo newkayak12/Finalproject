@@ -2,7 +2,11 @@ package com.e_um.controller.placeInfo.food;
 
 import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,7 +127,7 @@ public class FoodController {
 		
 	}
 	
-	@RequestMapping("/food/foodReview/first")
+	@RequestMapping("/food/foodReview/start")
 	public String foodReview(String foodSeq, Model model) {
 		
 		Food food = service.selectFood(foodSeq);
@@ -144,14 +148,63 @@ public class FoodController {
 		return "";
 	}
 	
-	@RequestMapping("/food/foodBooking/first")
-	public String foodBookingStart(String foodSeq, Model model) {
+	@RequestMapping("/food/foodBooking/start")
+	public String foodBookingStart(String foodSeq, Model model) throws ParseException {
 		
 		Food food = service.selectFood(foodSeq);
+		
+		// 문자열
+		String timeStr1 = food.getFoodTimeFirst();
+		String timeStr2 = food.getFoodTimeLast();
+		
+		Date date1 = new SimpleDateFormat("HH:mm").parse(timeStr1);
+		Date date2 = new SimpleDateFormat("HH:mm").parse(timeStr2);
+	
+		long diff = date2.getTime() - date1.getTime();
+		
+		long result = diff / 60000;
+		
+			System.out.println("영업시간(분) : " + result);
+			System.out.println("영업시간(시간) : " + result/60);
+			
+		List<String> timeList  = new ArrayList();
+		
+		long lData = 0;
+		
+		lData = date1.getTime();
+		
+			
+		for(int i=0; i < result/30; i++) {
+			
+			
+			Date dData = new Date(lData);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		
+			String sData = sdf.format(dData);
+			
+				System.out.println("30분 후 시간 : " + sData);
+				
+			timeList.add(sData);
+		
+			lData += 1800000;
+		}
+		
+//		model.addAttribute("foodTime", result);
+//		model.addAttribute("date1", date1);
+//		model.addAttribute("date2", date2);
+		
+		model.addAttribute("realTimeList", timeList);
 		
 		model.addAttribute("food", food);
 		
 		return "/food/foodBooking";
+	}
+	
+	@RequestMapping("/food/foodBooking/end")
+	public String foodBookingEnd() {
+		
+		return "";
 	}
 	
 }
