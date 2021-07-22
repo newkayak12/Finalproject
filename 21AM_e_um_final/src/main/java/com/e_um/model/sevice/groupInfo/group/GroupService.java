@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.groupInfo.group.GroupDaoInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
+import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,10 +39,17 @@ public class GroupService implements GroupServiceInterface {
 	}
 
 	@Override
-	public List<Group> selectGroupListConditional() {
+	public List<Group> selectGroupListConditional(User user) {
 		// TODO Auto-generated method stub
-		return dao.selectGroupListConditional(session);
+		return dao.selectGroupListConditional(user, session);
 	}
+
+	@Override
+	public int groupJoin(Map param) { 
+		return dao.groupJoin(session, param);
+	}
+	
+	
 	
 	
 }

@@ -22,6 +22,7 @@ import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 @Controller
 @Slf4j
 public class GroupController {
@@ -29,8 +30,7 @@ public class GroupController {
 	@Autowired
 	GroupServiceInterface service;
 	
-	@Autowired
-	SqlSessionTemplate test;
+
 	
 	@RequestMapping("/group/groupCreate.do")
 	public String groupCreate(){
@@ -39,14 +39,12 @@ public class GroupController {
 	
 	/* 메인으로 내가가입한, 인기있는, 새로생긴 소모임*/
 	@RequestMapping("/group/groupMain.do")
-	public String groupList(Model m) {
-		/* List<Group> list=service.selectGroupList(); */
-		List<Group> list2=service.selectGroupListConditional();	//내가가입한 소모임
-		log.warn("blahbalh{}",list2);
+	public String groupList(Model m, HttpServletRequest rq) {
+		List<Group> list=service.selectGroupList(); 
+		List<Group> list2=service.selectGroupListConditional((User)rq.getSession().getAttribute("userSession"));	//내가가입한 소모임
 		
-		log.warn("bal{}",(Member)test.selectOne("group.selectTest"));
-		
-		/* m.addAttribute("list",list); */
+		m.addAttribute("list2",list2);
+		m.addAttribute("list",list); 
 		return "group";
 	}
 	
@@ -69,6 +67,39 @@ public class GroupController {
 		return "redirect:/group/groupMain.do";
 	}
 	 
+	@RequestMapping("/group/groupJoinForm.do") 
+	public String groupJoin(@RequestParam Map param,HttpServletRequest rq, Model model) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		param.put("user", user);
+		int result = service.groupJoin(param);
+		return "group";
+	}
+	
+	@RequestMapping("/group/groupJoin.do")
+	public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq) {
+		System.out.println(groupSeq);
+		User user=(User) rq.getSession().getAttribute("userSession");
+		String userId= user.getUserId(); 
+		/*Group group=service.selectGroupUserid;*/
+		/*
+		 * if() { return "group/groupJoin"; } else { return
+		 * "group/groupboard/groupBoardMain"; }
+		 */
+		return "group";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("group/groupSigned.do")
 	public String groupSigned() {
 		return "group/groupboard/groupBoardMain";
