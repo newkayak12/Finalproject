@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
 	
@@ -74,7 +75,15 @@
     			data:{"movieSeq":movieSeq},
     			success:data=>{
     				console.log(data);
-    				$(".table-container").append("<tr>").html(data["userId"][0])
+    				for(var i=0; i<data.length;i++){
+    					let date = data[i].movieReviewWriteDate;
+        				let result = date.split("-");
+        				console.log(result);
+    					$(".writer").html(data[i].userId.userId)
+	    				$(".star-point").html("★"+data[i].movieEvaluationAvg)
+	    				$(".review").html(data[i].movieReviewContent)
+	    				$(".writeDate").html(result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
+    				}
     			}
     		})
     		
@@ -207,7 +216,10 @@
 						    </thead>
 						    <tbody>
 							    <tr class="table-container">
-							        
+							        <td class="writer">
+							        <td class="star-point">
+							        <td class="review">
+							        <td class="writeDate">
 							    </tr>
 						    </tbody>
 						  </table>
