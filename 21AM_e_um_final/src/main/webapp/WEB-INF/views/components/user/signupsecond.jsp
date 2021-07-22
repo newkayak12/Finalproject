@@ -10,7 +10,7 @@
                     <input type="hidden" id="userEmail" name="userEmail" value="${user.userEmail}">
                     <input type="hidden" id="userAddrZip" name="userAddrZip" value="${user.userAddrZip}">
                     <input type="hidden" id="userAddrBasic" name="userAddrBasic" value="${user.userAddrBasic}">
-                    <input type="hidden" id="userAddrDetail" name="userAddrDetail" value="${user.userAddrDetail}">
+                    <input type="hidden" id="userAddrDetails" name="userAddrDetails" value="${user.userAddrDetails}">
                     <input type="hidden" id="userGender" name="userGender" value="${user.userGender}">
                     <input type="hidden" id="userPhone" name="userPhone" value="${user.userPhone}">
                     <input type="hidden" id="profileInterestName1" name="profileInterestName1">
