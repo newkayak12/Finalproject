@@ -32,8 +32,27 @@
 }
 .frismImg{
     object-fit: cover;
+    height:120px;
+    width:120px;
 }
 
 .choCon{
     background-color: rgb(165, 205, 230);
+}
+
+.userModalImg{
+	object-fit: cover;
+    height:300px;
+    width:200px;
+}
+.friUser>button{
+	border:rgb(165, 205, 230) 1px solid;
+}
+
+.friUser>button span{
+	color:rgb(47, 126, 175);
+}
+
+.modal-body small span{
+	color:rgb(47, 126, 175);
 }

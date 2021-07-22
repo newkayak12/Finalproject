@@ -15,8 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 public class FriendDao implements FriendDaoInterface {
 	
 	@Override
-	public List<User> selectAllUser(SqlSessionTemplate session) {
-		return session.selectList("user.selectAllUser");
+	public List<User> selectAllUser(SqlSessionTemplate session, String userId) {
+		return session.selectList("user.selectAllUser",userId);
+	}
+
+	
+	@Override
+	public User selectUserOne(SqlSessionTemplate session, String userId) {
+		return session.selectOne("user.selectUserOne",userId);
 	}
 
 }

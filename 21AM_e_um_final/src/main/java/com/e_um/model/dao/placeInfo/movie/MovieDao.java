@@ -1,6 +1,7 @@
 package com.e_um.model.dao.placeInfo.movie;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -55,6 +56,12 @@ public class MovieDao implements MovieDaoInterface {
 	public List<MovieReview> movieReview(String movieSeq, SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
 		return session.selectList("movie.movieReview",movieSeq);
+	}
+
+	@Override
+	public int movieWrite(Map param, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.insert("movie.movieWrite",param);
 	}
 	
 	

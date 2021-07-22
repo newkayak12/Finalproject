@@ -1,6 +1,7 @@
 package com.e_um.model.sevice.placeInfo.movie;
 
 import java.util.List;
+import java.util.Map;
 
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
@@ -21,4 +22,5 @@ public interface MovieServiceInterface {
 	
 	List<MovieReview> movieReview(String movieSeq);
 	
+	int movieWrite(Map param); 
 }

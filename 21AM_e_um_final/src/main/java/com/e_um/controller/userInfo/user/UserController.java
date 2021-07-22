@@ -1,8 +1,7 @@
 package com.e_um.controller.userInfo.user;
 
-import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
-
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.common.verifyCodeMaker.VerifyCodeMaker;
@@ -52,7 +50,6 @@ public class UserController {
 	
 	@RequestMapping(value="/user/login/start")
 	public String loginPagin( Model model, @CookieValue(value = "persistlogin", defaultValue = "none", required = false)String cookie){
-		String cookieValue= "none";
 		
 		if(!cookie.equals("none")) {
 			model.addAttribute("persistLogin",cookie);
@@ -145,7 +142,7 @@ public class UserController {
 	@ResponseBody
 	public int signupthird(User user, Interest interest, @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto, HttpServletRequest rq) {
 		
-		
+		log.error("{}signup",user);
 		log.error("{}",profilePhoto.getOriginalFilename());
 		user.setInterest(interest);
 		String fileName ="default.png";
@@ -191,10 +188,10 @@ public class UserController {
 	public int login(Model model, User user, Boolean persistlogin, HttpServletResponse rs, HttpServletRequest rq) {
 		log.warn("{}useruser",user);
 		User userResult = service.login(user);
-		log.warn("{}result: ",userResult);
+		log.warn("{}checker: ",persistlogin);
 			
-			if(persistlogin!=true) {
-				Cookie persist = new Cookie("persistlogin", "checked");
+			if(persistlogin==true) {
+				Cookie persist = new Cookie("persistlogin", user.getUserId());
 				persist.setMaxAge(60*60*24*7);
 				persist.setPath("/");
 				rs.addCookie(persist);
@@ -224,7 +221,15 @@ public class UserController {
 	public String gotomain(HttpServletRequest rq, Model model) {
 		Object obj =  rq.getSession().getAttribute("userSession");
 		
+		
+		
 		if(obj!=null) {
+			List<User> lists = service.recommandFriend();
+			for(User user : lists) {
+				log.warn("{}",user);
+			}
+			
+			model.addAttribute("list", lists);
 			return "main";
 		} else {
 			String path = rq.getContextPath();

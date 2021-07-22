@@ -3,53 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <style>
-	/* foodReview */
-	.foodReviewForm-container {
-		text-align: center;
-	}
 	
-	.foodReviewForm-textarea {
-		border : 1px solid #70b3d9;
-		width : 65%;
-	}
-	
-	.foodReviewForm-foodName {
-		font-weight: 50;
-		font-size: 40px;
-		color: #70b3d9;
-	}
-	
-	.btn-eum {
-		height: 40px;
-        width: 6100x;
-	}
-	
-	.bgcolor-eum {
-        background-color: #70b3d9;
-	}
-	
-	.border-eum {
-		border : 1px solid #70b3d9;	
-	}
-	
-	.textcolor-eum {
-		color: #70b3d9;
-	}
-	
-	.input-file-button{
-		padding: 50px 50px 50px 50px;
-		background-color: white;
-		border-radius: 5px;
-		color: #70b3d9;
-		cursor: pointer;
-		border : 1px dashed #70b3d9;
-	}
-	
-	.foodReviewForm-container ul li {
-		display: inline-block;
-        margin-left: 10px;
-        margin-right: 10px;
-	}
 </style>
 
 <section class="mt-5 pt-5">

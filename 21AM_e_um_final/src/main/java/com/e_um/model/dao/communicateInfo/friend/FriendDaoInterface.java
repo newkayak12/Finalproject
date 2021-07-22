@@ -8,6 +8,8 @@ import com.e_um.model.vo.userInfo.user.User;
 
 public interface FriendDaoInterface {
 	
-	List<User> selectAllUser(SqlSessionTemplate session);
+	List<User> selectAllUser(SqlSessionTemplate session, String userId);
+	
+	User selectUserOne(SqlSessionTemplate session, String userId);
 
 }

@@ -1,6 +1,7 @@
 package com.e_um.model.sevice.placeInfo.movie;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,11 @@ public class MovieService implements MovieServiceInterface {
 	public List<MovieReview> movieReview(String movieSeq) {
 		// TODO Auto-generated method stub
 		return dao.movieReview(movieSeq,session);
+	}
+	@Override
+	public int movieWrite(Map param) {
+		// TODO Auto-generated method stub
+		return dao.movieWrite(param,session);
 	}
 	
 	
