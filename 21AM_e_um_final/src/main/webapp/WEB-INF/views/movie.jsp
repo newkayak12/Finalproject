@@ -13,6 +13,7 @@
     		});
     	}) --%>
     	
+    	/* modal 화면 가져오기  */
     	const moveFn=(movieSeq)=>{
     		$.ajax({
     			url:"<%=request.getContextPath()%>/movie/moviePoster",
@@ -31,6 +32,7 @@
     		});
     	}
     	
+    	/* 예매율 1등 비디오 가져오기  */
     	$(function(){
     		$.ajax({
     			url:"<%=request.getContextPath()%>/movie/movieVideo",
@@ -41,11 +43,13 @@
     		})
     	})
     	
+    	/* 모달에서 상세페이지 이동 */
     	const move_movieDetail=(e)=>{
     		console.log(e.target.value);//MO_3
     		location.assign("<%=request.getContextPath()%>/movie/movieDetail?movieSeq="+e.target.value);
     	}
     	
+    	/* 검색 보내기 */
     	 const movieSearch=()=>{
     		let search = $("#search").value;
     		if(search.length<2){
