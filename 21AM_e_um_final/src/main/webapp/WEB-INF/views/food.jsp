@@ -15,6 +15,7 @@
 				</form>
 			</div>
 			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
+			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodBookingView?userId=${session.userId }'">내예약내역</button>
 		
 		</div>
 		
