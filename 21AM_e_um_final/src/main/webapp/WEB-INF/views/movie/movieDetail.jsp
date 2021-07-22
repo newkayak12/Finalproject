@@ -74,8 +74,10 @@
     			data:{"movieSeq":movieSeq},
     			success:data=>{
     				console.log(data);
+    				$(".table-container").append("<tr>").html(data["userId"][0])
     			}
     		})
+    		
 			
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
@@ -89,6 +91,10 @@
 			$("#reviewcontainer").css("display","none")
 			$("#graphcontainer").css("display","block")
 			
+		}
+		
+		const reviewWrite=(movieSeq)=>{
+			location.assign("<%=request.getContextPath()%>/movie/movieWriteStart?movieSeq="+movieSeq);
 		}
 	
 	</script>
@@ -126,7 +132,7 @@
 			        
 			        
 			         <div class="cols-content mt-5" id="menu">
-			            <div class="col-detail pb-5">
+			            <div class="col-detail pb-3">
 			                <ul class="tab-menu pl-0 pb-5 text-center">
 			                    <li><button class="btn" id="basicinfobtn" onclick="basicInfoShow()">기본정보</button></li>
 			                    <li><button class="btn" id="trailerbtn" onclick="trailerShow('${movie.movieSeq}')">트레일러</button></li>
@@ -187,11 +193,28 @@
                         
                    		 </iframe>
 					</div>
-					<div id="reviewcontainer">
-					review
+					<div id="reviewcontainer" class="">
+						<h3 id="gwan">관람평</h3>
+						<button class="btn btn-primary float-right" onclick="reviewWrite('${movie.movieSeq}');">작성하기</button>
+						<table class="table">
+						    <thead>
+						      <tr>
+						        <th>작성자</th>
+						        <th>별점</th>
+						        <th>리뷰</th>
+						        <th>작성일</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+							    <tr class="table-container">
+							        
+							    </tr>
+						    </tbody>
+						  </table>
 					</div>
+					
 					<div id="graphcontainer">
-					graph
+						graph
 					</div>
 			    </div>
 			</div>
@@ -378,6 +401,9 @@
     .title_all p{
         margin-top: 0px;
 
+    }
+    #gwan{
+    	display: inline-block;
     }
     </style>
 

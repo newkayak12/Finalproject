@@ -10,7 +10,8 @@
 			<div class="search-container">
 				<form>
 					<input class="col-8 col-md-6 form-control" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
-					<button type="submit" class="btn" >검색</button>
+					<button class="btn btn-primary" type="submit" class="btn" >검색</button>
+					<button class="btn btn-primary" type="button" class="btn" onclick="fn_openCondition();">조건 ▾</button>
 				</form>
 			</div>
 			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
@@ -128,7 +129,9 @@
 	// 예약페이지로 전환
 	const fn_foodBooking = () => {
 		
-		location.assign('${ path }/food/foodBooking/first?foodSeq=${ food.foodSeq }');
+		let foodSeq = $("#modal-content").find("input").val();
+		
+		location.assign('${ path }/food/foodBooking/start?foodSeq=' + foodSeq);
 	}
 	
 	// top버튼 
@@ -147,6 +150,11 @@
 			return false;
 		});
 	});
+	
+	// 검색조건 열기 
+	const fn_openCondition = () => {
+		
+	}
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
