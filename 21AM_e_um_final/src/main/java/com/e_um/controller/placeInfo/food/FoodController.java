@@ -201,10 +201,10 @@ public class FoodController {
 		return "/food/foodBooking";
 	}
 	
-	@RequestMapping("/food/foodBooking/end")
-	public String foodBookingEnd() {
-		
-		return "";
-	}
+//	@RequestMapping("/food/foodBooking/end")
+//	public String foodBookingEnd(@RequestParam(String )) {
+//		
+//		return "";
+//	}
 	
 }

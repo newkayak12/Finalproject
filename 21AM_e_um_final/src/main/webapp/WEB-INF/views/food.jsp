@@ -68,7 +68,7 @@
 					
 					<div class="modal-body">
 						<div id="modal-content">
-							<img width="200px" height="200px" src="">
+							<img class="mr-3" style="float:left;" width="200px" height="200px" src="">
 							<div class="modal-info">
 								<p></p> <!-- 대분류 -->
 								<h5></h5> <!-- 맛집이름 -->
@@ -82,8 +82,8 @@
 					</div>
 			
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="fn_foodBooking();">예약하기</button>
-						<button type="button" class="btn btn-primary" onclick="fn_foodView();">상세보기</button>
+						<button type="button" class="btn" style="border: 1px solid #70b3d9;" onclick="fn_foodBooking();">예약하기</button>
+						<button type="button" class="btn" style="background-color: #70b3d9;" onclick="fn_foodView();">상세보기</button>
 					</div>
 			
 				</div>
