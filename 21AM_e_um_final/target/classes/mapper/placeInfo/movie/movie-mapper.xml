@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="movie">
+	<!-- <resultMap  id="movieMap"  type="com.e_um.model.vo.placeinfo.movie.movie.Movie">
+		<id column="movie_Seq" property="movieSeq"/>
+		<result column="movie_person_name" typeHandler="com.e_um.common.typeHandler.TypeHanderArray" property="moviePersonName" />
+	</resultMap> -->
+	
+	<resultMap type="com.e_um.model.vo.placeinfo.movie.movie.Movie" id="movieMap">
+		<id column="movie_seq" property="movieSeq"/>
+		<result column="movie_title_kr" property="movieTitleKr"/>
+		<result column="movie_title_en" property="movieTitleEn"/>
+		<result column="movie_total_evalution" property="movieTotalEvalution"/>
+		<result column="movie_director" property="movieDirector"/>
+		<result column="movie_opendate" property="movieOpenDate"/>
+		<result column="movie_runningtime" property="movieRunningTime"/>
+		<result column="movie_age" property="movieAge"/>
+		<result column="movie_photo" property="moviePhoto"/>
+		<result column="movie_photo2" property="moviePhoto2"/>
+		<result column="movie_photo3" property="moviePhoto3"/>
+		<result column="movie_video" property="movieVideo"/>
+		<result column="movie_contents" property="movieContents"/>
+		<result column="movie_status" property="movieStatus"/>
+		<result column="movie_reserve_rate" property="movieReserveRate"/>
+		
+		<collection property="moviePersonName" resultMap="movieInfoMap" >
+			
+		</collection>
+	</resultMap>
+	
+	<resultMap type="com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo" id="movieInfoMap">
+		<result column="movie_person_seq" property="moviePersonSeq"/>
+		<result column="movie_person_name" property="moviePersonName"/>
+		<result column="movie_person_birth" property="moviePersonBirth"/>
+		<result column="movie_person_photo" property="moviePersonPhoto"/>
+		<result column="movie_person_list" property="movies" typeHandler="com.e_um.common.typeHandler.TypeHanderList"/>
+	</resultMap>
+	
+	
+	
+	<select id="movieList" resultMap="movieMap" >
+		SELECT * FROM MOVIE
+	</select>
+	
+	<select id="moviePoster" resultMap="movieMap">
+		SELECT * FROM MOVIE
+		WHERE MOVIE_SEQ=#{movieSeq}
+	</select>
+	
+	<select id="movieVideo" resultMap="movieMap">
+		SELECT * FROM
+		(SELECT ROWNUM AS RNUM, A.* FROM 
+		(SELECT * FROM MOVIE ORDER BY MOVIE_RESERVE_RATE ASC) A) 
+		WHERE RNUM=1
+	</select>
+	
+	<select id="movieDetail" resultMap="movieMap">
+		SELECT * FROM MOVIE JOIN 
+		(SELECT * FROM MOVIE_PERSON JOIN MOVIE_PERSON_INFO USING (MOVIE_PERSON_SEQ)) 
+		USING (MOVIE_SEQ) WHERE MOVIE_SEQ=#{movieSeq}
+	</select>
+	
+	<select id="movieSearch" resultMap="movieMap">
+		SELECT * FROM MOVIE WHERE MOVIE_TITLE_KR LIKE '%'||#{search}||'%'
+	</select>
+	
+	<select id="moviePerson" resultMap="movieInfoMap">
+		SELECT * FROM MOVIE_PERSON_INFO WHERE MOVIE_PERSON_NAME = #{person}
+	</select>
+	
+	
+	
+</mapper>
