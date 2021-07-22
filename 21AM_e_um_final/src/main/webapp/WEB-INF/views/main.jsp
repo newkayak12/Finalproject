@@ -11,11 +11,14 @@
     	 $('.carousel').carousel({ interval: 5000 }); 
     	 
     	 const profileRoot=(profile, nick,addr, status, gender, interest1, interest2, interest3, interest4, interest5 )=>{
-    		 console.log(profile)
-    		 console.log(nick)
-    		 console.log(status)
-    		 console.log(gender)
-    		 /* console.log(interest) */
+    		
+    		  $("#modaluserstatus").html("")
+    		  $("#interest1").html("")
+    		  $("#interest2").html("")
+    		  $("#interest3").html("")
+    		  $("#interest4").html("")
+    		  $("#interest5").html("")
+    		
     		 
     		 $("#modalProfilePhoto").attr("src","${pageContext.request.contextPath }/resources/upload/profile/"+profile)
     		 $("#modaluserNick").html(nick)
@@ -28,10 +31,51 @@
 	    		 }
     		 $("#modaluserGender").html(genderKr)
     		 $("#modaluserAddr").html(addr.substring(0,2));
-    		 $("#modaluserInterest")
+
+    		 if(interest1==""){
+	    		 $("#interest1").html('선택안함')
+    		 }
+    		 
+    		 if(interest1!=""){
+	    		 $("#interest1").html('#'+interest1)
+    		 }
+    		 if(interest2!=""){
+	    		 $("#interest2").html('#'+interest2)
+    		 }
+    		 if(interest3!=""){
+	    		 $("#interest3").html('#'+interest3)
+    		 }
+    		 if(interest4!=""){
+	    		 $("#interest4").html('#'+interest4)
+    		 }
+    		 if(interest5!=""){
+	    		 $("#interest5").html('#'+interest5)
+    		 }
     		 
     		 
     	 }
+    	 
+    	 
+    	 $(function(){
+    		/*  feedAjaxContainer(); */
+    	 })
+    	 
+    	
+    	 function feedAjax(e){
+		        $.ajax({
+		            url:"${pageContext.request.contextPath}/feed/feedList",
+		            data:{"cPage":e},
+		            success:data=>{
+		                $("#feed-container").html(data)
+		            }
+		        })
+    	}
+
+	    const feedAjaxContainer=()=>{
+	        let cPage =1;
+	        feedAjax(cPage)
+	        cPage+=1;
+	    }
     </script>
     
  <section class="mt-5 pt-5">   
@@ -44,7 +88,7 @@
         </div>
         
         
-		     <div >
+		     <div class="mt-4 mb-5" >
 		     <h5 class="mt-4 mb-0 text-left">&nbsp;&nbsp;추천 친구</h5>
 	        <div id="recommand-container" class="carousel slide col-12 col-lg-10 mt-0 container p-2 pt-4 border" data-ride="carousel">
 		       
@@ -107,13 +151,35 @@
    		
    		</div>
    		
-   		<div id="feed-container" class="container border mt-4">
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-   			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+   		<div id="feed-container" class="container border mt-4 col-12 d-flex flex-row justify-content-center align-content-center">
+   			
+  			<div class="col-9 mt-3 mb-3" id="feed-innerContainer">
+	  			
+	   				<div class="d-flex flex-row justify-content-between col-12">
+	                   <div class="d-flex flex-row align-content-center justify-content-center" style="width: 40%;">
+		                     <img alt="프사" width="40%" class="m-2">
+		                     <p class="text-center m-2 pt-2" style="width:50%">닉네임</p>
+	                   </div>
+	                   
+		                <p class="pt-2 mt-3">날짜</p>
+		            </div>
+	            
+	            
+	            
+	                <!-- feed-body -->
+		            <div>
+		
+		
+		
+		
+		
+		            </div>
+	                <!-- feed-footer -->
+		            <div>
+		
+		            </div>
+   			</div>
    		</div>
-   		
    	</div>
 
 </section>
@@ -150,8 +216,15 @@
                             </div>
                             
                         </div>
-                        <div class="col-12 p-1 mt-2" id="modaluserInterest">
+                        <div class="col-12 p-1 mt-2 " id="modaluserInterest">
                             <p>관심사</p>
+                            <div class="d-flex flex-wrap">
+	                            <span class="m-1" id="interest1"></span>
+	                            <span class="m-1" id="interest2"></span>
+	                            <span class="m-1" id="interest3"></span>
+	                            <span class="m-1" id="interest4"></span>
+	                            <span class="m-1" id="interest5"></span>
+                            </div>
                         </div>
 
                     </div>
@@ -160,7 +233,10 @@
 		  
 				<!-- Modal footer -->
 				<div class="modal-footer">
-				  <button type="button" class="btn btn-danger eumbtn-3" data-dismiss="modal">Close</button>
+				<!-- 추가적으로 채워야하는 부 -->
+				  <button type="button" class="btn btn-warning eumbtn-2" >신고</button>
+				  <button type="button" class="btn btn-primary eumbtn-2" >친구 요청</button>
+				  <button type="button" class="btn btn-primary eumbtn-1" >프로필로 이동</button>
 				</div>
 		  
 			  </div>
