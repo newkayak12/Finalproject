@@ -9,6 +9,11 @@
     
     <script>
     	 $('.carousel').carousel({ interval: 5000 }); 
+    	 
+    	 const profileRoot=(index)=>{
+    		 console.log(index)
+    		 
+    	 }
     </script>
     
  <section class="mt-5 pt-5">   
@@ -27,11 +32,12 @@
 		       
 		        <div class="carousel-inner" id="recommand-inner-conatiner">
 		            	 <div class="carousel-item active">
+		            	 
 		            	 	<div class="d-flex justify-content-around pl-5 pr-5">
-		            	 	<c:forEach begin="0" end="3" items="${list }" var="i">
-		            	 	
+		            	 	<c:forEach begin="0" end="3" items="${list }" var="i" varStatus="var" >
+		            	 
 			            	 		<c:if test="${fn:length(list)>4}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${list.indexOf(i) })">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -45,7 +51,7 @@
 					    	<c:forEach begin="4" end="7" items="${list }" var="i">
 		            	 	
 			            	 		<c:if test="${fn:length(list)>8}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${i.userName })">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -58,7 +64,7 @@
 					    	<div class="d-flex justify-content-around pl-5 pr-5">
 						      	<c:forEach begin="8" end="${fn:length(list)}" items="${list }" var="i">
 		            	 	
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${i.userName })">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -93,5 +99,33 @@
    	</div>
 
 </section>
+
+
+
+	<div class="modal" id="profile">
+			<div class="modal-dialog  modal-dialog-centered">
+			  <div class="modal-content">
+		  
+				<!-- Modal Header -->
+				<div class="modal-header">
+				  <h4 class="modal-title" id="xlmodalLoginTitle">회원가입</h4>
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+		  
+				<!-- Modal body -->
+				<div class="modal-body" id="xlmodalbody">
+					<div id="profileRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column"style="min-height: 300px">
+					
+					</div>
+				</div>
+		  
+				<!-- Modal footer -->
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-danger eumbtn-3" data-dismiss="modal">Close</button>
+				</div>
+		  
+			  </div>
+		</div>
+	</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
    

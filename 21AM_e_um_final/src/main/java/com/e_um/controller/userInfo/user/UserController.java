@@ -142,7 +142,7 @@ public class UserController {
 	@ResponseBody
 	public int signupthird(User user, Interest interest, @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto, HttpServletRequest rq) {
 		
-		
+		log.error("{}signup",user);
 		log.error("{}",profilePhoto.getOriginalFilename());
 		user.setInterest(interest);
 		String fileName ="default.png";
@@ -224,6 +224,9 @@ public class UserController {
 		
 		if(obj!=null) {
 			List<User> lists = service.recommandFriend();
+			for(User user : lists) {
+				log.warn("{}",user);
+			}
 			
 			model.addAttribute("list", lists);
 			return "main";
