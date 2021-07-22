@@ -6,12 +6,30 @@
     		 border: 1px black solid 
     	}
     </style>
-    
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
     <script>
     	 $('.carousel').carousel({ interval: 5000 }); 
     	 
-    	 const profileRoot=(index)=>{
-    		 console.log(index)
+    	 const profileRoot=(profile, nick,addr, status, gender, interest1, interest2, interest3, interest4, interest5 )=>{
+    		 console.log(profile)
+    		 console.log(nick)
+    		 console.log(status)
+    		 console.log(gender)
+    		 /* console.log(interest) */
+    		 
+    		 $("#modalProfilePhoto").attr("src","${pageContext.request.contextPath }/resources/upload/profile/"+profile)
+    		 $("#modaluserNick").html(nick)
+    		 $("#modaluserstatus").html(status)
+    		 let genderKr = "";
+	    		 if(gender == "F"||gender=="f"){
+	    			 genderKr = "여성";
+	    		 } else{
+	    			 genderKr = "남성";
+	    		 }
+    		 $("#modaluserGender").html(genderKr)
+    		 $("#modaluserAddr").html(addr.substring(0,2));
+    		 $("#modaluserInterest")
+    		 
     		 
     	 }
     </script>
@@ -37,7 +55,7 @@
 		            	 	<c:forEach begin="0" end="3" items="${list }" var="i" varStatus="var" >
 		            	 
 			            	 		<c:if test="${fn:length(list)>4}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${list.indexOf(i) })">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -51,7 +69,7 @@
 					    	<c:forEach begin="4" end="7" items="${list }" var="i">
 		            	 	
 			            	 		<c:if test="${fn:length(list)>8}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${i.userName })">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -64,7 +82,7 @@
 					    	<div class="d-flex justify-content-around pl-5 pr-5">
 						      	<c:forEach begin="8" end="${fn:length(list)}" items="${list }" var="i">
 		            	 	
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot(${i.userName })">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -107,16 +125,37 @@
 			  <div class="modal-content">
 		  
 				<!-- Modal Header -->
-				<div class="modal-header">
-				  <h4 class="modal-title" id="xlmodalLoginTitle">회원가입</h4>
-				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="modal-header eumbtn-2">
+				  <h4 class="modal-title" id="modalPrifileHeader">프로필 정보</h4>
+				  <button type="button" class="close" data-dismiss="modal" style="color:white;">&times;</button>
 				</div>
 		  
 				<!-- Modal body -->
 				<div class="modal-body" id="xlmodalbody">
-					<div id="profileRoot" class= "p-0 d-flex justify-content-center align-content-center flex-column"style="min-height: 300px">
-					
-					</div>
+					 <div id="profileRoot" class= "p-0 d-flex justify-content-center align-content-center flex-row"style="min-height: 300px">
+                    <div class="col-6 d-flex flex-column p-1 pl-0 pr-0 justify-content-around align-items-center">
+                        <img src="" id="modalProfilePhoto" alt="프로필 사진" style=" border: 1px black solid; " class="col-8 mb-1 mt-2 p-0" >
+                        <p id="modaluserNick" class=" text-center  mb-1">닉네임</p>
+                        <p id="modaluserstatus" class=" text-center  mt-1">상메</p>
+                    </div>
+                    <div class="col-6 p-4 pt-2">
+                        <div class="col-12 pt-2 pb-2 pl-2 pr-2" >
+                            <div class="mt-2 mb-2">
+                                <span class="ml-3 mr-4">성별 : </span>
+                                <span id="modaluserGender"></span>
+                            </div>
+                            <div class="mt-2 mb-2">
+                                <span class="ml-3 mr-4">지역 : </span>
+                                <span id="modaluserAddr"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 p-1 mt-2" id="modaluserInterest">
+                            <p>관심사</p>
+                        </div>
+
+                    </div>
+                </div>
 				</div>
 		  
 				<!-- Modal footer -->
