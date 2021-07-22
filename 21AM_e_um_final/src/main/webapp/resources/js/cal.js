@@ -38,7 +38,7 @@ const renderCalender = () => {
         const condition = i >= firstDateIndex && i < lastDateIndex + 1 ?
             'this' :
             'other';
-        dates[i] = `<div onclick="fn_selectDate(e);" name="foodBookingDate" class="date ${condition}">${date}</div>`;
+        dates[i] = `<div onclick="fn_selectDate(${viewMonth}, ${date}, event);" name="foodBookingDate" class="date ${condition}">${date}</div>`;
     });
 
     document.querySelector('.dates').innerHTML = dates.join('');
@@ -57,8 +57,8 @@ const renderCalender = () => {
 renderCalender();
 
 const prevMonth = () => {
-    date.setMonth(date.getMonth() - 1);
-    renderCalender();
+    // date.setMonth(date.getMonth() - 1);
+    // renderCalender();
 };
 
 const nextMonth = () => {
@@ -71,6 +71,13 @@ const goToday = () => {
     renderCalender();
 };
 
-const fn_selectDate = (event) => {
+const fn_selectDate = (viewMonth, date, event) => {
+		console.log(viewMonth+1 + "월");
+		console.log(date + "일");
 		console.log(event.target);
+		
+		// 보내야될값 : 월, 날짜, 시간, 인원수, 요청사항 
+		let bookingMonth = viewMonth + 1;
+		let bookingDate = date;
+		 
 };

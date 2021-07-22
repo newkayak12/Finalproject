@@ -113,6 +113,7 @@
 }
 .foodBookingTitle {
 	font-weight: 900;
+	color: #70b3d9;
 }
     </style>
 
