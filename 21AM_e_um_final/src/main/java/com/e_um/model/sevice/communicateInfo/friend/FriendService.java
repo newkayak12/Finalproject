@@ -1,13 +1,13 @@
 package com.e_um.model.sevice.communicateInfo.friend;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.communicateInfo.friend.FriendDaoInterface;
-import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,5 +29,11 @@ public class FriendService implements FriendServiceInterface {
 	@Override
 	public User selectUserOne(String userId) {
 		return dao.selectUserOne(session, userId);
+	}
+
+
+	@Override
+	public int insertFriend(Map param) {
+		return dao.insertFriend(session, param);
 	}
 }

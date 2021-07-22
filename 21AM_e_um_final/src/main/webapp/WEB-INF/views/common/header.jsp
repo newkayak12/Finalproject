@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
 <c:set var="path" value="<%=request.getContextPath() %>" scope="application"/>
+<c:set var="session" value="${userSession }" scope="session"/>
 <!DOCTYPE html>
 <html>
 <head>

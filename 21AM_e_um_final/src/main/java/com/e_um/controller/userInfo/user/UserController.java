@@ -186,6 +186,7 @@ public class UserController {
 	@RequestMapping("/user/loginverify")
 	@ResponseBody
 	public int login(Model model, User user, Boolean persistlogin, HttpServletResponse rs, HttpServletRequest rq) {
+		log.warn("{}useruser",user);
 		User userResult = service.login(user);
 		log.warn("{}checker: ",persistlogin);
 			

@@ -47,23 +47,26 @@
     <button type="button" id="applyFriend" class="btn btn-info mx-2" value="${friend.userId }" data-dismiss="modal">친구 신청</button>
 </div>
 
+
+
 <script>
 	$("#applyFriend").click(e=>{
-		/* alert("클릭함!"); */
-		console.log(e.target.value);
-		$.ajax({
-			type:"post",
-			url:"${pageContext.request.contextPath}/friend/applyfriend/start",
-			data:{
-				"friendId":e.target.value
-			},
-			success:data=>{
-				alert("친구 신청이 완료되었습니다.");
-			}
-		})
+		let friendNick="${friend.userNick}";
+		if(confirm(friendNick+"님에게 친구 신청을 하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+				data:{
+					"friendId":e.target.value
+				},
+				success:data=>{
+					if(data>0){
+						alert("친구 신청이 완료되었습니다.");
+					}else{
+						alert("친구 신청에 실패했습니다.");
+					}
+				}
+			})
+		}
 	})
-	
-	/* $(".modal-footer>button").click(e=>{
-		alert("모달 버튼 클릭했네!");
-	}) */
 </script>

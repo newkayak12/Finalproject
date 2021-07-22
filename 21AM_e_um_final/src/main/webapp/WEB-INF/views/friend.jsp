@@ -130,45 +130,47 @@
 
     <div id="friList" class="row mt-5">
         <!--9~12개만 뽑고 나머지는 무한 스크롤-->
-        <c:forEach var="u" items="${list }">
-	        <div class="friUser col-sm-6 col-lg-4 mb-5">
-	            <button class="container btn btn-outline-light align-items-center text-dark d-flex p-2 mh-100" data-toggle="modal" title="${u.userId }">
-	                <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg col mw-75 mh-100" title="${u.userId }">
-	                <div class="col" title="${u.userId }">
-	                	<div><h5 title="${u.userId }"><b><c:out value="${u.userNick }"/></b></h5></div><br>
-	                	<small><b>
-	                		<div class="d-flex flex-wrap" title="${u.userId }">
-			                	<span title="${u.userId }" class="mx-1">
-				                	<c:if test="${u.interest.profileInterestName1 !=null}">
-				                		<c:out value="${u.interest.profileInterestName1 }"/>
-				                	</c:if>
-			                	</span>
-			                	
-			                	<span title="${u.userId }" class="mx-1">
-				                	<c:if test="${u.interest.profileInterestName2 !=null}">
-				                		<c:out value="${u.interest.profileInterestName2 }"/>
-				                	</c:if>
-			                	</span>
-			                	<span title="${u.userId }" class="mx-1">
-				                	<c:if test="${u.interest.profileInterestName3 !=null}">
-				                		<c:out value="${u.interest.profileInterestName3 }"/>
-				                	</c:if>
-			                	</span>
-			                	<span title="${u.userId }" class="mx-1">
-				                	<c:if test="${u.interest.profileInterestName4 !=null}">
-				                		<c:out value="${u.interest.profileInterestName4 }"/>
-				                	</c:if>
-			                	</span>
-			                	<span title="${u.userId }" class="mx-1">
-				                	<c:if test="${u.interest.profileInterestName5 !=null}">
-				                		<c:out value="${u.interest.profileInterestName5 }"/>
-				                	</c:if>
-			                	</span>
-	                		</div>
-	                	</b></small>
-	                </div>
-	            </button>
-	        </div>
+        <c:forEach var="u" items="${list }" varStatus="status">
+        	<c:if test="${status.index < 12}">
+		        <div class="friUser col-sm-6 col-lg-4 mb-5">
+		            <button class="container btn btn-outline-light align-items-center text-dark d-flex p-2 mh-100" data-toggle="modal" title="${u.userId }">
+		                <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg col mw-75 mh-100" title="${u.userId }">
+		                <div class="col" title="${u.userId }">
+		                	<div><h5 title="${u.userId }"><b><c:out value="${u.userNick }"/></b></h5></div><br>
+		                	<small><b>
+		                		<div class="d-flex flex-wrap" title="${u.userId }">
+				                	<span title="${u.userId }" class="mx-1">
+					                	<c:if test="${u.interest.profileInterestName1 !=null}">
+					                		<c:out value="${u.interest.profileInterestName1 }"/>
+					                	</c:if>
+				                	</span>
+				                	
+				                	<span title="${u.userId }" class="mx-1">
+					                	<c:if test="${u.interest.profileInterestName2 !=null}">
+					                		<c:out value="${u.interest.profileInterestName2 }"/>
+					                	</c:if>
+				                	</span>
+				                	<span title="${u.userId }" class="mx-1">
+					                	<c:if test="${u.interest.profileInterestName3 !=null}">
+					                		<c:out value="${u.interest.profileInterestName3 }"/>
+					                	</c:if>
+				                	</span>
+				                	<span title="${u.userId }" class="mx-1">
+					                	<c:if test="${u.interest.profileInterestName4 !=null}">
+					                		<c:out value="${u.interest.profileInterestName4 }"/>
+					                	</c:if>
+				                	</span>
+				                	<span title="${u.userId }" class="mx-1">
+					                	<c:if test="${u.interest.profileInterestName5 !=null}">
+					                		<c:out value="${u.interest.profileInterestName5 }"/>
+					                	</c:if>
+				                	</span>
+		                		</div>
+		                	</b></small>
+		                </div>
+		            </button>
+		        </div>
+			</c:if>
         </c:forEach>
     </div>
 
@@ -212,10 +214,8 @@
     	})
     	
     	$(".friUser").click(e=>{
-    		/* let boxId=e.target.title; */
-    		console.log(e.target);
-    		console.log(e.target.title);
-    		//console.log($(e.target).title);
+    		/* console.log(e.target);
+    		console.log(e.target.title); */
     		$.ajax({
     			type:"post",
     			url:"${pageContext.request.contextPath}/friend/openmodal/start",
@@ -227,38 +227,36 @@
     		})
     	})
     
-        // $(function(){
-        //     let index=0;
-        //     $(window).scroll(function(){
-        //         let $window=$(this);
-        //         let scrollTop=$window.scrollTop();
-        //         let windowHeight=$window.height();
-        //         let documentHeight=$(document).height();
-        //         // console.log(windowHeight);
-        //         // console.log("documentHeight: "+documentHeight+" | scrollTop: "+scrollTop+" | windowHeight: "+windowHeight);
-        //         if(scrollTop+windowHeight+1>=documentHeight){
-        //             index++;
-        //             setTimeout(fetchlist,200);
-        //         }
-        //     })
-        // })
+        /* $(function(){
+             let index=0;
+             $(window).scroll(function(){
+                 let $window=$(this);
+                 let scrollTop=$window.scrollTop();
+                 let windowHeight=$window.height();
+                 let documentHeight=$(document).height();
+                 // console.log(windowHeight);
+                 // console.log("documentHeight: "+documentHeight+" | scrollTop: "+scrollTop+" | windowHeight: "+windowHeight);
+                 if(scrollTop+windowHeight+1>=documentHeight){
+                     index++;
+                     setTimeout(fetchlist,200);
+                 }
+             })
+         })
 
-        // function fetchlist(){
-        //     $.ajax({
-        //         type: "get",
-        //         url: "",
-        //         success: function(friends){
-        //             for(var i=0; i<friends.lists.length; i++){
-        //                 let friend=friends.lists[i];
-        //                 $("#friList").append(
+         function fetchlist(){
+             $.ajax({
+                 type: "get",
+                 url: "${pageContext.request.contextPath}/friend/infiniteScroll",
+                 success: function(friends){
+                     for(var i=0; i<friends.lists.length; i++){
+                         let friend=friends.lists[i];
+                         $("#friList").append(
                             
-        //                 )
-        //             }
-        //         }
-        //     })
-        // }
-        
-        //$('#modal').modal("show"); //열기
+                         )
+                     }
+                 }
+             })
+         } */
     </script>
 </div>
    
