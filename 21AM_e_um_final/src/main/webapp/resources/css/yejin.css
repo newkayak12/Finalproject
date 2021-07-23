@@ -9,21 +9,21 @@
 
 /* top 버튼 */
 a#MOVE_TOP_BTN {
-					    position: fixed;
-					    right: 5%;
-					    bottom: 50px;
-					    display: none;
-					    z-index: 999;
+	position: fixed;
+	right: 5%;
+	bottom: 50px;
+	display: none;
+	z-index: 999;
 }
 a#MOVE_TOP_BTN div {
-						border-radius : 50%;
-						border : 1px solid gray;
-						background-color : #70b3d9;
-						width : 50px;
-						height : 50px;
-						text-align : center;
-						line-height : 50px;
-						color : black;
+	border-radius : 50%;
+	border : 1px solid gray;
+	background-color : #70b3d9;
+	width : 50px;
+	height : 50px;
+	text-align : center;
+	line-height : 50px;
+	color : black;
 }
 
 /* food */

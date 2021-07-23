@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -228,5 +229,21 @@ public class FoodController {
 		model.addAttribute("bookingList", bookingList);
 		
 		return "/food/bookingList";
+	}
+	
+	@RequestMapping("/food/selectFoodCategoryList")
+	@ResponseBody
+	public Map selectFoodSearchCategory(Model model) {
+		
+		Map<String, List> foodCategoryMap = new HashMap<>();
+		
+		List<String> CategoryMainList = service.selectFoodCategoryMain();
+		List<String> CategorySubList = service.selectFoodCategorySub();
+		
+		foodCategoryMap.put("CategoryMainList", CategoryMainList);
+		foodCategoryMap.put("CategorySubList", CategorySubList);
+
+		return foodCategoryMap;
+		
 	}
 }
