@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:forEach var="feed" items="${list }" varStatus="i">
  <div class="col-9 mt-3 mb-3 p-0  border" id="feed-innerContainer">
@@ -16,8 +17,7 @@
      <!-- feed-body -->
             <div class="col-12 d-flex flex-column justify-content-center align-items-center">   
                     
-                   
-                   	
+                   	<c:if test="${fn:length(feed.feedImage1)>0 }">
                         <div id="photoCarousel${index.get(i.index) }" class=" carousel slide mt-3 feedPhoto" data-ride="carousel"  >
                         
                                 <ul class=" carousel-indicators">
@@ -59,7 +59,7 @@
                         		</c:if>
 
                         </div>
-					
+					</c:if>
 						
 		                        <div class="mt-4 col-11 p-0 mb-4 border">
 		                            <div class="m-2 border pl-3">
@@ -84,11 +84,11 @@
      <!-- feed-footer -->
      		<div class="d-flex justify-content-center">
      			
-	     		<div  class="text-center border  col-8 justify-content-start p-0">
+	     		<div  class="text-center  col-8 justify-content-start p-0">
 	     			<c:forEach items="${feed.commentlist }" var="comment">
 	     				<c:choose>
 	     					<c:when test="${comment.feedCommentLevel>1 }">
-	     						<div class="ml-5">
+	     						<div class="ml-5  border">
 		     						<div class="text-left  p-2">
 								           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="45px" height="45px" style="border-radius: 100%;"  id="commentPhoto">
 								        <span class="ml-1 mr-2" id="commenterId">
@@ -102,7 +102,7 @@
 							   </div>
 	     					</c:when>
 	     					<c:otherwise>
-	     					<div class="ml-1">
+	     					<div class="ml-1  border">
 	     							<div class="text-left p-2">	
 								           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="45px" height="45px" style="border-radius: 100%;"  id="commentPhoto">
 								        <span class="ml-1 mr-2" id="commenterId">

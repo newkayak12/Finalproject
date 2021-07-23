@@ -3,15 +3,18 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <style>
     	*{
-    		  border: 1px black solid  
+    		   border: 1px black solid  
     	}
     </style>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
     <script>
     	 $('.carousel').carousel({ interval: 5000 }); 
     	 
-    	 const profileRoot=(profile, nick,addr, status, gender, interest1, interest2, interest3, interest4, interest5 )=>{
+    	 const profileRoot=(profile, nick,addr, status, gender, interest1, interest2, interest3, interest4, interest5, userId )=>{
     		
+    		 console.log(userId)
+    		 $("#reportId").val(userId)
+    		 
     		  $("#modaluserstatus").html("")
     		  $("#interest1").html("")
     		  $("#interest2").html("")
@@ -178,11 +181,10 @@
   				$("#counterpartid").html("")
   		    	$("#myid").html("")
   		    	$("#etcContent").val("")
-				
-
-  		    
-  				for(let i =0; i<$(".reportbtn").length; i++){
-  					console.log($(".reportbtn")[i].attr("checked"))
+  				$(".reportbtn").prop("checked", false)
+  				
+  				if(data>0){
+  					alert('신고가 완료되었습니다.')
   				}
   				
   				
@@ -192,7 +194,23 @@
   	}
 	    
 	    
-	    
+	    function userReport(){
+	    	let userReportId = $("#reportId").val();
+	    	let userReportMyId = '${userSession.userId}';
+	    	let userReportContent = "사용자 신고"
+	    	let userReportTargetContent = 'profile';
+	    	
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/report/reportprifile",
+	    		data:{userIdShooter:userReportMyId , userIdTarget:userReportId , reportContents:userReportContent, reportTargetContent: userReportId}, 
+	    		success:data=>{
+	    			if(data>0){
+	  					alert('신고가 완료되었습니다.')
+	  				}
+	    		}
+	    	})
+	    	
+	    }
     </script>
     
  <section class="mt-5 pt-5">   
@@ -206,7 +224,7 @@
         
         
 		     <div class="mt-4 mb-5" >
-		     <h5 class="mt-4 mb-0 text-left">&nbsp;&nbsp;추천 친구</h5>
+		     <h5 class="mt-4 mb-0 text-left pl-lg-5">&nbsp;&nbsp;&nbsp;추천 친구</h5>
 	        <div id="recommand-container" class="carousel slide col-12 col-lg-10 mt-0 container p-2 pt-4 border" data-ride="carousel">
 		       
 		        <div class="carousel-inner" id="recommand-inner-conatiner">
@@ -216,7 +234,7 @@
 		            	 	<c:forEach begin="0" end="3" items="${list }" var="i" varStatus="var" >
 		            	 
 			            	 		<c:if test="${fn:length(list)>4}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -230,7 +248,7 @@
 					    	<c:forEach begin="4" end="7" items="${list }" var="i">
 		            	 	
 			            	 		<c:if test="${fn:length(list)>8}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -243,7 +261,7 @@
 					    	<div class="d-flex justify-content-around pl-5 pr-5">
 						      	<c:forEach begin="8" end="${fn:length(list)}" items="${list }" var="i">
 		            	 	
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }')">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -330,15 +348,20 @@
 				<!-- Modal footer -->
 				<div class="modal-footer">
 				<!-- 추가적으로 채워야하는 부 -->
-				  <button type="button" class="btn btn-warning eumbtn-2" >신고</button>
+				
+				
+	<!-- ---------------------------------------------------------------------------------------------- -->
+	
+					<input type="hidden" id = "reportId">
+				  <button type="button" class="btn btn-warning eumbtn-2" onclick="userReport()">신고</button>
 				  <button type="button" class="btn btn-primary eumbtn-2" >친구 요청</button>
 				  <button type="button" class="btn btn-primary eumbtn-1" >프로필로 이동</button>
+	<!-- ---------------------------------------------------------------------------------------------- -->
 				</div>
 		  
 			  </div>
 		</div>
 		
-	
 	</div>
 		
 		<div class="modal" id="ReportModal">

@@ -49,4 +49,11 @@ public class ReportController {
 		
 		return service.insertReport(report);
 	}
+	
+	
+	@RequestMapping("/report/reportprifile")
+	@ResponseBody
+	public int ReportProfile(Report report) {
+		return service.insertReport(report);
+	}
 }
