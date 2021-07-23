@@ -1,4 +1,4 @@
-/target/
-/src/main/resources/
-/.settings/
-/logs/
+target/
+src/main/resources/
+.settings/
+logs/
