@@ -20,7 +20,7 @@ public class FeedComment {
 	
 	private String feedCommentSeq;
 	private String feedSeqRef;
-	private User commenter;
+	private String commenter, commenterNick, commenterProfile;
 	private String feedCommentRef;
 	private Date feedCommentDate;
 	private int feedCommentLevel;

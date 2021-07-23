@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <style>
     	*{
-    		 border: 1px black solid 
+    		  border: 1px black solid  
     	}
     </style>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
@@ -56,26 +56,143 @@
     	 }
     	 
     	 
-    	 $(function(){
-    		/*  feedAjaxContainer(); */
+	   	 $(function(){
+    		 $(window).scroll(function(){
+    			 let windowObj = $(this)
+    			 let scrollTop = windowObj.scrollTop();
+    			 let windowHeight = windowObj.height();
+    			 let documentHeight = $(document).height();
+    			 
+    			 
+    			 if(scrollTop+windowHeight+30 >documentHeight){
+    				
+    				 setTimeout(() => {
+    					 feedAjaxContainer();
+    					 
+					}, 400);
+    			 }
+    		 })
+    		 
+    		 feedAjaxContainer();
     	 })
     	 
     	
-    	 function feedAjax(e){
+    	function feedAjax(e){
+    		 let userId = '${session.userId}'
 		        $.ajax({
 		            url:"${pageContext.request.contextPath}/feed/feedList",
-		            data:{"cPage":e},
+		            data:{"cPage":e, "userId": userId},
 		            success:data=>{
-		                $("#feed-container").html(data)
+		                $("#feed-container").append(data)
+		                $(".repl").css("display","block")
 		            }
 		        })
     	}
-
+    	 let cPage =1;
 	    const feedAjaxContainer=()=>{
-	        let cPage =1;
+	        
 	        feedAjax(cPage)
 	        cPage+=1;
+	        
+	        
 	    }
+	    
+	    function commeterReader(event, seq){
+	    	console.log($(event.target).next())
+	    }
+	    
+	    function fn_like(index, seq, flag){
+	    	
+	    	
+	    	
+	    	if(flag=='like') {
+	    		/* 안좋아요 하기 */
+	    		$("#likebtn"+index).css("display","none")
+	    		$("#unlikebtn"+index).css("display","inline-block")
+	    		
+	    		
+	    	} else if(flag=='unlike') {
+	    		/* 좋아요만들기 */
+	    		$("#likebtn"+index).css("display","inline-block")
+	    		$("#unlikebtn"+index).css("display","none")
+	    		
+	    		
+	    	}
+	    	
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/feed/likeunlike",
+	    		data:{"seq":seq, "flag":flag, "userId":'${session.userId}'},
+	    		success:data=>{
+	    			
+	    		}
+	    	})
+	    	
+	    	
+	    }
+
+	    
+	    
+	    
+	    
+	    
+	    function fn_report(seq,feedId, myId){
+	    	let feedSeqRep = seq;
+	    	let feedIdRep  = feedId;
+	    	let myIdRep = myId;
+	    	$("#counterpartid").html(feedIdRep)
+	    	$("#myid").html(myIdRep)
+	    	$("#reportSeq").val(feedSeqRep);
+	    	
+	    	
+	    	
+	    	  $(".reportbtn").change((e)=>{
+			    	$("#reportcategory").val($(e.target).val())
+	    		  
+	  	        if($(e.target).val()=='etc'){
+	  	            $(".etc").show(240)
+	  	        } else{
+	  	            $(".etc").hide(240)
+	  	        }
+	  	    })
+	    	
+	    	
+	    	
+	    }
+	    
+	    function reportthis(){
+  		  let content = $("#reportcategory").val()
+  		  
+  		  if(content=='etc'){
+  			content = $("#etcContent").val()  
+  		  }
+  			  
+  			
+  		  let shooter = $("#myid").html()
+  		  let target = $("#counterpartid").html()
+  		  let seq = $("#reportSeq").val()
+  		  
+  		  $.ajax({
+  			  url:"${pageContext.request.contextPath}/report/reportfeed",
+  			  data:{userIdShooter:shooter , userIdTarget:target , reportContents:content, reportTargetContent: seq},
+  			  success:data=>{
+  				$("#counterpartid").html("")
+  		    	$("#myid").html("")
+  		    	$("#etcContent").val("")
+				
+
+  		    
+  				for(let i =0; i<$(".reportbtn").length; i++){
+  					console.log($(".reportbtn")[i].attr("checked"))
+  				}
+  				
+  				
+  			  }
+  		  })
+  		
+  	}
+	    
+	    
+	    
     </script>
     
  <section class="mt-5 pt-5">   
@@ -137,7 +254,7 @@
 		        
 	        
 	        <!-- carubtn -->
-		  
+		   		
 				  <!-- Left and right controls -->
 				  <a class="carousel-control-prev carubtn" href="#recommand-container" data-slide="prev">
 				    <!-- <span class="carousel-control-prev-icon"></span> -->
@@ -147,38 +264,17 @@
 				    <!-- <span class="carousel-control-next-icon"></span> -->
 				    <img src="${pageContext.request.contextPath }/resources/images/user/next.png" width="50px">
 				  </a>
+			  
 		   		</div>
    		
    		</div>
    		
-   		<div id="feed-container" class="container border mt-4 col-12 d-flex flex-row justify-content-center align-content-center">
+   		<div id="feed-container" class="container mt-4 col-12 d-flex flex-column justify-content-center align-items-center">
    			
-  			<div class="col-9 mt-3 mb-3" id="feed-innerContainer">
-	  			
-	   				<div class="d-flex flex-row justify-content-between col-12">
-	                   <div class="d-flex flex-row align-content-center justify-content-center" style="width: 40%;">
-		                     <img alt="프사" width="40%" class="m-2">
-		                     <p class="text-center m-2 pt-2" style="width:50%">닉네임</p>
-	                   </div>
-	                   
-		                <p class="pt-2 mt-3">날짜</p>
-		            </div>
-	            
-	            
-	            
-	                <!-- feed-body -->
-		            <div>
-		
-		
-		
-		
-		
-		            </div>
-	                <!-- feed-footer -->
-		            <div>
-		
-		            </div>
-   			</div>
+  			
+  			
+  			
+  			
    		</div>
    	</div>
 
@@ -241,6 +337,101 @@
 		  
 			  </div>
 		</div>
+		
+	
 	</div>
+		
+		<div class="modal" id="ReportModal">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+
+    <div class="modal-header">
+          <h4 class="modal-title">신고하기</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <table class="table-striped table table-bordered table-sm col-12">
+          	  <input type="hidden" id= "reportSeq">
+          	  <input type="hidden" id= "reportcategory">
+              <tr >
+                  <th style="width:30%" class="text-center p-0" >신고할 아이디</th>
+                  <td colspan="3" class="p-0 text-center"id="counterpartid"></td>
+              </tr>
+              <tr>
+                  <th style="width:30%" class="text-center p-0" >신고하는 아이디</th>
+                  <td colspan="3" class="p-0 text-center" id="myid"></td>
+              </tr>
+              
+              <!-- <tr > -->
+                <th style="width:30%; vertical-align:middle;" rowspan="6" class="text-center p-0">
+                    신고 항목
+                </th>
+                  <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                      <label class="small">
+                          <input type="radio" name="report" value="language"  class="reportbtn" > 부적절한 언어 사용
+                      </label>
+                  </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="advertisement" class="reportbtn"> 광고성 게시글
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="imposter" class="reportbtn"> 타인을 사칭합니다.
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="profilePhoto" class="reportbtn"> 부적절한 프로필 사진 
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="feed" class="reportbtn"> 부적절한 게시글 사진 및 내용
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="etc" class="reportbtn"> 기타
+                        </label>
+                    </td>
+                </tr>
+                   
+
+              <tr class="etc" style="display: none;">
+                  <th colspan="4" class="pl-4">기타 내용</th>
+              </tr>
+              <tr class="etc" style="display: none;">
+                <td colspan="4" class="text-center p-0">
+<textarea cols="45" rows="3" id="etcContent"></textarea>
+                </td>
+              </tr>
+          
+          
+          </table>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="reportthis()">신고하기</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+		
+		
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
    

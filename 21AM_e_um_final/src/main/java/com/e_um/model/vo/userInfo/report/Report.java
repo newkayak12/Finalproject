@@ -25,7 +25,7 @@ public class Report {
 	 * association으로 두 개를 지정 해야함
 	 */
 
-	private User userIdShooter, userIdTarget;
+	private String userIdShooter, userIdTarget;
 	private Date reportDate;
 	private String reportContents, reportFlag, reportTargetContent;
 	

@@ -27,5 +27,7 @@ public class Feed {
 	 * 보류
 	 */
 	
+	private List<FeedComment> commentlist;
+	
 
 }

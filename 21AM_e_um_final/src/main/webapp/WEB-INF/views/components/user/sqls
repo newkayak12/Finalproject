@@ -40,7 +40,8 @@ insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'prince0324', 'newkayak12'
 insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'newkayak12', 'xogml1125', default);
 insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'xogml1125', 'newkayak12',  default);
 
-insert into feed values('FE_'||feed_seq.nextval, 'yejin1234', '피드를 테스트 합니다!', sysdate, 'feed_20210719_113725001_88557.jpg', 'feed_20210719_113725005_35718.jpg', 'feed_20210719_113725008_11015.jpg', DEFAULT, DEFAULT);
+commit;
+insert into feed values('FE_'||feed_seq.nextval, 'fana95', '피드를 테스트 합니다!', sysdate, null,null, null,  DEFAULT, DEFAULT);
 
 
 insert into feed values('FE_'||feed_seq.nextval, 'fana95', '피드를 테스트 합니다22222!', sysdate-1, 'feed_20210719_113725010_56229.jpg', 'feed_20210719_113725012_56519.jpg', null, DEFAULT, DEFAULT);
@@ -63,13 +64,14 @@ insert into like_feed values('FE_1','jinlee1122');
 
 select * from users;
 
-create SEQUENCE FEED_COMMENT_SEQ
+create SEQUENCE RePORT_SEQ
 start with 1
 increment by 1
 NOCYCLE
 NOCACHE
 NOMINVALUE
 NOMAXVALUE;
+
 
 
 
@@ -81,7 +83,7 @@ select * from feed_comment;
 
 
 
-insert into feed_comment values ('FEC_'||Feed_comment_seq.nextval, 'FE_1', 'newkayak12', 'FEC_8', sysdate, '피드 댓글 테스트1', default, 'unblock', 2);
+insert into feed_comment values ('FEC_'||Feed_comment_seq.nextval, 'FE_1', 'prince0324', null, sysdate, '댓글이야222', default, 'unblock', 1);
 
 
 
@@ -140,15 +142,143 @@ select fd.feed_seq, fd.user_id as feeder, fd.feed_contents, fd.feed_date, fd.fee
 
 
         select * from(
-            select fd.feed_seq, fd.user_id as feeder, fd.user_nick as feeder_nick, fd.PROFILE_IMAGE_FILE as feeder_profile, fd.feed_contents, fd.feed_date, fd.feed_image1, fd.feed_image2, fd.feed_image3, fd.feed_flag, fd.feed_block, fc.feed_comment_seq, fc.feed_seq as feed_seq_ref, fc.user_id as commenter, fc.feed_comment_ref, fc.feed_comment_date, fc.feed_comment_contents, fc.feed_comment_level from (select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id) fd FULL join feed_comment fc on fd.feed_seq = fc.feed_seq where fd.user_id in (select friend_id from friend where my_id ='newkayak12')and feed_flag='live' and not feed_block='block' and (feed_comment_block is null or feed_comment_block='unblock') and (feed_comment_flag is null or feed_comment_flag='live') order by feed_date desc, feed_comment_date desc
+            select fd.feed_seq, fd.user_id as feeder, fd.user_nick as feeder_nick, fd.PROFILE_IMAGE_FILE as feeder_profile, fd.feed_contents, fd.feed_date, fd.feed_image1, fd.feed_image2, fd.feed_image3, fd.feed_flag, fd.feed_block, fc.feed_comment_seq, fc.feed_seq as feed_seq_ref, fc.user_id as commenter, fc.feed_comment_ref, fc.feed_comment_date, fc.feed_comment_contents, fc.feed_comment_level from (select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id) fd left join feed_comment fc on fd.feed_seq = fc.feed_seq where fd.user_id in (select friend_id from friend where my_id ='newkayak12')and feed_flag='live' and not feed_block='block' and (feed_comment_block is null or feed_comment_block='unblock') and (feed_comment_flag is null or feed_comment_flag='live') order by feed_date desc, feed_comment_date desc
         ) start with feed_comment_ref is null connect by feed_comment_seq = feed_comment_ref;
  
-              select * from (select * from feed join users using(user_id));
+              
+            select * from feed_comment;
+
+
+
+
+select * from like_feed;
+
+
+              
+select * from (select fd.rnum, fd.liker, fd.feed_seq, fd.user_id as feeder, fd.user_nick as feeder_nick, fd.PROFILE_IMAGE_FILE as feeder_profile, fd.feed_contents, fd.feed_date, fd.feed_image1, fd.feed_image2, fd.feed_image3, fd.feed_flag, fd.feed_block, fc.feed_comment_seq, fc.feed_seq as feed_seq_ref, fc.user_id as commenter, fc.feed_comment_ref, fc.feed_comment_date, fc.feed_comment_contents, fc.feed_comment_level, fc.commenter_profile, fc.commenter_nick from (select  *  from ( select  rob.* ,rownum as rnum, lf.user_id as liker from  ( select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id) rob full join like_feed lf on rob.feed_seq=lf.feed_seq where lf.user_id ='newkayak12' or lf.user_id is null)  where rnum  between  10 and 15) fd FULL join (select fc2.*, us2.PROFILE_IMAGE_FILE as commenter_profile, us2.USER_NICK as commenter_nick from feed_comment fc2 join users us2 on fc2.user_id = us2.user_id) fc on fd.feed_seq = fc.feed_seq where fd.user_id in (select friend_id from friend where my_id ='newkayak12')and feed_flag='live' and not feed_block='block' and (feed_comment_block is null or feed_comment_block='unblock') and (feed_comment_flag is null or feed_comment_flag='live') order by feed_date desc, feed_comment_date desc) start with feed_comment_ref is null connect by prior feed_comment_seq =feed_comment_ref ;
+
+
+
+
+
+
+
+
+
+select * from (select fd.rnum, fd.liker, fd.feed_seq, fd.user_id as feeder, fd.user_nick as feeder_nick, fd.PROFILE_IMAGE_FILE as feeder_profile, fd.feed_contents, fd.feed_date, fd.feed_image1, fd.feed_image2, fd.feed_image3, fd.feed_flag, fd.feed_block, fc.feed_comment_seq, fc.feed_seq as feed_seq_ref, fc.user_id as commenter, fc.feed_comment_ref, fc.feed_comment_date, fc.feed_comment_contents, fc.feed_comment_level, fc.commenter_profile, fc.commenter_nick from (select  *  from ( select  rob.* ,rownum as rnum, lf.user_id as liker from  ( select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id) rob full join like_feed lf on rob.feed_seq=lf.feed_seq where lf.user_id =#{userId} or lf.user_id is null)  where rnum  between  #{start} and #{end}) fd FULL join (select fc2.*, us2.PROFILE_IMAGE_FILE as commenter_profile, us2.USER_NICK as commenter_nick from feed_comment fc2 join users us2 on fc2.user_id = us2.user_id) fc on fd.feed_seq = fc.feed_seq where fd.user_id in (select friend_id from friend where my_id =#{userId})and feed_flag='live' and not feed_block='block' and (feed_comment_block is null or feed_comment_block='unblock') and (feed_comment_flag is null or feed_comment_flag='live') order by feed_date desc, feed_comment_date desc) start with feed_comment_ref is null connect by prior feed_comment_seq =feed_comment_ref 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ select  *  from (
+        
+        
+       
+select  rob.* ,rownum as rnum, lf.user_id as liker
+
+ from  ( select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id) rob 
+ 
+ full join like_feed lf on rob.feed_seq=lf.feed_seq where lf.user_id ='newkayak12' or lf.user_id is null
+        
+        
+        
+        )  where rnum  between  10 and 15;
+
+
+
+
+
+
+select  rob.* ,rownum as rnum, lf.user_id as liker
+
+ from  ( select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id) rob 
+ 
+ full join like_feed lf on rob.feed_seq=lf.feed_seq where lf.user_id ='newkayak12' or lf.user_id is null;
+        
+        
+        
+
+
+
+select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id;
+
 
               
 select fd.*, us.PROFILE_IMAGE_FILE, us.USER_NICK from(select * from feed where user_id in (select friend_id from friend where my_id='newkayak12') and feed_flag ='live' and feed_block ='unblock') fd join users us on fd.user_id = us.user_id;
 
 
 
-select fe.*, lf.user_id as liker from (select fd.*, us.PROFILE_IMAGE_FILE, us.USER_NICK from(select * from feed where user_id in (select friend_id from friend where my_id=
+select * from (select fd.*, us.PROFILE_IMAGE_FILE, us.USER_NICK from(select * from feed where user_id in (select friend_id from friend where my_id=
 'newkayak12') and feed_flag ='live' and feed_block ='unblock') fd join users us on fd.user_id = us.user_id) fe left join like_feed lf on fe.feed_seq=lf.feed_seq where (lf.user_id = 'newkayak12' or lf.user_id is null) order by feed_date desc;
+
+
+
+select * from(select fc.*, us.PROFILE_IMAGE_FILE, us.USER_NICK from feed_comment fc join users us on fc.user_id=us.user_id  where feed_seq='FE_1' and FEED_COMMENT_BLOCK='unblock' and FEED_COMMENT_FLAG= 'live') start with feed_comment_ref is null connect by feed_comment_seq = feed_comment_ref;
+
+
+select * from feed_comment start with feed_comment_ref is null connect by prior feed_comment_seq =feed_comment_ref ;
+
+
+
+select * from (select  rob.* ,rownum as rnum from ( (select fe1.feed_seq, fe1.feed_contents, fe1.feed_date, fe1.feed_image1, fe1.feed_image2, fe1.feed_image3, fe1.feed_flag, fe1.feed_block, us1.user_id, us1.PROFILE_IMAGE_FILE, us1.USER_NICK from feed fe1 join users us1 on fe1.user_id = us1.user_id) rob))  where rnum  between  10 and 15;
+
+select * from feed_comment;
+
+
+select fc.*, us.PROFILE_IMAGE_FILE as commenter_profile, us.user_nick as commenter_nick from feed_comment fc join users us on fc.user_id = us.user_id where fc.feed_comment_flag='live' and fc.feed_comment_block='unblock';
+
+
+
+
+select *  from (
+    
+    select fe.*, lf.user_id from(
+    
+    select fd.*, us.PROFILE_IMAGE_FILE, us.USER_NICK from feed where user_id in (select friend_id from friend where my_id= 'newkayak12' ) and feed_flag ='live' and feed_block ='unblock'
+    
+    ) fd join users us on fd.user_id = us.user_id
+    
+    
+    ) fe left join like_feed lf on fe.feed_seq=lf.feed_seq where (lf.user_id = 'newkayak12' or lf.user_id is null
+    
+    
+    ) order by feed_date desc;
+
+
+
+
+
+    select fe.*, lf.user_id as liker from 
+    
+    
+         (select fd.*, us.PROFILE_IMAGE_FILE, us.USER_NICK from
+    
+    
+            (select * from 
+                feed where user_id in (select friend_id from friend where my_id= 'newkayak12' ) and feed_flag ='live' and feed_block ='unblock') 
+                
+        fd join users us on fd.user_id = us.user_id)
+        
+    fe left join like_feed lf on fe.feed_seq=lf.feed_seq where (lf.user_id = 'newkayak12' or lf.user_id is null) order by feed_date desc;
+
+
+select * from ( select fc.*, us.PROFILE_IMAGE_FILE as commenter_profile, us.user_nick as commenter_nick from feed_comment fc join users us on fc.user_id = us.user_id where fc.feed_comment_flag='live' and fc.feed_comment_block='unblock' and fc.feed_seq ='FE_1') start with feed_comment_ref is null connect by prior feed_comment_seq = feed_comment_ref;
+
+
+select * from like_feed;
+
+select * from report;

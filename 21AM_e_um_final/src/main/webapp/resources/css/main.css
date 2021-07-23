@@ -6,6 +6,29 @@
 	--mobile: 575px;
 	--pc:576px;
 }
+@media(max-width: 575px){
+	/*feedphoto  */
+	.feedPhoto{
+		width:250px;
+		height: 250px
+		
+	}
+	
+}	
+@media(max-width:690px){
+	.feedPhoto{
+		width:350px;
+		height:350px;
+	}
+} 
+@media(min-width:691px){
+	/*feedphoto  */
+	.feedPhoto{
+		width:500px;
+		height: 500px
+	}
+}
+
 
 @media(max-width: 575px){
 	.footer{
@@ -38,9 +61,14 @@
 	.dockbar{
 		position:fixed !important;
 		height: fit-content !important;
+		z-index: 999;
 		
 		
 	}
+	
+	
+	
+	
 }
 @media(min-width: 576px){
 		.hamdown{
@@ -73,6 +101,8 @@
 	.dockbar{
 		position: relative;;
 	}
+	
+	
 }
 .hamback{
 /* 	position: absolute; */
