@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user">
+	<select id="idChecker" resultType="_int">
+		select count(*) from users where user_id = #{userId}
+	</select>
+	<select id="emailChecker" resultType="_int">
+		select count(*) from users where user_email = #{userEmail}
+	</select>
+	<select id="nickChecker" resultType="_int">
+		select count(*) from users where user_nick = #{userNick}
+	</select>
+	<insert id="insertUser"> 
+		insert into users values(#{userId},#{userPassword}, #{userName}, #{userNick}, #{userEmail}, #{userAddrBasic}, #{userAddrDetails}, #{userAddrZip}, #{userPhone}, default, default, #{userGender}, #{userYear}, default, default, default,#{profileImageFile}, null)
+	</insert>
+	<insert id="insertInterest" > 
+		insert into profile values(#{userid}, #{interestName1}, #{interestName2}, #{interestName3}, #{interestName4}, #{interestName5})
+	</insert>
+	<select id="login" resultType="com.e_um.model.vo.userInfo.user.User">
+		select * from users where user_id=#{userId}
+	</select>
+	
+	<select  id= "verify" resultType="com.e_um.model.vo.userInfo.user.User">
+		select * from users 
+		<if test="userName != null">
+			where user_name = #{userName} and user_email=#{userEmail}
+		</if>
+		<if test="userId != null">
+			where user_id = #{userId} and user_email=#{userEmail}
+		</if>
+	</select>
+	<update id="userchage" >
+		update users set user_password = #{userPassword} where user_id = #{userId}
+	</update>
+	<select id="selectAllUser" resultMap="userMap">
+      select * from users left join profile using(user_id)
+   </select>
+   
+   <resultMap type="com.e_um.model.vo.userInfo.user.User" id="userMap">
+      <id property="userId" column="user_id"/>
+      <result property="userPassword" column="user_password"/>
+      <result property="userName" column="user_name"/>
+      <result property="userNick" column="user_nick"/>
+      <result property="userEmail" column="user_email"/>
+      <result property="userAddrBasic" column="user_addr_basic"/>
+      <result property="userAddrDetails" column="user_addr_details"/>
+      <result property="userAddrZip" column="user_addr_zip"/>
+      <result property="userPhone" column="user_phone"/>
+      <result property="userRole" column="user_role"/>
+      <result property="userDate" column="user_date"/>
+      <result property="userGender" column="user_gender"/>
+      <result property="userYear" column="user_year"/>
+      <result property="userReportCount" column="user_report_count"/>
+      <result property="userBlock" column="user_block"/>
+      <result property="userExit" column="user_exit"/>
+      <result property="profileImageFile" column="profile_image_file"/>
+      <result property="profileStatus" column="profile_status"/>
+      <collection property="interest" ofType="com.e_um.model.vo.userInfo.interest.Interest">
+         <result property="profileInterestName1" column="profile_interest_name1"/>
+         <result property="profileInterestName2" column="profile_interest_name2"/>
+         <result property="profileInterestName3" column="profile_interest_name3"/>
+         <result property="profileInterestName4" column="profile_interest_name4"/>
+         <result property="profileInterestName5" column="profile_interest_name5"/>
+      </collection>
+   </resultMap>
+   
+   
+   <insert id="insertAlarm1">
+   	insert into alarm_toggle values ('calendar_alarm',#{userId} ,default)
+   </insert>
+   
+   <insert id="insertAlarm2">
+   		insert into alarm_toggle values ('chat_alarm',#{userId},default)
+   </insert>
+   
+   <insert id="insertAlarm3">
+   	insert into alarm_toggle values ('feed_alarm',#{userId},default)
+   </insert>
+   
+   <insert id="insertAlarm4">
+   		insert into alarm_toggle values ('feed_like_alarm',#{userId},default)
+   </insert>
+   
+   <insert id="insertAlarm5">
+		insert into alarm_toggle values ('food_alarm',#{userId},default)
+   </insert>
+   
+   <insert id="insertAlarm6">
+   		insert into alarm_toggle values ('friend_alarm',#{userId},default)
+   </insert>
+   
+   <insert id="insertAlarm7">
+   		insert into alarm_toggle values ('group_alarm',#{userId},default)
+   </insert>
+   
+   <insert id="insertAlarm8">
+   		insert into alarm_toggle values ('movie_alarm',#{userId},default)
+   </insert>
+   
+   <insert id="insertAlarm9">
+   		insert into alarm_toggle values ('support_alarm',#{userId},default)
+   </insert>
+   
+   <select id="recommandFriend" resultMap="userMap">
+		select *  from (select a.*, rownum as rnum from ( select * from users join profile using (user_id) order by USER_DATE desc) a ) where rnum between 1 and 12   
+   </select>
+   
+</mapper>

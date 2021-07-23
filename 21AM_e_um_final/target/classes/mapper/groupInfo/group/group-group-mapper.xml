@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="group">
+  	<resultMap type="com.e_um.model.vo.groupinfo.group.Group" id="groupMap">
+  		<id property="groupSeq" column="group_seq"/>
+  		<result property="groupMaster" column="group_master"/>
+  		<result property="groupTheme" column="group_theme"/>
+  		<result property="groupLimit" column="group_limit"/>
+  		<result property="groupGender" column="group_gender"/>
+  		<result property="groupComment" column="group_comment"/>
+  		<result property="groupCountToday" column="group_count_today"/>
+  		<result property="groupCountTotal" column="group_count_total"/>
+  		<result property="groupDate" column="group_date"/>
+  		<result property="groupFileUpload" column="group_file_upload"/>
+  		<result property="groupTitle" column="group_title"/>
+  		<result property="groupAge" column="group_age"/>
+  		<result property="groupDestroyFlag" column="group_destroy_flag"/>
+  		
+  		<collection property="members" resultMap="memberMap">
+  		
+  		</collection>
+  	</resultMap>
+  	
+  	<resultMap id="memberMap" type="com.e_um.model.vo.groupinfo.member.Member">
+  		<id column="group_Seq" property="groupSeq"></id>
+  		<result column="role" property="groupUserRole"/>
+  		<result column="date" property="groupUserDate"/>
+  		<result column="flag" property="groupUserFlag"/>
+  		<association property="groupUser" javaType="com.e_um.model.vo.userInfo.user.User"/>
+  	</resultMap>
+  	
+  	
+  	
+  	<select id="selectGroupList" resultMap="groupMap">
+  		select *
+  		from group_small
+  	</select>
+  	
+  	<select id="selectGroupListTop" resultMap="groupMap">
+  		select *
+		from group_small order by group_count_total asc
+  	</select>
+  	
+  	<insert id="groupInsert" parameterType="com.e_um.model.vo.groupinfo.group.Group">
+  		insert into group_small values('GR_'||group_seq.nextval,#{userId},#{groupTheme},
+  		#{groupLimit},#{groupGender},#{groupComment},default,default,
+  		default,#{groupTitle},#{groupAge},default,#{groupFileUpload});
+  	</insert>
+  	
+</mapper>
+
+

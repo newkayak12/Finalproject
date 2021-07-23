@@ -92,6 +92,7 @@
 
 .other {
     color: rgba(88, 88, 88, 0.315) !important;
+    pointer-events : none;
 }
 
 .today {
@@ -113,8 +114,9 @@
 }
 .foodBookingTitle {
 	font-weight: 900;
+	color: #70b3d9;
 }
-    </style>
+</style>
 
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
@@ -145,10 +147,14 @@
 				                <button type="button" class="nav-btn go-today" onclick="goToday();" >오늘</button>
 				                <button type="button" class="nav-btn go-next" onclick="nextMonth();">&gt;</button>
 				            </div>
+				            <div>
+				            	<span style="color:#b8dbee;">■</span><span>오늘날짜</span>
+				            	<span style="color:#ff1c1c96;">■</span><span>선택한날짜</span>
+				            </div>
 				        </div>
 				        <div class="calendar-main">
 				            <div class="days">
-				                <div class="day">일</div>
+				            	<div class="day">일</div>
 				                <div class="day">월</div>
 				                <div class="day">화</div>
 				                <div class="day">수</div>
@@ -169,7 +175,7 @@
 				<div style="width:400px;">
 					<p class="foodBookingTitle">&nbsp; 2. 시간대 선택</p>
 					<c:forEach var="time" items="${ realTimeList }">
-						<button onclick="" name="foodBookingTime" type="button" class="btn m-1" style="border:1px solid gray; background-color: #f7f7f7; margin:1px;"><c:out value="${ time }"/></button>
+						<button onclick="fn_selectTime('${ time }', event);" type="button" class="btn m-1 foodBookingTime" style="border:1px solid gray; background-color: #f7f7f7; margin:1px;"><c:out value="${ time }"/></button>
 					</c:forEach>
 				</div>
 					
@@ -177,7 +183,7 @@
 				<div>
 					<br>
 					<p class="foodBookingTitle">&nbsp; 3. 인원수 선택</p>
-					<select name="foodBookingHead" class="form-control" style="display:inline-block; width:400px; border:1px solid gray;">
+					<select id="foodBookingHead" name="bookingHead" class="form-control" style="display:inline-block; width:400px; border:1px solid gray;">
 						<option disabled="disabled">인원수를 선택하세요</option>
 						<option>1</option>
 						<option>2</option>
@@ -190,13 +196,22 @@
 				<div>
 					<br>
 					<p class="foodBookingTitle">&nbsp; 4.요청사항 작성</p>
-					<textarea name="foodBookingContents" class="form-control" style="display:inline-block; width:400px; border:1px solid gray;" rows="5" cols="60"></textarea>
+					<textarea id="foodBookingContents" name="bookingContents" class="form-control" style="display:inline-block; width:400px; border:1px solid gray;" rows="5" cols="60"></textarea>
 				</div>
+				
+				<!-- 선택한 날짜랑 시간  -->
+				<input type="hidden" id="bookingDateDay" name="bookingDateDay" value=""/>
+				<input type="hidden" id="bookingDateTime" name="bookingDateTime" value=""/>
+				<input type="hidden" id="userId" name="userId" value="${ session.userId }">
+				<input type="hidden" id="foodSeq" name="foodSeq" value="${ food.foodSeq }">
+				
 				<!-- 버튼 영역 -->
+				
 				<div class="mb-5">
 					<br>
-					<button class="btn btn-eum border-eum textcolor-eum m-1" onclick="" style="border:1px solid #70b3d9;">취소</button>
-					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum m-1" style="background-color: #70b3d9;">
+					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="fn_bookingRestart();" style="border:1px solid #70b3d9;">선택 초기화</button>
+					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="location.assign('${path}/food/foodView?foodSeq=${ food.foodSeq}');" style="border:1px solid #70b3d9;">돌아가기</button>
+					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum m-1" style="background-color: #70b3d9;" onclick="fn_booking();">
 				</div>
 			</div>	
 			
@@ -204,11 +219,8 @@
 		
 	
 	</div>
-	<script src="${ path }/resources/js/cal.js"></script>
 </section>
 
-<script>
-	
-</script>
+<script src="${ path }/resources/js/booking.js"></script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

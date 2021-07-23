@@ -2,6 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<style>
+	/* 조건펼치기 버튼 */
+	#showFoodSearchCondition {
+		background-color: #70b3d9;
+	
+	}
+	
+	/* 보였다안보였다하는 검색 조건 div  */
+	#foodSearch-condition {
+		display: none;
+		background-color: #70b3d9;
+		width:700px;
+		 height:500px;
+	}
+	#foodSearchCategoryTitle {
+		display: block;
+	}
+</style>
+
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
 	
@@ -9,12 +28,46 @@
 		
 			<div class="search-container">
 				<form>
+					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
 					<input class="col-8 col-md-6 form-control" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
-					<button class="btn btn-primary" type="submit" class="btn" >검색</button>
-					<button class="btn btn-primary" type="button" class="btn" onclick="fn_openCondition();">조건 ▾</button>
+					<button class="btn" type="submit" class="btn" style="background-color: #70b3d9;">검색</button>
+					<button class="btn" type="button" class="btn" id="showFoodSearchCondition">조건 ▾</button>
+					
+					<!-- 보였다안보였다하는 검색 조건 div -->
+					<div id="foodSearch-condition">
+						
+						<div id="foodSearchCategory1">
+							<span id="foodSearchCategoryTitle">가격대</span>
+							<span>1만원미만</span><span>2만원-3만원</span><span>3만원-4만원</span><span>4만원-5만원</span><span>5만원이상</span><span>7만원이상</span><span>10만원이상</span>
+						</div>
+						
+						<div id="foodSearchCategory2">
+							<span id="foodSearchCategoryTitle">분류</span>
+						</div>
+						
+						<div id="foodSearchCategory3">
+							<span id="foodSearchCategoryTitle">음식종류</span>
+						</div>
+						
+						<div id="foodSearchCategory4">
+							<span id="foodSearchCategoryTitle">지역</span>
+							<span>강남구</span><span>마포구</span><span>용산</span><span>연남</span><span>종로</span>
+							<span>성동구</span><span>성수</span><span>이태원</span><span>망원</span><span>송파</span>
+							<span>청담</span><span>잠실</span><span>이태원</span><span>망원</span><span>송파</span>
+						</div>
+						
+						<div id="foodSearchCategory5">
+							<span id="foodSearchCategoryTitle">평점</span>
+							<span>1점이상</span><span>2점이상</span><span>3점이상</span><span>4점이상</span><span>5점이상</span>
+						</div>
+						
+					</div>
+					
 				</form>
 			</div>
+			
 			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
+			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodBookingView?userId=${session.userId }'">내예약내역</button>
 		
 		</div>
 		
@@ -68,7 +121,7 @@
 					
 					<div class="modal-body">
 						<div id="modal-content">
-							<img width="200px" height="200px" src="">
+							<img class="mr-3" style="float:left;" width="200px" height="200px" src="">
 							<div class="modal-info">
 								<p></p> <!-- 대분류 -->
 								<h5></h5> <!-- 맛집이름 -->
@@ -82,8 +135,8 @@
 					</div>
 			
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="fn_foodBooking();">예약하기</button>
-						<button type="button" class="btn btn-primary" onclick="fn_foodView();">상세보기</button>
+						<button type="button" class="btn" style="border: 1px solid #70b3d9;" onclick="fn_foodBooking();">예약하기</button>
+						<button type="button" class="btn" style="background-color: #70b3d9;" onclick="fn_foodView();">상세보기</button>
 					</div>
 			
 				</div>
@@ -93,12 +146,15 @@
 
 	</div>
 	
-	<div>
+	<!-- <div>
 		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
-	</div>
+	</div> -->
 </section>
 
+
+
 <script>
+
 	// 모달열기 함수 
 	const fn_foodmodal=(seq)=>{
 		$.ajax({
@@ -118,6 +174,7 @@
 		})
 	}
 	
+	
 	// 상세보기페이지로 전환
 	const fn_foodView = () => {
 		// 맛집 시퀀스 가져오기 
@@ -125,6 +182,7 @@
 		// console.log(foodSeq);
 		location.assign("${path}/food/foodView?foodSeq=" + foodSeq);
 	}
+	
 	
 	// 예약페이지로 전환
 	const fn_foodBooking = () => {
@@ -134,8 +192,9 @@
 		location.assign('${ path }/food/foodBooking/start?foodSeq=' + foodSeq);
 	}
 	
+	
 	// top버튼 
-	$(function() {
+	/* $(function() {
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 500) {
 				$('#MOVE_TOP_BTN').fadeIn();
@@ -149,12 +208,29 @@
 				}, 400);
 			return false;
 		});
-	});
+	}); */
+	
 	
 	// 검색조건 열기 
-	const fn_openCondition = () => {
-		
-	}
+	$("#showFoodSearchCondition").click( (e) => {
+		$("#foodSearch-condition").slideToggle();
+	} );
+	
+	
+	// 검색카테고리 출력하기위해 데이터 가져옴 
+	$(function() {
+		$.ajax({
+			url: "${path}/food/selectFoodCategoryList",
+			success: data => {
+				for(let i=0; i < data.CategoryMainList.length; i++) {
+					$("#foodSearchCategory2").append($("<span>").text(data.CategoryMainList[i]));
+				} 
+				for(let i=0; i < data.CategorySubList.length; i++) {
+					$("#foodSearchCategory3").append($("<span>").text(data.CategorySubList[i]));
+				} 
+			}
+		})
+	});
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
