@@ -6,18 +6,32 @@
 	/* 조건펼치기 버튼 */
 	#showFoodSearchCondition {
 		background-color: #70b3d9;
-	
+		
 	}
 	
 	/* 보였다안보였다하는 검색 조건 div  */
 	#foodSearch-condition {
 		display: none;
-		background-color: #70b3d9;
-		width:700px;
-		 height:500px;
+		border: 1px solie #70b3d9;
+		/* width: ; */
+		/* height:500px; */
 	}
 	#foodSearchCategoryTitle {
 		display: block;
+	}
+	
+	.fchoice {
+		cursor: pointer !important;
+		border: 1px solid #70b3d9;
+		border-radius: 10%;
+		background-color: #ffffff;
+		padding : 10px;
+		margin : 10px;
+	}
+	
+	/* 선택된 검색조건 */
+	.selected {
+		background-color: #70b3d9;
 	}
 </style>
 
@@ -26,39 +40,62 @@
 	
 		<div>
 		
-			<div class="search-container">
-				<form>
+			<div class="search-container col-12">
+				<form class="col-12">
 					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
-					<input class="col-8 col-md-6 form-control" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
-					<button class="btn" type="submit" class="btn" style="background-color: #70b3d9;">검색</button>
+					<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
+					<button class="btn" type="button" class="btn" id="foodSearchButton" style="background-color: #70b3d9;">검색</button>
 					<button class="btn" type="button" class="btn" id="showFoodSearchCondition">조건 ▾</button>
 					
 					<!-- 보였다안보였다하는 검색 조건 div -->
 					<div id="foodSearch-condition">
 						
-						<div id="foodSearchCategory1">
-							<span id="foodSearchCategoryTitle">가격대</span>
-							<span>1만원미만</span><span>2만원-3만원</span><span>3만원-4만원</span><span>4만원-5만원</span><span>5만원이상</span><span>7만원이상</span><span>10만원이상</span>
+						<!-- 조건1. 가격대 -->
+						<div id="foodSearchCategory1 " class="row col-12">
+							<div id="foodSearchCategoryTitle">가격대</div>
+							<div class="fchoice foodPriceCon">1만원미만</div>
+							<div class="fchoice foodPriceCon">2만원-3만원</div>
+							<div class="fchoice foodPriceCon">3만원-4만원</div>
+							<div class="fchoice foodPriceCon">4만원-5만원</div>
+							<div class="fchoice foodPriceCon">5만원이상</div>
+							<div class="fchoice foodPriceCon">7만원이상</div>
+							<div class="fchoice foodPriceCon">10만원이상</div>
 						</div>
 						
+						<!-- 조건2. 대분류 -->
 						<div id="foodSearchCategory2">
-							<span id="foodSearchCategoryTitle">분류</span>
+							<div id="foodSearchCategoryTitle">분류</div>
 						</div>
 						
+						<!-- 조건3. 중분류 -->
 						<div id="foodSearchCategory3">
-							<span id="foodSearchCategoryTitle">음식종류</span>
+							<div id="foodSearchCategoryTitle">음식종류</div>
 						</div>
 						
+						<!-- 조건4. 지역 -->
 						<div id="foodSearchCategory4">
-							<span id="foodSearchCategoryTitle">지역</span>
-							<span>강남구</span><span>마포구</span><span>용산</span><span>연남</span><span>종로</span>
-							<span>성동구</span><span>성수</span><span>이태원</span><span>망원</span><span>송파</span>
-							<span>청담</span><span>잠실</span><span>이태원</span><span>망원</span><span>송파</span>
+							<div id="foodSearchCategoryTitle">지역</div>
+							<div class="fchoice foodAddrCon">강남</div>
+							<div class="fchoice foodAddrCon">마포</div>
+							<div class="fchoice foodAddrCon">용산</div>
+							<div class="fchoice foodAddrCon">연남</div>
+							<div class="fchoice foodAddrCon">종로</div>
+							<div class="fchoice foodAddrCon">성수</div>
+							<div class="fchoice foodAddrCon">이태원</div>
+							<div class="fchoice foodAddrCon">망원</div>
+							<div class="fchoice foodAddrCon">송파</div>
+							<div class="fchoice foodAddrCon">청담</div>
+							<div class="fchoice foodAddrCon">잠실</div>
 						</div>
 						
+						<!-- 조건5. 평점 -->
 						<div id="foodSearchCategory5">
-							<span id="foodSearchCategoryTitle">평점</span>
-							<span>1점이상</span><span>2점이상</span><span>3점이상</span><span>4점이상</span><span>5점이상</span>
+							<div id="foodSearchCategoryTitle">평점</div>
+							<div class="fchoice foodStarCon">1점이상</div>
+							<div class="fchoice foodStarCon">2점이상</div>
+							<div class="fchoice foodStarCon">3점이상</div>
+							<div class="fchoice foodStarCon">4점이상</div>
+							<div class="fchoice foodStarCon">5점이상</div>
 						</div>
 						
 					</div>
@@ -146,9 +183,9 @@
 
 	</div>
 	
-	<!-- <div>
+	<div>
 		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
-	</div> -->
+	</div>
 </section>
 
 
@@ -194,7 +231,7 @@
 	
 	
 	// top버튼 
-	/* $(function() {
+	$(function() {
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 500) {
 				$('#MOVE_TOP_BTN').fadeIn();
@@ -208,7 +245,7 @@
 				}, 400);
 			return false;
 		});
-	}); */
+	});
 	
 	
 	// 검색조건 열기 
@@ -223,14 +260,33 @@
 			url: "${path}/food/selectFoodCategoryList",
 			success: data => {
 				for(let i=0; i < data.CategoryMainList.length; i++) {
-					$("#foodSearchCategory2").append($("<span>").text(data.CategoryMainList[i]));
+					$("#foodSearchCategory2").append($("<span>").attr("class", "fchoice foodCateMainCon").text(data.CategoryMainList[i]));
 				} 
 				for(let i=0; i < data.CategorySubList.length; i++) {
-					$("#foodSearchCategory3").append($("<span>").text(data.CategorySubList[i]));
+					$("#foodSearchCategory3").append($("<span>").attr("class", "fchoice foodCateSubCon").text(data.CategorySubList[i]));
 				} 
 			}
 		})
 	});
+	
+	// 검색 
+	$("#foodSearchButton").click( (e) => {
+		
+		// 검색어
+		let foodSearchKeyword = $("#foodSearchKeyword").val();
+			console.log(foodSearchKeyword);
+		
+		
+	} );
+	
+	// 클릭하고 선택한태그만 색깔 바뀌도록 
+	$(".fchoice").click( (e) => {
+		$(e.target).toggleClass("selected");
+		if($(e.target).hasClass("selected")){
+			$(e.target).siblings().find("div").removeClass("selected");
+		}
+	} );
+	
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
