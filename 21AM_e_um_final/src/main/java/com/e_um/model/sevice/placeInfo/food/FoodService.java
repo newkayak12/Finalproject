@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.placeInfo.food.FoodDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
@@ -72,5 +73,17 @@ public class FoodService implements FoodServiceInterface {
 	@Override
 	public Food selectFood(String foodSeq) {
 		return dao.selectFood(session, foodSeq);
+	}
+
+
+	@Override
+	public int foodBooking(FoodBooking booking) {	
+		return dao.foodBooking(session, booking);
+	}
+
+
+	@Override
+	public List<FoodBooking> selectMyBookingList(String userId) {
+		return dao.selectMyBookingList(session, userId);
 	}
 }

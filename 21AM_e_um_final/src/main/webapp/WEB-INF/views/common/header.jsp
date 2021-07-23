@@ -8,7 +8,6 @@
 <c:set var="path" value="<%=request.getContextPath() %>" scope="application"/>
 <c:set var="session" value="${userSession }" scope="session"/>
 
-
 <!DOCTYPE html>
 <html>
 <head>

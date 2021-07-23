@@ -21,12 +21,6 @@ public class FriendService implements FriendServiceInterface {
 	SqlSessionTemplate session;
 	
 	@Override
-	public List<User> selectAllUser(String userId) {
-		return dao.selectAllUser(session, userId);
-	}
-
-	
-	@Override
 	public User selectUserOne(String userId) {
 		return dao.selectUserOne(session, userId);
 	}
@@ -35,5 +29,17 @@ public class FriendService implements FriendServiceInterface {
 	@Override
 	public int insertFriend(Map param) {
 		return dao.insertFriend(session, param);
+	}
+
+
+	@Override
+	public List<User> selectAllUser(String userId,int index,int btnsu) {
+		return dao.selectAllUser(session, userId, index, btnsu);
+	}
+
+
+	@Override
+	public List<User> searchKeyword(Map param) {
+		return dao.searchKeyword(session, param);
 	}
 }
