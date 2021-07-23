@@ -8,14 +8,14 @@
 <div id="root" class="container mt-5">
     <form action="" method="post" class="mt-3 mx-md-5">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="search_friend" name="searchFri" placeholder="닉네임, 지역, 관심사로 나와 꼭 맞는 친구를 찾아보세요!">
+            <input type="text" class="form-control" id="search_friend" name="searchFri" placeholder="닉네임, 지역으로 검색해보세요!">
             <div class="input-group-append">
-                <button id="searchFriBtn" class="btn btn-success" type="submit">검색</button>
+                <button id="searchFriBtn" class="btn btn-success" type="button">검색</button>
             </div>
         </div>
 
-        <div id="searchFriDetail" data-toggle="collapse" data-target="#demo" style="font-weight:bold">> 상세 검색</div>
-        <div id="demo" class="container p-3 my-3 border collapse searchFri_size">
+        <div id="searchFriDetail" data-toggle="collapse" data-target="#searchDetail" style="font-weight:bold">> 상세 검색</div>
+        <div id="searchDetail" class="container p-3 my-3 border collapse searchFri_size">
             <div>
                 <div style="font-family: 'twayair';">성별</div>
                 <div class="row">
@@ -129,49 +129,7 @@
     </form>
 
     <div id="friList" class="row mt-5">
-        <!--9~12개만 뽑고 나머지는 무한 스크롤-->
-        <c:forEach var="u" items="${list }" varStatus="status">
-        	<c:if test="${status.index < 12}">
-		        <div class="friUser col-sm-6 col-lg-4 mb-5">
-		            <button class="container btn btn-outline-light align-items-center text-dark d-flex p-2 mh-100" data-toggle="modal" title="${u.userId }">
-		                <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg col mw-75 mh-100" title="${u.userId }">
-		                <div class="col" title="${u.userId }">
-		                	<div><h5 title="${u.userId }"><b><c:out value="${u.userNick }"/></b></h5></div><br>
-		                	<small><b>
-		                		<div class="d-flex flex-wrap" title="${u.userId }">
-				                	<span title="${u.userId }" class="mx-1">
-					                	<c:if test="${u.interest.profileInterestName1 !=null}">
-					                		<c:out value="${u.interest.profileInterestName1 }"/>
-					                	</c:if>
-				                	</span>
-				                	
-				                	<span title="${u.userId }" class="mx-1">
-					                	<c:if test="${u.interest.profileInterestName2 !=null}">
-					                		<c:out value="${u.interest.profileInterestName2 }"/>
-					                	</c:if>
-				                	</span>
-				                	<span title="${u.userId }" class="mx-1">
-					                	<c:if test="${u.interest.profileInterestName3 !=null}">
-					                		<c:out value="${u.interest.profileInterestName3 }"/>
-					                	</c:if>
-				                	</span>
-				                	<span title="${u.userId }" class="mx-1">
-					                	<c:if test="${u.interest.profileInterestName4 !=null}">
-					                		<c:out value="${u.interest.profileInterestName4 }"/>
-					                	</c:if>
-				                	</span>
-				                	<span title="${u.userId }" class="mx-1">
-					                	<c:if test="${u.interest.profileInterestName5 !=null}">
-					                		<c:out value="${u.interest.profileInterestName5 }"/>
-					                	</c:if>
-				                	</span>
-		                		</div>
-		                	</b></small>
-		                </div>
-		            </button>
-		        </div>
-			</c:if>
-        </c:forEach>
+        
     </div>
 
     <!-- 친구 누르면 나오는 모달창 -->
@@ -185,10 +143,35 @@
                 </div>
         		
 				<div id="userInfoModal">
+				
                	</div>
             </div>
         </div>
     </div>
+    
+    <!-- 검색 결과 모달 -->
+	<div class="modal" id="searchResultModal">
+	  <div class="modal-dialog modal-xl">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">검색 결과</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div id="searchResultModal-body" class="modal-body row mt-5" >
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
 
     <script>
     	$(".choice-1").click(e=>{
@@ -196,12 +179,15 @@
     		if($(e.target).hasClass("choCon")){
     			$(e.target).parent().siblings().find("span").removeClass("choCon");
     		}
-    		console.log($(e.target));
-    		console.log($(e.target).html());
+    		/* console.log($(e.target));
+    		console.log($(e.target).html()); */
+    		/* console.log($(".choCon").filter(".ageBtn").html()); */
     	})
     	
-    	$(".choice-5").click(e=>{
-    		let inter_su=$(".choice-5").find(".choCon").length;
+      	$(".choice-5").click(e=>{
+      		/* console.log($(".choCon").filter(".interBtn").html()); */
+            
+        	let inter_su=$(".choice-5").find(".choCon").length;
     		if($(e.target).hasClass("choCon")){
 	    		$(e.target).removeClass("choCon");    			
     		} else{
@@ -212,51 +198,65 @@
     			}
     		}
     	})
-    	
-    	$(".friUser").click(e=>{
-    		/* console.log(e.target);
-    		console.log(e.target.title); */
-    		$.ajax({
-    			type:"post",
-    			url:"${pageContext.request.contextPath}/friend/openmodal/start",
-    			data:{"userId":e.target.title},
-    			success:data=>{
-    				$("#userInfoModal").html(data);
-    				$('#friSmModal').modal("show");
-    			}
-    		})
-    	})
     
-        /* $(function(){
+        $(function(){
              let index=0;
+             
+             fetchlist();
+             
              $(window).scroll(function(){
                  let $window=$(this);
                  let scrollTop=$window.scrollTop();
                  let windowHeight=$window.height();
                  let documentHeight=$(document).height();
-                 // console.log(windowHeight);
-                 // console.log("documentHeight: "+documentHeight+" | scrollTop: "+scrollTop+" | windowHeight: "+windowHeight);
                  if(scrollTop+windowHeight+1>=documentHeight){
-                     index++;
                      setTimeout(fetchlist,200);
                  }
              })
-         })
-
-         function fetchlist(){
-             $.ajax({
-                 type: "get",
-                 url: "${pageContext.request.contextPath}/friend/infiniteScroll",
-                 success: function(friends){
-                     for(var i=0; i<friends.lists.length; i++){
-                         let friend=friends.lists[i];
-                         $("#friList").append(
-                            
-                         )
+             
+             function fetchlist(){
+            	 index++;
+                 $.ajax({
+                     type: "get",
+                     url: "${pageContext.request.contextPath}/friend/infiniteScroll",
+                     data:{"index":index},
+                     success: data=>{
+                    	 $("#friList").append(data);
                      }
-                 }
-             })
-         } */
+                 })
+             }
+         })
+         
+        $("#searchFriBtn").click(e=>{
+			let interestArr = [];
+            
+    		$(".choCon").filter(".interBtn").each(function(i){//체크된 리스트 저장
+           		interestArr.push($(this).html());
+        	});
+			/* console.log(interestArr); */
+			
+			$('#searchDetail').collapse("hide");
+             
+        	 $.ajax({
+        		 type:"post",
+        		 url: "${pageContext.request.contextPath}/friend/searchKeyword",
+        		 datatype:'json',
+        		 data:{
+        			 "keyword":$("input[name=searchFri]").val(),
+        			 "gender":$(".choCon").filter(".genBtn").html(),
+        			 "address":$(".choCon").filter(".addBtn").html(),
+        			 "age":$(".choCon").filter(".ageBtn").html(),
+        			 "interestArr": interestArr
+        		 },
+        		 success: data=>{
+        			$("#searchResultModal-body").html(data);
+     				$('#searchResultModal').modal("show");
+     				$('#searchResultModal-body .friUser').click(e=>{
+     					$('#searchResultModal').modal("hide");
+     				})
+        		 }
+        	 });
+         })
     </script>
 </div>
    
