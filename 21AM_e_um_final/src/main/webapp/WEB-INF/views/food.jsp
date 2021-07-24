@@ -6,18 +6,42 @@
 	/* 조건펼치기 버튼 */
 	#showFoodSearchCondition {
 		background-color: #70b3d9;
-	
+		
 	}
 	
 	/* 보였다안보였다하는 검색 조건 div  */
 	#foodSearch-condition {
 		display: none;
-		background-color: #70b3d9;
-		width:700px;
-		 height:500px;
+		border: 1px solid #70b3d9;
+		/* width: ; */
+		/* height:500px; */
 	}
 	#foodSearchCategoryTitle {
 		display: block;
+		font-weight: 900;
+		margin: 10px 10px 5px 10px;
+	}
+	
+	#foodSearch-condition input[type=radio] {
+		display: none;
+	}
+	
+	#foodSearch-condition input[type=radio]:checked+label {
+		background-color: #70b3d9;
+		font-weight: 900;
+	}
+	
+	#foodSearch-condition input[type=radio]+label{
+		border: 1px solid #70b3d9;
+		border-radius: 20px;
+		padding: 5px 12px;
+		margin: 5px;
+	}
+	
+	/* 선택된 검색조건 */
+	.selected {
+		background-color: #70b3d9;
+		font-weight: 900;
 	}
 </style>
 
@@ -26,39 +50,70 @@
 	
 		<div>
 		
-			<div class="search-container">
-				<form>
+			<div class="search-container col-12">
+				<form action="" method="" class="col-12">
 					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
-					<input class="col-8 col-md-6 form-control" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
-					<button class="btn" type="submit" class="btn" style="background-color: #70b3d9;">검색</button>
-					<button class="btn" type="button" class="btn" id="showFoodSearchCondition">조건 ▾</button>
+					<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
+					<button class="btn" type="button" id="foodSearchButton" style="background-color: #70b3d9;">검색</button>
+					<button class="btn" type="button" id="showFoodSearchCondition">조건 ▾</button>
+					<button class="btn" type="button" id="clearFoodSearchCondition">조건 초기화</button>
 					
 					<!-- 보였다안보였다하는 검색 조건 div -->
-					<div id="foodSearch-condition">
+					<div id="foodSearch-condition" class="p-3">
 						
-						<div id="foodSearchCategory1">
-							<span id="foodSearchCategoryTitle">가격대</span>
-							<span>1만원미만</span><span>2만원-3만원</span><span>3만원-4만원</span><span>4만원-5만원</span><span>5만원이상</span><span>7만원이상</span><span>10만원이상</span>
+						<!-- 조건1. 가격대 -->
+						<div id="foodSearchCategoryTitle">1인당 가격</div>
+						<div id="foodSearchCategory1" class="row col-12">
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon1" value="1만원미만">
+							<label class="" for="foodPriceCon1">1만원미만</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon2" value="1만원대">
+							<label class="" for="foodPriceCon2">1만원대</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon3" value="2만원대">
+							<label class="" for="foodPriceCon3">2만원대</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon5" value="3만원이상">
+							<label class="" for="foodPriceCon5">3만원이상</label>
+							
 						</div>
 						
-						<div id="foodSearchCategory2">
-							<span id="foodSearchCategoryTitle">분류</span>
+						<!-- 조건2. 대분류 -->
+						<div id="foodSearchCategoryTitle">음식종류</div>
+						<div id="foodSearchCategory2" class="row col-12"></div>
+						
+						<!-- 조건3. 지역 -->
+						<div id="foodSearchCategoryTitle">지역</div>
+						<div id="foodSearchCategory3" class="row col-12">
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon1" value="강남">
+							<label class="" for="foodPriceCon1">강남</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon2" value="마포">
+							<label class="" for="foodPriceCon1">마포</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon3" value="용산">
+							<label class="" for="foodPriceCon1">용산</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon4" value="연남">
+							<label class="" for="foodPriceCon1">연남</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon5" value="종로">
+							<label class="" for="foodPriceCon1">종로</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon6" value="성수">
+							<label class="" for="foodPriceCon1">성수</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon7" value="이태원">
+							<label class="" for="foodPriceCon1">이태원</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon8" value="송파">
+							<label class="" for="foodPriceCon1">송파</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon9" value="망원">
+							<label class="" for="foodPriceCon1">망원</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon10" value="청담">
+							<label class="" for="foodPriceCon1">청담</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon1" value="잠실">
+							<label class="" for="foodPriceCon1">잠실</label>
 						</div>
 						
-						<div id="foodSearchCategory3">
-							<span id="foodSearchCategoryTitle">음식종류</span>
-						</div>
-						
-						<div id="foodSearchCategory4">
-							<span id="foodSearchCategoryTitle">지역</span>
-							<span>강남구</span><span>마포구</span><span>용산</span><span>연남</span><span>종로</span>
-							<span>성동구</span><span>성수</span><span>이태원</span><span>망원</span><span>송파</span>
-							<span>청담</span><span>잠실</span><span>이태원</span><span>망원</span><span>송파</span>
-						</div>
-						
-						<div id="foodSearchCategory5">
-							<span id="foodSearchCategoryTitle">평점</span>
-							<span>1점이상</span><span>2점이상</span><span>3점이상</span><span>4점이상</span><span>5점이상</span>
+						<!-- 조건4. 평점 -->
+						<div id="foodSearchCategoryTitle">평점</div>
+						<div id="foodSearchCategory4" class="row col-12">
+							<button type="button" class="m-1 btn fchoice foodStarCon">1점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">2점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">3점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">4점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">5점이상</button>
 						</div>
 						
 					</div>
@@ -146,9 +201,9 @@
 
 	</div>
 	
-	<!-- <div>
+	<div>
 		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
-	</div> -->
+	</div>
 </section>
 
 
@@ -194,7 +249,7 @@
 	
 	
 	// top버튼 
-	/* $(function() {
+	$(function() {
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 500) {
 				$('#MOVE_TOP_BTN').fadeIn();
@@ -208,7 +263,7 @@
 				}, 400);
 			return false;
 		});
-	}); */
+	});
 	
 	
 	// 검색조건 열기 
@@ -223,14 +278,45 @@
 			url: "${path}/food/selectFoodCategoryList",
 			success: data => {
 				for(let i=0; i < data.CategoryMainList.length; i++) {
-					$("#foodSearchCategory2").append($("<span>").text(data.CategoryMainList[i]));
-				} 
-				for(let i=0; i < data.CategorySubList.length; i++) {
-					$("#foodSearchCategory3").append($("<span>").text(data.CategorySubList[i]));
-				} 
+					$("#foodSearchCategory2").append($("<input>").attr({
+						"class" : "m-1 btn fchoice foodCateMainCon",
+						"type" : "radio",
+						"id":"foodCateMainCon"+i,
+						"onclick":"fn_btnTest("+'foodCateMainCon'+i+")"
+						}).text(data.CategoryMainList[i]));
+				}
 			}
 		})
 	});
+	
+	// 검색 
+	$("#foodSearchButton").click( (e) => {
+		
+		// 검색어
+		let foodSearchKeyword = $("#foodSearchKeyword").val();
+			console.log(foodSearchKeyword);
+		
+		
+	} );
+	
+	// 클릭하고 선택한태그만 색깔 바뀌도록 
+	$(".fchoice").click( (e) => {
+		
+		$(e.target).toggleClass("selected");
+		
+		if($(e.target).hasClass("selected")){
+			$(e.target).siblings().find("input").removeClass("selected");
+		}
+	} );
+	
+	const fn_btnTest=(e)=>{
+		$(e).toggleClass("selected");
+		
+		if($(e.target).hasClass("selected")){
+			$(e.target).siblings().find("button").removeClass("selected");
+		}
+	}
+	
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

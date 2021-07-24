@@ -10,8 +10,8 @@
 /* top 버튼 */
 a#MOVE_TOP_BTN {
 	position: fixed;
-	right: 5%;
-	bottom: 50px;
+	left: 10px;
+	bottom: 80px;
 	display: none;
 	z-index: 999;
 }
