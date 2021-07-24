@@ -12,26 +12,36 @@
 	/* 보였다안보였다하는 검색 조건 div  */
 	#foodSearch-condition {
 		display: none;
-		border: 1px solie #70b3d9;
+		border: 1px solid #70b3d9;
 		/* width: ; */
 		/* height:500px; */
 	}
 	#foodSearchCategoryTitle {
 		display: block;
+		font-weight: 900;
+		margin: 10px 10px 5px 10px;
 	}
 	
-	.fchoice {
-		cursor: pointer !important;
+	#foodSearch-condition input[type=radio] {
+		display: none;
+	}
+	
+	#foodSearch-condition input[type=radio]:checked+label {
+		background-color: #70b3d9;
+		font-weight: 900;
+	}
+	
+	#foodSearch-condition input[type=radio]+label{
 		border: 1px solid #70b3d9;
-		border-radius: 10%;
-		background-color: #ffffff;
-		padding : 10px;
-		margin : 10px;
+		border-radius: 20px;
+		padding: 5px 12px;
+		margin: 5px;
 	}
 	
 	/* 선택된 검색조건 */
 	.selected {
 		background-color: #70b3d9;
+		font-weight: 900;
 	}
 </style>
 
@@ -41,61 +51,69 @@
 		<div>
 		
 			<div class="search-container col-12">
-				<form class="col-12">
+				<form action="" method="" class="col-12">
 					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
 					<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
-					<button class="btn" type="button" class="btn" id="foodSearchButton" style="background-color: #70b3d9;">검색</button>
-					<button class="btn" type="button" class="btn" id="showFoodSearchCondition">조건 ▾</button>
+					<button class="btn" type="button" id="foodSearchButton" style="background-color: #70b3d9;">검색</button>
+					<button class="btn" type="button" id="showFoodSearchCondition">조건 ▾</button>
+					<button class="btn" type="button" id="clearFoodSearchCondition">조건 초기화</button>
 					
 					<!-- 보였다안보였다하는 검색 조건 div -->
-					<div id="foodSearch-condition">
+					<div id="foodSearch-condition" class="p-3">
 						
 						<!-- 조건1. 가격대 -->
-						<div id="foodSearchCategory1 " class="row col-12">
-							<div id="foodSearchCategoryTitle">가격대</div>
-							<div class="fchoice foodPriceCon">1만원미만</div>
-							<div class="fchoice foodPriceCon">2만원-3만원</div>
-							<div class="fchoice foodPriceCon">3만원-4만원</div>
-							<div class="fchoice foodPriceCon">4만원-5만원</div>
-							<div class="fchoice foodPriceCon">5만원이상</div>
-							<div class="fchoice foodPriceCon">7만원이상</div>
-							<div class="fchoice foodPriceCon">10만원이상</div>
+						<div id="foodSearchCategoryTitle">1인당 가격</div>
+						<div id="foodSearchCategory1" class="row col-12">
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon1" value="1만원미만">
+							<label class="" for="foodPriceCon1">1만원미만</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon2" value="1만원대">
+							<label class="" for="foodPriceCon2">1만원대</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon3" value="2만원대">
+							<label class="" for="foodPriceCon3">2만원대</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon5" value="3만원이상">
+							<label class="" for="foodPriceCon5">3만원이상</label>
+							
 						</div>
 						
 						<!-- 조건2. 대분류 -->
-						<div id="foodSearchCategory2">
-							<div id="foodSearchCategoryTitle">분류</div>
+						<div id="foodSearchCategoryTitle">음식종류</div>
+						<div id="foodSearchCategory2" class="row col-12"></div>
+						
+						<!-- 조건3. 지역 -->
+						<div id="foodSearchCategoryTitle">지역</div>
+						<div id="foodSearchCategory3" class="row col-12">
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon1" value="강남">
+							<label class="" for="foodPriceCon1">강남</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon2" value="마포">
+							<label class="" for="foodPriceCon1">마포</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon3" value="용산">
+							<label class="" for="foodPriceCon1">용산</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon4" value="연남">
+							<label class="" for="foodPriceCon1">연남</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon5" value="종로">
+							<label class="" for="foodPriceCon1">종로</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon6" value="성수">
+							<label class="" for="foodPriceCon1">성수</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon7" value="이태원">
+							<label class="" for="foodPriceCon1">이태원</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon8" value="송파">
+							<label class="" for="foodPriceCon1">송파</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon9" value="망원">
+							<label class="" for="foodPriceCon1">망원</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon10" value="청담">
+							<label class="" for="foodPriceCon1">청담</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon1" value="잠실">
+							<label class="" for="foodPriceCon1">잠실</label>
 						</div>
 						
-						<!-- 조건3. 중분류 -->
-						<div id="foodSearchCategory3">
-							<div id="foodSearchCategoryTitle">음식종류</div>
-						</div>
-						
-						<!-- 조건4. 지역 -->
-						<div id="foodSearchCategory4">
-							<div id="foodSearchCategoryTitle">지역</div>
-							<div class="fchoice foodAddrCon">강남</div>
-							<div class="fchoice foodAddrCon">마포</div>
-							<div class="fchoice foodAddrCon">용산</div>
-							<div class="fchoice foodAddrCon">연남</div>
-							<div class="fchoice foodAddrCon">종로</div>
-							<div class="fchoice foodAddrCon">성수</div>
-							<div class="fchoice foodAddrCon">이태원</div>
-							<div class="fchoice foodAddrCon">망원</div>
-							<div class="fchoice foodAddrCon">송파</div>
-							<div class="fchoice foodAddrCon">청담</div>
-							<div class="fchoice foodAddrCon">잠실</div>
-						</div>
-						
-						<!-- 조건5. 평점 -->
-						<div id="foodSearchCategory5">
-							<div id="foodSearchCategoryTitle">평점</div>
-							<div class="fchoice foodStarCon">1점이상</div>
-							<div class="fchoice foodStarCon">2점이상</div>
-							<div class="fchoice foodStarCon">3점이상</div>
-							<div class="fchoice foodStarCon">4점이상</div>
-							<div class="fchoice foodStarCon">5점이상</div>
+						<!-- 조건4. 평점 -->
+						<div id="foodSearchCategoryTitle">평점</div>
+						<div id="foodSearchCategory4" class="row col-12">
+							<button type="button" class="m-1 btn fchoice foodStarCon">1점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">2점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">3점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">4점이상</button>
+							<button type="button" class="m-1 btn fchoice foodStarCon">5점이상</button>
 						</div>
 						
 					</div>
@@ -260,11 +278,13 @@
 			url: "${path}/food/selectFoodCategoryList",
 			success: data => {
 				for(let i=0; i < data.CategoryMainList.length; i++) {
-					$("#foodSearchCategory2").append($("<span>").attr("class", "fchoice foodCateMainCon").text(data.CategoryMainList[i]));
-				} 
-				for(let i=0; i < data.CategorySubList.length; i++) {
-					$("#foodSearchCategory3").append($("<span>").attr("class", "fchoice foodCateSubCon").text(data.CategorySubList[i]));
-				} 
+					$("#foodSearchCategory2").append($("<input>").attr({
+						"class" : "m-1 btn fchoice foodCateMainCon",
+						"type" : "radio",
+						"id":"foodCateMainCon"+i,
+						"onclick":"fn_btnTest("+'foodCateMainCon'+i+")"
+						}).text(data.CategoryMainList[i]));
+				}
 			}
 		})
 	});
@@ -281,11 +301,21 @@
 	
 	// 클릭하고 선택한태그만 색깔 바뀌도록 
 	$(".fchoice").click( (e) => {
+		
 		$(e.target).toggleClass("selected");
+		
 		if($(e.target).hasClass("selected")){
-			$(e.target).siblings().find("div").removeClass("selected");
+			$(e.target).siblings().find("input").removeClass("selected");
 		}
 	} );
+	
+	const fn_btnTest=(e)=>{
+		$(e).toggleClass("selected");
+		
+		if($(e.target).hasClass("selected")){
+			$(e.target).siblings().find("button").removeClass("selected");
+		}
+	}
 	
 </script>
 
