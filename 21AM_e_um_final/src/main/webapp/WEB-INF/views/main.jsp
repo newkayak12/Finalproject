@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <style>
     	*{
-    		   border: 1px black solid  
+    		    border: 1px black solid 
     	}
     </style>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
@@ -72,6 +72,8 @@
     				 setTimeout(() => {
     					 feedAjaxContainer();
     					 
+    					 
+    					 
 					}, 400);
     			 }
     		 })
@@ -88,6 +90,9 @@
 		            success:data=>{
 		                $("#feed-container").append(data)
 		                $(".repl").css("display","block")
+		                if(data.length>10){
+		                	$("#feedquite").css("display","none")
+		                }
 		            }
 		        })
     	}
@@ -99,11 +104,7 @@
 	        
 	        
 	    }
-	    
-	    function commeterReader(event, seq){
-	    	console.log($(event.target).next())
-	    }
-	    
+	 
 	    function fn_like(index, seq, flag){
 	    	
 	    	
@@ -211,6 +212,89 @@
 	    	})
 	    	
 	    }
+	    const repl=(seq,comment, commentbox)=>{
+	    	
+	    	 let commentUserId = '${session.userId}'; 
+			let imgpath = '${userSession.profileImageFile}';
+			let conten = $("#"+comment).val();
+			let image = $("<img>").attr({"src":"/resources/upload/profile/"+imgpath, "width":"25px","height":"25px"}).css("border-radius","100%")
+			let nick = $("<span>").attr("class","ml-1 mr-2 p-0").html('${userSession.userNick}');
+			
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/feed/comment",
+	    		data:{"feedSeqRef":seq, "commenter":commentUserId, "feedCommentContent":conten},
+	    		method:"GET",
+	    		success:data=>{
+	    			if(data>0){
+	    				let infobox = $("<div>").attr("class","col-10").append(image).append(nick)
+	    				let Xbox = $("<div>").attr({"class":"col-1","onclick":"fn_delcommentajax('"+seq+"','"+commentUserId+"','"+conten+"')"}).html("X")
+						let photoScale = $("<div>").attr("class","text-left pl-2 pr-2 d-flex justify-content-between").append(infobox).append(Xbox)
+						let commentScale = $("<p>").attr("class", "ml-2 mr-2 pl-1 pr-1").css("word-wrap","break-word").html($("#"+comment).val())
+						let result = $("<div>").attr({"class": "ml-1 border",}).append(photoScale).append(commentScale)
+						
+						$("#"+commentbox).prepend(result)
+						$("#"+comment).val("");
+	    			}
+	    		}
+	    		
+	    	})
+			/* 
+				<div class="ml-1  border">
+	     							<div class="text-left pl-2 pr-2">	
+								           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="25px" height="25px" style="border-radius: 100%;"  id="commentPhoto">
+								        <span class="ml-1 mr-2 p-0" id="commenterId">
+								        	${comment.commenterNick }
+								        </span>
+							        </div>
+							        
+							        <p class="ml-2 mr-2 pl-1 pr-1" style="word-wrap: break-word;" id="comments">
+							          ${comment.feedCommentContents }
+							        </p>
+		   </div>		
+				
+			*/
+			
+			
+			
+	    }
+	    const fn_delcommentajax=(seq,userId,contnt)=>{
+	    	console.log(seq)
+	    	console.log(userId)
+	    	console.log(contnt)
+	    	$.ajax({
+					url:"${pageContext.request.contextPath}/feed/deletecomment",
+					data:{feedSeqRef:seq, commenter:userId, feedCommentContents:contnt},
+					success:data=>{
+						if(data>0){
+							$("#replcomment"+e).remove()			
+						} else {
+							alert('대댓글이 있기 떄문에 삭제할 수 없습니다.')
+						}
+					}
+					
+				})
+	    	
+	    	
+	    }
+	    
+	    
+	    const fn_commentdel=(e)=>{
+				
+				$.ajax({
+					url:"${pageContext.request.contextPath}/feed/deletecomment",
+					data:{feedCommentSeq:e},
+					success:data=>{
+						if(data>0){
+							$("#replcomment"+e).remove()			
+						} else {
+							alert('대댓글이 있기 떄문에 삭제할 수 없습니다.')
+						}
+					}
+					
+				})
+
+	    }
+	    
     </script>
     
  <section class="mt-5 pt-5">   
@@ -219,7 +303,7 @@
         <div class="container d-flex justify-content-around align-items-center col-12 col-md-8  mt-4 border">
              <h5 class='mt-2  ml-2 mr-2 p-0 col-3 text-center col-xl-2 '>친구 찾기</h5>
             <input type="text" id="friendSearch" class=" ml-2 mr-2 col-6">
-            <button type="button" class="small ml-2 mr-2">검색</button>
+            <button type="button" class="small ml-2 mr-2 btn btn-primary eumbtn-2">검색</button>
         </div>
         
         
@@ -287,13 +371,14 @@
    		
    		</div>
    		
-   		<div id="feed-container" class="container mt-4 col-12 d-flex flex-column justify-content-center align-items-center">
+   		<div id="feed-container" class="container mt-4 col-12 d-flex flex-column justify-content-center align-items-center mb-5 mb-md-0">
    			
   			
   			
   			
-  			
    		</div>
+  			<div class="text-center" id="feedquite"><span style="font-size:50px">🤷‍♀️</span> 피드가 조용합니다. </div>
+  			
    	</div>
 
 </section>

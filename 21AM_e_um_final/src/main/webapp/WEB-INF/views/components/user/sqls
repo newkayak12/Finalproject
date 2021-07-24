@@ -47,9 +47,25 @@ insert into feed values('FE_'||feed_seq.nextval, 'fana95', '피드를 테스트 
 insert into feed values('FE_'||feed_seq.nextval, 'fana95', '피드를 테스트 합니다22222!', sysdate-1, 'feed_20210719_113725010_56229.jpg', 'feed_20210719_113725012_56519.jpg', null, DEFAULT, DEFAULT);
 commit;
 
-insert into feed values('FE_'||feed_seq.nextval, 'fana95', '피드를 테스트 합니다!', sysdate-1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+insert into feed values('FE_'||feed_seq.nextval, 'prince0324', '피드를 테스트 합니다!213', sysdate+1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
 
-insert into feed values('FE_'||feed_seq.nextval, 'jinlee1122', '피드를 테스트 합니다!', sysdate-1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+insert into feed values('FE_'||feed_seq.nextval, 'xogml1125', '피드를 테스트 합니다!123', sysdate-1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+
+insert into feed values('FE_'||feed_seq.nextval, 'prince0324', '피드를 테스트 합니다!213', sysdate+1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+
+insert into feed values('FE_'||feed_seq.nextval, 'fana95', '피드를 테스트 합니다!123', sysdate-1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+
+insert into feed values('FE_'||feed_seq.nextval, 'fana95', '피드를 테스트 합니다!213', sysdate+1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+
+insert into feed values('FE_'||feed_seq.nextval, 'yejin1234', '피드를 테스트 합니다!123', sysdate-1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+
+insert into feed values('FE_'||feed_seq.nextval, 'yejin1234', '피드를 테스트 합니다!213', sysdate+1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+
+insert into feed values('FE_'||feed_seq.nextval, 'prince0324', '피드를 테스트 합니다!123', sysdate-1, 'feed_20210719_113725013_65997.jpg', 'feed_20210719_120147208_42479.jpg', null, DEFAULT, DEFAULT);
+
+
+
+
 
 insert into feed values('FE_'||feed_seq.nextval, 'xogml1125', '블록입니다', sysdate-1, 'feed_20210719_120147210_69268.jpeg', 'feed_20210719_120147211_49541.jpg', null, 'dead', 'block');
 
@@ -106,6 +122,8 @@ select * from feed_comment start with feed_comment_seq is null connect by prior 
 select * from feed_comment;
 
 select * from friend where my_id='newkayak12';
+
+select * from users;
 
 
 select a.*, b.user_id as islike from(
@@ -282,3 +300,7 @@ select * from ( select fc.*, us.PROFILE_IMAGE_FILE as commenter_profile, us.user
 select * from like_feed;
 
 select * from report;
+
+select * from users;
+
+select * from feed_comment;
