@@ -2,10 +2,8 @@ package com.e_um.controller.communicateInfo.feed;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +40,7 @@ public class FeedController {
 		}
 		
 		@ResponseBody
-		@RequestMapping("feed/likeunlike")
+		@RequestMapping("/feed/likeunlike")
 		public int likeUnlike(String seq, String flag, String userId) {
 			
 			log.warn(userId);
@@ -63,4 +61,20 @@ public class FeedController {
 			
 			return result;
 		}
+		
+		@ResponseBody
+		@RequestMapping("/feed/comment")
+		public int insertComment(FeedComment feedComment, String feedCommentContent) {
+			feedComment.setFeedCommentContents(feedCommentContent);
+			log.warn("ㅇㅎㄴㅇㄴㅇ{}",feedComment);
+			return service.insertComment(feedComment);
+		}
+		
+		@ResponseBody
+		@RequestMapping("/feed/deletecomment")
+		public int deleteComment(FeedComment feedComment) {
+			log.warn("{}", feedComment);
+			return service.deleteComment(feedComment);
+		}
+		
 }

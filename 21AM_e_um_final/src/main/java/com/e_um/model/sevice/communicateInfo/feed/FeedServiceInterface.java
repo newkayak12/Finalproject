@@ -10,4 +10,6 @@ public interface FeedServiceInterface {
 	public List<FeedComment>feedComment(String foodSeq);
 	public int likeFeed(String seq, String userId);
 	public int unlikeFeed(String seq, String userId);
+	public int insertComment(FeedComment feedComment) ;
+	public int deleteComment(FeedComment feedComment) ;
 }

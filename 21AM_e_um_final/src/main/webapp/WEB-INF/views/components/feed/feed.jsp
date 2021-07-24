@@ -6,8 +6,8 @@
 
 <c:forEach var="feed" items="${list }" varStatus="i">
  <div class="col-9 mt-3 mb-3 p-0  border" id="feed-innerContainer">
-	  			
-        <div class="d-flex flex-row justify-content-start col-12" style="max-height: 100px;" >
+	  			<!-- 누르면 프로필로 이동 -->
+        <div class="d-flex flex-row justify-content-start col-12" style="max-height: 100px;" onclick="">
             <img alt="프사" src="${pageContex.request.contextPath }/resources/upload/profile/${feed.feedProfilePhoto}"  class="m-2" style="width: 75px; height: 75px; border-radius: 100%;">
                 <div class="d-flex flex-column justify-content-center col-7" >
                     <p class="mt-1 mb-1 m-0">${feed.feedNick }</p>
@@ -76,7 +76,13 @@
 		                                		<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" onclick="fn_report('${feed.feedSeq }', '${feed.feederId }','${userSession.userId }')" data-toggle="modal" data-target="#ReportModal">
 		                            </div>
 		                            <div id="contents-box" class="m-2  text-center border" style="overflow-wrap: break-word;">
-		                                ${feed.feedContents}
+		                            	<div class="m-2" >
+		                                	${feed.feedContents}
+		                                </div>
+		                            	<div class="m-2">
+		                            		<input type="text" id="comment${index.get(i.index) }" class="col-9 col-md-9 col-lg-9">
+		                            		<input type="button" value="입력" class="small"  onclick="repl('${feed.feedSeq}','comment${index.get(i.index) }', 'commentbox${index.get(i.index) }')">
+		                            	</div>
 		                            </div>
 		                        </div>
                         
@@ -84,33 +90,45 @@
      <!-- feed-footer -->
      		<div class="d-flex justify-content-center">
      			
-	     		<div  class="text-center  col-8 justify-content-start p-0">
-	     			<c:forEach items="${feed.commentlist }" var="comment">
+	     		<div  class="text-center  col-8 justify-content-start p-0" id="commentbox${index.get(i.index) }" >
+	     			<c:forEach items="${feed.commentlist }" var="comment" >
 	     				<c:choose>
 	     					<c:when test="${comment.feedCommentLevel>1 }">
 	     						<div class="ml-5  border">
-		     						<div class="text-left  p-2">
-								           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="45px" height="45px" style="border-radius: 100%;"  id="commentPhoto">
-								        <span class="ml-1 mr-2" id="commenterId">
-								        	${comment.commenterNick }
-								        </span>
+		     						<div class="text-left  pl-2 pr-2">
+		     							
+									           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="25px" height="25px" style="border-radius: 100%;"  id="commentPhoto">
+									        <span class="ml-1 mr-2 p-0" id="commenterId">
+									        	${comment.commenterNick }
+									        </span>
+								        
+								        
+								        
 							        </div>
 								        
-							        <p class="ml-2 mr-2 mt-2 p-1" style="word-wrap: break-word;" id="comments">
+							        <p class="ml-2 mr-2 pl-1 pr-1" style="word-wrap: break-word;" id="comments">
 							          ${comment.feedCommentContents }
 							        </p>
 							   </div>
 	     					</c:when>
 	     					<c:otherwise>
-	     					<div class="ml-1  border">
-	     							<div class="text-left p-2">	
-								           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="45px" height="45px" style="border-radius: 100%;"  id="commentPhoto">
-								        <span class="ml-1 mr-2" id="commenterId">
-								        	${comment.commenterNick }
-								        </span>
+		     					<div class="ml-1  border" id="replcomment${comment.feedCommentSeq}">
+	     							<div class="text-left pl-2 pr-2 d-flex justify-content-between">	
+	     								<div class="col-10">
+									           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="25px" height="25px" style="border-radius: 100%;"  id="commentPhoto">
+									        <span class="ml-1 mr-2 p-0" id="commenterId">
+									        	${comment.commenterNick }
+									        </span>
+								        </div>
+								        <c:if test="${comment.commenterNick == userSession.userNick }">
+									        <div class="col-1" onclick="fn_commentdel('${comment.feedCommentSeq}')">
+									        
+									       		 X
+									        </div>
+								        </c:if>
 							        </div>
 							        
-							        <p class="ml-2 mr-2 mt-2 p-1" style="word-wrap: break-word;" id="comments">
+							        <p class="ml-2 mr-2 pl-1 pr-1" style="word-wrap: break-word;" id="comments">
 							          ${comment.feedCommentContents }
 							        </p>
 							   </div>
@@ -123,9 +141,3 @@
     </div>
     
     </c:forEach>
-    
-    
-    
-    <script>
-  
-    </script>

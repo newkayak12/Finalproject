@@ -56,4 +56,20 @@ public int unlikeFeed(String seq, String userId, SqlSessionTemplate session) {
 	return session.insert("feed.unlike", param);
 }
 
+
+
+@Override
+public int insertComment(FeedComment feedComment, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.insert("feed.insertComment", feedComment);
+}
+
+
+
+@Override
+public int deleteComment(FeedComment feedComment, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.delete("feed.deleteComment", feedComment);
+}
+
 }

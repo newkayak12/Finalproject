@@ -53,4 +53,14 @@ public class FeedService implements FeedServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.unlikeFeed(seq, userId, session);
 	}
+	@Override
+	public int insertComment(FeedComment feedComment) {
+		// TODO Auto-generated method stub
+		return dao.insertComment(feedComment, session);
+	}
+	@Override
+	public int deleteComment(FeedComment feedComment) {
+		// TODO Auto-generated method stub
+		return dao.deleteComment(feedComment, session);
+	}
 }
