@@ -38,13 +38,15 @@
 </style>
 
 <footer class="footer mt-5 pt-0 dockbar">
-	<div id="icon_menu" class="iconboxfooter pr-2 pl-2 mt-2 mb-2  col-12 m-0" style="height:fit-content;">
+	<div id="icon_menu" class="iconboxfooter pr-2 pl-2 mt-2 mb-2  col-12 m-0 d-flex justify-content-between" style="height:fit-content;">
             
-                <i class="fas fa-user fa-lg ml-3 p-2 fa-3x" style="height: fit-content;"></i>
-                <i class="fas fa-bell fa-lg mr-3 p-2 fa-3x" style="height: fit-content;"></i>
-                <i class="fas fa-comments fa-lg ml-2 mr-2 p-2 fa-3x" style="height: fit-content;"></i>
+                <i class="fas fa-user fa-lg  p-2 fa-3x ml-4" style="height: fit-content;"></i>
+                <i class="fas fa-bell fa-lg  p-2 fa-3x" style="height: fit-content;"></i>
+                <i class="fas fa-comments fa-lg p-2 fa-3x mr-4" style="height: fit-content;"></i>
      </div>
-<!--      </div> -->
+     
+
+
 	<div class="footerInfo">
 	    <ul class="list-inline">
 	        <li class="list-inline-item"><a href="#">Home</a></li>
@@ -54,10 +56,12 @@
 	        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
 	    </ul>
 	    <p class="copyright">E_um | address : ... | email : eum@eum.com</p>
-	    <p class="copyright">team | kimyejin kimtaehui leewoosik janghyerin</p>
+	    <p class="copyright">team | kimsanghyun kimyejin kimtaehui leewoosik janghyerin</p>
 	    <p class="copyright">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
     </div>
+    
 </footer>
+
 
 
 </body>
