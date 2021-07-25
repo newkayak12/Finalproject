@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Component
 public class Friend {
-
-		private User myId, freindsId;
+		private String friendSeq;
+		private String myId, friendId;
 		private String friendBlockFlag;
 }

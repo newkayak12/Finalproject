@@ -126,9 +126,15 @@ public class UserDao implements UserDaoInterface {@Override
 	}
 
 	@Override
-	public List<User> recommandFriend(SqlSessionTemplate session) {
+	public List<User> recommandFriend(SqlSessionTemplate session, String userId) {
 		// TODO Auto-generated method stub
-		return session.selectList("user.recommandFriend");
+		return session.selectList("user.recommandFriend", userId);
+	}
+
+	@Override
+	public int InsertKako(User user, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.insert("user.insertUser", user);
 	}
 
 	

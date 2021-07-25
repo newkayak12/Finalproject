@@ -94,16 +94,20 @@
 	     			<c:forEach items="${feed.commentlist }" var="comment" >
 	     				<c:choose>
 	     					<c:when test="${comment.feedCommentLevel>1 }">
-	     						<div class="ml-5  border">
-		     						<div class="text-left  pl-2 pr-2">
-		     							
+	     						<div class="ml-5  border" id="replcomment${comment.feedCommentSeq}">
+		     						<div class="text-left pl-2 pr-2 d-flex justify-content-between">	
+	     								<div class="col-10">
 									           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="25px" height="25px" style="border-radius: 100%;"  id="commentPhoto">
 									        <span class="ml-1 mr-2 p-0" id="commenterId">
 									        	${comment.commenterNick }
 									        </span>
-								        
-								        
-								        
+								        </div>
+								        <c:if test="${comment.commenterNick == userSession.userNick }">
+									        <div class="col-1" onclick="fn_commentdel('${comment.feedCommentSeq}')">
+									        
+									       		 X
+									        </div>
+								        </c:if>
 							        </div>
 								        
 							        <p class="ml-2 mr-2 pl-1 pr-1" style="word-wrap: break-word;" id="comments">

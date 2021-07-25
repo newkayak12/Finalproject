@@ -224,7 +224,8 @@ public class UserController {
 		
 		
 		if(obj!=null) {
-			List<User> lists = service.recommandFriend();
+			User session = (User)obj;
+			List<User> lists = service.recommandFriend(session.getUserId());
 			for(User user : lists) {
 				log.warn("{}",user);
 			}
@@ -238,5 +239,35 @@ public class UserController {
 		
 	}
 //메인으로 포워딩
+	
+	
+	@RequestMapping("/user/kakaologin")
+	@ResponseBody
+	public int kakaoLogin(String userId, HttpServletRequest rq) {
+		User user = User.builder().userId(userId).build();
+		user = service.login(user);
+		if(user!=null) {
+			rq.getSession().setAttribute("userSession", user);
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
+	@RequestMapping("/user/kakaoInsert")
+	@ResponseBody
+	public int kakaoInsert(User user) {
+		user.setProfileImageFile("default.png");
+		user.setUserAddrBasic("서울 특별시 구로구 구로동 1132-32");
+		user.setUserAddrDetails("/");
+		user.setUserAddrZip("000000");
+		user.setUserPhone("01000000000");
+		user.setUserPassword(encrypt.encode("kakao"));
+		log.warn("{}",user);
+		
+		return service.InsertKako(user);
+	}
+	
+	
 	
 }
