@@ -9,7 +9,7 @@ public interface FriendServiceInterface {
 	
 	User selectUserOne(String userId);
 	
-	int insertFriend(Map param);
+	int insertFriend(Map param );
 	
 	List<User> selectAllUser(String userId,int index,int btnsu);
 	

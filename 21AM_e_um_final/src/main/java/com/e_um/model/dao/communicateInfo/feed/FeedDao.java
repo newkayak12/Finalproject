@@ -28,7 +28,7 @@ public class FeedDao implements FeedDaoInterface {@Override
 @Override
 public List<FeedComment> feedComment(String feedSeq, SqlSessionTemplate session) {
 	// TODO Auto-generated method stub
-	return session.selectList("feed.feedComment",feedSeq);
+	return session.selectList("feed.feedComment",feedSeq, new RowBounds(1,10));
 }
 
 

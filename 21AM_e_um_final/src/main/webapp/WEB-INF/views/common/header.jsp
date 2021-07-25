@@ -7,6 +7,11 @@
     
 <c:set var="path" value="<%=request.getContextPath() %>" scope="application"/>
 <c:set var="session" value="${userSession }" scope="session"/>
+<style>
+ *{
+ 	 /* border: 1px black solid  */
+ }
+</style>
 
 <!DOCTYPE html>
 <html>
@@ -34,7 +39,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
+ <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
 	
         <!--로고 자리-->
         <!-- <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div> -->
@@ -58,10 +63,27 @@
         <!--아이콘 메뉴-->
         <div id="icon_menu" class="iconbox">
             <ul class="navbar-nav">
-                <li class="nav-item col-4"><i class="fas fa-user fa-lg"></i></li>
-                <li class="nav-item col-4"><i class="fas fa-comments fa-lg"></i></li>
-                <li class="nav-item col-4"><i class="fas fa-bell fa-lg"></i></li>
-            </ul>
+			    <li class="nav-item col-4 "><i class="fas fa-user fa-lg fa-7x" style="font-size:38px;"></i></li>
+			    <li class="nav-item col-4">
+			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:38px;"></i>
+			        <span class="small" style="position: relative; top: -35px; right: -10px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display: none;" id="chatCount"></span>
+			    </li>
+			    <li class="nav-item col-4">
+			        <i class="fas fa-bell fa-lg fa-7x" id="alarmicon" onclick ="showalarm()" style="font-size:38px;" ></i>
+			    <p class="small text-center"  style="position: fixed; top: 5px; right: 20px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="alarmCount"></p>
+			    </li>
+			</ul>
+            <div id="toolbox" class="border">
+	            <div style="position: fixed; right:5px;" id="innerXbox" class="text-center d-flex justify-content-between">
+		            <div id="controlpanel"> 알림 </div>
+		            <div class="pr-4" onclick="closetoolbox()">X</div>
+	            </div>
+	            
+	            
+		         <div class="mt-4" id="toolinnerbox">
+		           
+	            </div>
+            </div>
         </div>
         
          <i class="fas fa-align-justify fa-lg" id="hamburgerbtn" onclick="ham()">
@@ -86,6 +108,7 @@
 	    		</div>	
     		
     	</div>
+    	
    
 </header>
 <script>
@@ -112,7 +135,78 @@
 		$("#submenu").slideToggle(240);
 	}
 	
+
+	$(function(){
+        setInterval(()=>{
+        	alarmCount()
+        },2000)
+    })
 	
+    const alarmCount=()=>{
+        let SessionMyId = '${userSession.userId}';
+        $.ajax({
+            url:"${pageContext.request.contextPath}/alarm/count",
+            data:{userId:SessionMyId},
+            success:data=>{
+            	
+            	if(data>0){
+            		$("#alarmCountbot").css("display","inline")
+            		$("#alarmCountbot").html(data)
+	                $("#alarmCount").html(data)
+	                $("#alarmCount").css("display","inline")
+                } else {
+                	$("#alarmCount").css("display","none")
+	                $("#alarmCount").html("")
+	                $("#alarmCountbot").css("display","none")
+            		$("#alarmCountbot").html("")
+                }
+
+            }
+        })
+
+    }
+	const showalarm=()=>{
+/* 		$("#toolbox").css("display","block") */
+		$("#toolbox").slideToggle(240)
+		alarmlist();
+				
+	}
+	const closetoolbox=()=>{
+		/* $("#toolbox").css("display","none") */
+		$("#toolbox").hide(240);
+	}
+	
+	/* 알람 내용 채우기 */
+	function alarmlist(){
+		let userId = '${userSession.userId}';
+		console.log(userId)
+		$.ajax({
+			url:"${pageContext.request.contextPath}/alarm/fetchAlarm",
+			data:{"userId":userId},
+			success:data=>{
+				console.log(data)
+					let outter =$("<div>")
+				data.forEach((v,i)=>{
+					
+					
+					
+					if(v["alarmRead"]=='unread'){
+					let friendList = $("<div>").attr({"class":"small"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html(v['alarmContent']);
+					outter.append(friendList);
+						
+						
+					}/*  else if() */
+					
+					
+				})
+				
+				
+					$("#toolinnerbox").html(outter)
+				
+				/* toolinnerbox */
+			}
+		})
+	}
 	
 </script>
 

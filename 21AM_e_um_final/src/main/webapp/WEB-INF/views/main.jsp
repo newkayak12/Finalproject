@@ -3,10 +3,13 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <style>
     	*{
-    		    border: 1px black solid 
+    	/* 	    border: 1px black solid */ 
     	}
     </style>
+    
+    
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
+    
     <script>
     	 $('.carousel').carousel({ interval: 5000 }); 
     	 
@@ -14,6 +17,8 @@
     		
     		 console.log(userId)
     		 $("#reportId").val(userId)
+    		 
+    		 $("#friendId").val(userId)
     		 
     		  $("#modaluserstatus").html("")
     		  $("#interest1").html("")
@@ -230,7 +235,7 @@
 	    				let Xbox = $("<div>").attr({"class":"col-1","onclick":"fn_delcommentajax('"+seq+"','"+commentUserId+"','"+conten+"')"}).html("X")
 						let photoScale = $("<div>").attr("class","text-left pl-2 pr-2 d-flex justify-content-between").append(infobox).append(Xbox)
 						let commentScale = $("<p>").attr("class", "ml-2 mr-2 pl-1 pr-1").css("word-wrap","break-word").html($("#"+comment).val())
-						let result = $("<div>").attr({"class": "ml-1 border",}).append(photoScale).append(commentScale)
+						let result = $("<div>").attr({"class": "ml-1 border","id":"replbox"+seq}).append(photoScale).append(commentScale)
 						
 						$("#"+commentbox).prepend(result)
 						$("#"+comment).val("");
@@ -238,23 +243,6 @@
 	    		}
 	    		
 	    	})
-			/* 
-				<div class="ml-1  border">
-	     							<div class="text-left pl-2 pr-2">	
-								           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="25px" height="25px" style="border-radius: 100%;"  id="commentPhoto">
-								        <span class="ml-1 mr-2 p-0" id="commenterId">
-								        	${comment.commenterNick }
-								        </span>
-							        </div>
-							        
-							        <p class="ml-2 mr-2 pl-1 pr-1" style="word-wrap: break-word;" id="comments">
-							          ${comment.feedCommentContents }
-							        </p>
-		   </div>		
-				
-			*/
-			
-			
 			
 	    }
 	    const fn_delcommentajax=(seq,userId,contnt)=>{
@@ -266,7 +254,7 @@
 					data:{feedSeqRef:seq, commenter:userId, feedCommentContents:contnt},
 					success:data=>{
 						if(data>0){
-							$("#replcomment"+e).remove()			
+							$("#replbox"+seq).remove()			
 						} else {
 							alert('대댓글이 있기 떄문에 삭제할 수 없습니다.')
 						}
@@ -290,11 +278,31 @@
 							alert('대댓글이 있기 떄문에 삭제할 수 없습니다.')
 						}
 					}
-					
 				})
-
 	    }
 	    
+	    
+	    const addFriend=()=>{
+	    	console.log($("#friendId").val())
+	    	 $.ajax({
+	    		url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+	    		data:{friendId: $("#friendId").val()},
+	    		success:data=>{
+	    			if(data>0){
+	    				alert('친구 요청에 완료했습니다.')			
+	    			} else {
+	    				alert('이미 친구 요청이 완료되었거나 실패했습니다.')
+	    			}
+	    			
+	    		}
+	    		
+	    	})
+	    	
+	    }
+	    
+	    
+	    
+	   
     </script>
     
  <section class="mt-5 pt-5">   
@@ -436,10 +444,10 @@
 				
 				
 	<!-- ---------------------------------------------------------------------------------------------- -->
-	
+					<input type="hidden" id="friendId">
 					<input type="hidden" id = "reportId">
 				  <button type="button" class="btn btn-warning eumbtn-2" onclick="userReport()">신고</button>
-				  <button type="button" class="btn btn-primary eumbtn-2" >친구 요청</button>
+				  <button type="button" class="btn btn-primary eumbtn-2" onclick="addFriend()">친구 요청</button>
 				  <button type="button" class="btn btn-primary eumbtn-1" >프로필로 이동</button>
 	<!-- ---------------------------------------------------------------------------------------------- -->
 				</div>

@@ -28,8 +28,16 @@ NOMAXVALUE;
 
 select * from users;
 
-insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'newkayak12', 'yejin1234', default);
+select * from friend;
+
+/* 37~ 43*/
+
+
+insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'donotlogin09', 'newkayak12',  default);
+
+
 insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'yejin1234', 'newkayak12',  default);
+insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'newkayak12', 'yejin1234', default);
 
 insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'newkayak12', 'fana95', default);
 insert into friend values ('FR_'||FRIEND_SEQ.NEXTVAL, 'fana95', 'newkayak12',  default);
@@ -304,3 +312,62 @@ select * from report;
 select * from users;
 
 select * from feed_comment;
+
+
+delete from friend where friend_seq = 'FR_33';
+
+select * from alarm;
+commit;
+
+alter table alarm add ref_seq varchar2(30);
+
+create SEQUENCE alarm_SEQ
+start with 1
+increment by 1
+NOCYCLE
+NOCACHE
+NOMINVALUE
+NOMAXVALUE;
+
+select * from friend;
+/* 37~ 43*/
+
+insert into alarm values ('AL_'||alarm_seq.nextval, 'friend_alarm', 'newkayak12', 'donotlogin02님이 친구 요청을 했습니다.', sysdate, default, default, 'FR_38');
+insert into alarm values ('AL_'||alarm_seq.nextval, 'friend_alarm', 'newkayak12', 'donotlogin03님이 친구 요청을 했습니다.', sysdate, default, default, 'FR_39');
+insert into alarm values ('AL_'||alarm_seq.nextval, 'friend_alarm', 'newkayak12', 'donotlogin04님이 친구 요청을 했습니다.', sysdate, default, default, 'FR_40');
+insert into alarm values ('AL_'||alarm_seq.nextval, 'friend_alarm', 'newkayak12', 'donotlogin05님이 친구 요청을 했습니다.', sysdate, default, default, 'FR_41');
+insert into alarm values ('AL_'||alarm_seq.nextval, 'friend_alarm', 'newkayak12', 'donotlogin06님이 친구 요청을 했습니다.', sysdate, default, default, 'FR_42');
+insert into alarm values ('AL_'||alarm_seq.nextval, 'friend_alarm', 'newkayak12', 'donotlogin07님이 친구 요청을 했습니다.', sysdate, default, default, 'FR_43');
+insert into alarm values ('AL_'||alarm_seq.nextval, 'friend_alarm', 'newkayak12', 'donotlogin09님이 친구 요청을 했습니다.', sysdate, default, default, 'FR_45');
+
+select * from alarm;
+select * from alarm join alarm_toggle using (user_id) where user_id='newkayak12' and alarm_toggle='on' and alarm_read = 'unread' and alarm_delete ='exist';
+select * from alarm_toggle;
+
+select * from food where food_price >=10000 and food_price<20000;/*  */
+select FOOD_STAR	 from food ;
+
+
+select * from food;
+
+alter table food modify food_star number(38,2);
+
+commit;
+
+update  food set food_star = 3.5 where food_seq ='FO_35';
+
+
+
+SELECT * 
+		FROM FOOD 
+		WHERE 1=1
+		
+			 AND (FOOD_NAME LIKE '%' || '용산' || '%' 
+			 OR SUBSTR(FOOD_ADDR , 1 , 10 ) LIKE '%' ||'용산'|| '%'
+			 OR FOOD_CATEGORY_SUB LIKE '%' || '용산' || '%');
+
+
+              (select  from food where  ) ;
+
+
+              select SUBSTR(FOOD_ADDR , 1 , 11 )  from food;

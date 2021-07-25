@@ -37,12 +37,16 @@
     }
 </style>
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <footer class="footer mt-5 pt-0 dockbar">
-	<div id="icon_menu" class="iconboxfooter pr-2 pl-2 mt-2 mb-2  col-12 m-0 d-flex justify-content-between" style="height:fit-content;">
+	<div id="icon_menu" class="iconboxfooter pr-2 pl-2 mt-2 mb-2  col-12 m-0 d-flex justify-content-around" style="height:fit-content;">
             
-                <i class="fas fa-user fa-lg  p-2 fa-3x ml-4" style="height: fit-content;"></i>
-                <i class="fas fa-bell fa-lg  p-2 fa-3x" style="height: fit-content;"></i>
-                <i class="fas fa-comments fa-lg p-2 fa-3x mr-4" style="height: fit-content;"></i>
+                <i class="fas fa-user fa-lg  p-2 fa-7x ml-4" style="font-size:50px"></i>
+                <div class="border"></div>
+                <span class="pt-1" id="alarmCountbot" style="position: fixed; bottom: 40px; right:235px; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:block; width: 30px; height: 30px"></span>
+                <i class="fas fa-bell fa-lg  p-2 fa-7x" style="font-size:50px"></i>
+                <div class="border"></div>
+                <i class="fas fa-comments fa-lg p-2 fa-7x mr-4" style="font-size:50px"></i>
      </div>
      
 

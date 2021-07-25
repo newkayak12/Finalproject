@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +23,8 @@ public class FriendDao implements FriendDaoInterface {
 
 
 	@Override
-	public int insertFriend(SqlSessionTemplate session, Map param) {
-		return session.insert("friend.insertFriend",param);
+	public int insertFriend(SqlSessionTemplate session,  Friend friend) {
+		return session.insert("friend.insertFriend",friend);
 	}
 
 
@@ -37,6 +38,15 @@ public class FriendDao implements FriendDaoInterface {
 	@Override
 	public List<User> searchKeyword(SqlSessionTemplate session, Map param) {
 		return session.selectList("user.searchKeyword",param);
+	}
+
+
+	@Override
+	public int insertAlarm(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		
+		
+		return session.insert("alarm.insertfriend",param);
 	}
 
 }
