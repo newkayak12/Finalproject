@@ -1,6 +1,7 @@
 package com.e_um.model.sevice.placeInfo.food;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,4 +87,12 @@ public class FoodService implements FoodServiceInterface {
 	public List<FoodBooking> selectMyBookingList(String userId) {
 		return dao.selectMyBookingList(session, userId);
 	}
+
+
+	@Override
+	public List<Food> searchFood(Map<String, Object> param) {
+		return dao.searchFood(session, param);
+	}
+
+
 }
