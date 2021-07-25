@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.communicateInfo.friend.FriendDaoInterface;
+import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,5 +42,41 @@ public class FriendService implements FriendServiceInterface {
 	@Override
 	public List<User> searchKeyword(Map param) {
 		return dao.searchKeyword(session, param);
+	}
+
+
+	@Override
+	public User selectProfileInfo(String profileId) {
+		return dao.selectProfileInfo(session, profileId);
+	}
+
+
+	@Override
+	public List<Guestbook> selectGuestbook(String profileId) {
+		return dao.selectGuestbook(session, profileId);
+	}
+
+
+	@Override
+	public List<Map> selectAllFeed(String profileId, int index, int btnsu) {
+		return dao.selectAllFeed(session, profileId, index, btnsu);
+	}
+
+
+	@Override
+	public int insertGuestbook(Guestbook gb) {
+		return dao.insertGuestbook(session, gb);
+	}
+
+
+	@Override
+	public String selectGuestbookSeq(Guestbook gb) {
+		return dao.selectGuestbookSeq(session, gb);
+	}
+
+
+	@Override
+	public int insertGuestbookAlarm(Guestbook gb) {
+		return dao.insertGuestbookAlarm(session, gb);
 	}
 }

@@ -30,16 +30,17 @@
     padding:5px 10px 5px 10px;
     border-radius: 10%;
 }
+.friUser>button{
+	height:180px;
+}
 .frismImg{
     object-fit: cover;
-    height:120px;
-    width:120px;
+    height:170px;
+    width:140px;
 }
-
 .choCon{
     background-color: rgb(165, 205, 230);
 }
-
 .userModalImg{
 	object-fit: cover;
     height:300px;
@@ -48,11 +49,41 @@
 .friUser>button{
 	border:rgb(165, 205, 230) 1px solid;
 }
-
 .friUser>button span{
 	color:rgb(47, 126, 175);
 }
-
 .modal-body small span{
 	color:rgb(47, 126, 175);
+}
+
+
+/*profile.jsp*/
+#profileInfo>img{
+    /* max-width: 100%; */
+    object-fit: cover;
+    width:250px;
+    height:250px;
+    border-radius: 100%;
+}
+#infoList>table td{
+    padding:0;
+}
+.space{
+    border-bottom: 30px solid #fff;
+}
+#profileBtn>button{
+    align-items: center;
+}
+.colend{
+    text-align: end;
+}
+#feedContainer>.box{
+    width:300px;
+    height:300px;
+    cursor:pointer;
+}
+#profileFeed img{
+    object-fit: cover;
+    width:290px;
+    height:290px;
 }

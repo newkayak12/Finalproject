@@ -10,9 +10,11 @@
      <img src="${path }/resources/upload/profile/${friend.profileImageFile}" class="col w-50 h-100">
      <div class="col">
      	<h4><b><b>${friend.userNick }</b></b></h4><br>
-     	<div>
-	     	${friend.profileStatus }
-     	</div><br><br><br>
+     	<c:if test="${friend.profileStatus!=null }">
+	     	<div class="bg-light py-2 pl-2">
+		     	${friend.profileStatus }
+	     	</div>
+     	</c:if><br><br><br>
      	<small><b>
      		<div class="d-flex flex-wrap">
 		     	<span class="mx-1">
@@ -26,17 +28,17 @@
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
-		        	<c:if test="${user.interest.profileInterestName3 !=null}">
+		        	<c:if test="${friend.interest.profileInterestName3 !=null}">
 		        		${friend.interest.profileInterestName3 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
-		        	<c:if test="${user.interest.profileInterestName4 !=null}">
+		        	<c:if test="${friend.interest.profileInterestName4 !=null}">
 		        		${friend.interest.profileInterestName4 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
-		        	<c:if test="${user.interest.profileInterestName5 !=null}">
+		        	<c:if test="${friend.interest.profileInterestName5 !=null}">
 		        		${friend.interest.profileInterestName5 }
 		        	</c:if>
 		       	</span>
@@ -47,7 +49,7 @@
 
 <!-- Modal footer -->
 <div class="modal-footer justify-content-center">
-    <button type="button" class="btn btn-info mx-2" data-dismiss="modal" value="${friend.userId }">프로필로 이동</button>
+    <button type="button" id="openProfile" class="btn btn-info mx-2" data-dismiss="modal" value="${friend.userId }">프로필로 이동</button>
     <button type="button" id="applyFriend" class="btn btn-info mx-2" value="${friend.userId }" data-dismiss="modal">친구 신청</button>
 </div>
 
@@ -72,5 +74,10 @@
 				}
 			})
 		}
+	})
+	
+	$("#openProfile").click(e=>{
+		let profileId=e.target.value;
+		location.assign("${pageContext.request.contextPath}/friend/openProfile/"+profileId);
 	})
 </script>
