@@ -27,6 +27,6 @@ public class FoodComment {
 	private User user;
 	private Date foodCommnetDate;
 	private String foodCommentContents, foodPhoto1, foodPhoto2, foodPhoto3, foodPhoto4, foodPhoto5;
-	private int foodCommentStar;
+	private double foodCommentStar;
 	private String foodCommentFlag, foodCommentBlock, foodCommentCount;
 }

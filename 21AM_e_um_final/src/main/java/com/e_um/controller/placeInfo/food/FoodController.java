@@ -103,7 +103,6 @@ public class FoodController {
 	
 	@RequestMapping("/food/foodModal")
 	@ResponseBody
-	// public String openFoodModal(HttpServletRequest req, HttpServletRequest res) throws Exception {
 	public Food openFoodModal(String foodSeq) throws Exception {
 		
 		// log.warn("{}", req.getParameter("foodSeq"));
@@ -113,7 +112,6 @@ public class FoodController {
 		
 				// log.warn("{}", food);
 		
-		// return "success!!!";
 		return food;
 		
 	}
@@ -244,6 +242,69 @@ public class FoodController {
 		foodCategoryMap.put("CategorySubList", CategorySubList);
 
 		return foodCategoryMap;
+		
+	}
+	
+	@RequestMapping("/food/foodSearch")
+	@ResponseBody
+	public List<Food> foodSearch(@RequestParam Map<String, Object> param) {	
+		
+		// log.error("{}", param); // {keyword=파스타, priceCon=1만원대, cateMainCon=이탈리아, addrCon=연남, starCon=3점이상}
+		
+		if(param.get("priceCon") != null) {
+			String price = (String) param.get("priceCon");
+			
+			List priceRange = new ArrayList();
+			
+			switch (price) {
+				case "1만원미만":
+					priceRange.add(0);
+					priceRange.add(9999);
+					param.put("priceCon", priceRange);
+					break;
+				case "1만원대":
+					priceRange.add(10000);
+					priceRange.add(19999);
+					param.put("priceCon", priceRange);
+					break;
+				case "2만원대":
+					priceRange.add(20000);
+					priceRange.add(29999);
+					param.put("priceCon", priceRange);
+					break;
+				case "3만원이상":
+					priceRange.add(30000);
+					priceRange.add(1000000);
+					param.put("priceCon", priceRange);
+					break;
+			}
+		}
+		
+		if(param.get("starCon") != null) {
+			String star = (String) param.get("starCon");
+
+			switch (star) {
+				case "1점이상":
+					param.put("starCon", 1);
+					break;
+				case "2점이상":
+					param.put("starCon", 2);
+					break;
+				case "3점이상":
+					param.put("starCon", 3);
+					break;
+				case "4점이상":
+					param.put("starCon", 4);
+					break;
+			}
+		}
+		
+		
+		List<Food> foodSearchList = service.searchFood(param);
+		
+		// log.error("{}", foodSearchList);
+		
+		return foodSearchList;
 		
 	}
 }
