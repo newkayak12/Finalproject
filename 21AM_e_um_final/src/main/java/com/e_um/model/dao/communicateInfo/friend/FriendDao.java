@@ -86,4 +86,10 @@ public class FriendDao implements FriendDaoInterface {
 
 	}
 
+
+	@Override
+	public Friend friendCheck(SqlSessionTemplate session, Friend f) {
+		return session.selectOne("friend.friendCheck",f);
+	}
+
 }

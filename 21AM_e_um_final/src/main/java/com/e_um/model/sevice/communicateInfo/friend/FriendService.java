@@ -93,4 +93,10 @@ public class FriendService implements FriendServiceInterface {
 	public int insertGuestbookAlarm(Guestbook gb) {
 		return dao.insertGuestbookAlarm(session, gb);
 	}
+
+
+	@Override
+	public Friend friendCheck(Friend f) {
+		return dao.friendCheck(session, f);
+	}
 }

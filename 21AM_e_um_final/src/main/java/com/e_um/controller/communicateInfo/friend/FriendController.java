@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.e_um.model.sevice.communicateInfo.friend.FriendServiceInterface;
+import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -138,7 +139,38 @@ public class FriendController {
 		m.addAttribute("profileInfo",service.selectProfileInfo(profileId));
 //		log.warn("profileInfo: {}",service.selectProfileInfo(profileId));
 		m.addAttribute("guestbookList",service.selectGuestbook(profileId));
-		log.warn("guestbookList: {}",service.selectGuestbook(profileId));
+//		log.warn("guestbookList: {}",service.selectGuestbook(profileId));
+		
+		//1. userId가 profileId에게 친구 신청한 상황인 경우 '친구 요청됨' 비활성화 버튼
+		Friend f=Friend.builder().myId(user.getUserId()).friendId(profileId).build();
+//		log.warn("userId가 profileId한테 친구 신청 했니? : {}",service.friendCheck(f));
+		Friend userCk=service.friendCheck(f);
+		
+		if(userCk!=null) {
+			//user가 profile한테 친구 신청한 상태
+			f=Friend.builder().myId(profileId).friendId(user.getUserId()).build();
+			Friend profileCk=service.friendCheck(f);
+			
+			if(profileCk!=null) {
+				//user와 profile이 서로 친구인 상태
+				
+				//block 여부 체크해야 함 - profileId가 userId를 차단했으면 버튼 표시 X(userId가 profileId를 차단했으면 아예 친구 찾기 목록에 나오지 않으므로 처리할 필요 없음)
+				if(profileCk.getFriendBlockFlag().equals("block")) {
+					//profile이 userId 차단
+					
+				} else {
+					//profile이 userId를 차단하지 않고 서로 친구인 상태(userId가 profile을 차단한 건 상관 무)
+					//'체크표시 친구' 비활성화 버튼
+					
+				}
+			}
+		} else {
+			
+		}
+		//2. profileId가 userId에게 친구 신청한 상황인 경우 '친구 수락' 활성 버튼, 클릭 이벤트 주기
+		
+		//3. 서로 친구일 경우 
+		
 		return "profile";
 	}
 	
@@ -187,8 +219,7 @@ public class FriendController {
 		m.addAttribute("loc","/friend/openProfile/"+userIdReceiver);
 		if(result>0) {
 			String guestbookSeq=service.selectGuestbookSeq(gb);
-			//시퀀스 값을 못 가져오고 있음! 날짜로 orderby desc해서 한개만 나오게 해야 함....
-			log.warn("guestbookSeq: {}",guestbookSeq);
+//			log.warn("guestbookSeq: {}",guestbookSeq);
 			gb=Guestbook.builder().guestbookSeq(guestbookSeq).userIdReceiver(userIdReceiver).userIdWriter(userIdWriter).build();
 			int result2=service.insertGuestbookAlarm(gb);
 			

@@ -5,9 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-
 import com.e_um.model.vo.communicateinfo.friend.Friend;
-
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -34,5 +32,7 @@ public interface FriendDaoInterface {
 	String selectGuestbookSeq(SqlSessionTemplate session, Guestbook gb);
 	
 	int insertGuestbookAlarm(SqlSessionTemplate session, Guestbook gb);
+	
+	Friend friendCheck(SqlSessionTemplate session, Friend f);
 
 }
