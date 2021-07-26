@@ -9,7 +9,7 @@
    <h1 style="text-align:left;">소모임 가입하기</h1>
       <form name="gorupJoinFrm" action="${path }/group/groupJoinForm.do"
       method="post">
-      	<input type="hidden" value="${group.groupSeq }">
+      	<input type="hidden" value="${group.groupSeq }" name="groupJoinSeq">
       	<div>
       		<label>제목</label>
       		<p><c:out value="${group.groupTitle }"/><p>

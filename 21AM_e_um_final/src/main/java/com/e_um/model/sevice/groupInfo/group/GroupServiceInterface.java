@@ -12,11 +12,12 @@ public interface GroupServiceInterface {
 	List<Group> selectGroupListConditional(User user);
 	
 	int groupInsert(Map param, String userId);
+	int groupInsert2(Map param);
 	
 	List<Group> selectGroupListTop();
 	
 	int groupJoin(Map param);
 	
-	/* Group selectGroupSeq */
+	Group selectGroupUseridCheck(String groupSeq);
 
 }
