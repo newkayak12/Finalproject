@@ -268,6 +268,12 @@ public class UserController {
 		return service.InsertKako(user);
 	}
 	
+	@RequestMapping("user/logout")
+	public void logout(HttpServletRequest rq) {
+		rq.getSession().invalidate();
+		
+		gotoIndex();
+	}
 	
 	
 }

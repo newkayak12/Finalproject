@@ -7,4 +7,5 @@ import com.e_um.model.vo.userInfo.alarm.Alarm;
 public interface AlarmServiceInterface {
 	public int alarmCount(String userId);
 	public List<Alarm>fetchAlarm(String userId);
+	public int deleteAlarm(String seq);
 }

@@ -371,3 +371,5 @@ SELECT *
 
 
               select SUBSTR(FOOD_ADDR , 1 , 11 )  from food;
+
+              select count(*) from alarm join alarm_toggle using (user_id) where user_id='newkayak12' and alarm_toggle='on' and alarm_read='unread'   and alarm_delete ='exist'

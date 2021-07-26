@@ -22,7 +22,14 @@ public class AlarmDao implements AlarmDaoInterface {@Override
 @Override
 public List<Alarm> fetchAlarm(String userId, SqlSessionTemplate session) {
 	// TODO Auto-generated method stub
-	return session.selectList("alarm.fetchAlarm",userId, new RowBounds(1,20));
+	
+	return session.selectList("alarm.fetchAlarm",userId, new RowBounds(0,20));
+}
+
+@Override
+public int deleteAlarm(String seq, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.update("alarm.deleteAlarm", seq);
 }
 
 }
