@@ -284,19 +284,32 @@
 	    
 	    const addFriend=()=>{
 	    	console.log($("#friendId").val())
-	    	 $.ajax({
-	    		url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/friend/isexist",
 	    		data:{friendId: $("#friendId").val()},
 	    		success:data=>{
 	    			if(data>0){
-	    				alert('친구 요청에 완료했습니다.')			
-	    			} else {
-	    				alert('이미 친구 요청이 완료되었거나 실패했습니다.')
+	    				alert('이미 친구 요청이 완료되었습니다.')
+	    			} else{
+	    				
 	    			}
-	    			
+	    			 $.ajax({
+	    		    		url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+	    		    		data:{friendId: $("#friendId").val()},
+	    		    		success:data=>{
+	    		    			if(data>0){
+	    		    				alert('친구 요청에 완료했습니다.')			
+	    		    			} else {
+	    		    				alert('이미 친구 요청이 완료되었거나 실패했습니다.')
+	    		    			}
+	    		    			
+	    		    		}
+	    		    		
+	    		    	})
 	    		}
-	    		
 	    	})
+	    	
+	    	
 	    	
 	    }
 	    

@@ -37,9 +37,15 @@
     }
 </style>
 
+<div id="footerContainer" class="iconboxfooter">
+		contentasdfasdfasdfaw
+			</div>
+
+
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <footer class="footer mt-5 pt-0 dockbar">
 	<div id="icon_menu" class="iconboxfooter pr-2 pl-2 mt-2 mb-2  col-12 m-0 d-flex justify-content-around" style="height:fit-content;">
+            
             
                 <i class="fas fa-user fa-lg  p-2 fa-7x ml-4" style="font-size:50px"></i>
                 <div class="border"></div>

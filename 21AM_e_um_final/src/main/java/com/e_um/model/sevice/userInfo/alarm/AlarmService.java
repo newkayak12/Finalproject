@@ -34,4 +34,9 @@ public class AlarmService implements AlarmServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.deleteAlarm(seq, session);
 	}
+	@Override
+	public int readAlarm(String seq) {
+		// TODO Auto-generated method stub
+		return dao.readAlarm(seq, session);
+	}
 }

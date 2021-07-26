@@ -18,6 +18,12 @@
 	     overflow-y:scroll; 
 	     display:none;
 }
+#footerContainer{
+	position: fixed;
+	background-color:red;
+	top:10px;
+}
+
 #innerXbox{
 	width: 280px;
 	background-color: white;

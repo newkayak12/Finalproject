@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.e_um.model.sevice.communicateInfo.friend.FriendServiceInterface;
+import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -199,6 +200,14 @@ public class FriendController {
 		m.addAttribute("msg", msg);
 		
 		return "common/msg";
+	}
+	
+	@RequestMapping("/friend/isexist")
+	@ResponseBody
+	public int isExist(String friendId, HttpServletRequest rq) {
+		User user = (User) (rq.getSession().getAttribute("userSession"));
+		Friend friend = Friend.builder().myId( user.getUserId() ).friendId(friendId).build();
+		return service.isExist(friend);
 	}
 
 }

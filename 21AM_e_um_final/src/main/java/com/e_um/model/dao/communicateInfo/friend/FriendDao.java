@@ -86,4 +86,11 @@ public class FriendDao implements FriendDaoInterface {
 
 	}
 
+
+	@Override
+	public int isExist(Friend fr, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("friend.isExist",fr);
+	}
+
 }

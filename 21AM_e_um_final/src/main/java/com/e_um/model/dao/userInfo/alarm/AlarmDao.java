@@ -32,4 +32,10 @@ public int deleteAlarm(String seq, SqlSessionTemplate session) {
 	return session.update("alarm.deleteAlarm", seq);
 }
 
+@Override
+public int readAlarm(String seq, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.update("alarm.readAlarm", seq);
+}
+
 }

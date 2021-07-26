@@ -10,4 +10,5 @@ public interface AlarmDaoInterface {
 	public int alarmCount(String userId, SqlSessionTemplate session);
 	public List<Alarm>fetchAlarm(String userId, SqlSessionTemplate session);
 	public int deleteAlarm(String seq, SqlSessionTemplate session);
+	public int readAlarm(String seq, SqlSessionTemplate session);
 }

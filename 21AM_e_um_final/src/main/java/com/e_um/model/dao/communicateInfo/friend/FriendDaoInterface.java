@@ -34,5 +34,6 @@ public interface FriendDaoInterface {
 	String selectGuestbookSeq(SqlSessionTemplate session, Guestbook gb);
 	
 	int insertGuestbookAlarm(SqlSessionTemplate session, Guestbook gb);
-
+	
+	int isExist(Friend fr,SqlSessionTemplate session);
 }
