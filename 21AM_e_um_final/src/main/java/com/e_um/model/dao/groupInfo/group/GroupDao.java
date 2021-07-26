@@ -29,6 +29,11 @@ public class GroupDao implements GroupDaoInterface {
 	}
 	
 	@Override
+	public int groupInsert2(SqlSessionTemplate session, Map param) {
+		return session.insert("group.groupInsert2",param);
+	}
+
+	@Override
 	public List<Group> selectGroupListTop(SqlSessionTemplate session){
 		return session.selectList("group.selectGroupListTop");
 	}
@@ -43,10 +48,12 @@ public class GroupDao implements GroupDaoInterface {
 	public int groupJoin(SqlSessionTemplate session, Map param) {
 		return session.insert("group.groupJoin",param);
 	}
-	
-	
 
-	
+	@Override
+	public Group selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq) {
+		
+		return session.selectOne("group.selectGroupUseridCheck", groupSeq);
+	}
 	
 	
 }
