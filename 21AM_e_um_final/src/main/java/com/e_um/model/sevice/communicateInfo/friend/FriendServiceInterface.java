@@ -16,19 +16,7 @@ public interface FriendServiceInterface {
 	List<User> selectAllUser(String userId, int index, int btnsu);
 	
 	List<User> searchKeyword(Map param);
-	
-	User selectProfileInfo(String profileId);
-	
-	List<Guestbook> selectGuestbook(String profileId);
-	
-	List<Map> selectAllFeed(String profileId, int index, int btnsu);
-	
-	int insertGuestbook(Guestbook gb);
-	
-	String selectGuestbookSeq(Guestbook gb);
-	
-	int insertGuestbookAlarm(Guestbook gb);
-	
+
 	int isExist(Friend fr);
 
 }
