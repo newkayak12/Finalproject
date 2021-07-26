@@ -5,3 +5,5 @@ logs/
 .project
 .classpath
 .factorypath
+/bin/
+

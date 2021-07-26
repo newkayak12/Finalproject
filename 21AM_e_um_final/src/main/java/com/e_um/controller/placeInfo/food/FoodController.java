@@ -200,7 +200,7 @@ public class FoodController {
 	
 	@RequestMapping("/food/foodBooking/end")
 	public String foodBookingEnd(Date bookingDateDay, Date bookingDateTime, 
-									@RequestParam(value = "userId", defaultValue = "yejin1234") String userId, 
+									@RequestParam(value = "userId") String userId, 
 									String foodSeq, String bookingHead, String bookingContents, Model model) {
 
 		FoodBooking booking = new FoodBooking();
@@ -210,6 +210,8 @@ public class FoodController {
 		booking.setBookingDateDay(bookingDateDay);
 		booking.setBookingDateTime(bookingDateTime);
 		booking.setBookingHead(Integer.parseInt(bookingHead));
+		
+				System.out.println("예약정보 확인 : " + booking);
 		
 		int result = service.foodBooking(booking);
 		

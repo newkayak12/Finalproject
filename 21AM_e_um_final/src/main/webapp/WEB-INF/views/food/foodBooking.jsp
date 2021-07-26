@@ -132,7 +132,7 @@
 				</div>
 		</div>
 	
-		<form action="${ path }/food/foodBooking/end" method="post" class="row ml-5 mr-3">
+		<form action="${ path }/food/foodBooking/end" method="post" class="row ml-5 mr-3" onsubmit="return fn_logincheck();">
 			<!-- 날짜 선택 영역 -->
 			<div class="foodBookingCalendar col-md-6">
 					<p class="foodBookingTitle">&nbsp; 1. 날짜 선택</p>
@@ -211,7 +211,7 @@
 					<br>
 					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="fn_bookingRestart();" style="border:1px solid #70b3d9;">선택 초기화</button>
 					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="location.assign('${path}/food/foodView?foodSeq=${ food.foodSeq}');" style="border:1px solid #70b3d9;">돌아가기</button>
-					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum m-1" style="background-color: #70b3d9;" onclick="fn_booking();">
+					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum m-1" style="background-color: #70b3d9;">
 				</div>
 			</div>	
 			
@@ -220,6 +220,16 @@
 	
 	</div>
 </section>
+
+<script>
+	const fn_logincheck = () => {
+		if( !$("#userId").val() ) {
+			alert("로그인해주세요");
+			location.replace('${path}/');
+			return false;
+		}
+	}
+</script>
 
 <script src="${ path }/resources/js/booking.js"></script>
 
