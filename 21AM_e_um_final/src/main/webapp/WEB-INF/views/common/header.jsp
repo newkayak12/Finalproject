@@ -150,6 +150,7 @@
 		let supportlink = $("<div>").html($("<a>").html("고객센터").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
 		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()"}).css("text-decoration","none"))
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
+		$("#footerinnerContainer").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
 				
 				
 		
@@ -209,6 +210,7 @@
     
 	const showalarm=()=>{
 		$("#controlpanel").html("알람")
+		
 		$("#toolbox").slideToggle(240)
 		alarmlist();
 				
@@ -238,7 +240,7 @@
 							if(v["alarmRead"]=='unread'){
 								
 							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-							outter.append(friendList);
+								outter.append(friendList);
 								
 								
 							}else {
@@ -251,10 +253,12 @@
 						
 						
 							$("#toolinnerbox").html(outter)
+							$("#footerinnerContainer").html(outter)
 				} else {
 					
 					outter.html("내용이 없습니다.").attr("class","text-center")
 					$("#toolinnerbox").html(outter)
+					$("#footerinnerContainer").html(outter)
 				
 				}
 				/* toolinnerbox */
@@ -292,6 +296,22 @@
 		})
 		
 	}
+	
+	
+	/* footer */
+	
+	const fn_showalarmbot=()=>{
+	$("#controlpanelfooter").html("알람")
+	alarmlist();
+	$("#footerContainer").toggle()
+	}
+	
+	const fn_showprofilebot=()=>{
+		$("#controlpanelfooter").html("")
+		showmypage()
+		$("#footerContainer").toggle()
+	}
+	
 </script>
 
 
