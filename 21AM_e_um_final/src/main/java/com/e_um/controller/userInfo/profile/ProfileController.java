@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.model.sevice.userInfo.profile.ProfileServiceInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
@@ -140,6 +141,22 @@ public class ProfileController {
 		m.addAttribute("msg", msg);
 		
 		return "common/msg";
+	}
+	
+	
+	@RequestMapping("/profile/writeFeed/end")
+	public String insertFeed(HttpServletRequest rq, Model m,
+			@RequestParam(value="feedImage", required=false) MultipartFile[] feedImage
+			) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		log.info("파일명: "+feedImage[0].getOriginalFilename());
+		log.info("파일 크기: {}",feedImage[0].getSize());
+		log.info("파일명: {}",feedImage[1].getOriginalFilename()=="");
+		log.info("파일 크기: {}",feedImage[1].getSize());
+		log.info("파일명: {}",feedImage[2].getOriginalFilename()==null);
+		log.info("파일 크기: {}",feedImage[2].getSize());
+		
+		return "";
 	}
 
 }

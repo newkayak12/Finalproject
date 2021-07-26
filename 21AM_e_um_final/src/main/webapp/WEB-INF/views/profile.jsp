@@ -149,7 +149,7 @@
 	</div>
 	
 	<!-- 방명록, 피드 글쓰기 모달 -->
-	<div class="modal" id="writeModal">
+	<div class="modal fade" id="writeModal">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	
@@ -165,9 +165,50 @@
 	
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
 	      </div>
 	
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 방명록 전체 보기 모달 -->
+	<div class="modal fade" id="guestbookAllModal">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">방명록</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 피드 세부 모달 -->
+	<div class="modal fade" id="feedDetailModal">
+	  <div class="modal-dialog modal-xl">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	      </div>
 	    </div>
 	  </div>
 	</div>
@@ -264,9 +305,9 @@
 				},
 			success: data=>{
 				if(flag=="guestbook"){
-					$("#writeModal .modal-title").html("<b>방명록</b>");
+					$("#writeModal .modal-title").html("<b>방명록 등록</b>");
 				}else{
-					$("#writeModal .modal-title").html("<b>피드</b>");
+					$("#writeModal .modal-title").html("<b>피드 등록</b>");
 				}
 				$("#writeModal .modal-body").html(data);
 				$("#writeModal").modal("show");
