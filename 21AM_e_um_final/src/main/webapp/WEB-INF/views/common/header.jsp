@@ -146,7 +146,7 @@
 		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
 		
 		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr("href","${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}").css("text-decoration","none"))
-		let profilelink = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}").css("text-decoration","none"))
+		let profilelink = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/profile/open/${userSession.userId}").css("text-decoration","none"))
 		let supportlink = $("<div>").html($("<a>").html("고객센터").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
 		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()"}).css("text-decoration","none"))
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
