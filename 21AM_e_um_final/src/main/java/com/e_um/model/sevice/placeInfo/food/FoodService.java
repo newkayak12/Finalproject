@@ -1,6 +1,7 @@
 package com.e_um.model.sevice.placeInfo.food;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.placeInfo.food.FoodDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
@@ -73,4 +75,24 @@ public class FoodService implements FoodServiceInterface {
 	public Food selectFood(String foodSeq) {
 		return dao.selectFood(session, foodSeq);
 	}
+
+
+	@Override
+	public int foodBooking(FoodBooking booking) {	
+		return dao.foodBooking(session, booking);
+	}
+
+
+	@Override
+	public List<FoodBooking> selectMyBookingList(String userId) {
+		return dao.selectMyBookingList(session, userId);
+	}
+
+
+	@Override
+	public List<Food> searchFood(Map<String, Object> param) {
+		return dao.searchFood(session, param);
+	}
+
+
 }

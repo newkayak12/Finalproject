@@ -1,11 +1,14 @@
 package com.e_um.model.dao.communicateInfo.friend;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.communicateinfo.friend.Friend;
+import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +18,43 @@ import lombok.extern.slf4j.Slf4j;
 public class FriendDao implements FriendDaoInterface {
 	
 	@Override
-	public List<User> selectAllUser(SqlSessionTemplate session, String userId) {
-		return session.selectList("user.selectAllUser",userId);
+	public User selectUserOne(SqlSessionTemplate session, String profileId) {
+		return session.selectOne("friend.selectProfileInfo",profileId);
 	}
 
-	
+
 	@Override
-	public User selectUserOne(SqlSessionTemplate session, String userId) {
-		return session.selectOne("user.selectUserOne",userId);
+	public int insertFriend(SqlSessionTemplate session,  Friend friend) {
+		return session.insert("friend.insertFriend",friend);
+	}
+
+
+	@Override
+	public List<User> selectAllUser(SqlSessionTemplate session, String userId, int index, int btnsu) {
+		RowBounds row=new RowBounds((index-1)*btnsu,btnsu);
+		return session.selectList("user.selectAllUser",userId,row);
+	}
+
+
+	@Override
+	public List<User> searchKeyword(SqlSessionTemplate session, Map param) {
+		return session.selectList("user.searchKeyword",param);
+	}
+
+
+	@Override
+	public int insertAlarm(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		
+		
+		return session.insert("alarm.insertfriend",param);
+		
+	}
+
+
+	@Override
+	public int isExist(Friend fr, SqlSessionTemplate session) {
+		return session.selectOne("friend.isExist",fr);
 	}
 
 }

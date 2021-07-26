@@ -2,60 +2,174 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<style>
+	/* 조건펼치기 버튼 */
+	#showFoodSearchCondition {
+		background-color: #70b3d9;
+		
+	}
+	
+	/* 보였다안보였다하는 검색 조건 div  */
+	#foodSearch-condition {
+		display: none;
+		border: 1px solid #70b3d9;
+		/* width: ; */
+		/* height:500px; */
+	}
+	/* 검색조건 이름 */
+	#foodSearchCategoryTitle {
+		display: block;
+		font-weight: 900;
+		margin: 10px 10px 5px 10px;
+	}
+	
+	/* 조건검색 라디오버튼 */
+	#foodSearch-condition input[type=radio] {
+		display: none;
+	}
+	
+	#foodSearch-condition input[type=radio]:checked+label {
+		background-color: #70b3d9;
+		font-weight: 900;
+	}
+	
+	#foodSearch-condition input[type=radio]+label{
+		border: 1px solid #70b3d9;
+		border-radius: 20px;
+		padding: 5px 12px;
+		margin: 5px;
+	}
+	
+	/* 선택된 검색조건 */
+	.selected {
+		background-color: #70b3d9;
+		font-weight: 900;
+	}
+</style>
+
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
 	
 		<div>
 		
-			<div class="search-container">
-				<form>
-					<input class="col-8 col-md-6 form-control" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" >
-					<button class="btn btn-primary" type="submit" class="btn" >검색</button>
-					<button class="btn btn-primary" type="button" class="btn" onclick="fn_openCondition();">조건 ▾</button>
-				</form>
-			</div>
-			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
-		
-		</div>
-		
-		<div class="features-boxed">
-		
-			<div class="container">
-			
-				<h3 class="">평점이 높은 맛집</h3>
-				
-				<div id="" class="row justify-content-center features">
-				
-					<c:forEach items="${ list }" var="f">
+			<div class="search-container col-12">
+				<form action="" method="" class="col-12">
+					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
+					<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" required>
+					<button class="btn" type="button" id="foodSearchButton" style="background-color: #70b3d9;">검색</button>
+					<button class="btn" type="button" id="showFoodSearchCondition">조건 ▾</button>
+					<button class="btn" type="button" id="clearFoodSearchCondition">조건 초기화</button>
 					
-						<div class="col-6 col-md-3 item">
+					<!-- 보였다안보였다하는 검색 조건 div -->
+					<div id="foodSearch-condition" class="p-3">
 						
-							<div class="box">
-							
-								<a id="open_food_modal" href="#" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#myModal" data-toggle="modal">
-									
-									<div>
-										<img width="200px" height="200px" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
-										<div class="info">
-											<span class="title"><c:out value="${ f.foodName }"/></span>
-											<strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
-											<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
-										</div>
-									</div>
-								</a>
-								
-							</div> <!-- box -->
-							
+						<!-- 조건1. 가격대 -->
+						<div id="foodSearchCategoryTitle">1인당 가격</div>
+						<div id="foodSearchCategory1" class="row col-12">
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon1" value="1만원미만">
+							<label class="" for="foodPriceCon1">1만원미만</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon2" value="1만원대">
+							<label class="" for="foodPriceCon2">1만원대</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon3" value="2만원대">
+							<label class="" for="foodPriceCon3">2만원대</label>
+							<input type="radio" class="m-1 foodPriceCon" name="fsc1" id="foodPriceCon5" value="3만원이상">
+							<label class="" for="foodPriceCon5">3만원이상</label>
 							
 						</div>
 						
-					</c:forEach>
+						<!-- 조건2. 음식종류 -->
+						<div id="foodSearchCategoryTitle">음식종류</div>
+						<div id="foodSearchCategory2" class="row col-12"></div>
+						
+						<!-- 조건3. 지역 -->
+						<div id="foodSearchCategoryTitle">지역</div>
+						<div id="foodSearchCategory3" class="row col-12">
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon1" value="강남">
+							<label class="" for="foodAddrCon1">강남</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon2" value="마포">
+							<label class="" for="foodAddrCon2">마포</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon3" value="용산">
+							<label class="" for="foodAddrCon3">용산</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon4" value="연남">
+							<label class="" for="foodAddrCon4">연남</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon5" value="종로">
+							<label class="" for="foodAddrCon5">종로</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon6" value="성수">
+							<label class="" for="foodAddrCon6">성수</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon7" value="이태원">
+							<label class="" for="foodAddrCon7">이태원</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon8" value="송파">
+							<label class="" for="foodAddrCon8">송파</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon9" value="망원">
+							<label class="" for="foodAddrCon9">망원</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon10" value="청담">
+							<label class="" for="foodAddrCon10">청담</label>
+							<input type="radio" class="m-1 foodAddrCon" name="fsc3" id="foodAddrCon11" value="잠실">
+							<label class="" for="foodAddrCon11">잠실</label>
+						</div>
+						
+						<!-- 조건4. 평점 -->
+						<div id="foodSearchCategoryTitle">평점</div>
+						<div id="foodSearchCategory4" class="row col-12">
+							<input type="radio" class="m-1 foodStarCon" name="fsc4" id="foodStarCon1" value="1점이상">
+							<label class="" for="foodStarCon1">1점이상</label>
+							<input type="radio" class="m-1 foodStarCon" name="fsc4" id="foodStarCon2" value="2점이상">
+							<label class="" for="foodStarCon2">2점이상</label>
+							<input type="radio" class="m-1 foodStarCon" name="fsc4" id="foodStarCon3" value="3점이상">
+							<label class="" for="foodStarCon3">3점이상</label>
+							<input type="radio" class="m-1 foodStarCon" name="fsc4" id="foodStarCon4" value="4점이상">
+							<label class="" for="foodStarCon4">4점이상</label>
+						</div>
+						
+					</div>
 					
-				</div>
-				
-			</div> <!--container-->
+				</form>
+			</div>
+			
+			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
+			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodBookingView?userId=${session.userId }'">내예약내역</button>
 		
+		</div> <!-- 검색 div -->
+		
+		<div class="features-boxed">
+			
+				<div class="container">
+				
+					<h3 class="">평점이 높은 맛집</h3>
+					
+					<div id="" class="row justify-content-center features">
+					
+						<c:forEach items="${ list }" var="f">
+						
+							<div class="col-6 col-md-3 item">
+							
+								<div class="box">
+								
+									<a id="open_food_modal" href="#" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#myModal" data-toggle="modal">
+										
+										<div>
+											<img width="200px" height="200px" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
+											<div class="info">
+												<span class="title"><c:out value="${ f.foodName }"/></span>
+												<strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
+												<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
+											</div>
+										</div>
+									</a>
+									
+								</div> <!-- box -->
+								
+								
+							</div>
+							
+						</c:forEach>
+						
+					</div>
+					
+				</div> <!--container-->
+			
 		</div> <!-- features-boxed -->
+			
 
 		<!-- 모달창 -->
 		<div class="modal" id="myModal">
@@ -68,7 +182,7 @@
 					
 					<div class="modal-body">
 						<div id="modal-content">
-							<img width="200px" height="200px" src="">
+							<img class="mr-3" style="float:left;" width="200px" height="200px" src="">
 							<div class="modal-info">
 								<p></p> <!-- 대분류 -->
 								<h5></h5> <!-- 맛집이름 -->
@@ -82,23 +196,26 @@
 					</div>
 			
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="fn_foodBooking();">예약하기</button>
-						<button type="button" class="btn btn-primary" onclick="fn_foodView();">상세보기</button>
+						<button type="button" class="btn" style="border: 1px solid #70b3d9;" onclick="fn_foodBooking();">예약하기</button>
+						<button type="button" class="btn" style="background-color: #70b3d9;" onclick="fn_foodView();">상세보기</button>
 					</div>
 			
 				</div>
 			</div>
-		</div>
+		</div> <!-- 모달 div -->
 
 
-	</div>
+	</div> <!-- root -->
 	
 	<div>
 		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
 	</div>
 </section>
 
+
+
 <script>
+
 	// 모달열기 함수 
 	const fn_foodmodal=(seq)=>{
 		$.ajax({
@@ -118,6 +235,7 @@
 		})
 	}
 	
+	
 	// 상세보기페이지로 전환
 	const fn_foodView = () => {
 		// 맛집 시퀀스 가져오기 
@@ -126,6 +244,7 @@
 		location.assign("${path}/food/foodView?foodSeq=" + foodSeq);
 	}
 	
+	
 	// 예약페이지로 전환
 	const fn_foodBooking = () => {
 		
@@ -133,6 +252,7 @@
 		
 		location.assign('${ path }/food/foodBooking/start?foodSeq=' + foodSeq);
 	}
+	
 	
 	// top버튼 
 	$(function() {
@@ -151,10 +271,104 @@
 		});
 	});
 	
+	
 	// 검색조건 열기 
-	const fn_openCondition = () => {
+	$("#showFoodSearchCondition").click( (e) => {
+		$("#foodSearch-condition").slideToggle();
+	} );
+	
+	
+	// 검색카테고리 출력하기위해 데이터 가져옴 
+	$(function() {
+		$.ajax({
+			url: "${path}/food/selectFoodCategoryList",
+			success: data => {
+				for(let i=0; i < data.CategoryMainList.length; i++) {
+					
+					$("#foodSearchCategory2").append(
+						$("<input>").attr({
+							"class" : "m-1 btn fchoice foodCateMainCon",
+							"type" : "radio",
+							"name" : "fsc2",
+							"id":"foodCateMainCon" + i,
+							/* "onclick":"fn_btnTest(foodCateMainCon),  */
+							"value" : data.CategoryMainList[i]
+						}) 
+					);
+					$("#foodSearchCategory2").append(
+						$("<label>").attr({
+							"for" :"foodCateMainCon" + i
+						}).text(data.CategoryMainList[i])
+					);
+				}
+			}
+		})
+	});
+	
+	// 검색 
+	$("#foodSearchButton").click( (e) => {
 		
-	}
+		// 검색어
+		let foodSearchKeyword = $("#foodSearchKeyword").val();
+			
+		let foodPriceCon = $("input[name='fsc1']:checked").val();
+			
+		let foodCateMainCon = $("input[name='fsc2']:checked").val();
+			
+		let foodAddrCon = $("input[name='fsc3']:checked").val();
+			
+		let foodStarCon = $("input[name='fsc4']:checked").val();
+		
+		/* console.log(foodSearchKeyword.length);
+		console.log(!foodPriceCon);
+		console.log(!foodCateMainCon);
+		console.log(!foodAddrCon);
+		console.log(!foodStarCon); */
+		
+		// 검색어도 없고, 검색조건도 선택하지 않은 상태에서 검색버튼을 클릭했을때 알림 띄움
+ 		if(foodSearchKeyword.length == 0 && !foodPriceCon  && !foodCateMainCon && !foodAddrCon && !foodStarCon ) {
+			alert("검색어를 입력하거나 검색조건을 선택해주세요");
+		} else {
+			
+			$.ajax({
+				url : "${path}/food/foodSearch",
+				data : {
+					"keyword" : foodSearchKeyword,
+					"priceCon" : foodPriceCon,
+					"cateMainCon" : foodCateMainCon,
+					"addrCon" : foodAddrCon,
+					"starCon" : foodStarCon
+				},
+				success : data => {
+					console.log(data);
+					console.log(data.length);
+					
+					for(let i=0; i < data.length; i++) {
+						let foodImage = $("<img width='200px' height='200px' src='${ path }/resources/upload/food/'"+ data[i].menus[0].menuPhoto +">");
+					}
+					
+					$(".features-boxed").css({
+						"display" : "none"
+					});
+					
+					let div = $("<div >");
+					
+					$("#root").append($("<div>").attr({
+						"id" : "searchResult-container",
+						"class" : "features-boxed2"
+					}).css({
+						"border" : "1px blue solid"
+					}));
+				}
+			});
+			
+		}
+			
+		
+	} );
+	
+
+	
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -7,6 +7,12 @@
     
 <c:set var="path" value="<%=request.getContextPath() %>" scope="application"/>
 <c:set var="session" value="${userSession }" scope="session"/>
+<style>
+ *{
+ 	 /* border: 1px black solid  */
+ }
+</style>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,11 +39,11 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
+ <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
 	
         <!--로고 자리-->
         <!-- <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div> -->
-		<div style="margin:0px;"><a href="#" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div>
+		<div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div>
 
         <!--메뉴-->
      <div id="head_menu" class="col-6 p-0">
@@ -57,10 +63,29 @@
         <!--아이콘 메뉴-->
         <div id="icon_menu" class="iconbox">
             <ul class="navbar-nav">
-                <li class="nav-item col-4"><i class="fas fa-user fa-lg"></i></li>
-                <li class="nav-item col-4"><i class="fas fa-comments fa-lg"></i></li>
-                <li class="nav-item col-4"><i class="fas fa-bell fa-lg"></i></li>
-            </ul>
+			    <li class="nav-item col-4 ">
+			    	<i class="fas fa-user fa-lg fa-7x" style="font-size:38px;"  onclick="showmypage()"></i>
+		    	</li>
+			    <li class="nav-item col-4">
+			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:38px;"></i>
+			        <span class="small" style="position: relative; top: -35px; right: -10px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display: none;" id="chatCount"></span>
+			    </li>
+			    <li class="nav-item col-4">
+			        <i class="fas fa-bell fa-lg fa-7x" id="alarmicon" onclick ="showalarm()" style="font-size:38px;" ></i>
+			    <p class="small text-center"  style="position: fixed; top: 5px; right: 20px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="alarmCount"></p>
+			    </li>
+			</ul>
+            <div id="toolbox" class="border">
+	            <div style="position: fixed; right:5px;" id="innerXbox" class="text-center d-flex justify-content-between">
+		            <div id="controlpanel"> </div>
+		            <div class="pr-4" onclick="closetoolbox()">X</div>
+	            </div>
+	            
+	            
+		         <div class="mt-4 text-center" id="toolinnerbox">
+		           
+	            </div>
+            </div>
         </div>
         
          <i class="fas fa-align-justify fa-lg" id="hamburgerbtn" onclick="ham()">
@@ -85,6 +110,7 @@
 	    		</div>	
     		
     	</div>
+    	
    
 </header>
 <script>
@@ -111,6 +137,161 @@
 		$("#submenu").slideToggle(240);
 	}
 	
+	/* 마이페이지패널 */
+	const showmypage=()=>{
+		$("#controlpanel").html("")
+		$("#toolbox").slideToggle(240)
+		$("#toolinnerbox").html("")
+		
+		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
+		
+		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr("href","${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}").css("text-decoration","none"))
+		let profilelink = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}").css("text-decoration","none"))
+		let supportlink = $("<div>").html($("<a>").html("고객센터").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
+		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()"}).css("text-decoration","none"))
+		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
+				
+				
+		
+			
+	}
+	
+	function kakaoLogout(){
+		Kakao.init('55ed969ca9bcce24d1c9c11d44e0c525');
+		
+		if(!Kako.Auth.getAccessToken()){
+			
+			console.log("not logged in")
+			return
+		}
+		Kakao.Auth.logout(function(){
+			console.log(Kakao.Auth.getAccessToken())
+		})
+	}
+	
+	
+	
+	
+	
+	/* 알람 */
+
+	$(function(){
+		alarmCount()
+        setInterval(()=>{
+        	alarmCount()
+        },20000)
+    })
+	/* 알람 패칭*/
+    const alarmCount=()=>{
+        let SessionMyId = '${userSession.userId}';
+        $.ajax({
+            url:"${pageContext.request.contextPath}/alarm/count",
+            data:{userId:SessionMyId},
+            success:data=>{
+            	
+            	if(data>0){
+            		$("#alarmCountbot").css("display","inline")
+            		$("#alarmCountbot").html(data)
+	                $("#alarmCount").html(data)
+	                $("#alarmCount").css("display","inline")
+                } else {
+                	$("#alarmCount").css("display","none")
+	                $("#alarmCount").html("")
+	                $("#alarmCountbot").css("display","none")
+            		$("#alarmCountbot").html("")
+                }
+
+            }
+        })
+
+    }
+     
+    
+	const showalarm=()=>{
+		$("#controlpanel").html("알람")
+		$("#toolbox").slideToggle(240)
+		alarmlist();
+				
+	}
+	const closetoolbox=()=>{
+		/* $("#toolbox").css("display","none") */
+		$("#toolbox").hide(240);
+	}
+	
+	/* 알람 내용 채우기 */
+	function alarmlist(){
+		let userId = '${userSession.userId}';
+		$.ajax({
+			url:"${pageContext.request.contextPath}/alarm/fetchAlarm",
+			data:{"userId":userId},
+			success:data=>{
+				
+				console.log(data.length)
+					let outter =$("<div>")
+					
+				if(data.length>0){
+					
+				
+						data.forEach((v,i)=>{
+							
+							console.log(i)
+							if(v["alarmRead"]=='unread'){
+								
+							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+							outter.append(friendList);
+								
+								
+							}else {
+								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"white" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+								outter.append(friendList);
+							}
+							
+							
+						})
+						
+						
+							$("#toolinnerbox").html(outter)
+				} else {
+					
+					outter.html("내용이 없습니다.").attr("class","text-center")
+					$("#toolinnerbox").html(outter)
+				
+				}
+				/* toolinnerbox */
+			}
+		})
+	}
+	
+	
+	const fn_delAlarm=(seq)=>{
+		$.ajax({
+			url:"${pageContext.request.contextPath}/alarm/deleteAlarm",
+			data:{"alarmSeq": seq},
+			success:data=>{
+				console.log(data)
+			}
+		})
+		
+		alarmlist();
+		
+	}
+	
+	const fn_read=(seq, key)=>{
+		$.ajax({
+			url:"${pageContext.request.contextPath}/alarm/readAlarm",
+			data:{"alarmSeq":seq},
+			success:data=>{
+				if(data>0){
+					alarmlist();
+					
+					/*  해당 페이지로 이동해야하는데 어떻게 될까요?*/
+					console.log(key)
+					
+				}
+			}
+		})
+		
+	}
 </script>
 
 

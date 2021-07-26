@@ -1,7 +1,9 @@
 package com.e_um.model.sevice.placeInfo.food;
 
 import java.util.List;
+import java.util.Map;
 
+import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 
 public interface FoodServiceInterface {
@@ -15,5 +17,13 @@ public interface FoodServiceInterface {
 	List<String> selectFoodCategorySub();
 
 	Food selectFood(String foodSeq);
+
+	int foodBooking(FoodBooking booking);
+
+	List<FoodBooking> selectMyBookingList(String userId);
+
+	List<Food> searchFood(Map<String, Object> param);
+
+
 
 }
