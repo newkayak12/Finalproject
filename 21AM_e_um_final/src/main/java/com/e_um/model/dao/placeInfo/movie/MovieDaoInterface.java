@@ -25,7 +25,8 @@ public interface MovieDaoInterface {
 	List<MovieReview> movieReview(String movieSeq,SqlSessionTemplate session);
 
 	int movieWrite(Map param, SqlSessionTemplate session);
-
+	
+	int movieReviewCount(SqlSessionTemplate session,String movieSeq);
 
 
 

@@ -59,6 +59,10 @@
     		}
     		
     	} 
+    	 
+    	const moveReserve=()=>{
+    		location.assign("<%=request.getContextPath()%>/movie/movieReserve");
+    	}
     
     	
     </script>
@@ -234,7 +238,8 @@
                                <p id="modalReserveRate"></p>
                            </div>
                            <div class="mt-4 p-4 d-flex justify-content-around">
-                               <button id="btn1" class="btn btn-success" onclick="move_movieDetail(event);" >상세보기</button><button class="btn btn-primary">예매하기</button>
+                               <button id="btn1" class="btn btn-success" onclick="move_movieDetail(event);" >상세보기</button>
+                               <button id="btn2" class="btn btn-primary" onclick="moveReserve();")>예매하기</button>
                            </div>
                          </div>
                        </div>

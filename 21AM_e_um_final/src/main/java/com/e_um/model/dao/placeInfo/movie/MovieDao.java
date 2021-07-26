@@ -63,6 +63,12 @@ public class MovieDao implements MovieDaoInterface {
 		// TODO Auto-generated method stub
 		return session.insert("movie.movieWrite",param);
 	}
+
+	@Override
+	public int movieReviewCount(SqlSessionTemplate session,String movieSeq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.movieReviewCount",movieSeq);
+	}
 	
 	
 	

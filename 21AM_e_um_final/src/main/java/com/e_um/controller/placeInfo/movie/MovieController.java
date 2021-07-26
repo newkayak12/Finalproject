@@ -83,14 +83,14 @@ public class MovieController {
 	@RequestMapping("/movie/movieReview")
 	@ResponseBody
 	public List<MovieReview> movieReview(@RequestParam(value="movieSeq")String movieSeq) {
+		System.out.println(movieSeq);
 		List<MovieReview> list = service.movieReview(movieSeq);
-
+		
 		return list;
 	}
 	
 	@RequestMapping("/movie/movieWriteStart")
 	public String movieWritePage(@RequestParam(value="movieSeq")String movieSeq, Model m) {
-		System.out.println(movieSeq);
 		m.addAttribute("movieSeq",movieSeq);
 		return "movie/reviewWrite";
 	}
@@ -123,7 +123,36 @@ public class MovieController {
 		System.out.println(param);
 		int movieReview = service.movieWrite(param);
 		
-		return "redirect:movie/reviewWrite";
+		return "redirect:/movie/movieDetail";
+	}
+	
+	@RequestMapping("/movie/movieReviewData")
+	@ResponseBody
+	public double movieReviewData(@RequestParam(value="movieSeq")String movieSeq) {
+		List<MovieReview> list = service.movieReview(movieSeq);
+		int count = service.movieReviewCount(movieSeq);
+		double evg = 0;
+		for(MovieReview mr : list) {
+			evg += mr.getMovieEvaluationAvg();
+		}
+		double total=evg/count;
+		return total;
+	}
+	
+	
+	
+	@RequestMapping("/movie/movieReserve")
+	public String movieReserve() {
+		
+		return "movie/movieReserve";
+	}
+	
+	
+	
+	@RequestMapping("/movie/movieList")
+	@ResponseBody
+	public List<Movie> movieList(){
+		return service.movieList();
 	}
 	
 }

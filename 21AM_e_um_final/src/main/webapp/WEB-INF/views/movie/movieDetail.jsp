@@ -11,41 +11,20 @@
 				url:"<%=request.getContextPath()%>/movie/moviePerson",
 				data:{"moviePersonName":moviePersonName},
 				success:data=>{
-					console.log(data);
 					let date = data["moviePersonBirth"];
 					let result = date.split("-"); 
-
-						console.log(data["movies"]);
 					$("#modalImage").attr("src","${applicationScope.path}/resources/upload/movie/movie_person_picture/"+data["moviePersonPhoto"])
-					/* $("#modalTitleKr").html(data["movieTitleKr"])
-					$("#modalTitleEn").html(data["movieTitleEn"])
-					$("#modalOpenDate").html("개봉일 : "+result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
-					$("#modalReserveRate").html("예매율 : "+data["movieReserveRate"]+"%")
-					$("#btn1").attr("value",data["movieSeq"])  */
 					$("#modalPersonName").html(data["moviePersonName"])
 					$("#modalBirth").html("출생 : " +result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
 					$("#modalPhilmo").html("")
 					data["movies"].forEach((v,i)=>{
-						
 						$("#modalPhilmo").append($("<li>").html(v).attr("class","list-group-item col-12 small").css("max-height","40px"));
 					})
-					/* for(int i=0; i<data["movies"].length; i++){
-						$("#modalPhilmo").append($("<li>").html(data[i]));
-					}  */
+
 				}
 			});
 		}
 		
-		<%-- function trailerAjax(){
-    		console.log(movieSeq);
-			$.ajax({
-    			url:"<%=request.getContextPath()%>/movie/selectMovieVideo",
-    			data:{"movieSeq":movieSeq},
-    			success:data=>{
-    				$("#movieVideo").attr("src",data["movieVideo"])
-    			}
-    		})
-    	} --%>
 		
 		const basicInfoShow=()=>{
 			$("#basicInfocontainer").css("display","block")
@@ -70,31 +49,34 @@
 			
 		}
 		const reviewShow=(movieSeq)=>{
-			$.ajax({
-    			url:"<%=request.getContextPath()%>/movie/movieReview",
-    			data:{"movieSeq":movieSeq},
-    			success:data=>{
-    				console.log(data);
-    				for(var i=0; i<data.length;i++){
-    					let date = data[i].movieReviewWriteDate;
-        				let result = date.split("-");
-        				console.log(result);
-    					$(".writer").html(data[i].userId.userId)
-	    				$(".star-point").html("★"+data[i].movieEvaluationAvg)
-	    				$(".review").html(data[i].movieReviewContent)
-	    				$(".writeDate").html(result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
-    				}
-    			}
-    		})
-    		
-			
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","block")
 			$("#graphcontainer").css("display","none")
 			
+			$.ajax({
+				url:"<%=request.getContextPath()%>/movie/movieReview",
+				data:{"movieSeq":movieSeq},
+				success:data=>{
+					console.log(data);
+				}
+				
+			})
+			
 		}
-		const graphShow=()=>{
+		const graphShow=(movieSeq)=>{
+			$.ajax({
+    			url:"<%=request.getContextPath()%>/movie/movieReviewData",
+    			data:{"movieSeq":movieSeq},
+    			success:data=>{
+    				console.log(data);
+    				$("#totalPoint").html("★"+data).css("font-size","30px");
+    				
+    					
+    			}
+    		})
+			
+			
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","none")
@@ -146,7 +128,7 @@
 			                    <li><button class="btn" id="basicinfobtn" onclick="basicInfoShow()">기본정보</button></li>
 			                    <li><button class="btn" id="trailerbtn" onclick="trailerShow('${movie.movieSeq}')">트레일러</button></li>
 			                    <li><button class="btn" id="reviewbtn" onclick="reviewShow('${movie.movieSeq}')">관람평</button></li>
-			                    <li><button class="btn" id="graphbtn" onclick="graphShow()">예매분포</button></li>
+			                    <li><button class="btn" id="graphbtn" onclick="graphShow('${movie.movieSeq}')">예매분포</button></li>
 			                </ul>
 			               
 			            </div>
@@ -209,24 +191,32 @@
 						    <thead>
 						      <tr>
 						        <th>작성자</th>
-						        <th>별점</th>
+						        <th>평점</th>
 						        <th>리뷰</th>
 						        <th>작성일</th>
 						      </tr>
 						    </thead>
-						    <tbody>
-							    <tr class="table-container">
-							        <td class="writer">
-							        <td class="star-point">
-							        <td class="review">
-							        <td class="writeDate">
+						    <tbody id="tbody">
+							    <tr>
+							    	<td></td>
+							    	<td></td>
+							    	<td></td>
+							    	<td></td>
 							    </tr>
 						    </tbody>
 						  </table>
 					</div>
 					
 					<div id="graphcontainer">
-						graph
+						<h3>예매분포</h3>
+						<div class="col-3 " style="border: 1px solid black; height: 300px;">
+							<h5>평균 별점</h5>
+							<div class="mt-5" style="border: 1px solid black; height: 200px;">
+								<div class="circle" style="margin: 0 auto; padding-top:30px; width: 200px; height: 200px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
+									<span id="totalPoint"></span>
+								</div>
+							</div>
+						</div>
 					</div>
 			    </div>
 			</div>

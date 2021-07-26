@@ -62,6 +62,11 @@ public class MovieService implements MovieServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.movieWrite(param,session);
 	}
+	@Override
+	public int movieReviewCount(String movieSeq) {
+		// TODO Auto-generated method stub
+		return dao.movieReviewCount(session,movieSeq);
+	}
 	
 	
 	

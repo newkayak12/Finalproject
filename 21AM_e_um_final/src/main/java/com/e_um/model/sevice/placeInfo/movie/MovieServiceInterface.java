@@ -23,4 +23,6 @@ public interface MovieServiceInterface {
 	List<MovieReview> movieReview(String movieSeq);
 	
 	int movieWrite(Map param); 
+	
+	int movieReviewCount(String movieSeq);
 }
