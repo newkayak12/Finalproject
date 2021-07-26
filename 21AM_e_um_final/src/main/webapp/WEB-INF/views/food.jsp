@@ -129,46 +129,47 @@
 			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
 			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodBookingView?userId=${session.userId }'">내예약내역</button>
 		
-		</div>
+		</div> <!-- 검색 div -->
 		
 		<div class="features-boxed">
-		
-			<div class="container">
 			
-				<h3 class="">평점이 높은 맛집</h3>
+				<div class="container">
 				
-				<div id="" class="row justify-content-center features">
-				
-					<c:forEach items="${ list }" var="f">
+					<h3 class="">평점이 높은 맛집</h3>
 					
-						<div class="col-6 col-md-3 item">
+					<div id="" class="row justify-content-center features">
+					
+						<c:forEach items="${ list }" var="f">
 						
-							<div class="box">
+							<div class="col-6 col-md-3 item">
 							
-								<a id="open_food_modal" href="#" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#myModal" data-toggle="modal">
-									
-									<div>
-										<img width="200px" height="200px" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
-										<div class="info">
-											<span class="title"><c:out value="${ f.foodName }"/></span>
-											<strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
-											<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
-										</div>
-									</div>
-								</a>
+								<div class="box">
 								
-							</div> <!-- box -->
+									<a id="open_food_modal" href="#" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#myModal" data-toggle="modal">
+										
+										<div>
+											<img width="200px" height="200px" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
+											<div class="info">
+												<span class="title"><c:out value="${ f.foodName }"/></span>
+												<strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
+												<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
+											</div>
+										</div>
+									</a>
+									
+								</div> <!-- box -->
+								
+								
+							</div>
 							
-							
-						</div>
+						</c:forEach>
 						
-					</c:forEach>
+					</div>
 					
-				</div>
-				
-			</div> <!--container-->
-		
+				</div> <!--container-->
+			
 		</div> <!-- features-boxed -->
+			
 
 		<!-- 모달창 -->
 		<div class="modal" id="myModal">
@@ -201,10 +202,10 @@
 			
 				</div>
 			</div>
-		</div>
+		</div> <!-- 모달 div -->
 
 
-	</div>
+	</div> <!-- root -->
 	
 	<div>
 		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
@@ -318,27 +319,51 @@
 			
 		let foodStarCon = $("input[name='fsc4']:checked").val();
 		
-		if(foodSearchKeyword.trim().length == 0 
-			&& foodPriceCon.trim().length == 0
-			&& foodCateMainCon.trim().length == 0 
-			&& foodAddrCon.trim().length == 0 
-			&& foodStarCon.trim().length == 0 ) {
+		/* console.log(foodSearchKeyword.length);
+		console.log(!foodPriceCon);
+		console.log(!foodCateMainCon);
+		console.log(!foodAddrCon);
+		console.log(!foodStarCon); */
+		
+		// 검색어도 없고, 검색조건도 선택하지 않은 상태에서 검색버튼을 클릭했을때 알림 띄움
+ 		if(foodSearchKeyword.length == 0 && !foodPriceCon  && !foodCateMainCon && !foodAddrCon && !foodStarCon ) {
 			alert("검색어를 입력하거나 검색조건을 선택해주세요");
+		} else {
+			
+			$.ajax({
+				url : "${path}/food/foodSearch",
+				data : {
+					"keyword" : foodSearchKeyword,
+					"priceCon" : foodPriceCon,
+					"cateMainCon" : foodCateMainCon,
+					"addrCon" : foodAddrCon,
+					"starCon" : foodStarCon
+				},
+				success : data => {
+					console.log(data);
+					console.log(data.length);
+					
+					for(let i=0; i < data.length; i++) {
+						let foodImage = $("<img width='200px' height='200px' src='${ path }/resources/upload/food/'"+ data[i].menus[0].menuPhoto +">");
+					}
+					
+					$(".features-boxed").css({
+						"display" : "none"
+					});
+					
+					let div = $("<div >");
+					
+					$("#root").append($("<div>").attr({
+						"id" : "searchResult-container",
+						"class" : "features-boxed2"
+					}).css({
+						"border" : "1px blue solid"
+					}));
+				}
+			});
+			
 		}
 			
-		$.ajax({
-			url : "${path}/food/foodSearch",
-			data : {
-				"keyword" : foodSearchKeyword,
-				"priceCon" : foodPriceCon,
-				"cateMainCon" : foodCateMainCon,
-				"addrCon" : foodAddrCon,
-				"starCon" : foodStarCon
-			},
-			success : data => {
-				console.log(data);
-			}
-		});
 		
 	} );
 	
