@@ -9,4 +9,5 @@ import com.e_um.model.vo.userInfo.alarm.Alarm;
 public interface AlarmDaoInterface {
 	public int alarmCount(String userId, SqlSessionTemplate session);
 	public List<Alarm>fetchAlarm(String userId, SqlSessionTemplate session);
+	public int deleteAlarm(String seq, SqlSessionTemplate session);
 }

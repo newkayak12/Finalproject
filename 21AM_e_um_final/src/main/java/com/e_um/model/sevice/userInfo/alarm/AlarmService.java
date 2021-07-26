@@ -29,4 +29,9 @@ public class AlarmService implements AlarmServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.fetchAlarm(userId, session);
 	}
+	@Override
+	public int deleteAlarm(String seq) {
+		// TODO Auto-generated method stub
+		return dao.deleteAlarm(seq, session);
+	}
 }

@@ -30,7 +30,16 @@ public class AlarmController {
 	public List<Alarm>fetchAlarm(String userId){
 		log.warn("asdasdasdasdassssssssssssssssss"+userId)
 		;
-		return service.fetchAlarm(userId);
+		
+		List<Alarm> result =service.fetchAlarm(userId);
+		log.warn("asdas{}",result);
+		return result;
+	}
+	
+	@RequestMapping("/alarm/deleteAlarm")
+	@ResponseBody
+	public int deleteAlarm(String alarmSeq ) {
+		return service.deleteAlarm(alarmSeq);
 	}
 	
 }

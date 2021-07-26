@@ -43,7 +43,7 @@
 	
         <!--로고 자리-->
         <!-- <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div> -->
-		<div style="margin:0px;"><a href="${path }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div>
+		<div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div>
 
         <!--메뉴-->
      <div id="head_menu" class="col-6 p-0">
@@ -63,7 +63,9 @@
         <!--아이콘 메뉴-->
         <div id="icon_menu" class="iconbox">
             <ul class="navbar-nav">
-			    <li class="nav-item col-4 "><i class="fas fa-user fa-lg fa-7x" style="font-size:38px;"></i></li>
+			    <li class="nav-item col-4 ">
+			    	<i class="fas fa-user fa-lg fa-7x" style="font-size:38px;"  onclick="showmypage()"></i>
+		    	</li>
 			    <li class="nav-item col-4">
 			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:38px;"></i>
 			        <span class="small" style="position: relative; top: -35px; right: -10px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display: none;" id="chatCount"></span>
@@ -75,7 +77,7 @@
 			</ul>
             <div id="toolbox" class="border">
 	            <div style="position: fixed; right:5px;" id="innerXbox" class="text-center d-flex justify-content-between">
-		            <div id="controlpanel"> 알림 </div>
+		            <div id="controlpanel"> </div>
 		            <div class="pr-4" onclick="closetoolbox()">X</div>
 	            </div>
 	            
@@ -135,13 +137,51 @@
 		$("#submenu").slideToggle(240);
 	}
 	
+	/* 마이페이지패널 */
+	const showmypage=()=>{
+		$("#controlpanel").html("")
+		$("#toolbox").slideToggle(240)
+		$("#toolinnerbox").html("")
+		
+		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
+		
+		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
+		let profilelink = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
+		let supportlink = $("<div>").html($("<a>").html("고객센터").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
+		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/","onclick":"kakaoLogout()"}).css("text-decoration","none"))
+		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
+				
+				
+		
+			
+	}
+	
+	function kakaoLogout(){
+		Kakao.init('55ed969ca9bcce24d1c9c11d44e0c525');
+		
+		if(!Kako.Auth.getAccessToken()){
+			
+			console.log("not logged in")
+			return
+		}
+		Kakao.Auth.logout(function(){
+			console.log(Kakao.Auth.getAccessToken())
+		})
+	}
+	
+	
+	
+	
+	
+	/* 알람 */
 
 	$(function(){
+		alarmCount()
         setInterval(()=>{
         	alarmCount()
-        },2000)
+        },20000)
     })
-	
+	/* 알람 패칭*/
     const alarmCount=()=>{
         let SessionMyId = '${userSession.userId}';
         $.ajax({
@@ -165,8 +205,10 @@
         })
 
     }
+     
+    
 	const showalarm=()=>{
-/* 		$("#toolbox").css("display","block") */
+		$("#controlpanel").html("알람")
 		$("#toolbox").slideToggle(240)
 		alarmlist();
 				
@@ -179,19 +221,17 @@
 	/* 알람 내용 채우기 */
 	function alarmlist(){
 		let userId = '${userSession.userId}';
-		console.log(userId)
 		$.ajax({
 			url:"${pageContext.request.contextPath}/alarm/fetchAlarm",
 			data:{"userId":userId},
 			success:data=>{
-				console.log(data)
 					let outter =$("<div>")
 				data.forEach((v,i)=>{
 					
-					
-					
+					console.log(v)
 					if(v["alarmRead"]=='unread'){
-					let friendList = $("<div>").attr({"class":"small"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html(v['alarmContent']);
+						
+					let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
 					outter.append(friendList);
 						
 						
@@ -208,6 +248,25 @@
 		})
 	}
 	
+	
+	const fn_delAlarm=(seq)=>{
+		$.ajax({
+			url:"${pageContext.request.contextPath}/alarm/deleteAlarm",
+			data:{"alarmSeq": seq},
+			success:data=>{
+				console.log(data)
+			}
+		})
+		
+		alarmlist();
+		
+	}
+	
+	const fn_read=(seq, key)=>{
+		
+		console.log(seq)
+		console.log(key)
+	}
 </script>
 
 
