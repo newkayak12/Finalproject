@@ -99,4 +99,10 @@ public class FriendService implements FriendServiceInterface {
 	public Friend friendCheck(Friend f) {
 		return dao.friendCheck(session, f);
 	}
+
+	@Override
+	public int isExist(Friend fr) {
+		// TODO Auto-generated method stub
+		return dao.isExist(fr, session);
+	}
 }

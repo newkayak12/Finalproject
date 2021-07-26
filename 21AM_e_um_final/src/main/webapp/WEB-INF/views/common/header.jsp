@@ -82,7 +82,7 @@
 	            </div>
 	            
 	            
-		         <div class="mt-4" id="toolinnerbox">
+		         <div class="mt-4 text-center" id="toolinnerbox">
 		           
 	            </div>
             </div>
@@ -145,10 +145,10 @@
 		
 		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
 		
-		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
-		let profilelink = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
+		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr("href","${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}").css("text-decoration","none"))
+		let profilelink = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}").css("text-decoration","none"))
 		let supportlink = $("<div>").html($("<a>").html("고객센터").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
-		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/","onclick":"kakaoLogout()"}).css("text-decoration","none"))
+		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()"}).css("text-decoration","none"))
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
 				
 				
@@ -225,24 +225,38 @@
 			url:"${pageContext.request.contextPath}/alarm/fetchAlarm",
 			data:{"userId":userId},
 			success:data=>{
+				
+				console.log(data.length)
 					let outter =$("<div>")
-				data.forEach((v,i)=>{
 					
-					console.log(v)
-					if(v["alarmRead"]=='unread'){
-						
-					let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-					outter.append(friendList);
-						
-						
-					}/*  else if() */
+				if(data.length>0){
 					
-					
-				})
 				
-				
+						data.forEach((v,i)=>{
+							
+							console.log(i)
+							if(v["alarmRead"]=='unread'){
+								
+							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+							outter.append(friendList);
+								
+								
+							}else {
+								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"white" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+								outter.append(friendList);
+							}
+							
+							
+						})
+						
+						
+							$("#toolinnerbox").html(outter)
+				} else {
+					
+					outter.html("내용이 없습니다.").attr("class","text-center")
 					$("#toolinnerbox").html(outter)
 				
+				}
 				/* toolinnerbox */
 			}
 		})
@@ -263,9 +277,20 @@
 	}
 	
 	const fn_read=(seq, key)=>{
+		$.ajax({
+			url:"${pageContext.request.contextPath}/alarm/readAlarm",
+			data:{"alarmSeq":seq},
+			success:data=>{
+				if(data>0){
+					alarmlist();
+					
+					/*  해당 페이지로 이동해야하는데 어떻게 될까요?*/
+					console.log(key)
+					
+				}
+			}
+		})
 		
-		console.log(seq)
-		console.log(key)
 	}
 </script>
 

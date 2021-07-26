@@ -92,4 +92,10 @@ public class FriendDao implements FriendDaoInterface {
 		return session.selectOne("friend.friendCheck",f);
 	}
 
+
+	@Override
+	public int isExist(Friend fr, SqlSessionTemplate session) {
+		return session.selectOne("friend.isExist",fr);
+	}
+
 }

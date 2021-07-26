@@ -231,5 +231,13 @@ public class FriendController {
 		
 		return "common/msg";
 	}
+	
+	@RequestMapping("/friend/isexist")
+	@ResponseBody
+	public int isExist(String friendId, HttpServletRequest rq) {
+		User user = (User) (rq.getSession().getAttribute("userSession"));
+		Friend friend = Friend.builder().myId( user.getUserId() ).friendId(friendId).build();
+		return service.isExist(friend);
+	}
 
 }

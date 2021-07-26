@@ -29,6 +29,9 @@ public interface FriendServiceInterface {
 	
 	int insertGuestbookAlarm(Guestbook gb);
 	
+
 	Friend friendCheck(Friend f);
+
+	int isExist(Friend fr);
 
 }

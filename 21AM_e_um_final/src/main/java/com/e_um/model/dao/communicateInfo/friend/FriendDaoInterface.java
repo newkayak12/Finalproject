@@ -33,6 +33,9 @@ public interface FriendDaoInterface {
 	
 	int insertGuestbookAlarm(SqlSessionTemplate session, Guestbook gb);
 	
+
 	Friend friendCheck(SqlSessionTemplate session, Friend f);
+
+	int isExist(Friend fr,SqlSessionTemplate session);
 
 }
