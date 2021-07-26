@@ -78,6 +78,6 @@
 	
 	$("#openProfile").click(e=>{
 		let profileId=e.target.value;
-		location.assign("${pageContext.request.contextPath}/friend/openProfile/"+profileId);
+		location.assign("${pageContext.request.contextPath}/profile/open/"+profileId);
 	})
 </script>

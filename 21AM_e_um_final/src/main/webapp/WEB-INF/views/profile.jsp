@@ -76,6 +76,7 @@
 		    </div>
 		    <div id="profileBtn" class="ml-md-5 mt-4 ">
 		    	<!-- 차단된 친구는 친구 신청 버튼 볼 수 없게 설정, 이미 친구를 신청한 경우 친구 요청 중으로 띄우고 버튼 사용 불가로, 친구인 경우 친구라고 띄우고 버튼 사용 불가로 -->
+		    	<!-- 일단 본인 프로필이면 안나오게 해야 함 -->
 		        <button type="button" id="applyFriend" class="btn btn-outline-info mx-xs-2" value="${profileInfo.userId }">친구 신청</button>
 		        <a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
 					<button type="button" class="btn btn-outline-danger"><i class="fas fa-exclamation"></i></button>
@@ -196,7 +197,7 @@
 	   	 index++;
 	        $.ajax({
 	            type: "get",
-	            url: "${pageContext.request.contextPath}/friend/infiniteFeedScroll",
+	            url: "${pageContext.request.contextPath}/profile/infiniteFeedScroll",
 	            data:{
 	            	"index":index,
 	            	"profileId":profileId
@@ -215,7 +216,7 @@
 		
 		$.ajax({
 			type: "get",
-			url: "${pageContext.request.contextPath}/friend/write/start",
+			url: "${pageContext.request.contextPath}/profile/write/start",
 			data:{
 				"flag":flag,
 				"profileId":profileId
