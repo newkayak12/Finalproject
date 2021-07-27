@@ -293,10 +293,16 @@
 	/*--------------------------*/
 	/*채팅목록  */
 	const fn_chatList=()=>{
+		
+		let userId = '${userSession.userId}'
 		$.ajax({
-			url:"${pageContext.request.contextPath}/"
+			url:"${pageContext.request.contextPath}/fetch/chatlist",
+			data:{"userId":userId},
+			success:data=>{
+				console.log(data)
+			}
 		})
-		toolinnerbox
+		/* toolinnerbox */
 		
 		
 	}

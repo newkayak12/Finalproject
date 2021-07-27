@@ -1,5 +1,6 @@
 package com.e_um.model.vo.communicateinfo.chat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -18,6 +19,6 @@ public class ChatRoom {
 	
 	String chatRoomSeq, chatrommId1, chatrommId2;
 	
-	List<Chat> chats;
+	List<Chat> chats = new ArrayList<Chat>();
 
 }
