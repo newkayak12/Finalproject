@@ -79,7 +79,7 @@
 			    
 			    
 			    <li class="nav-item col-3">
-			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:25px;" onclick="showFriend()"></i>
+			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:25px;" onclick="fn_chatList()"></i>
 			        <span class="small text-center"  style="position: fixed; top: 5px; right: 180px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="chatCount"></span>
 			    </li>
 		    	
@@ -246,8 +246,8 @@
 				
 				
 				data.forEach((v,i)=>{
-					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border"})
-					let profilebox = $("<span>").attr({"class":"ml-2 mr-2 d-flex flex-row", "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"})
+					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"})
+					let profilebox = $("<span>").attr({"class":"ml-2 mr-2 d-flex flex-row"})
 					let photo = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"25px","width":"25px", "border-radius":"100%"})
 					let nick = $("<span>").html(v["friendId"]["userNick"])
 					let statusbox = $("<span>").html(v["friendId"]["profileStatus"]).css({ "text-overflow":"ellipsis","overflow":"hidden","white-space":"nowrap","border-radius":"5%"}).attr({"class":"border"})
@@ -289,21 +289,32 @@
 		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
 		
 	}
-	
-	
-	
+	/*--------------------------*/
+	/*채팅목록  */
+	const fn_chatList=()=>{
+		$.ajax({
+			url:"${pageContext.request.contextPath}/"
+		})
+		toolinnerbox
+		
+		
+	}
 	
 	/* 프로필로 가기 */
 	const fn_goProfile=(userId)=>{
 		console.log("프로필로 가기"+userId);
+		
+		
 	}
+	
+	
 	/* 채팅 */
 	const fn_startChat=(userId)=>{
 		console.log("채팅하기"+userId);
 		
 		$("#headerprofile").modal("hide");
 	}
-	
+	/*--------------------------*/
 	/*친구 목록  */
 	function showfriendList(){
 		
