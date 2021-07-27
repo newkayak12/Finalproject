@@ -156,7 +156,7 @@
 	    </div>
 	    
 	    <!-- 검색 결과 모달 -->
-		<div class="modal" id="searchResultModal">
+		<div class="modal fade" id="searchResultModal">
 		  <div class="modal-dialog modal-xl">
 		    <div class="modal-content">
 		
@@ -172,7 +172,7 @@
 		
 		      <!-- Modal footer -->
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
 		      </div>
 		
 		    </div>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.model.sevice.userInfo.profile.ProfileServiceInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
@@ -23,11 +24,6 @@ public class ProfileController {
 	@Autowired
 	ProfileServiceInterface service;
 	
-	@RequestMapping("user/profile/start")
-	public String gotoProfile(String userId) {
-		return"";
-	}
-	
 	
 	@RequestMapping("/profile/open/{profileId}")
 	public String selectProfileInfo(@PathVariable("profileId") String profileId, Model m, HttpServletRequest rq){
@@ -39,35 +35,52 @@ public class ProfileController {
 		m.addAttribute("guestbookList",service.selectGuestbook(profileId));
 //		log.warn("guestbookList: {}",service.selectGuestbook(profileId));
 		
-		//1. userId가 profileId에게 친구 신청한 상황인 경우 '친구 요청됨' 비활성화 버튼
+		
+		//-----친구 신청 관련 버튼 처리 로직
+		//일단 default 버튼은 친구 신청 버튼임
+		String flag="applyFri";
+		
 		Friend f=Friend.builder().myId(user.getUserId()).friendId(profileId).build();
 //		log.warn("userId가 profileId한테 친구 신청 했니? : {}",service.friendCheck(f));
 		Friend userCk=service.friendCheck(f);
 		
+		f=Friend.builder().myId(profileId).friendId(user.getUserId()).build();
+		Friend profileCk=service.friendCheck(f);
+		
 		if(userCk!=null) {
 			//user가 profile한테 친구 신청한 상태
-			f=Friend.builder().myId(profileId).friendId(user.getUserId()).build();
-			Friend profileCk=service.friendCheck(f);
 			
 			if(profileCk!=null) {
 				//user와 profile이 서로 친구인 상태
 				
-				//block 여부 체크해야 함 - profileId가 userId를 차단했으면 버튼 표시 X(userId가 profileId를 차단했으면 아예 친구 찾기 목록에 나오지 않으므로 처리할 필요 없음)
+				//block 여부 체크해야 함 - profile이 user를 차단했으면 버튼 표시 X(user가 profile를 차단했으면 아예 친구 찾기 목록에 나오지 않으므로 처리할 필요 없음)
 				if(profileCk.getFriendBlockFlag().equals("block")) {
 					//profile이 userId 차단
+					//버튼 표시 X
+					flag="blockedFri";
 					
 				} else {
-					//profile이 userId를 차단하지 않고 서로 친구인 상태(userId가 profile을 차단한 건 상관 무)
+					//profile이 user를 차단하지 않고 서로 친구인 상태(userId가 profile을 차단한 건 상관 무)
 					//'체크표시 친구' 비활성화 버튼
-					
+					flag="friend";
 				}
+				
+			} else {
+				//user만 profile한테 친구 신청한 상태
+				//'친구 요청됨' 비활성화 버튼
+				flag="alreadyApply";
 			}
-		} else {
 			
+		} else {
+			//user가 profile한테 친구 신청하지 않은 상태
+			
+			if(profileCk!=null) {
+				//profile만 user에게 친구 신청한 상황
+				//'친구 수락' 활성 버튼
+				flag="acceptFri";
+			}
 		}
-		//2. profileId가 userId에게 친구 신청한 상황인 경우 '친구 수락' 활성 버튼, 클릭 이벤트 주기
-		
-		//3. 서로 친구일 경우 
+		m.addAttribute("friFlag",flag);
 		
 		return "profile";
 	}
@@ -128,6 +141,22 @@ public class ProfileController {
 		m.addAttribute("msg", msg);
 		
 		return "common/msg";
+	}
+	
+	
+	@RequestMapping("/profile/writeFeed/end")
+	public String insertFeed(HttpServletRequest rq, Model m,
+			@RequestParam(value="feedImage", required=false) MultipartFile[] feedImage
+			) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		log.info("파일명: "+feedImage[0].getOriginalFilename());
+		log.info("파일 크기: {}",feedImage[0].getSize());
+		log.info("파일명: {}",feedImage[1].getOriginalFilename()=="");
+		log.info("파일 크기: {}",feedImage[1].getSize());
+		log.info("파일명: {}",feedImage[2].getOriginalFilename()==null);
+		log.info("파일 크기: {}",feedImage[2].getSize());
+		
+		return "";
 	}
 
 }
