@@ -73,31 +73,28 @@ public class GroupController {
 		User user = (User) rq.getSession().getAttribute("userSession");
 		System.out.println(param);
 		String userId= user.getUserId();
-		param.put("user", userId);
+		param.put("userId", userId);
 		System.out.println(userId);
 		int result = service.groupJoin(param);
-		return "group";
+		return "redirect:/group/groupMain.do";
 	}
 
 	
 	  @RequestMapping("/group/groupJoin.do") 
-	  public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq,Model model) { 
-		  System.out.println(groupSeq); 
+	  public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq ,Model model) { 
 		  User user=(User) rq.getSession().getAttribute("userSession"); 
 		  String userId= user.getUserId();
-		  System.out.println(userId);
 		  
-	  Group group=service.selectGroupUseridCheck(groupSeq);
-	  System.out.println(group);
-	  model.addAttribute("group",group);
+	  List<Member> list=service.selectGroupUseridCheck(groupSeq);
+	  model.addAttribute("group",list);
 	  String page ="group/groupJoin";
+	  System.out.println(list);
+	  for(Member m : list) {
 	  
-	  for(Member m : group.getMembers()) {
-	  
-		  if(m.getGroupUser().getUserId()!=null && m.getGroupUser().getUserId().equals(userId)) { 
-				  
-				  page="group/groupboard/groupBoardMain"; 
-		  }    
+			
+		  System.out.println(m.getGroupUser().getUserId());
+		  
+		  
 	  }
 	  
 	  return page;

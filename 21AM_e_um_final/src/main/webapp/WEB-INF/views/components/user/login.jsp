@@ -54,6 +54,8 @@ function  kakaoLogin(){
 	              property_keys: ["kakao_account.email","kakao_account.gender","properties.nickname","properties.profile_image","kakao_account.birthday"]
 	          },
 	          success: function (response) {
+	        	  
+	        	  console.log(response)
 	        	  console.log(response["id"])
 	        	  console.log(response["kakao_account"]["birthday"])
 	        	  console.log(response["kakao_account"]["email"])
