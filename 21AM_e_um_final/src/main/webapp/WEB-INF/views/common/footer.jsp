@@ -35,25 +35,62 @@
         color: white;
         margin-bottom: 0;
     }
+    
+   
 </style>
+<script type="text/javascript">
 
-<div id="footerContainer" class="iconboxfooter">
-		contentasdfasdfasdfaw
+</script>
+
+
+		<div id="footerContainer">
+			<div class="d-flex justify-content-around mb-4 p-2 border col-12">
+				<span id="controlpanelprev"></span>
+				<span id="controlpanelfooter"></span>
+				<span id="controlpanelnext"></span>
 			</div>
-
-
+			<div id="footerinnerContainer" style="height:600px" class="pb-5 mb-5" >
+				<div id="friendList" style="display: none;">
+				</div>
+				<div id="footerprofileview" style="display: none;">
+				
+				
+				</div>
+			</div>
+				
+		</div>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <footer class="footer mt-5 pt-0 dockbar">
-	<div id="icon_menu" class="iconboxfooter pr-2 pl-2 mt-2 mb-2  col-12 m-0 d-flex justify-content-around" style="height:fit-content;">
-            
-            
-                <i class="fas fa-user fa-lg  p-2 fa-7x ml-4" style="font-size:50px"></i>
-                <div class="border"></div>
-                <span class="pt-1" id="alarmCountbot" style="position: fixed; bottom: 40px; right:235px; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:block; width: 30px; height: 30px"></span>
-                <i class="fas fa-bell fa-lg  p-2 fa-7x" style="font-size:50px"></i>
-                <div class="border"></div>
-                <i class="fas fa-comments fa-lg p-2 fa-7x mr-4" style="font-size:50px"></i>
-     </div>
+		
+	 <div id="icon_menu" class="iconboxfooter  mt-2 mb-2  col-12 " style="height:fit-content;"> 
+          <ul class="navbar-nav d-flex flex-row  justify-content-between pr-4 pl-4 col-12">  
+                <li class="nav-item" >
+                	<i class="fas fa-bell fa-lg  p-2 fa-7x" style="font-size:50px" onclick="fn_showalarmbot(); "></i>
+               		<!-- <span  class="p-2" id="alarmCountbot" style="font-size:16px; position:relative; bottom:30px; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white;  width: 50px !important;  z-index: 200"></span> -->
+               		<span class="small text-center"  style=" position:fixed; left:90px; bottom: 50px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 30px; height: 30px; font-size:18px" id="alarmCountbot"></span>
+                </li>
+                
+                
+                
+                <li class="border mt-2 mb-2"></li>
+				<li class="nav-item">            
+                	<i class="fas fa-user fa-lg  p-2 fa-7x" style="font-size:50px" onclick="fn_showprofilebot()"></i>
+                </li >
+                <li class="border mt-2 mb-2"></li>
+                
+                <li class="nav-item">
+                	<i class="fas fa-address-book fa-lg fa-7x mt-2" style="font-size:50px;" onclick="friendListbot()"></i>
+                </li>
+                
+                <li class="border mt-2 mb-2"></li>
+                
+                <li class="nav-item">
+                	<i class="fas fa-comments fa-lg p-2 fa-7x " style="font-size:50px"></i>
+                	<span class="small" style="width: 30px; height: 30px; font-size:18px; position:fixed;  right:30px; bottom: 50px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display: none;" id="chatCountbot">12</span>
+                </li>
+                <!--span알림  -->
+          </ul>
+     </div> 
      
 
 
@@ -67,7 +104,7 @@
 	    </ul>
 	    <p class="copyright">E_um | address : ... | email : eum@eum.com</p>
 	    <p class="copyright">team | kimsanghyun kimyejin kimtaehui leewoosik janghyerin</p>
-	    <p class="copyright">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
+	    <p class="copyright">Copyright Â©2021 E_um Co.Ltd.All rights reserved</p>
     </div>
     
 </footer>

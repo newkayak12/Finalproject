@@ -188,5 +188,12 @@ public class FriendController {
 		Friend friend = Friend.builder().myId( user.getUserId() ).friendId(friendId).build();
 		return service.isExist(friend);
 	}
+	
+	@RequestMapping("/friend/fetchfriendlist")
+	@ResponseBody
+	public List<Friend> fetchFriendList(String userId, Model model) {
+		
+		return service.fetchFriendList(userId);
+	}
 
 }

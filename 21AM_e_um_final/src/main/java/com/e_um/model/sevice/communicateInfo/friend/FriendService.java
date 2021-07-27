@@ -64,4 +64,11 @@ public class FriendService implements FriendServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.isExist(fr, session);
 	}
+
+
+	@Override
+	public List<Friend> fetchFriendList(String userId) {
+		// TODO Auto-generated method stub
+		return dao.fetchFriendList(userId, session);
+	}
 }

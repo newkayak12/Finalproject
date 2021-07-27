@@ -60,4 +60,11 @@ public class FriendDao implements FriendDaoInterface {
 		return session.selectOne("friend.isExist",fr);
 	}
 
+
+	@Override
+	public List<Friend> fetchFriendList(String userId, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("friend.fetchFriendList", userId);
+	}
+
 }

@@ -22,5 +22,7 @@ public interface FriendDaoInterface {
 	int insertAlarm(SqlSessionTemplate session, Map param);
 
 	int isExist(Friend fr,SqlSessionTemplate session);
+	
+	List<Friend> fetchFriendList(String userId,SqlSessionTemplate session);
 
 }

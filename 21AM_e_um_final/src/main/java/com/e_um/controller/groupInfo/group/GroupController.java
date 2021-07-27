@@ -88,14 +88,20 @@ public class GroupController {
 		  System.out.println(userId);
 		  
 	  Group group=service.selectGroupUseridCheck(groupSeq);
+	  
 	  System.out.println(group);
 	  model.addAttribute("group",group);
 	  String page ="group/groupJoin";
+	  log.warn("{}", user.getUserId());
+	  
+	  
 	  
 	  for(Member m : group.getMembers()) {
-	  
-		  if(m.getGroupUser().getUserId()!=null && m.getGroupUser().getUserId().equals(userId)) { 
-				  
+		  log.warn("{}",m.getGroupUser().getUserId());
+		  
+		  
+		  if( m.getGroupUser().getUserId().equals(userId)) { 
+				  log.warn("돌팔이 의사에게 가면 이렇게 됩니다.");
 				  page="group/groupboard/groupBoardMain"; 
 		  }    
 	  }
