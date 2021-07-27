@@ -32,8 +32,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FoodController {
 
+	
+	
+	
 	@Autowired
 	FoodServiceInterface service;
+	
+	
+	
 	
 	@RequestMapping("/food/foodMain")
 	public String food(Model m) {
@@ -45,6 +51,9 @@ public class FoodController {
 		return "food";
 //		return "food/foodForm";
 	}
+	
+	
+	
 	
 	
 	@RequestMapping("/food/foodForm/start")
@@ -59,6 +68,9 @@ public class FoodController {
 		
 		return "food/foodForm";
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/foodForm/end")
 	public String foodInsert(HttpServletRequest rq, Food food, String[] menuName, 
@@ -93,11 +105,13 @@ public class FoodController {
 		
 		int result = service.foodInsert(food);
 		
-		model.addAttribute("msg", result > 0 ? "맛집등록성공" : "맛집등록실패");
+		model.addAttribute("msg", result > 0 ? "맛집이 등록되었습니다" : "맛집이 등록되지않았습니다. 다시 시도해주세요.");
 		model.addAttribute("loc", "/food/foodMain");
 		
 		return "/common/msg";
 	}
+	
+	
 	
 	
 	
@@ -116,6 +130,9 @@ public class FoodController {
 		
 	}
 	
+	
+	
+	
 
 	@RequestMapping("/food/foodView")
 	public String foodView(String foodSeq, Model model) throws Exception {
@@ -128,6 +145,9 @@ public class FoodController {
 		
 	}
 	
+	
+	
+	
 	@RequestMapping("/food/foodReview/start")
 	public String foodReview(String foodSeq, Model model) {
 		
@@ -137,6 +157,9 @@ public class FoodController {
 		
 		return "/food/foodReview";
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/foodReview/end")
 	public String insertFoodComment(String foodSeq) {
@@ -148,6 +171,9 @@ public class FoodController {
 		// msg.jsp 반환
 		return "";
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/foodBooking/start")
 	public String foodBookingStart(String foodSeq, Model model) throws ParseException {
@@ -198,6 +224,9 @@ public class FoodController {
 		return "/food/foodBooking";
 	}
 	
+	
+	
+	
 	@RequestMapping("/food/foodBooking/end")
 	public String foodBookingEnd(Date bookingDateDay, Date bookingDateTime, 
 									@RequestParam(value = "userId") String userId, 
@@ -215,12 +244,15 @@ public class FoodController {
 		
 		int result = service.foodBooking(booking);
 		
-		model.addAttribute("msg", result > 0 ? "예약성공" : "예약실패");
+		model.addAttribute("msg", result > 0 ? "예약이 완료되었습니다." : "예약에 실패했습니다. 다시 시도해주세요.");
 		model.addAttribute("loc", "/food/foodBooking/start?foodSeq=" + foodSeq);
 		
 		return "/common/msg";
 	}
 
+	
+	
+	
 	@RequestMapping("/food/foodBookingView")
 	public String foodBookingView(String userId, Model model) {
 		
@@ -230,6 +262,9 @@ public class FoodController {
 		
 		return "/food/bookingList";
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/selectFoodCategoryList")
 	@ResponseBody
@@ -246,6 +281,9 @@ public class FoodController {
 		return foodCategoryMap;
 		
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/foodSearch")
 	@ResponseBody
@@ -300,7 +338,6 @@ public class FoodController {
 					break;
 			}
 		}
-		
 		
 		List<Food> foodSearchList = service.searchFood(param);
 		

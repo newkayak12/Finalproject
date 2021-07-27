@@ -134,7 +134,7 @@
 	
 		<form action="${ path }/food/foodBooking/end" method="post" class="row ml-5 mr-3" onsubmit="return fn_logincheck();">
 			<!-- 날짜 선택 영역 -->
-			<div class="foodBookingCalendar col-md-6">
+			<div class="foodBookingCalendar col-lg-6">
 					<p class="foodBookingTitle">&nbsp; 1. 날짜 선택</p>
 					<div class="calendar">
 				        <div class="calendar-header">

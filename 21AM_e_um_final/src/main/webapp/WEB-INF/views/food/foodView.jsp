@@ -25,12 +25,14 @@
 							<p>조회수, 리뷰수, 좋아요수 <c:out value="${ food.foodLikeCount }"/></p>
 					</div>
 					
-					<div class=" foodView-info-container foodView-icons">
+					<div class=" foodView-info-container foodView-icons" style="display:flex;">
 						<%-- <div class="foodView-icons-inner"><a href="${ path }/food/foodBooking/first?foodSeq=${ food.foodSeq }&userId=${}"><div style="font-size:50px;">💛</div><span class=" ">가고싶다</span></a></div>
 						<div class="foodView-icons-inner"><a href="${ path }/food/foodReview/first?foodSeq=${ food.foodSeq }&userId=${}"><div style="font-size:50px;">✏</div><span class=" ">리뷰쓰기</span></a></div> --%>
-						<div class="foodView-icons-inner"><a href=""><div style="font-size:50px;">💛</div><span class=" ">가고싶다</span></a></div>
-						<div class="foodView-icons-inner"><a href="${ path }/food/foodBooking/start?foodSeq=${ food.foodSeq }"><div style="font-size:50px;">📅</div><span class=" ">예약하기</span></a></div>
-						<div class="foodView-icons-inner"><a href="${ path }/food/foodReview/start?foodSeq=${ food.foodSeq }"><div style="font-size:50px;">✏️</div><span class=" ">리뷰쓰기</span></a></div>
+						<div class="foodView-icons-inner ml-3 mr-3"><a href=""><div style="font-size:50px;">💛</div><span class=" ">가고싶다</span></a></div>
+						<c:if test="${ food.foodCategoryMain != '카페/디저트' }">
+							<div class="foodView-icons-inner ml-3 mr-3"><a href="${ path }/food/foodBooking/start?foodSeq=${ food.foodSeq }"><div style="font-size:50px;">📅</div><span class=" ">예약하기</span></a></div>
+						</c:if>
+						<div class="foodView-icons-inner ml-3 mr-3"><a href="${ path }/food/foodReview/start?foodSeq=${ food.foodSeq }"><div style="font-size:50px;">✏️</div><span class=" ">리뷰쓰기</span></a></div>
 					</div>
 					
 				</div>
@@ -42,7 +44,7 @@
 					<table>
 						<tr>
 							<td class="">주소</td>
-							<td class=""><c:out value="${ food.foodAddr }"/> ( 주소 2종류 할까? )</td>
+							<td class=""><c:out value="${ food.foodAddr }"/></td>
 						</tr>
 						<tr>
 							<td class="">전화번호</td>
