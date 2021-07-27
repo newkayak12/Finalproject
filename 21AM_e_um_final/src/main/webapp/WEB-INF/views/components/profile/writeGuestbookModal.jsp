@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<form action="${pageContext.request.contextPath}/friend/writeGuestbook/end" method="post">
+<form action="${pageContext.request.contextPath}/profile/writeGuestbook/end" method="post">
 	<input type="hidden" id="profileId" name="userIdReceiver" value="${profileId }">
 	<table class="table table-borderless">
 	    <tr>

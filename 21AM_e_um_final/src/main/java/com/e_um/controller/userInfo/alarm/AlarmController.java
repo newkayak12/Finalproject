@@ -42,4 +42,10 @@ public class AlarmController {
 		return service.deleteAlarm(alarmSeq);
 	}
 	
+	@RequestMapping("/alarm/readAlarm")
+	@ResponseBody
+	public int readAlarm(String alarmSeq) {
+		return service.readAlarm(alarmSeq);
+	}
+	
 }

@@ -87,3 +87,11 @@
     width:290px;
     height:290px;
 }
+
+
+/* writeFeedModal */
+#feedPhotos img{
+	width: 140px;
+	height: 140px;
+	object-fit: cover;
+}

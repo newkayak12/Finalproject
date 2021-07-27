@@ -284,23 +284,38 @@
 	    
 	    const addFriend=()=>{
 	    	console.log($("#friendId").val())
-	    	 $.ajax({
-	    		url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+	    	$.ajax({
+	    		url:"${pageContext.request.contextPath}/friend/isexist",
 	    		data:{friendId: $("#friendId").val()},
 	    		success:data=>{
 	    			if(data>0){
-	    				alert('친구 요청에 완료했습니다.')			
-	    			} else {
-	    				alert('이미 친구 요청이 완료되었거나 실패했습니다.')
+	    				alert('이미 친구 요청이 완료되었습니다.')
+	    			} else{
+	    				
 	    			}
-	    			
+	    			 $.ajax({
+	    		    		url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+	    		    		data:{friendId: $("#friendId").val()},
+	    		    		success:data=>{
+	    		    			if(data>0){
+	    		    				alert('친구 요청에 완료했습니다.')			
+	    		    			} else {
+	    		    				alert('이미 친구 요청이 완료되었거나 실패했습니다.')
+	    		    			}
+	    		    			
+	    		    		}
+	    		    		
+	    		    	})
 	    		}
-	    		
 	    	})
+	    	
+	    	
 	    	
 	    }
 	    
-	    
+	    const fn_searching=()=>{
+	    	location.assign('${pageContext.request.contextPath}/friend/searchKeyword?keyword='+$("#friendSearch").val())
+	    }
 	    
 	   
     </script>
@@ -311,8 +326,9 @@
         <div class="container d-flex justify-content-around align-items-center col-12 col-md-8  mt-4 border">
              <h5 class='mt-2  ml-2 mr-2 p-0 col-3 text-center col-xl-2 '>친구 찾기</h5>
             <input type="text" id="friendSearch" class=" ml-2 mr-2 col-6">
-            <button type="button" class="small ml-2 mr-2 btn btn-primary eumbtn-2">검색</button>
+            <button type="button" class="small ml-2 mr-2 btn btn-primary eumbtn-2" onclick="fn_searching()">검색</button>
         </div>
+        <!-- /friend/searchKeyword -->
         
         
 		     <div class="mt-4 mb-5" >

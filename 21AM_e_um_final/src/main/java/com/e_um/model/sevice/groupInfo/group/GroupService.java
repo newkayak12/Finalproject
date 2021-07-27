@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.groupInfo.group.GroupDaoInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
@@ -29,8 +30,20 @@ public class GroupService implements GroupServiceInterface {
 	}
 	
 	@Override
+	@Transactional
 	public int groupInsert(Map param, String userId) {
-		return dao.groupInsert(session, param, userId);
+		int result = dao.groupInsert(session, param, userId);
+		if(result>0) {
+			dao.groupInsert2(session, param);
+			log.warn("asdasdsad{}", param);
+		}
+		return result;
+	}
+	
+	@Override
+	public int groupInsert2(Map param) {
+		int result = dao.groupInsert2(session, param);
+		return result ;
 	}
 	
 	@Override
@@ -44,9 +57,17 @@ public class GroupService implements GroupServiceInterface {
 		return dao.selectGroupListConditional(user, session);
 	}
 
+	
+
 	@Override
 	public int groupJoin(Map param) { 
 		return dao.groupJoin(session, param);
+	}
+
+	@Override
+	public Group selectGroupUseridCheck(String groupSeq) {
+		 
+		return dao.selectGroupUseridCheck(session,groupSeq);
 	}
 	
 	
