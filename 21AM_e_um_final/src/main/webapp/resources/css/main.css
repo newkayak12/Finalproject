@@ -207,3 +207,44 @@ body{
         font-weight: normal;
         font-style: normal;
 }
+
+
+
+
+/**공통 CSS**/
+
+/*확인 버튼*/
+.checkBtn{
+    background-color: #2AC1BC;
+    color:white;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+    width: 80px;
+}
+/*취소 버튼*/
+.cancelBtn{
+    border : 2px solid #2AC1BC;
+    color:#2AC1BC;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+    width: 80px;
+}
+
+/*포인트 주는 폰트*/
+.pointFont{
+    font-family:'twayair';
+}
+/* 메인 컬러 */
+.mainColor{
+    color:#2AC1BC;
+}
+/* 메인 컬러보다 진한 */
+.subColor1{
+    color:#11504e;
+}
+/* 메인 컬러보다 연한 */
+.subColor2{
+    color:#7ee3e0;
+}
