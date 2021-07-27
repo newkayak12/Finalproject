@@ -1,7 +1,7 @@
 @charset "UTF-8";
 :root
 {
-	--maincolor: rgb(54,193,187) !important;
+	--maincolor: #2AC1BC !important;
 	--eumfontcolorwhite: white;
 	--mobile: 575px;
 	--pc:576px;
@@ -189,20 +189,39 @@
 	right:10px;
 }
 
-/*header css*/
+
+
+
+
+
+/* --------- header css -----------*/
 #head_menu ul li{
     font-family: 'twayair';
 }
+
 /* .navbar-nav>li:hover{
     color:rgb(4, 82, 131);
 } */
+
 #head_menu .dropdown-menu{
-    border:none;
-    background-color: rgb(165, 205, 230);
+    border: 1px solid #2AC1BC;
+    background-color: white;
+}
+
+#head_menu .dropdown-menu .dropdown-item:hover {
+	color : black !important;
+}
+
+#icon_menu .navbar-nav .nav-item i {
+	cursor: pointer;
 }
 
 
-/*section css*/
+
+
+
+
+/* --------- section css -----------*/
 /* #root{
     border:1px red solid;
     min-height:500px;
@@ -217,7 +236,10 @@ body{
 }
 
 
-/* 폰트-타이틀 */
+
+
+
+/* --------- 폰트-타이틀 ----------- */
 @font-face {
         font-family: 'twayair';
         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
@@ -228,7 +250,9 @@ body{
 
 
 
-/**공통 CSS**/
+
+
+/** -----------공통 CSS --------------- **/
 
 /*확인 버튼*/
 .checkBtn{
@@ -264,4 +288,11 @@ body{
 /* 메인 컬러보다 연한 */
 .subColor2{
     color:#7ee3e0;
+}
+
+.whiteText {
+	color : white;
+}
+.bgColorMainColor {
+	background-color: #2AC1BC;
 }
