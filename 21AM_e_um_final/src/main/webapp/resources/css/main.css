@@ -20,7 +20,7 @@
 #toolbox{
 	position: absolute;
 	 right:5px;
-	  top:50px;
+	  top:55.5px;
 	   background-color: white;
 	   min-width:280px;
 	    max-width: 280px;
@@ -104,7 +104,9 @@
 		
 	}
 	
-	
+	#root {
+		margin-bottom : 50px;
+	}
 	
 	
 }
@@ -257,6 +259,7 @@ body{
 /*확인 버튼*/
 .checkBtn{
     background-color: #2AC1BC;
+    border : 2px solid #2AC1BC;
     color:white;
     border-radius: 10px;
     font-family: 'Noto Sans KR';
@@ -293,6 +296,12 @@ body{
 .whiteText {
 	color : white;
 }
+.blackText {
+	color : black;
+}
 .bgColorMainColor {
 	background-color: #2AC1BC;
+}
+.tway {
+	font-family: 'twayair';
 }

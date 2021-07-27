@@ -42,7 +42,7 @@
  <nav class="navbar navbar-expand-sm fixed-top bgColorMainColor whiteText navbar-light justify-content-between d-flex">
 	
         <!--로고 자리-->
-        <div style="font-family: 'twayair', cursive; font-weight: 900;"><a href="#" class="navbar_brand ml-2 text-body">E_um</a></div>
+        <div style="font-family: 'twayair', cursive; font-weight: 900; font-size: 25px;"><a href="#" class="navbar_brand ml-2 whiteText">E_um</a></div>
 		<%-- <div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div> --%>
 
         <!--메뉴-->
@@ -204,16 +204,20 @@
 		
 		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
 		
-		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr("href","${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}").css("text-decoration","none"))
-		let profilelink = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/profile/open/${userSession.userId}").css("text-decoration","none"))
-		let supportlink = $("<div>").html($("<a>").html("고객센터").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
-		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()"}).css("text-decoration","none"))
+		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr({
+			"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
+			"class" : "tway blackText"
+		}).css("text-decoration","none"))
+		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
+		
+		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pagecontext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
+		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
 		
-		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr("href","${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}").css("text-decoration","none"))
-		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr("href","${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}").css("text-decoration","none"))
-		let supportlinkf = $("<div>").html($("<a>").html("고객센터").attr("href","${pagecontext.request.contextPath}/#").css("text-decoration","none"))
-		let logoutlinkf = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()"}).css("text-decoration","none"))
+		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr({"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}","class" : "tway blackText" }).css("text-decoration","none"))
+		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
+		let supportlinkf = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pagecontext.request.contextPath}/#", "class" : "tway blackText"}).css("text-decoration","none"))
+		let logoutlinkf = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		$("#footerinnerContainer").html($("<div>").append(mypagelinkf).append(profilelinkf).append(supportlinkf).append(logoutlinkf)).attr("class","text-center pt-4")
 				
 		/* 문제점 2 */
