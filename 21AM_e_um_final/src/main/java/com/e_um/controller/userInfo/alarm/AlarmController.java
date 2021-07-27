@@ -45,7 +45,7 @@ public class AlarmController {
 	@RequestMapping("/alarm/readAlarm")
 	@ResponseBody
 	public int readAlarm(String alarmSeq) {
-		return service.deleteAlarm(alarmSeq);
+		return service.readAlarm(alarmSeq);
 	}
 	
 }

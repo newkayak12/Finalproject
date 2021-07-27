@@ -1,11 +1,21 @@
 @charset "UTF-8";
 :root
 {
-	--eumbackground: #70b3d9;
+	--maincolor: rgb(54,193,187) !important;
 	--eumfontcolorwhite: white;
 	--mobile: 575px;
 	--pc:576px;
+	
 }
+
+
+
+
+
+
+
+
+
 
 #toolbox{
 	position: absolute;
@@ -13,7 +23,7 @@
 	  top:50px;
 	   background-color: white;
 	   min-width:280px;
-	    max-width: 2800px;
+	    max-width: 280px;
 	     max-height:200px;
 	     overflow-y:scroll; 
 	     display:none;
@@ -21,9 +31,9 @@
 #footerContainer{
 	position: fixed;
 	background-color:white;
-	top:60px;
+	top:55px;
 	width: 100%;
-	min-height: 530px;
+	height: 630px;
 	z-index: 200;
 	display: none;
 }
@@ -43,7 +53,7 @@
 	}
 	
 }	
-@media(max-width:690px){
+@media(max-width:850px){
 	.feedPhoto{
 		width:350px;
 		height:350px;
@@ -58,7 +68,7 @@
 }
 
 
-@media(max-width: 575px){
+@media(max-width: 850px){
 	.footer{
 		padding:0px !important;
 	}
@@ -98,7 +108,10 @@
 	
 	
 }
-@media(min-width: 576px){
+@media(min-width: 851px){
+		#footerContainer{
+			display: none !important;
+		}
 		.hamdown{
 		display:none;
 		}
