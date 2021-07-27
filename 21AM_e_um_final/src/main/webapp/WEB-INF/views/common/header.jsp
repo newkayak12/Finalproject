@@ -9,7 +9,7 @@
 <c:set var="session" value="${userSession }" scope="session"/>
 <style>
  *{
- 	 border: 1px black solid  
+ 	 /* border: 1px black solid   */
  }
 </style>
 
@@ -39,22 +39,22 @@
 </head>
 <body>
 <header>
- <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light justify-content-between d-flex">
+ <nav class="navbar navbar-expand-sm fixed-top bgColorMainColor whiteText navbar-light justify-content-between d-flex">
 	
         <!--로고 자리-->
-        <!-- <div style="font-family: 'Arizonia', cursive; font-weight: bold;"><a href="#" class="navbar_brand ml-2 text-body">E_UM</a></div> -->
-		<div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div>
+        <div style="font-family: 'twayair', cursive; font-weight: 900;"><a href="#" class="navbar_brand ml-2 text-body">E_um</a></div>
+		<%-- <div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div> --%>
 
         <!--메뉴-->
-     <div id="head_menu" class="col-6 p-0">
-        <ul class="navbar-nav p-0 col-12 d-flex flex-row justify-content-around">
-            <li class="nav-item col-4 col-sm-4  col-md-3  p-0"><a class="nav-link text-center" href="${path }/friend/main">친구 찾기</a></li>
-            <li class="nav-item col-3  col-sm-3 col-md-3 p-0"><a class="nav-link text-center" href="${path }/group/groupMain.do">소모임</a></li>
+     <div id="head_menu" class="col-6 p-0 ">
+        <ul class="navbar-nav p-0 col-12 d-flex  flex-row justify-content-around">
+            <li class="nav-item col-4 col-sm-4  col-md-3  p-0"><a class="nav-link text-center" href="${path }/friend/main" style="color:white !important;">친구 찾기</a></li>
+            <li class="nav-item col-3  col-sm-3 col-md-3 p-0"><a class="nav-link text-center" href="${path }/group/groupMain.do" style="color:white !important;">소모임</a></li>
             <li class="nav-item dropdown col-4  col-md-3 p-0">
-                <a class="nav-link dropdown-toggle col-12 text-center" href="#" id="navbardrop" data-toggle="dropdown">플레이스</a>
+                <a class="nav-link dropdown-toggle col-12 text-center whiteText" href="#" id="navbardrop" data-toggle="dropdown" style="color:white !important;">플레이스</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item text-center" href="${path }/food/foodMain">맛집</a>
-                    <a class="dropdown-item text-center" href="${path }/movie/movieInfo">영화</a>
+                    <a class="dropdown-item text-center" href="${path }/food/foodMain" style="color: #2AC1BC !important;">맛집</a>
+                    <a class="dropdown-item text-center" href="${path }/movie/movieInfo" style="color: #2AC1BC !important;">영화</a>
                 </div>
             </li>
         </ul>
@@ -65,21 +65,21 @@
             <ul class="navbar-nav">
             
 			    <li class="nav-item col-3">
-			        <i class="fas fa-bell fa-lg fa-7x" id="alarmicon" onclick ="showalarm()" style="font-size:25px;" ></i>
+			        <i class="fas fa-bell fa-lg fa-7x" id="alarmicon" onclick ="showalarm()" style="font-size:20px;" ></i>
 			    <span class="small text-center"  style="position: fixed; top: 5px; right: 180px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="alarmCount"></span>
 			    </li>
 			    
 			    <li class="nav-item col-3 ">
-			    	<i class="fas fa-user fa-lg fa-7x" style="font-size:25px;"  onclick="showmypage()"></i>
+			    	<i class="fas fa-user fa-lg fa-7x" style="font-size:20px;"  onclick="showmypage()"></i>
 		    	</li>
 			    
 			    <li class="nav-item col-3">
-			    	<i class="fa fa-address-book fa-lg fa-7x" aria-hidden="true" style="font-size:25px;" onclick="showfriendList()"></i>
+			    	<i class="fa fa-address-book fa-lg fa-7x" aria-hidden="true" style="font-size:20px;" onclick="showfriendList()"></i>
 			    </li>
 			    
 			    
 			    <li class="nav-item col-3">
-			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:25px;" onclick="showFriend()"></i>
+			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:20px;" onclick="showFriend()"></i>
 			        <span class="small text-center"  style="position: fixed; top: 5px; right: 180px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="chatCount"></span>
 			    </li>
 		    	
