@@ -22,5 +22,9 @@ User selectProfileInfo(String profileId);
 	int insertGuestbookAlarm(Guestbook gb);
 
 	Friend friendCheck(Friend f);
+	
+	List<Guestbook> selectGuestbookAll(String profileId, int cPage, int numPerPage);
+	
+	int guestbookListCount(String profileId);
 
 }

@@ -66,4 +66,16 @@ public class ProfileService implements ProfileServiceInterface {
 		return dao.friendCheck(session, f);
 	}
 
+
+	@Override
+	public List<Guestbook> selectGuestbookAll(String profileId, int cPage, int numPerPage) {
+		return dao.selectGuestbookAll(session, profileId, cPage, numPerPage);
+	}
+
+
+	@Override
+	public int guestbookListCount(String profileId) {
+		return dao.guestbookListCount(session, profileId);
+	}
+
 }

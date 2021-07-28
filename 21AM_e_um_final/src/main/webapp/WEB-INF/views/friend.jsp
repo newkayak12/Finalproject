@@ -142,10 +142,7 @@
 	        
 	                <!-- Modal Header -->
 	                <div class="modal-header">
-	                	<a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
-							<button type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-exclamation"></i></button>
-						</a>
-	                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+	                    <button type="button" class="close mainColor" data-dismiss="modal">&times;</button>
 	                </div>
 	        		
 					<div id="userInfoModal">
@@ -265,8 +262,6 @@
         		 }
         	 });
          })
-         
-         $("#reportPop").popover({ trigger: "hover" });
     </script>
    
 

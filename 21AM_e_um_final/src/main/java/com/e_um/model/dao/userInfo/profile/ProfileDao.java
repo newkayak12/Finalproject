@@ -61,4 +61,17 @@ public class ProfileDao implements ProfileDaoInterface {
 		return session.selectOne("profile.friendCheck",f);
 	}
 
+
+	@Override
+	public List<Guestbook> selectGuestbookAll(SqlSessionTemplate session, String profileId, int cPage, int numPerPage) {
+		RowBounds row=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("profile.selectGuestbookAll",profileId,row);
+	}
+
+
+	@Override
+	public int guestbookListCount(SqlSessionTemplate session, String profileId) {
+		return session.selectOne("profile.guestbookListCount",profileId);
+	}
+
 }

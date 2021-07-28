@@ -14,24 +14,24 @@
     </colgroup>
     <thead class="thead-light">
       <tr>
-        <th class="colend">content</th>
-        <th class="colend">writer</th>
-        <th class="colend">date</th>
-        <th class="colend">delete</th>
+        <th class="colcenter">content</th>
+        <th class="colcenter">writer</th>
+        <th class="colcenter">date</th>
+        <th class="colcenter">delete</th>
       </tr>
     </thead>
     <tbody>
-    	<c:if test="${!empty guestbookList }">
-    		<c:forEach var="g" items="${guestbookList }">
+    	<c:if test="${!empty gbList }">
+    		<c:forEach var="g" items="${gbList }">
 			   	<tr>
 			   		<td>${g.guestbookComment }</td>
-					<td class="colend">${g.userIdWriter }</td>
-					<td class="colend"><fmt:formatDate value="${g.guestbookDate }" pattern="yy/MM/dd"/></td>
-					<td class="colend">&times;</td>
+					<td class="colcenter">${g.userIdWriter }</td>
+					<td class="colcenter"><fmt:formatDate value="${g.guestbookDate }" pattern="yy/MM/dd"/></td>
+					<td class="colcenter">&times;</td>
 		  		</tr>
 	 		</c:forEach>
     	</c:if>
-    	<c:if test="${empty guestbookList }">
+    	<c:if test="${empty gbList }">
     		<tr>
     			<td colspan="4">첫번째 방명록의 주인공이 되어보세요!</td>
     		</tr>
@@ -39,5 +39,6 @@
     </tbody>
 </table>
 
-<div class="pagebar">
-</div>
+<nav aria-label="Page navigation example">
+	 ${pageBar }
+</nav>

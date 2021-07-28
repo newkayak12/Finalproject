@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.userInfo.profile.ProfileServiceInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
@@ -26,7 +28,9 @@ public class ProfileController {
 	
 	
 	@RequestMapping("/profile/open/{profileId}")
-	public String selectProfileInfo(@PathVariable("profileId") String profileId, Model m, HttpServletRequest rq){
+	public String selectProfileInfo(@PathVariable("profileId") String profileId, Model m, HttpServletRequest rq,
+			@RequestParam(value="feedSeq", defaultValue = "none", required=false) String feedSeq){
+		m.addAttribute("feedSeq", feedSeq);
 		User user=(User)rq.getSession().getAttribute("userSession");
 		m.addAttribute("userId",user.getUserId());
 //		log.warn("profileId: {}",profileId);
@@ -157,6 +161,24 @@ public class ProfileController {
 		log.info("파일 크기: {}",feedImage[2].getSize());
 		
 		return "";
+	}
+	
+	
+	@RequestMapping("/profile/open/loadAllGb")
+	public ModelAndView selectGuestbookAll(
+			@RequestParam(value="profileId", required=false) String profileId,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
+			ModelAndView mv, HttpServletRequest rq) {
+		mv.addObject("gbList",service.selectGuestbookAll(profileId,cPage,numPerPage));
+		int totalData=service.guestbookListCount(profileId);
+		String pageBar=PageBar.getPageBar(profileId, totalData, cPage, numPerPage, rq.getContextPath()+"/profile/open/loadAllGb", "fn_paging");
+		
+		log.error(pageBar);
+		mv.setViewName("components/profile/guestbookAllModal");
+		mv.addObject("pageBar",pageBar);
+		
+		return mv;
 	}
 
 }

@@ -264,7 +264,6 @@ body{
     border-radius: 10px;
     font-family: 'Noto Sans KR';
     font-weight: bold;
-    width: 80px;
 }
 /*취소 버튼*/
 .cancelBtn{
@@ -273,7 +272,6 @@ body{
     border-radius: 10px;
     font-family: 'Noto Sans KR';
     font-weight: bold;
-    width: 80px;
 }
 
 /*포인트 주는 폰트*/
