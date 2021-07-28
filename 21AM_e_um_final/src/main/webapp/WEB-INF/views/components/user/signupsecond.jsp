@@ -177,6 +177,8 @@
 
                     const fn_photoDel=()=>{
                         $("#profilePhoto").val("");
+                        $("#profilepreview").attr("src","/resources/images/user/default.png")
+                        
                     }
                    
                     const reader = new FileReader();

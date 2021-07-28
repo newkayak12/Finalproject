@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.communicateInfo.chat.ChatDaoInterface;
-import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
 
 import lombok.extern.slf4j.Slf4j;
