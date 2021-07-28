@@ -9,7 +9,7 @@
 <c:set var="session" value="${userSession }" scope="session"/>
 <style>
  *{
- 	 /* border: 1px black solid   */
+ 	   /* border: 1px black solid    */
  }
 </style>
 
@@ -30,7 +30,7 @@
 	<!--폰트 내용-->
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
-
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -66,7 +66,7 @@
             
 			    <li class="nav-item col-3">
 			        <i class="fas fa-bell fa-lg fa-7x" id="alarmicon" onclick ="showalarm()" style="font-size:20px;" ></i>
-			    <span class="small text-center"  style="position: fixed; top: 5px; right: 180px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="alarmCount"></span>
+			    <span class="small text-center"  style="position: fixed; top: 5px; right: 170px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="alarmCount"></span>
 			    </li>
 			    
 			    <li class="nav-item col-3 ">
@@ -79,7 +79,7 @@
 			    
 			    
 			    <li class="nav-item col-3">
-			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:25px;" onclick="fn_chatList()"></i>
+			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:25px;" onclick="showchatList()"></i>
 
 			        <span class="small text-center"  style="position: fixed; top: 5px; right: 180px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="chatCount"></span>
 			    </li>
@@ -166,6 +166,108 @@
   </div>
 </div>
 <script>
+
+
+$(function(){
+		
+
+
+})
+
+function online(){
+
+	let socket = new SockJS('${pageContext.request.contextPath}/online');
+	socket.onopen=e=>{
+		
+		socket.send("${userSession.userId}")
+	}
+
+
+		socket.onmessage=e=>{
+			let dt = e["data"].substring(1,e["data"].length-1)
+			let onlinelist = dt.split(", ");
+
+
+
+
+			let userId = '${userSession.userId}'
+		$.ajax({
+			url:"${pageContext.request.contextPath}/friend/fetchfriendlist",
+			data:{'userId':userId},
+			success:data=>{
+					
+				console.log(data)
+				
+				
+				data.forEach((v,i)=>{
+					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"}).css("color","black")
+					let profilebox = $("<span>").attr({"class":"ml-2 mr-2 d-flex flex-row"})
+					let photo = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"25px","width":"25px", "border-radius":"100%"})
+					let	nick = $("<span>").html(v["friendId"]["userNick"]).css("color","gray")
+					
+					let statusbox =''
+
+
+					if(onlinelist.includes(v["friendId"]["userId"])){
+						statusbox= $("<i>").css({"color":"rgb(40,198,50)", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+					} else {
+						statusbox= $("<i>").css({"color":"#bababa", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+					}
+// <i class="fas fa-circle"></i>
+
+					// let statusbox  = $("<span>").html(v["friendId"]["profileStatus"]).css({ "text-overflow":"ellipsis","overflow":"hidden","white-space":"nowrap","border-radius":"5%"}).attr({"class":"border"})
+
+
+					
+					profilebox.append(photo).append(nick)
+					out.append(profilebox).append(statusbox)
+					$("#toolinnerbox").append(out);
+					
+					let outf = $("<div>").attr({"class":"d-flex flex-row justify-content-between mb-2 border" , "onclick":"footerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')"})
+					let profileboxf = $("<span>").attr("class","ml-2 mr-2 d-flex flex-row")
+					let photof = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"35px","width":"35px", "border-radius":"100%"})
+					let nickf = $("<span>").html(v["friendId"]["userNick"])
+					let statusboxf= ''
+					if(onlinelist.includes(v["friendId"]["userId"])){
+						statusboxf= $("<i>").css({"color":"rgb(40,198,50)", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+					} else {
+						statusboxf= $("<i>").css({"color":"#bababa", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+					}
+					
+					profileboxf.append(photof).append(nickf)
+					outf.append(profileboxf).append(statusboxf)
+					$("#footerinnerContainer").append(outf)
+					
+				})
+				
+				
+			}
+			
+		})
+			
+			
+		}
+
+ }
+
+/* ******************** 카카오 ***************** */
+function kakaoLogout(){
+		Kakao.init('55ed969ca9bcce24d1c9c11d44e0c525');
+		
+		if(!Kako.Auth.getAccessToken()){
+			
+			console.log("not logged in")
+			return
+		}
+		Kakao.Auth.logout(function(){
+			console.log(Kakao.Auth.getAccessToken())
+		})
+	}
+
+/****************************************************  */
+
+
+/* **************** 햄버거 ********************************************** */
 	const ham=()=>{
 		
 		if($(".hamdown").css("display")=='none'){
@@ -197,7 +299,11 @@
 		$("#submenu").slideToggle(240);
 	}
 	
-	/* 마이페이지패널 */
+	/* **************** 햄버거 끝********************************************** */
+	
+	
+	
+	/* ***********************************마이페이지패널******************************* */
 	const showmypage=()=>{
 		$("#controlpanel").html("")
 		$("#toolbox").slideToggle(240)
@@ -226,32 +332,41 @@
 			
 	}
 	
-	function kakaoLogout(){
-		Kakao.init('55ed969ca9bcce24d1c9c11d44e0c525');
+	
+	/***************************** 푸터 *************************** */
+	const fn_showprofilebot=()=>{
+		$("#controlpanelfooter").html("")
+		showmypage()
+		/* $("#footerContainer").css("overflow","visible") */
+		$("#footerContainer").toggle(240)
 		
-		if(!Kako.Auth.getAccessToken()){
-			
-			console.log("not logged in")
-			return
-		}
-		Kakao.Auth.logout(function(){
-			console.log(Kakao.Auth.getAccessToken())
-		})
+			if($("#footerContainer").css("display")=='block'){
+				$("body").css("overflow","hidden")
+			} else {
+				$("body").css("overflow","visible")
+			}
 	}
 	
-	/* 친구 목록 */
+	
+	
+	
+	
+	
+	
+	
+	/******************** 친구 목록 *****************************************************************8 */
 	const fn_friendList=()=>{
 		let userId = '${userSession.userId}'
 		$.ajax({
 			url:"${pageContext.request.contextPath}/friend/fetchfriendlist",
 			data:{'userId':userId},
 			success:data=>{
-
+					
 				
 				
 				
 				data.forEach((v,i)=>{
-					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"})
+					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"}).css("color","black")
 					let profilebox = $("<span>").attr({"class":"ml-2 mr-2 d-flex flex-row"})
 					let photo = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"25px","width":"25px", "border-radius":"100%"})
 					let nick = $("<span>").html(v["friendId"]["userNick"])
@@ -261,7 +376,7 @@
 					out.append(profilebox).append(statusbox)
 					$("#toolinnerbox").append(out);
 					
-					let outf = $("<div>").attr({"class":"d-flex flex-row justify-content-between mb-2 border"})
+					let outf = $("<div>").attr({"class":"d-flex flex-row justify-content-between mb-2 border" , "onclick":"footerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')"})
 					let profileboxf = $("<span>").attr("class","ml-2 mr-2 d-flex flex-row")
 					let photof = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"35px","width":"35px", "border-radius":"100%"})
 					let nickf = $("<span>").html(v["friendId"]["userNick"])
@@ -281,7 +396,47 @@
 		
 	}
 	
-	/*친구 프로필 */
+	/* 헤더 친구 목록  */
+	function showfriendList(){
+		
+		$("#toolinnerbox").html("");
+		$("#controlpanel").html("친구목록")
+		// fn_friendList();
+		online()
+		$("#toolbox").toggle(240);
+	}
+	
+	/* 푸터 친구 목록 */
+	function friendListbot(){
+		$("#controlpanelfooter").html("친구목록")
+		$("#footerinnerContainer").html("")
+		/* fn_friendList(); */
+		online();
+		if($("#footerContainer").css("display")=='none'){
+			$("#footerinnerContainer").css("overflow","auto");
+			$("body").css("overflow","hidden")
+		} else {
+			$("body").css("overflow","")
+		}
+		$("#footerContainer").toggle(240)
+	}
+	
+	
+	
+	
+	
+	
+	/***********************************************************************/
+	
+	
+	
+	
+	/**************** 친구 프로필 -> 채팅/ ->인스타프로필로 *************************************/
+	
+	
+	
+	
+	/* 헤더 친구 프로필 */
 	function headerProfile(userId,profileImage,nickname,status){
 		
 		$("#headerProfileImage").attr({'src':"${pageContext.request.contextPath}/resources/upload/profile/"+profileImage,"width":"200px"})
@@ -294,16 +449,34 @@
 		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
 		
 	}
-	/*--------------------------*/
-	/*채팅목록  */
-	const fn_chatList=()=>{
-		$.ajax({
-			url:"${pageContext.request.contextPath}/"
-		})
-		toolinnerbox
+	function footerProfile(userId,profileImage,nickname,status){
 		
+		$("#headerProfileImage").attr({'src':"${pageContext.request.contextPath}/resources/upload/profile/"+profileImage,"width":"200px"})
+		$("#headerProfileNickname").html(nickname)
+		if(status != 'null'){
+			
+		$("#headerProfileStatus").html(status)
+		}
+		$("#headerGoprofile").attr("onclick","fn_goProfile('"+userId+"')")
+		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
 		
 	}
+	
+function headerProfile(userId,profileImage,nickname,status){
+		
+		$("#headerProfileImage").attr({'src':"${pageContext.request.contextPath}/resources/upload/profile/"+profileImage,"width":"200px"})
+		$("#headerProfileNickname").html(nickname)
+		if(status != 'null'){
+			
+		$("#headerProfileStatus").html(status)
+		}
+		$("#headerGoprofile").attr("onclick","fn_goProfile('"+userId+"')")
+		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
+		
+	}
+	/***************************************************************/
+	
+	
 	
 	/* 프로필로 가기 */
 	const fn_goProfile=(userId)=>{
@@ -319,14 +492,82 @@
 		
 		$("#headerprofile").modal("hide");
 	}
-	/*--------------------------*/
-	/*친구 목록  */
-	function showfriendList(){
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/***********************채팅목록********************************/
+	const fn_chatList=()=>{
+		let chatlistbox = $("<div>").attr({"class":"d-flex flex-row justify-content-around  border mt-2"}).css("height","60px")
+		let profile =$("<img>").css({"color":"black","width":"50px","height":"50px","border-radius":"100%"})
+		let nick = $("<span>").css({"color":"black","font-size":"16px"})
+		let profilebox = $("<span>")
+		let msgbox = $("<span>").attr("class","col-8 p-0")
+		let msg = $("<div>").css({"color":"black","font-size":"16px"})
+		let date =$("<div>").css({"color":"black","font-size":"10px"}).attr("class"," d-flex justify-content-between")
+		let innerbox = $("#toolinnerbox")
+		let userId = '${userSession.userId}'
+		let userNick ='${userSession.userNick}'
+		let temp = $("<div>")
+		let buffer ='';
+		$.ajax({
+			url:"${pageContext.request.contextPath}/fetch/chatlist",
+			data:{"userId":userId},
+			success:data=>{
+				
+				data.forEach((v,i)=>{
+					
+					v["chats"].forEach((v2,i2)=>{
+						
+						if(v2["chatSender"]["userNick"]!=userNick){
+							/* console.log(v2["chatSender"]["userNick"]) */
+						
+							temp.html('')
+							date.html("")
+							
+							profile.attr({"src":"${pageContext.request.contextPath}/resources/upload/profile/"+v2["chatSender"]["profileImageFile"]})
+							nick.html(v2["chatSender"]["userNick"])
+							msg.html(v2["chatContent"])
+							
+							date.append(nick).append($("<span>").append(v2["chatSendTime"]))
+							msgbox.append(date).append(msg)
+							
+							chatlistbox.append(profile)
+							chatlistbox.append(msgbox)
+							temp.html(chatlistbox)
+							buffer += temp.html()
+							console.log(buffer)
+							/* console.log(chatlistbox.html()) */
+							/* innerbox.append(chatlistbox) */
+						}
+							
+							/* console.log(innerbox.html()) */
+					})
+					
+					
+				})
+				
+				innerbox.html(buffer)
+			}
+			
+			
+		})
+		/* toolinnerbox */
 		
-		$("#toolinnerbox").html("");
-		$("#controlpanel").html("친구목록")
-		fn_friendList();
-		$("#toolbox").toggle(240);
+		return innerbox;
+	}
+	
+	/* 헤더 채팅 리스트 */
+	function showchatList(){
+		$("#toolbox").toggle(240)
+		$("#toolinnerbox").html("")
+		$("#toolinnerbox").html(fn_chatList())
+		
 	}
 	
 	
@@ -334,7 +575,16 @@
 	
 	
 	
-	/* 알람 */
+	
+	
+	/********************************************************************/
+	
+	
+	
+	
+	
+	
+	/* ************************************알람 *********************************** */
 
 	$(function(){
 		alarmCount()
@@ -342,7 +592,7 @@
         	alarmCount()
         },20000)
     })
-	/* 알람 패칭*/
+	/* 알람 카운터*/
     const alarmCount=()=>{
         let SessionMyId = '${userSession.userId}';
         $.ajax({
@@ -368,17 +618,8 @@
     }
      
     
-	const showalarm=()=>{
-		$("#controlpanel").html("알람")
-		
-		$("#toolbox").slideToggle(240)
-		alarmlist();
-				
-	}
-	const closetoolbox=()=>{
-		/* $("#toolbox").css("display","none") */
-		$("#toolbox").hide(240);
-	}
+	
+	
 	
 	/* 알람 내용 채우기 */
 	function alarmlist(){
@@ -392,25 +633,18 @@
 					let outterf =$("<div>")
 					
 				if(data.length>0){
-					
-				
 						data.forEach((v,i)=>{
 							if(v["alarmRead"]=='unread'){
-								
 							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
 							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
-								
-								
 							}else {
 								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
 								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}
-							
-							
 						})
 						/* 문제점 1 */
 						
@@ -428,6 +662,35 @@
 			}
 		})
 	}
+	/*  헤더 알람 */	
+	const showalarm=()=>{
+		$("#controlpanel").html("알람")
+		$("#toolbox").slideToggle(240)
+		alarmlist();
+				
+	}
+	/* 푸터 알람 */
+	const fn_showalarmbot=()=>{
+		$("#controlpanelfooter").html("알람")
+		alarmlist();
+		
+		$("#footerContainer").toggle(240)
+		/* $("#footerContainer").css("overflow","scroll") */
+			 if($("#footerContainer").css("display")=='block'){
+				 $("body").css("overflow","hidden")
+				 $("#footerinnerContainer").css("overflow","auto")
+			} else {
+				 $("body").css("overflow","visible")
+				
+			} 
+	}
+	
+	
+	/* ************************************************************************ */
+	
+	
+	
+	
 	
 	
 	const fn_delAlarm=(seq)=>{
@@ -461,52 +724,17 @@
 		})
 		
 	}
-	
-	
-	/* footer */
-	
-	function friendListbot(){
-		$("#controlpanelfooter").html("친구목록")
-		$("#footerinnerContainer").html("")
-		fn_friendList();
-		if($("#footerContainer").css("display")=='none'){
-			$("#footerinnerContainer").css("overflow","auto");
-			$("body").css("overflow","hidden")
-		} else {
-			$("body").css("overflow","")
-		}
-		$("#footerContainer").toggle(240)
+	const closetoolbox=()=>{
+		/* $("#toolbox").css("display","none") */
+		$("#toolbox").hide(240);
 	}
 	
 	
 	
-	const fn_showalarmbot=()=>{
-		$("#controlpanelfooter").html("알람")
-		alarmlist();
-		
-		$("#footerContainer").toggle(240)
-		/* $("#footerContainer").css("overflow","scroll") */
-			 if($("#footerContainer").css("display")=='block'){
-				 $("body").css("overflow","hidden")
-				 $("#footerinnerContainer").css("overflow","auto")
-			} else {
-				 $("body").css("overflow","visible")
-				
-			} 
-	}
 	
-	const fn_showprofilebot=()=>{
-		$("#controlpanelfooter").html("")
-		showmypage()
-		/* $("#footerContainer").css("overflow","visible") */
-		$("#footerContainer").toggle(240)
-		
-			if($("#footerContainer").css("display")=='block'){
-				$("body").css("overflow","hidden")
-			} else {
-				$("body").css("overflow","visible")
-			}
-	}
+	
+	
+	
 	
 	
 	
