@@ -22,11 +22,12 @@
 	 right:5px;
 	  top:55.5px;
 	   background-color: white;
-	   min-width:280px;
-	    max-width: 280px;
+	   min-width:300px;
+	    max-width: 300px;
 	     max-height:200px;
 	     overflow-y:scroll; 
 	     display:none;
+	     color:black
 }
 #footerContainer{
 	position: fixed;
@@ -39,9 +40,10 @@
 }
 
 #innerXbox{
-	width: 280px;
+	width: 300px;
 	background-color: white;
 	opacity: 0.8;
+	color:black;
 }
 
 @media(max-width: 575px){
@@ -218,7 +220,43 @@
 	cursor: pointer;
 }
 
-
+/* 푸터 */
+.footer {
+	  position: relative;
+	  height : 130px;
+	  left: 0;
+	  bottom: 0;
+	  width: 100%;
+	  background-color: #2AC1BC;
+	  color: white;
+	  text-align: center;
+	  padding : 10px;
+	}
+	.footer p {
+		margin: 1px;
+		font-size : 10px;
+	}
+    .list-inline {
+        text-align: center;
+    }
+    .list-inline-item {
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .list-inline-item a {
+        text-decoration: none;
+        color: white;
+        font-family:'twayair';
+        font-weight : 500;
+        font-size : 20px;
+    }
+    .footerInfo .copyright {
+        text-align: center;
+        font-size: 13px;
+        color: black;
+        margin-bottom: 0;
+    }
 
 
 

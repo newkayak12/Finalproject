@@ -1,48 +1,4 @@
 
-<style>
-	.footer {
-	  position: relative;
-	  height : 130px;
-	  left: 0;
-	  bottom: 0;
-	  width: 100%;
-	  background-color: #2AC1BC;
-	  color: white;
-	  text-align: center;
-	  padding : 10px;
-	}
-	.footer p {
-		margin: 1px;
-		font-size : 10px;
-	}
-    .list-inline {
-        text-align: center;
-    }
-    .list-inline-item {
-        display: inline-block;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .list-inline-item a {
-        text-decoration: none;
-        color: white;
-        font-family:'twayair';
-        font-weight : 500;
-        font-size : 20px;
-    }
-    .footerInfo .copyright {
-        text-align: center;
-        font-size: 13px;
-        color: black;
-        margin-bottom: 0;
-    }
-    
-   
-</style>
-<script type="text/javascript">
-
-</script>
-
 
 		<div id="footerContainer">
 			<div class="d-flex justify-content-around mb-4 p-2 border col-12">
@@ -60,7 +16,6 @@
 			</div>
 				
 		</div>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <footer class="footer mt-5 pt-0 dockbar">
 		
 	 <div id="icon_menu" class="iconboxfooter  mt-2 mb-2  col-12 " style="height:fit-content;"> 
@@ -69,7 +24,7 @@
                 <li class="nav-item" >
                 	<i class="fas fa-bell fa-lg  p-2 fa-7x" style="font-size:30px" onclick="fn_showalarmbot(); "></i>
                		<!-- <span  class="p-2" id="alarmCountbot" style="font-size:16px; position:relative; bottom:30px; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white;  width: 50px !important;  z-index: 200"></span> -->
-               		<span class="small text-center"  style=" position:fixed; left:90px; bottom: 50px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 30px; height: 30px; font-size:18px" id="alarmCountbot"></span>
+               		<span class="small text-center"  style=" position:fixed; left:70px; bottom: 30px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 30px; height: 30px; font-size:18px" id="alarmCountbot"></span>
                 </li>
                 
                 

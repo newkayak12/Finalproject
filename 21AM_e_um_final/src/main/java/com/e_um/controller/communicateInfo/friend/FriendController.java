@@ -191,7 +191,7 @@ public class FriendController {
 	
 	@RequestMapping("/friend/fetchfriendlist")
 	@ResponseBody
-	public List<Friend> fetchFriendList(String userId, Model model) {
+	public List<Friend> fetchFriendList(String userId) {
 		
 		return service.fetchFriendList(userId);
 	}
