@@ -26,7 +26,29 @@
  *{
     /* border:1px black solid */
 }
-
+@font-face {
+        font-family: 'twayair';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+}
+/*확인 버튼*/
+.checkBtn{
+    background-color: #2AC1BC;
+    border : 2px solid #2AC1BC;
+    color:white;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
+/*취소 버튼*/
+.cancelBtn{
+    border : 2px solid #2AC1BC;
+    color:#2AC1BC;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
 
 </style>
 	
@@ -255,10 +277,10 @@
 		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
 				<span class="mr-3 right">
-					<button class="btn btn-secondary eumbtn-1" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
+					<button class="btn cancelBtn" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
 				</span>
 				<span class=" justify-content-end mr-3">
-					<button class="btn btn-success eumbtn-2" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
+					<button class="btn checkBtn" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
 				</span>
 			</div>
 		</header>
@@ -330,7 +352,7 @@
 	
 			
 		</section> 
-		<footer class=" fluid-container footer-basic p-1 position-relative">
+ 		<footer class=" fluid-container footer-basic p-1 position-relative">
 	        <ul class="list-inline m-1">
 	            <li class="list-inline-item "><a href="#">Home</a></li>
 	            <li class="list-inline-item "><a href="#">Services</a></li>
@@ -344,7 +366,21 @@
 	        </p>
 	        <p class="copyright m-1">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
 	        <p class="copyright m-1">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
-	    </footer>
+	    </footer> 
+	   <!--  <footer>
+	    	<div class="footerInfo">
+			    <ul class="list-inline pt-3">
+			        <li class="list-inline-item"><a href="#">Home</a></li>
+			        <li class="list-inline-item"><a href="#">Services</a></li>
+			        <li class="list-inline-item"><a href="#">About</a></li>
+			        <li class="list-inline-item"><a href="#">Terms</a></li>
+			        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+			    </ul>
+			    <p class="copyright">E_um | address : ... | email : eum@eum.com</p>
+			    <p class="copyright">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
+			    <p class="copyright">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
+		    </div>
+	    </footer> -->
 
 
 <!-- 
@@ -357,8 +393,8 @@
 	  
 			<!-- Modal Header -->
 			<div class="modal-header">
-			  <h4 class="modal-title" id="modalLoginTitle">로그인</h4>
-			  <button type="button eumbtn-3" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title" id="modalLoginTitle" style="font-family:'twayair'; color:#2AC1BC;">로그인</h4>
+			  <button type="button eumbtn-3" class="close" style="color:#2AC1BC;" data-dismiss="modal">&times;</button>
 			</div>
 	  
 			<!-- Modal body -->
@@ -369,9 +405,9 @@
 			</div>
 	  
 			<!-- Modal footer -->
-			<div class="modal-footer">
+			<!-- <div class="modal-footer">
 			  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
+			</div> -->
 	  
 		  </div>
 		</div>
@@ -385,8 +421,8 @@
 		  
 				<!-- Modal Header -->
 				<div class="modal-header">
-				  <h4 class="modal-title" id="xlmodalLoginTitle">회원가입</h4>
-				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <h4 class="modal-title" id="xlmodalLoginTitle" style="font-family:'twayair'; color:#2AC1BC;">회원가입</h4>
+				  <button type="button" class="close" style="color:#2AC1BC;" data-dismiss="modal">&times;</button>
 				</div>
 		  
 				<!-- Modal body -->
@@ -397,9 +433,9 @@
 				</div>
 		  
 				<!-- Modal footer -->
-				<div class="modal-footer">
+				<!-- <div class="modal-footer">
 				  <button type="button" class="btn btn-danger eumbtn-3" data-dismiss="modal">Close</button>
-				</div>
+				</div> -->
 		  
 			  </div>
 		</div>

@@ -1,5 +1,13 @@
 package com.e_um.model.dao.communicateInfo.chat;
 
-public interface ChatDaoInterface {
+import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+
+import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
+
+public interface ChatDaoInterface {
+	public List<ChatRoom> fetchChatlist(String userId, SqlSessionTemplate session);
+	public int fetchChatAlarm (String userId, SqlSessionTemplate session);
+	public ChatRoom chatInit(String myId, String apartId, SqlSessionTemplate session);
 }

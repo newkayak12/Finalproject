@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
+import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 
 public interface FoodServiceInterface {
@@ -24,6 +25,7 @@ public interface FoodServiceInterface {
 
 	List<Food> searchFood(Map<String, Object> param);
 
+	int insertFoodComment(Map<String, Object> map);
 
 
 }

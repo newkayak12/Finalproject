@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
+import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 import com.e_um.model.vo.userInfo.user.User;
@@ -32,8 +34,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FoodController {
 
+	
+	
+	
 	@Autowired
 	FoodServiceInterface service;
+	
+	
+	
 	
 	@RequestMapping("/food/foodMain")
 	public String food(Model m) {
@@ -43,8 +51,10 @@ public class FoodController {
 		m.addAttribute("list", list);
 		
 		return "food";
-//		return "food/foodForm";
 	}
+	
+	
+	
 	
 	
 	@RequestMapping("/food/foodForm/start")
@@ -59,6 +69,9 @@ public class FoodController {
 		
 		return "food/foodForm";
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/foodForm/end")
 	public String foodInsert(HttpServletRequest rq, Food food, String[] menuName, 
@@ -93,11 +106,13 @@ public class FoodController {
 		
 		int result = service.foodInsert(food);
 		
-		model.addAttribute("msg", result > 0 ? "맛집등록성공" : "맛집등록실패");
+		model.addAttribute("msg", result > 0 ? "맛집이 등록되었습니다" : "맛집이 등록되지않았습니다. 다시 시도해주세요.");
 		model.addAttribute("loc", "/food/foodMain");
 		
 		return "/common/msg";
 	}
+	
+	
 	
 	
 	
@@ -116,6 +131,9 @@ public class FoodController {
 		
 	}
 	
+	
+	
+	
 
 	@RequestMapping("/food/foodView")
 	public String foodView(String foodSeq, Model model) throws Exception {
@@ -128,6 +146,9 @@ public class FoodController {
 		
 	}
 	
+	
+	
+	
 	@RequestMapping("/food/foodReview/start")
 	public String foodReview(String foodSeq, Model model) {
 		
@@ -138,16 +159,80 @@ public class FoodController {
 		return "/food/foodReview";
 	}
 	
+	
+	
+	
 	@RequestMapping("/food/foodReview/end")
-	public String insertFoodComment(String foodSeq) {
+	public String insertFoodComment(String foodSeq, String foodCommentContents, String rating, 
+									@RequestParam("file") MultipartFile[] files, 
+									HttpServletRequest req, 
+									Model model) {
 		
-		// 로그인한 유저아이디, 리뷰내용 받기 
+		User loginUser = (User) req.getSession().getAttribute("userSession");
+		String userId = loginUser.getUserId();
 		
-//		int result = service.insertFoodComment();
 		
-		// msg.jsp 반환
-		return "";
+//		if(files != null) {
+//			for(MultipartFile f : files) {
+//				System.out.println("파일이름 : " + f.getOriginalFilename()); // 정상적으로 출력된다
+//				
+//			}
+//		}
+		
+		FoodComment comment = new FoodComment();
+		User user = User.builder().userId(userId).build();
+		Food food = Food.builder().foodSeq(foodSeq).build();
+		
+		
+		comment.setUser(user);
+		comment.setFood(food);
+		comment.setFoodCommentContents(foodCommentContents);
+		comment.setFoodCommentStar(Double.parseDouble(rating));
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("comment", comment);
+		map.put("foodPhoto1", null);
+		map.put("foodPhoto2", null);
+		map.put("foodPhoto3", null);
+		map.put("foodPhoto4", null);
+		map.put("foodPhoto5", null);
+		
+		
+		int i =1;
+		
+			// System.out.println("테스트 : " + files.length + " " + files[0]);
+			
+		for(MultipartFile f : files) {
+			if(f.getSize()==0) break;
+			 map.put("foodPhoto"+i, renamepolicy(req, f, "foodComment"));
+				i+=1;
+			
+		}
+			
+		
+		
+		// System.out.println("map : " + map);
+		
+		// System.out.println("리뷰, 로그인유저 : " + userId);
+		// System.out.println("리뷰, 푸드시퀀스 : " + foodSeq);
+		// System.out.println("리뷰, 리뷰내용 : " + foodCommentContents);
+		// System.out.println("리뷰, 별점 : " + rating);
+		
+		
+		int result = service.insertFoodComment(map);
+		
+		System.out.println(result > 0 ? "성공" : "실패");
+		
+		model.addAttribute("msg", result > 0 ? "리뷰등록성공" : "리뷰등록실패");
+		model.addAttribute("loc", "/food/foodView?foodSeq="+foodSeq);
+		
+		return "/common/msg";
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/foodBooking/start")
 	public String foodBookingStart(String foodSeq, Model model) throws ParseException {
@@ -198,6 +283,9 @@ public class FoodController {
 		return "/food/foodBooking";
 	}
 	
+	
+	
+	
 	@RequestMapping("/food/foodBooking/end")
 	public String foodBookingEnd(Date bookingDateDay, Date bookingDateTime, 
 									@RequestParam(value = "userId") String userId, 
@@ -215,12 +303,15 @@ public class FoodController {
 		
 		int result = service.foodBooking(booking);
 		
-		model.addAttribute("msg", result > 0 ? "예약성공" : "예약실패");
+		model.addAttribute("msg", result > 0 ? "예약이 완료되었습니다." : "예약에 실패했습니다. 다시 시도해주세요.");
 		model.addAttribute("loc", "/food/foodBooking/start?foodSeq=" + foodSeq);
 		
 		return "/common/msg";
 	}
 
+	
+	
+	
 	@RequestMapping("/food/foodBookingView")
 	public String foodBookingView(String userId, Model model) {
 		
@@ -230,6 +321,9 @@ public class FoodController {
 		
 		return "/food/bookingList";
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/selectFoodCategoryList")
 	@ResponseBody
@@ -246,6 +340,9 @@ public class FoodController {
 		return foodCategoryMap;
 		
 	}
+	
+	
+	
 	
 	@RequestMapping("/food/foodSearch")
 	@ResponseBody
@@ -301,7 +398,6 @@ public class FoodController {
 			}
 		}
 		
-		
 		List<Food> foodSearchList = service.searchFood(param);
 		
 		// log.error("{}", foodSearchList);
@@ -309,4 +405,26 @@ public class FoodController {
 		return foodSearchList;
 		
 	}
+	
+	
+	
+	
+	
+	@RequestMapping("/food/selectFoodCommentList")
+	public String selectFoodCommentList(@RequestParam(value="foodSeq") String foodSeq) {
+		
+		
+		
+		
+		
+		
+		
+		return "components/food/foodCommentList";
+		
+	}
+	
+	
+	
+	
+	
 }

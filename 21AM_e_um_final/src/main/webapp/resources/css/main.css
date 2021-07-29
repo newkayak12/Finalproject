@@ -1,33 +1,49 @@
 @charset "UTF-8";
 :root
 {
-	--eumbackground: #70b3d9;
+	--maincolor: #2AC1BC !important;
 	--eumfontcolorwhite: white;
 	--mobile: 575px;
 	--pc:576px;
+	
 }
+
+
+
+
+
+
+
+
+
 
 #toolbox{
 	position: absolute;
 	 right:5px;
-	  top:50px;
+	  top:55.5px;
 	   background-color: white;
-	   min-width:280px;
-	    max-width: 2800px;
+	   min-width:300px;
+	    max-width: 300px;
 	     max-height:200px;
-	     overflow-y:scroll; 
+	     overflow-y:auto; 
 	     display:none;
+	     color:black
 }
 #footerContainer{
 	position: fixed;
-	background-color:red;
-	top:10px;
+	background-color:white;
+	top:55px;
+	width: 100%;
+	height: 640px;
+	z-index: 200;
+	display: none;
 }
 
 #innerXbox{
-	width: 280px;
+	width: 300px;
 	background-color: white;
 	opacity: 0.8;
+	color:black;
 }
 
 @media(max-width: 575px){
@@ -39,7 +55,7 @@
 	}
 	
 }	
-@media(max-width:690px){
+@media(max-width:850px){
 	.feedPhoto{
 		width:350px;
 		height:350px;
@@ -54,7 +70,7 @@
 }
 
 
-@media(max-width: 575px){
+@media(max-width: 850px){
 	.footer{
 		padding:0px !important;
 	}
@@ -90,11 +106,16 @@
 		
 	}
 	
-	
+	#root {
+		margin-bottom : 50px;
+	}
 	
 	
 }
-@media(min-width: 576px){
+@media(min-width: 851px){
+		#footerContainer{
+			display: none !important;
+		}
 		.hamdown{
 		display:none;
 		}
@@ -172,20 +193,75 @@
 	right:10px;
 }
 
-/*header css*/
+
+
+
+
+
+/* --------- header css -----------*/
 #head_menu ul li{
     font-family: 'twayair';
 }
+
 /* .navbar-nav>li:hover{
     color:rgb(4, 82, 131);
 } */
+
 #head_menu .dropdown-menu{
-    border:none;
-    background-color: rgb(165, 205, 230);
+    border: 1px solid #2AC1BC;
+    background-color: white;
 }
 
+#head_menu .dropdown-menu .dropdown-item:hover {
+	color : black !important;
+}
 
-/*section css*/
+#icon_menu .navbar-nav .nav-item i {
+	cursor: pointer;
+}
+
+/* 푸터 */
+.footer {
+	  position: relative;
+	  height : 130px;
+	  left: 0;
+	  bottom: 0;
+	  width: 100%;
+	  background-color: #2AC1BC;
+	  color: white;
+	  text-align: center;
+	  padding : 10px;
+	}
+	.footer p {
+		margin: 1px;
+		font-size : 10px;
+	}
+    .list-inline {
+        text-align: center;
+    }
+    .list-inline-item {
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .list-inline-item a {
+        text-decoration: none;
+        color: white;
+        font-family:'twayair';
+        font-weight : 500;
+        font-size : 20px;
+    }
+    .footerInfo .copyright {
+        text-align: center;
+        font-size: 13px;
+        color: black;
+        margin-bottom: 0;
+    }
+
+
+
+
+/* --------- section css -----------*/
 /* #root{
     border:1px red solid;
     min-height:500px;
@@ -200,10 +276,89 @@ body{
 }
 
 
-/* 폰트-타이틀 */
+
+
+
+/* --------- 폰트-타이틀 ----------- */
 @font-face {
         font-family: 'twayair';
         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
         font-weight: normal;
         font-style: normal;
+}
+
+
+
+
+
+
+/** -----------공통 CSS --------------- **/
+
+/*확인 버튼*/
+.checkBtn{
+    background-color: #2AC1BC;
+    border : 2px solid #2AC1BC;
+    color:white;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
+/*취소 버튼*/
+.cancelBtn{
+    border : 2px solid #2AC1BC;
+    color:#2AC1BC;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
+
+/*포인트 주는 폰트*/
+.pointFont{
+    font-family:'twayair';
+}
+/* 메인 컬러 */
+.mainColor{
+    color:#2AC1BC;
+}
+/* 메인 컬러보다 진한 */
+.subColor1{
+    color:#11504e;
+}
+/* 메인 컬러보다 연한 */
+.subColor2{
+    color:#7ee3e0;
+}
+
+.whiteText {
+	color : white;
+}
+.blackText {
+	color : black;
+}
+.bgColorMainColor {
+	background-color: #2AC1BC;
+}
+.tway {
+	font-family: 'twayair';
+}
+
+
+
+
+
+/*---------------pagebar---------------*/
+.selectColor.pagination > .active > a, 
+.selectColor.pagination > .active > span, 
+.selectColor.pagination > .active > a:hover, 
+.selectColor.pagination > .active > span:hover, 
+.selectColor.pagination > .active > a:focus, 
+.selectColor.pagination > .active > span:focus {
+	background: #2AC1BC;
+	/* border-color: #2AC1BC; */
+}
+.pagination *{
+	border:none;
+}
+.pagination a{
+	color:black;
 }

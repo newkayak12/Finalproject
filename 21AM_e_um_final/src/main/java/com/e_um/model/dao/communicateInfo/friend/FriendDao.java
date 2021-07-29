@@ -19,7 +19,7 @@ public class FriendDao implements FriendDaoInterface {
 	
 	@Override
 	public User selectUserOne(SqlSessionTemplate session, String profileId) {
-		return session.selectOne("friend.selectProfileInfo",profileId);
+		return session.selectOne("profile.selectProfileInfo",profileId);
 	}
 
 
@@ -46,8 +46,11 @@ public class FriendDao implements FriendDaoInterface {
 	public int insertAlarm(SqlSessionTemplate session, Map param) {
 		// TODO Auto-generated method stub
 		
-		
-		return session.insert("alarm.insertfriend",param);
+		if(param.get("flag").equals("apply")) {
+			return session.insert("alarm.insertfriend",param);			
+		}else {
+			return session.insert("alarm.insertfriend2",param);
+		}
 		
 	}
 
@@ -55,6 +58,13 @@ public class FriendDao implements FriendDaoInterface {
 	@Override
 	public int isExist(Friend fr, SqlSessionTemplate session) {
 		return session.selectOne("friend.isExist",fr);
+	}
+
+
+	@Override
+	public List<Friend> fetchFriendList(String userId, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("friend.fetchFriendList", userId);
 	}
 
 }

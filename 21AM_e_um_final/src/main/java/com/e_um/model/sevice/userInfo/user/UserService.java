@@ -53,7 +53,7 @@ public class UserService implements UserServiceInterface {
 				dao.insertalarm7(user, session);
 				dao.insertalarm8(user, session);
 				dao.insertalarm9(user, session);
-				
+				dao.insertalarm10(user, session);
 			}
 		return count;
 	}

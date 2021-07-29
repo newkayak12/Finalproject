@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 public class Movie {
 	private String movieSeq;
 	private String movieTitleKr, movieTitleEn;
-	private int movieTotalEvalution;
 	private String movieDirector; 
 	private Date movieOpenDate ;
 	private String movieRunningTime;
@@ -30,7 +29,7 @@ public class Movie {
 	private String movieVideo;
 	private String movieContents, movieStatus;
 	private double movieReserveRate;
-	
+	private double movieTotalEvalution;
 	
 	private List<MoviePersonInfo> moviePersonName = new ArrayList();
 	

@@ -48,12 +48,33 @@
 </div>
 
 <!-- Modal footer -->
-<div class="modal-footer justify-content-center">
-    <button type="button" id="openProfile" class="btn btn-info mx-2" data-dismiss="modal" value="${friend.userId }">프로필로 이동</button>
-    <button type="button" id="applyFriend" class="btn btn-info mx-2" value="${friend.userId }" data-dismiss="modal">친구 신청</button>
+<div class="modal-footer d-flex justify-content-between">
+	<a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
+        <button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;">
+        	<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" data-toggle="modal" data-target="#ReportModal">
+        </button>
+    </a>
+    <div>
+	    <button type="button" id="openProfile" class="btn cancelBtn mx-2" data-dismiss="modal" value="${friend.userId }">프로필로 이동</button>
+	    <c:if test="${friend.userId!=userSession.userId }">
+	    	<!-- 차단된 친구는 친구 신청 버튼 볼 수 없게 설정, 이미 친구를 신청한 경우 친구 요청 중으로 띄우고 버튼 사용 불가로, 친구인 경우 친구라고 띄우고 버튼 사용 불가로 -->
+	    	<c:choose>
+	    		<c:when test="${friFlag eq 'applyFri' }">
+	       			<button type="button" id="applyFriend" class="btn checkBtn mx-2" data-dismiss="modal" value="${friend.userId }">친구 신청</button>
+	       		</c:when>
+	       		<c:when test="${friFlag eq 'friend' }">
+	       			<button type="button" class="btn disableBtn mx-xs-2" disabled><i class="fas fa-check mr-2"></i>친구</button>
+	       		</c:when>
+	       		<c:when test="${friFlag eq 'alreadyApply' }">
+	       			<button type="button" class="btn disableBtn mx-xs-2" disabled>친구 요청됨</button>
+	       		</c:when>
+	       		<c:when test="${friFlag eq 'acceptFri' }">
+	       			<button type="button" id="acceptFriend" class="btn checkBtn mx-2" data-dismiss="modal" value="${friend.userId }">친구 수락</button>
+	       		</c:when>
+	       	</c:choose>
+		</c:if>
+    </div>
 </div>
-
-
 
 <script>
 	$("#applyFriend").click(e=>{
@@ -63,7 +84,8 @@
 				type:"post",
 				url:"${pageContext.request.contextPath}/friend/applyfriend/start",
 				data:{
-					"friendId":e.target.value
+					"friendId":e.target.value,
+					"flag":"apply"
 				},
 				success:data=>{
 					if(data>0){
@@ -76,8 +98,31 @@
 		}
 	})
 	
+	$("#acceptFriend").click(e=>{
+		let friendNick="${friend.userNick }";
+		if(confirm(friendNick+"님의 친구 신청을 수락하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+				data:{
+					"friendId":e.target.value,
+					"flag":"accept"
+				},
+				success:data=>{
+					if(data>0){
+						alert("서로 친구가 되었습니다!");
+					}else{
+						alert("친구 신청 수락을 실패했습니다.");
+					}
+				}
+			})
+		}
+	})
+	
 	$("#openProfile").click(e=>{
 		let profileId=e.target.value;
 		location.assign("${pageContext.request.contextPath}/profile/open/"+profileId);
 	})
+	
+	$("#reportPop").popover({ trigger: "hover" });
 </script>

@@ -22,7 +22,8 @@ public class Chat {
 	 * string으로 변경해도 무방
 	 * mybatis, db에서 association, 별칭 부여 필요
 	 */
-	private User chatSender, chatReceiver;
-	private String chatContent, chatPhote;
-	private Date chatSendTime;
+	private User chatSender;
+	private String chatContent, chatPhoto;
+	private String chatSendTime;
+	private int chatReadFlag;
 }

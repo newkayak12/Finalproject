@@ -98,6 +98,7 @@ public class GroupController {
 		  Group list=service.selectGroupUseridCheck(groupSeq);
 		  model.addAttribute("group",list);
 		  
+
 		  log.warn("{}",list);
 		  for(Member m : list.getMembers()) {
 		  
@@ -116,6 +117,7 @@ public class GroupController {
 		return"group/groupboard/groupBoardWrite";
 	}
 	  
+
 	  
 	
 	@RequestMapping("/group/groupBoardInsert.do")

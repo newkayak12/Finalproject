@@ -18,5 +18,6 @@ public interface FriendServiceInterface {
 	List<User> searchKeyword(Map param);
 
 	int isExist(Friend fr);
-
+	
+	List<Friend> fetchFriendList(String userId);
 }

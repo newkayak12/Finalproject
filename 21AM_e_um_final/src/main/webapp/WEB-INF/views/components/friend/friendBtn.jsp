@@ -7,34 +7,33 @@
 
 <c:forEach var="u" items="${list }">
 	<div class="friUser col-sm-6 col-lg-4 mb-5">
-	    <button class="container btn btn-outline-light align-items-center text-dark d-flex p-2 mh-100" data-toggle="modal" title="${u.userId }">
-	        <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg col mw-75 mh-100" title="${u.userId }">
-	        <div class="col" title="${u.userId }">
-	        	<div><h5 title="${u.userId }"><b><c:out value="${u.userNick }"/></b></h5></div><br>
+	    <button class="container btn btn-outline-light align-items-center text-dark d-flex p-2 mh-100" data-toggle="modal" onclick="fn_openModal('${u.userId }');">
+	        <img src="${path }/resources/upload/profile/${u.profileImageFile}" class="frismImg col mw-75 mh-100">
+	        <div class="col">
+	        	<div><h5><b><c:out value="${u.userNick }"/></b></h5></div><br>
 	        	<small><b>
-	        		<div class="d-flex flex-wrap" title="${u.userId }">
-			          	<span title="${u.userId }" class="mx-1">
+	        		<div class="d-flex flex-wrap">
+			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName1 !=null}">
 			           		<c:out value="${u.interest.profileInterestName1 }"/>
 			           	</c:if>
 			          	</span>
-			          	
-			          	<span title="${u.userId }" class="mx-1">
+			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName2 !=null}">
 			           		<c:out value="${u.interest.profileInterestName2 }"/>
 			           	</c:if>
 			          	</span>
-			          	<span title="${u.userId }" class="mx-1">
+			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName3 !=null}">
 			           		<c:out value="${u.interest.profileInterestName3 }"/>
 			           	</c:if>
 			          	</span>
-			          	<span title="${u.userId }" class="mx-1">
+			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName4 !=null}">
 			           		<c:out value="${u.interest.profileInterestName4 }"/>
 			           	</c:if>
 			          	</span>
-			          	<span title="${u.userId }" class="mx-1">
+			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName5 !=null}">
 			           		<c:out value="${u.interest.profileInterestName5 }"/>
 			           	</c:if>
@@ -47,15 +46,15 @@
 </c:forEach>
 
 <script>
-	$(".friUser").click(e=>{
+	function fn_openModal(profileId){
 		$.ajax({
 			type:"post",
 			url:"${pageContext.request.contextPath}/friend/openmodal/start",
-			data:{"userId":e.target.title},
+			data:{"profileId":profileId},
 			success:data=>{
 				$("#userInfoModal").html(data);
 				$('#friSmModal').modal("show");
 			}
 		})
-	})
+	}
 </script>

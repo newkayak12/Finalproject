@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
+import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
@@ -29,6 +30,7 @@ public interface FoodDaoInterface {
 
 	List<Food> searchFood(SqlSessionTemplate session, Map<String, Object> param);
 
+	int insertFoodComment(SqlSessionTemplate session, Map<String, Object> map);
 	
 
 }

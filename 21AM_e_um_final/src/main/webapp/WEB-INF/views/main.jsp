@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <style>
-    	*{
-    	/* 	    border: 1px black solid */ 
-    	}
-    </style>
-    
+   
     
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
     
@@ -84,7 +79,16 @@
     		 })
     		 
     		 feedAjaxContainer();
+    		 
+    		
+    		 
+    		 
+    		 
+    		 
     	 })
+    	 
+    	 
+    	 
     	 
     	
     	function feedAjax(e){
@@ -313,19 +317,23 @@
 	    	
 	    }
 	    
-	    
+	    const fn_searching=()=>{
+	    	location.assign('${pageContext.request.contextPath}/friend/searchKeyword?keyword='+$("#friendSearch").val())
+	    	
+	    }
 	    
 	   
     </script>
     
  <section class="mt-5 pt-5">   
    	<div id="root" class="container md-mt-5 mt-0 ">
-   		
+   		<!-- 
         <div class="container d-flex justify-content-around align-items-center col-12 col-md-8  mt-4 border">
              <h5 class='mt-2  ml-2 mr-2 p-0 col-3 text-center col-xl-2 '>친구 찾기</h5>
             <input type="text" id="friendSearch" class=" ml-2 mr-2 col-6">
-            <button type="button" class="small ml-2 mr-2 btn btn-primary eumbtn-2">검색</button>
-        </div>
+            <button type="button" class="small ml-2 mr-2 btn btn-primary eumbtn-2" onclick="fn_searching()">검색</button>
+        </div> -->
+        <!-- /friend/searchKeyword -->
         
         
 		     <div class="mt-4 mb-5" >
