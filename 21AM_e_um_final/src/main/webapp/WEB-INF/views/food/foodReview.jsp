@@ -8,21 +8,17 @@
 	}
 	
 	.foodReviewForm-input {
-		border : 1px solid #70b3d9;
+		border : 2px solid black;
 		width: 70%;
     	margin-left: 15%;
     	margin-right: 15%;
+    	border-radius : 10px;
 	}
 	
 	.foodReviewForm-input textarea, .foodReviewForm-input textarea:focus {
 		outline : none;
 		border : 0;
-	}
-	
-	.foodReviewForm-foodName {
-		font-weight: 900;
-		font-size: 40px;
-		color: #70b3d9;
+		border-radius : 10px;
 	}
 	
 	.btn-eum {
@@ -43,12 +39,12 @@
 	}
 	
 	.input-file-button{
-		padding: 50px 50px 50px 50px;
+		padding: 34px 37px;
 		background-color: white;
-		border-radius: 5px;
-		color: #70b3d9;
+		border-radius: 10px;
+		color: lightgray;
 		cursor: pointer;
-		border : 1px dashed #70b3d9;
+		border : 2px dashed lightgray;
 	}
 	
 	.foodReviewForm-container ul li {
@@ -73,18 +69,26 @@
         
         .star-rating label {
             opacity: 95%;
-            color: gray;
+            color: lightgray;
             cursor: pointer;
         }
         
         .star-rating :checked ~ label {
-            color : rgb(255, 217, 0);
+            color : #2AC1BC;
         }
         
         .star-rating label:hover,
         .star-rating label:hover ~ label {
-            color : #ffea00;
-        }	
+            color : #7ee3e0;
+        }
+        
+        /* 리뷰 파일 업로드 */
+        /* .outterDiv:hover.innerDiv {
+        	display : block;
+        } */	
+       
+        
+        
 </style>
 
 
@@ -93,9 +97,9 @@
 	
 		<div class="foodReviewForm-container">
 	
-			<div><span class="foodReviewForm-foodName"><c:out value="${ food.foodName }"/></span> 에 대한 솔직한 리뷰를 작성해주세요</div>
-			<form action="${ path }/food/foodReview/end?foodSeq=${ food.foodSeq }" method="post">
-				
+			<div><span class="mainColor tway" style="font-size:40px;"><c:out value="${ food.foodName }"/></span><span class="blackText" style="font-weight:900;"> 에 대한 솔직한 리뷰를 작성해주세요</span></div>
+			
+			<form action="${ pageContext.request.contextPath }/food/foodReview/end?foodSeq=${ food.foodSeq }" method="post" enctype="multipart/form-data">
 				
 				<div class="foodReviewForm-input" >
 					<div id="star" class="star-rating space-x-4 mx-auto">
@@ -114,26 +118,20 @@
 				        <input type="radio" id="1-star" name="rating" value="1" checked/>
 				        <label for="1-star" class="star">★</label>
 				    </div>
-					<textarea id="DOC_TEXT" name="foodContents" cols="85" rows="13"></textarea>
+					<textarea id="DOC_TEXT" name="foodCommentContents" style="width:100%;"  rows="13" required></textarea>
 				</div>
 				
 				<div style="color:#aaa;" id="counter">(0 / 300)</div>
 				<br>
-				<ul class="p-0" style="list-style:none;">
-					<li>
-						<label class="input-file-button" for="input-file">+</label>
-						<input class="foodReviewFileUpload" type="file" id="input-file" multiple="multiple" style="display:none;"/> 
+				<ul id="foodReviewFilePreview" class="p-0 d-flex justify-content-center" style="list-style:none;">
+					<li class="">
+						<label class="input-file-button" for="input-file" id="input-file-label"><i class="fas fa-plus" style="font-size:30px;"></i></label>
+						<input class="foodReviewFileUpload" type="file" accept="image/jpeg, image/jpg, image/png" name="file" id="input-file" multiple="multiple" style="display:none;"/> 
 					</li>
-					<!-- 
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li> 
-					-->
 				</ul>
 				
-				<button class="btn btn-eum border-eum textcolor-eum" onclick="">취소</button>
-				<input type="submit" value="리뷰 등록" class="btn btn-eum bgcolor-eum">
+				<button type="button" class="btn cancelBtn" onclick="location.assign('${pageContext.request.contextPath}/food/foodView?foodSeq=${ food.foodSeq }')" style="width : 90px !important;">돌아가기</button>
+				<input type="submit" value="리뷰 등록" class="btn checkBtn ml-3" style="width : 90px !important;">
 			</form>
 			
 		</div>
@@ -143,26 +141,123 @@
 
 <script>
 
+
+
+
 	// 파일 업로드 미리보기 
 	$(".foodReviewFileUpload").change( (e) => {
 		
-				console.log($(e.target).get(0).val());
-		
-		let fileName = $(e.target).val().split("\\").pop();
-				console.log(fileName);
+		// 업로드한 파일들 확인
+		// console.log($(e.target).get(0).files);
 				
-		let filesLength = $(e.target).files.length;
-				console.log(filesLength);
+		// 한번에 업로드한 파일 개수 		
+		let fileCount = $(e.target).get(0).files.length;
+				// console.log(fileCount);
 		
-			
-		// let fileArr = new Array();
+		let file = $(e.target).get(0).files;
 		
-		/* for(let i=0; i < $(e.target).files.length; i++) {
+		// 다중파일을 한꺼번에 드래그해서 선택하는 개수가 5개 이하이면 
+		if(fileCount <= 5) {
 			
-		} */
+			for(let i=0; i < fileCount; i++) {
+				
+				// 지금까지 업로드한 파일의 개수가 5개 이하이면
+				if(document.getElementById("foodReviewFilePreview").childElementCount <= 5) {
+				
+					let li = $("<li class='prevLi' onmouseenter='fn_showDelBtn(event);' onmouseleave='fn_hideDelBtn(event);'>");
+					
+					let file = $(e.target).get(0).files[i];
+					
+					var reader = new FileReader();
+				
+					//파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+					reader.onload = function(e) {
+						
+						let outterDiv = $("<div>").attr({
+							"class" : "outterDiv"
+						}).css({
+							"background-image" : "url(" + e.target.result + ")",
+							"width" : "100px",
+							"height" : "100px", 
+							"background-size" : "contain", 
+							"border-radius" : "10px"
+						});
+						
+						let innerDiv = $("<div>").attr({
+							"class" : "innerDiv"
+						}).css({
+							"display" : "none", 
+							"width" : "100%", 
+							"height" : "100%", 
+							"background-color" : "rgba(0, 0, 0, 0.5)",
+							"border-radius" : "10px"
+						}).append( $("<button>").attr({"onclick":"fn_delImg(event);", "type":"button"}).css({"border": "0px","background-color": "transparent", "color":"white", "padding":"35px", "outline":"0"}).html("<i class='fas fa-times' style='font-size:30px;'></i>")  );
+						
+						outterDiv.append(innerDiv);
+						li.append(outterDiv);
+						
+					}
+					reader.readAsDataURL(file);
+					$("#foodReviewFilePreview").append(li);
+					
+					
+				// 지금까지 업로드한 파일의 개수가 5개 초과이면
+				} else {
+					alert("파일은 최대 5개까지 첨부할 수 있습니다.");
+				}
+					
+			} <!-- for문 -->
+			
+		// 다중파일을 한꺼번에 드래그해서 선택하는 개수가 5개 초과이면
+		} else {
+			alert("파일은 최대 5개까지 첨부할 수 있습니다.");
+		}
+		
+		
 		
 		
 	} );
+	
+	// 업로드한 파일에 마우스 커서가 올라가면 삭제버튼 보이게 하기 
+	const fn_showDelBtn = (e) => {
+		
+		$(e.target).children().children().css({
+			"display" : ""
+		}); 
+		
+		/* console.log("in : ");
+		console.log($(e.target).children());  */
+		
+	}
+	
+	
+	
+	// 업로드한 파일에서 마우스 커서가 벗어나면 삭제버튼 가리기
+	const fn_hideDelBtn = (e) => {
+		
+		$(e.target).children().children().css({
+			"display" : "none"
+		});
+		
+		/* console.log("out : ");
+		console.log($(e.target).children()); */
+	}
+	
+	
+	
+	
+	// 업로드한 파일 삭제버튼 눌렀을 때 실행되는 함수 
+	const fn_delImg = (e) => {
+		
+		/* console.log( $(e.target) ); // i 태그 
+		console.log( $(e.target).parent() ); // button 태그 
+		console.log( $(e.target).parent().parent() ); // innerDiv 
+		console.log( $(e.target).parent().parent().parent() ); // outterDiv */
+		console.log( $(e.target).parent().parent().parent().parent() ); // li 태그 
+		
+		$(e.target).parent().parent().parent().parent().remove(".prevLi");
+	}
+	
 
 	// 리뷰 입력창 글자수 카운트 
 	$(document).ready(function() {
