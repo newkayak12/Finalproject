@@ -10,4 +10,7 @@ public interface ChatDaoInterface {
 	public List<ChatRoom> fetchChatlist(String userId, SqlSessionTemplate session);
 	public int fetchChatAlarm (String userId, SqlSessionTemplate session);
 	public ChatRoom chatInit(String myId, String apartId, SqlSessionTemplate session);
+	public int createChatRoom(String myId, String apartId,  SqlSessionTemplate session);
+	public ChatRoom fetchChat(String roomseq, String userId, SqlSessionTemplate session);
+	public int iReadit(String roomseq, String userId, SqlSessionTemplate session);
 }

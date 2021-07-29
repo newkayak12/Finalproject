@@ -16,10 +16,10 @@
     <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
         <span class="w-10">PW</span>
         &nbsp;&nbsp; 
-        <input type="password" id="userPassword" class="w-75 " style="height:30px" placeholder="비밀번호">
+        <input type="password" id="userPassword" class="w-75 " style="height:30px" onkeyup="enterkey()" placeholder="비밀번호">
          
         &nbsp;&nbsp; 
-        <input type="button" onclick="loginVerifyAjax()" class=" eumbtn-2 btn " value="로그인">
+        <input type="button" onclick ="loginVerifyAjax()" class=" eumbtn-2 btn " value="로그인">
     </span>
     <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
         &nbsp;&nbsp; 
@@ -113,4 +113,21 @@ $(function(){
     }
 
 })
+
+
+function enterkey() {
+        if (window.event.keyCode == 13) {
+ 
+             loginVerifyAjax()
+        }
+}
+
+
+
+
+
+
+
+
+
 </script>
