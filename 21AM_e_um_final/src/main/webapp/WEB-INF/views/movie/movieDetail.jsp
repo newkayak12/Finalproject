@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
 	
@@ -58,8 +58,23 @@
 				url:"<%=request.getContextPath()%>/movie/movieReview",
 				data:{"movieSeq":movieSeq},
 				success:data=>{
-					console.log(data);
+					
+					data.forEach((v,i)=>{
+						console.log(v["movieReviewWriteDate"]);
+						let date = (v["movieReviewWriteDate"]);
+						let result = date.split("-");
+						console.log(result);
+						$("#reviewBody").append(
+								$("<tr>").append($("<td>").html(v["userId"]["userId"]))
+								.append($("<td>").html("★"+v["movieEvaluationAvg"]))
+								.append($("<td>").html(v["movieReviewContent"]))
+								.append($("<td>").html(result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일"))
+						)
+					})
+					
+						
 				}
+				
 				
 			})
 			
@@ -70,12 +85,36 @@
     			data:{"movieSeq":movieSeq},
     			success:data=>{
     				console.log(data);
-    				$("#totalPoint").html("★"+data).css("font-size","30px");
-    				
+    				$("#totalPoint").html("★"+data['total']).css("font-size","30px");
+    				new Chart($("#radar-chart"), {
+    				    type: 'radar',
+    				    data: {
+    				      labels: ["연출", "영상미", "스토리", "연기력", "음악성"],
+    				      datasets: [
+    				        {
+    				          label: '평균 분포',
+    				          fill: true,
+    				          backgroundColor: "rgba(179,181,198,0.2)",
+    				          borderColor: "#6543b1",
+    				          pointBorderColor: "#fff",
+    				          pointBackgroundColor: "#6543b1",
+    				          /* data: [10,12,13,18,20] */
+    				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
+    				        }
+    				      ]
+    				    },
+    				    options: {
+    				      title: {
+    				        
+    				      }
+    				    }
+    				}); 
     					
     			}
     		})
-			
+    		
+    		
+					
 			
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
@@ -114,7 +153,7 @@
 			                        <strong>${movie.movieReserveRate }</strong>
 			                    </span><br>
 			                    <span>영화평점 &nbsp;
-			                        <strong>${movie.movieTotalEvalution }</strong>
+			                        <strong>★${movie.movieTotalEvalution }</strong>
 			                    </span>
 			                </div>
 			                <button class="btn btn-success mt-5">예매하기</button>
@@ -190,30 +229,35 @@
 						<table class="table">
 						    <thead>
 						      <tr>
-						        <th>작성자</th>
-						        <th>평점</th>
-						        <th>리뷰</th>
-						        <th>작성일</th>
-						      </tr>
+						        <th class="col-2">작성자</th>
+						        <th class="col-2">평점</th>
+						        <th class="col-5 justify-content-center">리뷰</th>
+						        <th class="col-3">작성일</th>
+						      </tr >
 						    </thead>
-						    <tbody id="tbody">
-							    <tr>
-							    	<td></td>
-							    	<td></td>
-							    	<td></td>
-							    	<td></td>
-							    </tr>
+						    <tbody id="reviewBody">
+							    
 						    </tbody>
 						  </table>
 					</div>
 					
 					<div id="graphcontainer">
 						<h3>예매분포</h3>
-						<div class="col-3 " style="border: 1px solid black; height: 300px;">
-							<h5>평균 별점</h5>
-							<div class="mt-5" style="border: 1px solid black; height: 200px;">
-								<div class="circle" style="margin: 0 auto; padding-top:30px; width: 200px; height: 200px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
-									<span id="totalPoint"></span>
+						<div class="col-12" style="height: 300px; display: flex;">
+							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>평균 별점</h5>
+								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 200px; height: 200px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
+										<span id="totalPoint"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>관람포인트</h5>
+								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
+										<canvas id="radar-chart" width="250" height="250"></canvas>
+									</div>
 								</div>
 							</div>
 						</div>

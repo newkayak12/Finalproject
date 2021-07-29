@@ -19,5 +19,5 @@ import lombok.NoArgsConstructor;
 @Builder
 @Component
 public class Seat {
-	private String Seat;
+	private String seat;
 }

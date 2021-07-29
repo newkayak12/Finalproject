@@ -4,16 +4,58 @@
 <script>
 	$(function(){
 		$.ajax({
-			url:"<%=request.getContextPath()%>/movie/movieList",
+			url:"${path}/movie/movieList",
 			success:data=>{
 				console.log(data);
 				for(var i=0; i<data.length;i++){
-					$(".movie-list-ul").append("<li>").append("<button>"+data[i]["movieTitleKr"]+"</button>").attr("style","width=100px")
-					
+					$(".movie-list-ul").append(
+							$("<li>").append($("<button>").html(data[i]["movieTitleKr"])
+							.addClass('movieName col-12')
+							.attr({"value":data[i]["movieSeq"],"onclick":"movieSeqFn(event);"})))
 				}
 			}
 		})
+		
 	})
+	
+	const movieSeqFn=(e)=>{
+		let seq = e.target.value;
+		
+		$.ajax({
+			url:"${path}/movie/movieBox",
+			data:{"movieSeq":seq},
+			success:data=>{
+				console.log(data);
+				$("#location-1").html("")
+				
+				for(var i=0; i<data.length; i++){
+					$("#location-1").append(
+							$("<button>").addClass("theater-place justify-content-center")
+							.html(data[i]["movieBoxSeq"]["movieLocation"])
+							.attr({"value":data[i]["movieBoxSeq"]["movieLocation"],"onclick":"showDate();"}).css("text-align","center"))
+				}
+			}
+		})
+		
+		$.ajax({
+			url:"${path}/movie/movieTime",
+			success:data=>{
+				console.log(data)
+				$(".reserve-time-wrapper").html("")
+				for(var i=0; i<data.length;i++){
+					$(".reserve-time-wrapper").append($("<button>").addClass("reserve-time-button").append($("<span>").addClass("reserve-time-want").html(data[i]["movieTime"])))
+					
+				}
+				
+			}
+		})
+	}
+	
+	const showDate=()=>{
+		$(".reserve-date").css("display","flex");
+	}
+	
+	
 	
 	const seoul=()=>{
 		$("#location-2").css("display","none")
@@ -25,15 +67,15 @@
 	}
 	
 </script>	
+
 	
-	
-	<section class="mt-5 pt-5">
+	<section class="mt-5 pt-5" data-spy="scroll" data-target=".movie-list-ul" data-offset="50">
 		<div id="root" class="container mt-5">
 			<div class="reserve-container">
-		        <div class="movie-part">
+		        <div class="movie-part" style="height: 498px;">
 		            <div class="reserve-title">영화</div>
 		            
-		             <div class="movie-list-wrapper">
+		             <div class="movie-list-wrapper" style="overflow:scroll; height: 450px;" >
 		                <div class="movie-list">
 							<ul class="movie-list-ul">
 				
@@ -45,48 +87,48 @@
 		            <div class="reserve-title">
 		                극장
 		            </div>
-		            <div class="theater-container">
-		                <div class="theater-wrapper">
-		                    <div class="theater-location-wrapper">
-		                        <button class="theater-location" onclick="seoul();">서울</button>
-		                        <button class="theater-location" onclick="gyeonggi();">경기</button>
-		                    </div>
-		                    <div class="theater-place-wrapper" id="location-1">
-		                        <button class="theater-place">강남</button>
-		                        <button class="theater-place">건대입구</button>
-		                        <button class="theater-place">구로디지털단지</button>
+		            <div class="theater-container" >
+		                <div class="theater-wrapper" >
+		                    <!-- <div class="theater-location-wrapper" >
+		                        
+		                    </div> -->
+		                    <div class="theater-place-wrapper" id="location-1" style="overflow:scroll; height: 450px;">
+		                        
 		                    </div>
 		                    <div class="theater-place-wrapper" id="location-2" style="display: none">
-		                        <button class="theater-place">동탄</button>
-		                        <button class="theater-place">수지</button>
+		                        
 		                    </div>
 		                </div>
 		            </div>
 		        </div>
-		        <div class="day-part">
-		            <div class="reserve-title">날짜</div>
-		            <div class="reserve-date"></div>
+		        <div class="day-part" style="height: 498px;">
+		            <div class="reserve-title" >날짜</div>
+		            <div class="reserve-date" style="overflow:scroll; height: 450px; display: none"></div>
 		        </div>
 		        <div class="time-part">
 		            <div class="reserve-title">시간</div>
 		            <div class="reserve-time">
 		                <div class="reserve-where"></div>
 		                <div class="reserve-time-wrapper">
-		                    <button class="reserve-time-button"> 
-		                        <span class="reserve-time-want"></span>
-		                        <span class="reserve-time-remain"></span>
+		                    <!-- <button class="reserve-time-button"> 
+		                        <span class="reserve-time-want">ㅎ</span>
+		                        
 		                    
-		                    </button>
+		                    </button> -->
 		
 		                </div>
 		            </div>
+		            <div class="">
+		            
+		            </div>
+		            
 		            <div>
 		            <form class="moveSeatForm" action="moveSeat.do" method="post">
 		            <input type="hidden" class="title" name="title"> 
 		            <input type="hidden" class="movieAge" name="movieAge">
 		            <input type="hidden" class="selectedTheater" name="selectedTheater">
 		            <input type="hidden" class="reserveDate" name="movieDate">
-		            <button class="moveSeatButton" type="button" style="vertical-align:bottom; ": ">예약하기</button>
+		            <button class="moveSeatButton" type="button" style="vertical-align:bottom;">예매하기</button>
 		            </form>
 		            </div>
 		        </div>
@@ -316,8 +358,9 @@
 		}
 		
 		.theater-place {
-		    padding: 6px 5px;
-		    height: 40px;
+		    padding: 6px 0 6px 0;
+		    /* height: 40px;
+		    width : 135px; */
 		    font-size: 12px;
 		    font-weight: bold;
 		    text-align: left;
@@ -372,6 +415,12 @@
 		.movie-list-ul {
 		    align-items: center;
 		    list-style: none;
+		    padding-left : 0px;
+		}
+		.movie-list-ul button{
+			font-weight : bold;
+			font-size: 12px;
+			padding: 6px 0 6px 0;
 		}
 		
 		.movie-list-age {

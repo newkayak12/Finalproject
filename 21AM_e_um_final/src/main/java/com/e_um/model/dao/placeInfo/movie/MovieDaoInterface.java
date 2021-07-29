@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
+import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
+import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
 
 public interface MovieDaoInterface {
 	List<Movie> movieList(SqlSessionTemplate session);
@@ -28,11 +30,13 @@ public interface MovieDaoInterface {
 	
 	int movieReviewCount(SqlSessionTemplate session,String movieSeq);
 
+	int updateTotal(SqlSessionTemplate session, Map map);
 
+	List<MovieReview> movieReviewList(SqlSessionTemplate session, Map param);
+	
+	int movieReviewCount2(SqlSessionTemplate session, Map param);
 
+	List<MovieSeatStatus> movieBox(SqlSessionTemplate session);
 
-
-
-
-
+	List<MovieTime> movieTime(SqlSessionTemplate session);
 }
