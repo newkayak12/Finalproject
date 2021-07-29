@@ -10,24 +10,30 @@
         <col class="col-7">
         <col class="col-2">
         <col class="col-2">
-        <col class="col-1">
+        <c:if test="${userSession.userId==profileId }">
+	        <col class="col-1">
+        </c:if>
     </colgroup>
     <thead class="thead-light">
       <tr>
-        <th class="colcenter">content</th>
-        <th class="colcenter">writer</th>
-        <th class="colcenter">date</th>
-        <th class="colcenter">delete</th>
+        <th class="colcenter">CONTENT</th>
+        <th class="colcenter">WRITER</th>
+        <th class="colcenter">DATE</th>
+        <c:if test="${userSession.userId==profileId }">
+	        <th class="colcenter">DELETE</th>
+        </c:if>
       </tr>
     </thead>
     <tbody>
     	<c:if test="${!empty gbList }">
     		<c:forEach var="g" items="${gbList }">
 			   	<tr>
-			   		<td>${g.guestbookComment }</td>
-					<td class="colcenter">${g.userIdWriter }</td>
-					<td class="colcenter"><fmt:formatDate value="${g.guestbookDate }" pattern="yy/MM/dd"/></td>
-					<td class="colcenter">&times;</td>
+			   		<td>${g['GUESTBOOK_COMMENT'] }</td>
+					<td class="colcenter">${g['USER_NICK'] }</td>
+					<td class="colcenter"><fmt:formatDate value="${g['GUESTBOOK_DATE'] }" pattern="yy/MM/dd"/></td>
+					<c:if test="${userSession.userId==profileId }">
+						<td class="colcenter pointer" onclick="fn_deleteGb('${g['GUESTBOOK_SEQ'] }');">&times;</td>
+					</c:if>
 		  		</tr>
 	 		</c:forEach>
     	</c:if>
@@ -42,3 +48,23 @@
 <nav aria-label="Page navigation example">
 	 ${pageBar }
 </nav>
+
+<script>
+	function fn_deleteGb(gbSeq){
+		if(confirm("방명록을 삭제하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/profile/deleteGb",
+				data:{"gbSeq":gbSeq},
+				success:data=>{
+					if(data>0){
+						alert("방명록이 삭제되었습니다.");
+						$("#guestbookAllModal").modal("hide");
+					}else{
+						alert("방명록이 삭제되지 않았습니다.");
+					}
+				}
+			})
+		}
+	};
+</script>

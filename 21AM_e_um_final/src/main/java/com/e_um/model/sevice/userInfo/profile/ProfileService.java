@@ -32,7 +32,7 @@ public class ProfileService implements ProfileServiceInterface {
 
 
 	@Override
-	public List<Guestbook> selectGuestbook(String profileId) {
+	public List<Map> selectGuestbook(String profileId) {
 		return dao.selectGuestbook(session, profileId);
 	}
 
@@ -68,7 +68,7 @@ public class ProfileService implements ProfileServiceInterface {
 
 
 	@Override
-	public List<Guestbook> selectGuestbookAll(String profileId, int cPage, int numPerPage) {
+	public List<Map> selectGuestbookAll(String profileId, int cPage, int numPerPage) {
 		return dao.selectGuestbookAll(session, profileId, cPage, numPerPage);
 	}
 
@@ -76,6 +76,12 @@ public class ProfileService implements ProfileServiceInterface {
 	@Override
 	public int guestbookListCount(String profileId) {
 		return dao.guestbookListCount(session, profileId);
+	}
+
+
+	@Override
+	public int deleteGuestbook(String gbSeq) {
+		return dao.deleteGuestbook(session, gbSeq);
 	}
 
 }

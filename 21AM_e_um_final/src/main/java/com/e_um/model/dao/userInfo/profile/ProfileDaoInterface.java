@@ -13,7 +13,7 @@ public interface ProfileDaoInterface {
 	
 	User selectProfileInfo(SqlSessionTemplate session, String profileId);
 	
-	List<Guestbook> selectGuestbook(SqlSessionTemplate session, String profileId);
+	List<Map> selectGuestbook(SqlSessionTemplate session, String profileId);
 	
 	List<Map> selectAllFeed(SqlSessionTemplate session, String profileId, int index, int btnsu);
 	
@@ -25,8 +25,10 @@ public interface ProfileDaoInterface {
 
 	Friend friendCheck(SqlSessionTemplate session, Friend f);
 	
-	List<Guestbook> selectGuestbookAll (SqlSessionTemplate session, String profileId, int cPage, int numPerPage);
+	List<Map> selectGuestbookAll (SqlSessionTemplate session, String profileId, int cPage, int numPerPage);
 	
 	int guestbookListCount(SqlSessionTemplate session, String profileId);
+	
+	int deleteGuestbook(SqlSessionTemplate session, String gbSeq);
 
 }

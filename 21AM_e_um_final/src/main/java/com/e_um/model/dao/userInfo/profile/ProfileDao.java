@@ -25,7 +25,7 @@ public class ProfileDao implements ProfileDaoInterface {
 	
 	
 	@Override
-	public List<Guestbook> selectGuestbook(SqlSessionTemplate session, String profileId) {
+	public List<Map> selectGuestbook(SqlSessionTemplate session, String profileId) {
 		return session.selectList("profile.selectGuestbook",profileId);
 	}
 
@@ -63,7 +63,7 @@ public class ProfileDao implements ProfileDaoInterface {
 
 
 	@Override
-	public List<Guestbook> selectGuestbookAll(SqlSessionTemplate session, String profileId, int cPage, int numPerPage) {
+	public List<Map> selectGuestbookAll(SqlSessionTemplate session, String profileId, int cPage, int numPerPage) {
 		RowBounds row=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return session.selectList("profile.selectGuestbookAll",profileId,row);
 	}
@@ -72,6 +72,12 @@ public class ProfileDao implements ProfileDaoInterface {
 	@Override
 	public int guestbookListCount(SqlSessionTemplate session, String profileId) {
 		return session.selectOne("profile.guestbookListCount",profileId);
+	}
+
+
+	@Override
+	public int deleteGuestbook(SqlSessionTemplate session, String gbSeq) {
+		return session.update("profile.deleteGuestbook",gbSeq);
 	}
 
 }

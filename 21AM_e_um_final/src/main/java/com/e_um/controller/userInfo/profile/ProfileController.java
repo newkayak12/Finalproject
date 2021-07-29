@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -170,15 +171,22 @@ public class ProfileController {
 			@RequestParam(value="cPage", defaultValue="1") int cPage,
 			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
 			ModelAndView mv, HttpServletRequest rq) {
+		mv.addObject("profileId", profileId);
 		mv.addObject("gbList",service.selectGuestbookAll(profileId,cPage,numPerPage));
 		int totalData=service.guestbookListCount(profileId);
 		String pageBar=PageBar.getPageBar(profileId, totalData, cPage, numPerPage, rq.getContextPath()+"/profile/open/loadAllGb", "fn_paging");
-		
-		log.error(pageBar);
+//		log.error(pageBar);
 		mv.setViewName("components/profile/guestbookAllModal");
 		mv.addObject("pageBar",pageBar);
 		
 		return mv;
+	}
+	
+	
+	@RequestMapping("/profile/deleteGb")
+	@ResponseBody
+	public int deleteGuestbook(@RequestParam(value="gbSeq", required=false) String gbSeq) {
+		return service.deleteGuestbook(gbSeq);
 	}
 
 }

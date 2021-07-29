@@ -112,10 +112,12 @@
 		<div id="profileGuestBook" class="mx-md-5 mt-5 px-md-5">
 		    <span class="float-left mt-5" style="font-family: twayair;"><h4>방명록</h4></span>
 		    <!-- 차단된 친구는 방명록 버튼 볼 수 없게 설정 -->
-		    <c:if test="${friFlag ne 'blockedFri' }">
-			    <span class="float-right  mt-5">
-			    	<button type="button" class="btn btn-outline-dark btn-sm" onclick="fn_openWriteModal('guestbook');"><b><i class="fas fa-pencil-alt mr-2"></i>방명록 쓰기</b></button>
-			    </span>
+		    <c:if test="${profileInfo.userId!=userId }">
+			    <c:if test="${friFlag ne 'blockedFri' }">
+				    <span class="float-right  mt-5">
+				    	<button type="button" class="btn btn-outline-dark btn-sm" onclick="fn_openWriteModal('guestbook');"><b><i class="fas fa-pencil-alt mr-2"></i>방명록 쓰기</b></button>
+				    </span>
+			    </c:if>
 		    </c:if>
 		    <table class="table table-borderless mb-0 table-sm">
 		        <colgroup>
@@ -127,9 +129,9 @@
 		        	<c:if test="${!empty guestbookList }">
 		        		<c:forEach var="g" items="${guestbookList }">
 					    	<tr>
-					    		<td>${g.guestbookComment }</td>
-					            <td class="colend">${g.userIdWriter }</td>
-					            <td class="colend"><fmt:formatDate value="${g.guestbookDate }" pattern="yy/MM/dd"/></td>
+					    		<td>${g['GUESTBOOK_COMMENT'] }</td>
+					            <td class="colend">${g['USER_NICK'] }</td>
+					            <td class="colend"><fmt:formatDate value="${g['GUESTBOOK_DATE'] }" pattern="yy/MM/dd"/></td>
 					   		</tr>
 				   		</c:forEach>
 		        	</c:if>
@@ -227,8 +229,6 @@
 </section>
 
 <script>
-
-
 	$("#applyFriend").click(e=>{
 		let friendNick="${profileInfo.userNick }";
 		if(confirm(friendNick+"님에게 친구 신청을 하시겠습니까?")){

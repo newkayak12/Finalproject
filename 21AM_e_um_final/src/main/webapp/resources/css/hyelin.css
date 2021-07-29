@@ -107,20 +107,6 @@
 }
 
 
-
-/*pagebar*/
-.selectColor.pagination > .active > a, 
-.selectColor.pagination > .active > span, 
-.selectColor.pagination > .active > a:hover, 
-.selectColor.pagination > .active > span:hover, 
-.selectColor.pagination > .active > a:focus, 
-.selectColor.pagination > .active > span:focus {
-	background: #2AC1BC;
-	/* border-color: #2AC1BC; */
-}
-.pagination *{
-	border:none;
-}
-.pagination a{
-	color:black;
+.pointer{
+	cursor:pointer;
 }
