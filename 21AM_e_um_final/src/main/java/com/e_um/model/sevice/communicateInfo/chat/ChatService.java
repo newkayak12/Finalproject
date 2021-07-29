@@ -36,4 +36,22 @@ public class ChatService implements ChatServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.chatInit(myId, apartId, session);
 	}
+
+	@Override
+	public int createChatRoom(String myId, String apartId) {
+		// TODO Auto-generated method stub
+		return dao.createChatRoom(myId, apartId, session);
+	}
+
+	@Override
+	public ChatRoom fetchChat(String roomseq, String userId) {
+		// TODO Auto-generated method stub
+		return dao.fetchChat(roomseq, userId, session);
+	}
+
+	@Override
+	public int iReadit(String roomseq, String userId) {
+		// TODO Auto-generated method stub
+		return dao.iReadit(roomseq, userId, session);
+	}
 }

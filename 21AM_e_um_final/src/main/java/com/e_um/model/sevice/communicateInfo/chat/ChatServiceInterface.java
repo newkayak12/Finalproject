@@ -8,4 +8,7 @@ public interface ChatServiceInterface {
 	public List<ChatRoom> fetchChatlist(String userId);
 	public int  fetchChatAlarm(String userId);
 	public ChatRoom chatInit(String myId, String apartId);
+	public int createChatRoom(String myId, String apartId);
+	public ChatRoom fetchChat(String roomseq, String userId);
+	public int iReadit(String roomseq, String userId);
 }
