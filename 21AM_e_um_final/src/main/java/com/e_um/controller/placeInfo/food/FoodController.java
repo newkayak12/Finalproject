@@ -425,12 +425,18 @@ public class FoodController {
 	}
 	
 	
-	@RequestMapping("/food/foodLike")
-	public String foodLike(String foodSeq, String userId) {
+	@RequestMapping("/food/addFoodLike")
+	public String addFoodLike(String foodSeq, String userId) {
 		
 		log.warn("좋아요{}", foodSeq);
 		log.warn("좋아요{}", userId);
 		
+//		Map<String, String> param = new HashMap<>();
+//		param.put("foodSeq", foodSeq);
+//		param.put("userId", userId);
+//		
+//		int result = service.addFoodLike(param);
+//		
 		
 		return "";
 		

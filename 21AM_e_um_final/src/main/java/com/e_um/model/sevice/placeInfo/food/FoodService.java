@@ -114,5 +114,11 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public int addFoodLike(Map<String, String> param) {
+		return dao.addFoodLike(session, param);
+	}
+
+
 
 }

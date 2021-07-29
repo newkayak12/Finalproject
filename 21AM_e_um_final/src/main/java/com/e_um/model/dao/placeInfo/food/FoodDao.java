@@ -85,6 +85,11 @@ public class FoodDao implements FoodDaoInterface {
 		return session.selectOne("food.countFoodComment", foodSeq);
 	}
 
+	@Override
+	public int addFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.insert("food.addFoodLike", param);
+	}
+
 	
 
 	

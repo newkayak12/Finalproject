@@ -35,6 +35,8 @@ public interface FoodDaoInterface {
 	List<FoodComment> selectFoodCommentList(SqlSessionTemplate session, String foodSeq, int cPage);
 
 	int countFoodComment(SqlSessionTemplate session, String foodSeq);
+
+	int addFoodLike(SqlSessionTemplate session, Map<String, String> param);
 	
 
 }

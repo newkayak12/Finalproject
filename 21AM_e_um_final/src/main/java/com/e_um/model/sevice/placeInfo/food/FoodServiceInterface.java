@@ -31,5 +31,7 @@ public interface FoodServiceInterface {
 
 	int countFoodComment(String foodSeq);
 
+	int addFoodLike(Map<String, String> param);
+
 
 }

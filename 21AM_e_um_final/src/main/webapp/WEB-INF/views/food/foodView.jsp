@@ -53,7 +53,7 @@
 					<div class=" foodView-info-container foodView-icons" style="display:flex;">
 						<!-- 아이콘1 : 하트 -->
 						<div class="foodView-icons-inner mr-3">
-							<a href="${ path }/food/foodLike?foodSeq=${food.foodSeq}&userId=${session.userId}">
+							<a href="${ path }/food/addFoodLike?foodSeq=${food.foodSeq}&userId=${session.userId}">
 								<div class="foodView-icon-style">
 									<i class="far fa-heart"></i>
 								</div>
