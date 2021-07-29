@@ -24,7 +24,7 @@ import com.e_um.common.verifyCodeMaker.VerifyCodeMaker;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
-
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -147,7 +147,7 @@ public class UserController {
 		user.setInterest(interest);
 		String fileName ="default.png";
 		if(profilePhoto.getOriginalFilename().length()>3) {
-			fileName=profilePhoto.getOriginalFilename();
+			fileName=renamepolicy(rq, profilePhoto, "profile");
 		}
 		user.setProfileImageFile(fileName);
 		user.setUserPassword(encrypt.encode(user.getUserPassword()));

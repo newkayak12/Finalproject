@@ -567,16 +567,36 @@ function kakaoLogout(){
 	
 	*/
 	/* 채팅 */
-	const fn_startChat=(roomSeq,id1, id2)=>{
+	let sockect = null;
+	const fn_startChat=(chatroom,id1, id2)=>{
+		socket = new SockJS("${pageContext.request.contextPath}/chat")
+		
+		
+		
+		socket.onopen=function(e){
+			let data = '{"room":"","my":"'+id1+'","target":"'+id2+'","flag":"init","msg":""}';
+			let result = JSON.parse(data)
+			socket.send(data)
+			console.log(e)
+			
+		}
+		
+		socket.onmessage=msghandle;
+		
 		
 	}
-	/* 
-	const fn_startChatf=(userId)=>{
-		console.log("채팅하기"+userId);
-		
-		$("#headerprofile").modal("hide");
-	} */
 	
+	
+	function msghandle(e){
+		console.log(e)
+	}
+	
+	
+	function sendsmg(room, my, target, flag, msg){
+		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg};
+		let result = JSON.parse(data);
+		socket.send(result)
+	}
 	
 	
 	/* 채팅 카운트 */
