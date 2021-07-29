@@ -214,16 +214,6 @@ public class FoodController {
 			
 		}
 			
-		
-		
-		// System.out.println("map : " + map);
-		
-		// System.out.println("리뷰, 로그인유저 : " + userId);
-		// System.out.println("리뷰, 푸드시퀀스 : " + foodSeq);
-		// System.out.println("리뷰, 리뷰내용 : " + foodCommentContents);
-		// System.out.println("리뷰, 별점 : " + rating);
-		
-		
 		int result = service.insertFoodComment(map);
 		
 		System.out.println(result > 0 ? "성공" : "실패");
