@@ -9,7 +9,7 @@
 <c:set var="session" value="${userSession }" scope="session"/>
 <style>
  *{
- 	   /* border: 1px black solid    */
+ 	    /* border: 1px black solid    */ 
  }
 </style>
 
@@ -42,7 +42,7 @@
  <nav class="navbar navbar-expand-sm fixed-top bgColorMainColor whiteText navbar-light justify-content-between d-flex">
 	
         <!--로고 자리-->
-        <div style="font-family: 'twayair', cursive; font-weight: 900; font-size: 25px;"><a href="#" class="navbar_brand ml-2 whiteText">E_um</a></div>
+        <div style="font-family: 'twayair', cursive; font-weight: 900; font-size: 25px;"><a href="${pageContext.request.contextPath }/user/gotomain" style="text-decoration: none" class="navbar_brand  ml-2 whiteText">E_um</a></div>
 		<%-- <div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div> --%>
 
         <!--메뉴-->
@@ -81,12 +81,12 @@
 			    <li class="nav-item col-3">
 			        <i class="fas fa-comments fa-lg fa-7x"  style="font-size:25px;" onclick="showchatList()"></i>
 
-			        <span class="small text-center"  style="position: fixed; top: 5px; right: 180px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="chatCount"></span>
+			        <span class="small text-center"  style="position: fixed; top: 5px; right: 10px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display:none; width: 25px; height: 25px" id="chatCount"></span>
 			    </li>
 		    	
 			</ul>
             <div id="toolbox" class="border">
-	            <div style="position: fixed; right:5px;" id="innerXbox" class="text-center d-flex justify-content-between">
+	            <div style="position: fixed; right:5px;" id="innerXbox" class="text-center d-flex justify-content-between ">
 		            <div id="controlpanel"> </div>
 		            <div class="pr-4" onclick="closetoolbox()">X</div>
 	            </div>
@@ -169,23 +169,32 @@
 
 
 $(function(){
-		
-
-
+	alarmCount()
+	fn_chatAlarmCount();
+    setInterval(()=>{
+    	alarmCount()
+    	fn_chatAlarmCount();
+    },20000)
 })
 
-function online(){
+let onlinelist=[]
 
+function online(){
+  let onlinelist =[];
+  
+  
 	let socket = new SockJS('${pageContext.request.contextPath}/online');
+	
+	
 	socket.onopen=e=>{
 		
 		socket.send("${userSession.userId}")
 	}
 
-
-		socket.onmessage=e=>{
-			let dt = e["data"].substring(1,e["data"].length-1)
-			let onlinelist = dt.split(", ");
+	
+	socket.onmessage=e=>{
+		let dt = e["data"].substring(1,e["data"].length-1)
+		let onlinelist = dt.split(", ");
 
 
 
@@ -370,7 +379,13 @@ function kakaoLogout(){
 					let profilebox = $("<span>").attr({"class":"ml-2 mr-2 d-flex flex-row"})
 					let photo = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"25px","width":"25px", "border-radius":"100%"})
 					let nick = $("<span>").html(v["friendId"]["userNick"])
-					let statusbox = $("<span>").html(v["friendId"]["profileStatus"]).css({ "text-overflow":"ellipsis","overflow":"hidden","white-space":"nowrap","border-radius":"5%"}).attr({"class":"border"})
+					let statusbox =''
+					
+					if(onlinelist.includes(v["friendId"]["userId"])){
+						statusbox= $("<i>").css({"color":"rgb(40,198,50)", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+					} else {
+						statusbox= $("<i>").css({"color":"#bababa", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+					}
 					
 					profilebox.append(photo).append(nick)
 					out.append(profilebox).append(statusbox)
@@ -380,7 +395,13 @@ function kakaoLogout(){
 					let profileboxf = $("<span>").attr("class","ml-2 mr-2 d-flex flex-row")
 					let photof = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"35px","width":"35px", "border-radius":"100%"})
 					let nickf = $("<span>").html(v["friendId"]["userNick"])
-					let statusboxf = $("<span>").html(v["friendId"]["profileStatus"]).css({ "text-overflow":"ellipsis","overflow":"hidden","white-space":"nowrap","border-radius": "5%"}).attr({"class":"border"})
+					
+					let statusboxf= ''
+						if(onlinelist.includes(v["friendId"]["userId"])){
+							statusboxf= $("<i>").css({"color":"rgb(40,198,50)", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+						} else {
+							statusboxf= $("<i>").css({"color":"#bababa", "font-weight":"bolder","font-size":"12px"}).attr("class","pr-2 pt-2 fas fa-circle")
+						}
 					
 					profileboxf.append(photof).append(nickf)
 					outf.append(profileboxf).append(statusboxf)
@@ -449,50 +470,136 @@ function kakaoLogout(){
 		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
 		
 	}
+	
 	function footerProfile(userId,profileImage,nickname,status){
 		
-		$("#headerProfileImage").attr({'src':"${pageContext.request.contextPath}/resources/upload/profile/"+profileImage,"width":"200px"})
-		$("#headerProfileNickname").html(nickname)
-		if(status != 'null'){
-			
-		$("#headerProfileStatus").html(status)
-		}
-		$("#headerGoprofile").attr("onclick","fn_goProfile('"+userId+"')")
-		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
+		$("#footerinnerContainer").html("")
+		
+		let phof = $("<img>").attr({'src':"${pageContext.request.contextPath}/resources/upload/profile/"+profileImage,"width":"200px"})
+		let nickf = $("<div>").html(nickname).attr("class","mt-3")
+		let statf=$("<div>").attr("class","mt-3")
+			if(status != 'null'){
+				
+				statf.html(status)
+			}
+		
+		
+		let profspan = $("<span>").attr("class","ml-2 mr-2")
+		let chatfspan = $("<span>").attr("class","ml-2 mr-2")
+		
+		let prof = $("<i>").attr({"onclick":"fn_goProfile('"+userId+"')", "class":'fa fa-th-large m-4', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
+		let chatf = $("<i>").attr({"onclick":"fn_startChatf('"+userId+"')",'class':'fa fa-comments m-4 mb-1 ', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
+		
+		let profdiv =$("<div>").html("프로필 보기").attr("class","text-center").css("color","white")
+		let chatfdiv = $("<div>").html("채팅하기").attr("class","text-center").css("color","white")
+		
+		
+		
+		profspan.append(prof).append(profdiv)
+		chatfspan.append(chatf).append(chatfdiv)
+		
+		let fprofilecontainer = $("<div>").attr("class","d-flex flex-column justify-content-center align-items-center pt-2 pb-2 mt-2 mb-3").css({"background-color":"rgb(113,120,127)","color":"white"})
+		let fbox = $("<div>").attr("class","d-flex flex-row justify-content-center pt-2 pb-2").css("background-color","rgb(113,120,127)")
+		fbox.append(profspan).append(chatfspan)
+		fprofilecontainer.append(phof).append(nickf).append(statf)
+		
+		
+		let resultbox = $("<div>").attr("class","d-flex flex-column justify-content-center pt-2 pb-2 mt-3 mb-2").css("background-color","rgb(113,120,127)")
+		
+		
+			resultbox.append(fprofilecontainer).append(fbox)
+		$("#footerinnerContainer").append(resultbox)
 		
 	}
 	
-function headerProfile(userId,profileImage,nickname,status){
-		
-		$("#headerProfileImage").attr({'src':"${pageContext.request.contextPath}/resources/upload/profile/"+profileImage,"width":"200px"})
-		$("#headerProfileNickname").html(nickname)
-		if(status != 'null'){
-			
-		$("#headerProfileStatus").html(status)
-		}
-		$("#headerGoprofile").attr("onclick","fn_goProfile('"+userId+"')")
-		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
-		
-	}
+	
+	/* 
+	
+		<div class="d-flex flex-row justify-content-center pt-2 pb-2" style="background-color: rgb(113,120,127);">
+      <span class="ml-2 mr-2"  id="headerGoprofile"> 
+      	<i class="fa fa-th-large m-4" aria-hidden="true" style="font-size:30px; color: white"></i>
+      	<div class="text-center" style="color:white;">프로필 보기</div>
+      </span>
+      <span class="ml-2 mr-2" id="headerChat" >
+      	<i class="fa fa-comments m-4 mb-1 " aria-hidden="true" style="font-size:30px; color: white"></i>
+      	<div class="text-center" style="color:white;" >채팅하기</div>
+      </span >
+	  
+        <!-- <button type="button" class="btn btn-primary eumbtn-1" data-dismiss="modal" id="headerGoprofile">프로필</button> -->
+        <!-- <button type="button" class="btn btn-success eumbtn-2" data-dismiss="modal" id="headerChat" >채팅</button> -->
+      </div>
+	
+	*/
+	
+
 	/***************************************************************/
 	
 	
 	
 	/* 프로필로 가기 */
 	const fn_goProfile=(userId)=>{
-		console.log("프로필로 가기"+userId);
+		location.assign('${pageContext.request.contextPath}/profile/open/'+userId);
 		
 		
 	}
 	
+	/* 
+		채팅방을 검색해서 시퀀스를 받아서
+		
+		
+		MAP에는 아이디를 받는  MAP이 있어야하고
+		채팅방을 갖는 MAP이 있어야한다. 
+		
+		
+		1. 시퀀스가 있으면 소켓을 열고, 
+		2. 시퀀스가 없으면 채팅방을 만든다.
+			2.1 시퀀스가 있으면 소켓을 연다.
+			
+		3. 소켓을 열면 채팅방 시퀀스랑 아이디, 상대 아이디를 보낸다. 
+		  3.1 상대방 아이디가 있으면 실시간
+		  		MAP에 있는 세션으로 메시지를 전달
+		  			INSERT를 계속 해줘야한다. 이게 문제... 
+		  3.2 상대방 아이디가 없으면 데이터 베이스로 저장한다 .
+		  		없으면, controller를 불러서 데이터 베이스로 저장
+		  		
 	
+	
+	
+	*/
 	/* 채팅 */
-	const fn_startChat=(userId)=>{
+	const fn_startChat=(roomSeq,id1, id2)=>{
+		
+	}
+	/* 
+	const fn_startChatf=(userId)=>{
 		console.log("채팅하기"+userId);
 		
 		$("#headerprofile").modal("hide");
-	}
+	} */
 	
+	
+	
+	/* 채팅 카운트 */
+	const fn_chatAlarmCount=()=>{
+		let userId = '${userSession.userId}'
+		$.ajax({
+			url:"${pageContext.request.contextPath}/fetch/chatalarm",
+			data:{"userId":userId},
+			success:data=>{
+				console.log(data)
+				if(data>0){
+				$("#chatCount").html(data).css("display","block")
+				$("#chatCountbot").html(data).css("display","block")
+					
+				} else{
+					$("#chatCount").css("display","none")
+					$("#chatCountbot").css("display","none")
+				}
+				
+			}
+		})
+		
+	}
 	
 	
 	
@@ -503,6 +610,9 @@ function headerProfile(userId,profileImage,nickname,status){
 	
 	/***********************채팅목록********************************/
 	const fn_chatList=()=>{
+		let userId = '${userSession.userId}'
+			/* let userNick ='${userSession.userNick}'
+		
 		let chatlistbox = $("<div>").attr({"class":"d-flex flex-row justify-content-around  border mt-2"}).css("height","60px")
 		let profile =$("<img>").css({"color":"black","width":"50px","height":"50px","border-radius":"100%"})
 		let nick = $("<span>").css({"color":"black","font-size":"16px"})
@@ -511,63 +621,92 @@ function headerProfile(userId,profileImage,nickname,status){
 		let msg = $("<div>").css({"color":"black","font-size":"16px"})
 		let date =$("<div>").css({"color":"black","font-size":"10px"}).attr("class"," d-flex justify-content-between")
 		let innerbox = $("#toolinnerbox")
-		let userId = '${userSession.userId}'
-		let userNick ='${userSession.userNick}'
-		let temp = $("<div>")
-		let buffer ='';
+		let rbox =$("<div>")
+		
+		let chatlistboxf = $("<div>").attr({"class":"d-flex flex-row justify-content-around  border mt-2"}).css("height","60px")
+		let profilef =$("<img>").css({"color":"black","width":"50px","height":"50px","border-radius":"100%"})
+		let nickf = $("<span>").css({"color":"black","font-size":"16px"})
+		let profileboxf = $("<span>")
+		let msgboxf = $("<span>").attr("class","col-8 p-0")
+		let msgf = $("<div>").css({"color":"black","font-size":"16px"})
+		let datef =$("<div>").css({"color":"black","font-size":"10px"}).attr("class"," d-flex justify-content-between")
+		let innerboxf = $("#toolinnerbox")
+		let rboxf =$("<div>") */
+		
 		$.ajax({
 			url:"${pageContext.request.contextPath}/fetch/chatlist",
 			data:{"userId":userId},
 			success:data=>{
 				
-				data.forEach((v,i)=>{
+				/* data.forEach((v,i)=>{
 					
-					v["chats"].forEach((v2,i2)=>{
-						
-						if(v2["chatSender"]["userNick"]!=userNick){
-							/* console.log(v2["chatSender"]["userNick"]) */
-						
-							temp.html('')
-							date.html("")
 							
+							
+					v["chats"].forEach((v2,i2)=>{
+						if(v2["chatSender"]["userNick"]!=userNick){
 							profile.attr({"src":"${pageContext.request.contextPath}/resources/upload/profile/"+v2["chatSender"]["profileImageFile"]})
 							nick.html(v2["chatSender"]["userNick"])
-							msg.html(v2["chatContent"])
-							
-							date.append(nick).append($("<span>").append(v2["chatSendTime"]))
-							msgbox.append(date).append(msg)
 							
 							chatlistbox.append(profile)
-							chatlistbox.append(msgbox)
-							temp.html(chatlistbox)
-							buffer += temp.html()
-							console.log(buffer)
-							/* console.log(chatlistbox.html()) */
-							/* innerbox.append(chatlistbox) */
-						}
 							
-							/* console.log(innerbox.html()) */
+							profilef.attr({"src":"${pageContext.request.contextPath}/resources/upload/profile/"+v2["chatSender"]["profileImageFile"]})
+							nickf.html(v2["chatSender"]["userNick"])
+							
+							chatlistboxf.append(profilef)
+						}
 					})
 					
 					
+					
+					
+							msgf.html(v["chats"][0]["chatContent"])
+							datef.append(nickf).append($("<span>").append(v["chats"][0]["chatSendTime"]))
+							msgboxf.append(datef).append(msgf)
+					
+							chatlistbox.append(msgbox)
+							
+							
+							msg.html(v["chats"][0]["chatContent"])
+							date.append(nick).append($("<span>").append(v["chats"][0]["chatSendTime"]))
+							msgbox.append(date).append(msg)
+							
+							chatlistboxf.append(msgboxf)
+							
+							$("#rbox").append(chatlistbox)
+							$("#rboxf").append(chatlistboxf)
+							
+							console.log($("#rbox").html())
+							console.log($("#rboxf").html())
+							$("#toolinnerbox").append(r)
+							$("#footerinnerContainer").html(rtempf)
+					
 				})
-				
-				innerbox.html(buffer)
+							
+						
+			} */
+			/* $("#toolbox").css("background-color","2AC1BC") */
+			$("#toolinnerbox").html(data)
+			$("#footerinnerContainer").html(data)
 			}
-			
-			
 		})
 		/* toolinnerbox */
 		
-		return innerbox;
+							
 	}
 	
 	/* 헤더 채팅 리스트 */
 	function showchatList(){
+		$("#controlpanel").html("채팅목록")
 		$("#toolbox").toggle(240)
 		$("#toolinnerbox").html("")
-		$("#toolinnerbox").html(fn_chatList())
-		
+		fn_chatList()
+	}
+	
+	/* 푸터 채팅 리스트 */
+	function showchatListf(){
+		$("#footerContainer").toggle(24)
+		$("#footerinnerContainer").html("")
+		fn_chatList()
 	}
 	
 	
@@ -586,12 +725,7 @@ function headerProfile(userId,profileImage,nickname,status){
 	
 	/* ************************************알람 *********************************** */
 
-	$(function(){
-		alarmCount()
-        setInterval(()=>{
-        	alarmCount()
-        },20000)
-    })
+	
 	/* 알람 카운터*/
     const alarmCount=()=>{
         let SessionMyId = '${userSession.userId}';
@@ -634,14 +768,15 @@ function headerProfile(userId,profileImage,nickname,status){
 					
 				if(data.length>0){
 						data.forEach((v,i)=>{
+							console.log(v)
 							if(v["alarmRead"]=='unread'){
-							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}else {
-								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}
@@ -708,7 +843,9 @@ function headerProfile(userId,profileImage,nickname,status){
 		
 	}
 	
-	const fn_read=(seq, key)=>{
+	const fn_read=(seq, key, ref)=>{
+		let userId = '${userSession.userId}';
+		
 		$.ajax({
 			url:"${pageContext.request.contextPath}/alarm/readAlarm",
 			data:{"alarmSeq":seq},
@@ -716,9 +853,43 @@ function headerProfile(userId,profileImage,nickname,status){
 				if(data>0){
 					alarmlist();
 					
-					/*  해당 페이지로 이동해야하는데 어떻게 될까요?*/
-					console.log(key)
 					
+					
+						switch (key) {
+						case "friend_alarm":
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"requestfriend")
+							break;
+						case "guestbook_alarm":
+							location.assign('${pageContext.request.contextPath}/profile/open/'+userId)
+							break;
+						case "accept_friend_alarm":
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friend")
+							break;
+						case "feed_alarm":
+							location.assign('${pageContext.request.contextPath}/profile/open/'+userId+'?feedSeq='+ref);
+							break;
+						case "feed_like_alarm":
+							location.assign('${pageContext.request.contextPath}/profile/open/'+userId+'?feedSeq='+ref);
+							break;
+						case "calendar_alarm":
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"calendar")
+							break;
+						case "movie_alarm":
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"movie")
+							break;
+						case "support_alarm":
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"support")
+							break;
+						case "food_alarm":
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"food")
+							break;
+						default:
+							break;
+						
+						console.log(key)
+						console.log(seq)
+						
+						}
 				}
 			}
 		})

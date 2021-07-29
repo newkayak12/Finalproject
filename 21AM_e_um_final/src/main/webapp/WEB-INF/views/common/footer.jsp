@@ -1,18 +1,13 @@
 
 
 		<div id="footerContainer">
-			<div class="d-flex justify-content-around mb-4 p-2 border col-12">
+			<div class="d-flex justify-content-around  border col-12">
 				<span id="controlpanelprev"></span>
 				<span id="controlpanelfooter"></span>
 				<span id="controlpanelnext"></span>
 			</div>
-			<div id="footerinnerContainer" style="height:600px" class="pb-5 mb-5" >
-				<div id="friendList" style="display: none;">
-				</div>
-				<div id="footerprofileview" style="display: none;">
+			<div id="footerinnerContainer" style="height:610px" class="mb-5" >
 				
-				
-				</div>
 			</div>
 				
 		</div>
@@ -42,8 +37,8 @@
                 <li class="border mt-2 mb-2"></li>
                 
                 <li class="nav-item">
-                	<i class="fas fa-comments fa-lg p-2 fa-7x " style="font-size:30px"></i>
-                	<span class="small" style="width: 30px; height: 30px; font-size:18px; position:fixed;  right:30px; bottom: 50px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display: none;" id="chatCountbot">12</span>
+                	<i class="fas fa-comments fa-lg p-2 fa-7x " style="font-size:30px" onclick = "showchatListf()"></i>
+                	<span class="small" style="width: 30px; height: 30px; font-size:18px; position:fixed;  right:30px; bottom: 30px; z-index: 200; border-radius: 100%; background-color: rgba(255, 0, 0, 0.8); color: white; display: none;" id="chatCountbot">12</span>
                 </li>
                 <!--span알림  -->
           </ul>
