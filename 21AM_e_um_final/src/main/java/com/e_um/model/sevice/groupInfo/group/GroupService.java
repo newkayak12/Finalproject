@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.groupInfo.group.GroupDaoInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
+import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;

@@ -29,7 +29,7 @@ public class FeedController {
 		@RequestMapping("/feed/feedList")
 		public String feedList(@RequestParam(value="userId", defaultValue = "newkayak12")String userId, @RequestParam(value = "cPage", defaultValue = "1") int cPage, Model model) {
 			List<Feed> result =  service.feedList(userId,cPage);
-			log.warn("{}",result);
+			log.warn("장혜린린린{}",result);
 			List<Integer> index = new ArrayList();
 			for(int i = (cPage-1)*5+1; i<=cPage*5; i++  ) {
 				index.add(i);

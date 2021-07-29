@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.seat.Seat;
 
 import lombok.AllArgsConstructor;
@@ -22,8 +23,10 @@ public class MovieSeatStatus {
 	/*
 	 * 좌석을 뿌려줄 때 한 번에 여러개를 가져오자!
 	 */
-	private String boxOfficeSeq, movieLocation, movieBox, movieSeq, movieTime;
-	private int movieRows, movieColumns;
+	private String boxOfficeSeq;
+	private Movie movieSeq;
+	private MovieBox movieBoxSeq;
+	private	MovieTime movieTime;
 	private List<Seat> seats = new ArrayList();
 
 }

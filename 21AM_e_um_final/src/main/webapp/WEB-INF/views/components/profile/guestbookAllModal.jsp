@@ -10,28 +10,34 @@
         <col class="col-7">
         <col class="col-2">
         <col class="col-2">
-        <col class="col-1">
+        <c:if test="${userSession.userId==profileId }">
+	        <col class="col-1">
+        </c:if>
     </colgroup>
     <thead class="thead-light">
       <tr>
-        <th class="colend">content</th>
-        <th class="colend">writer</th>
-        <th class="colend">date</th>
-        <th class="colend">delete</th>
+        <th class="colcenter">CONTENT</th>
+        <th class="colcenter">WRITER</th>
+        <th class="colcenter">DATE</th>
+        <c:if test="${userSession.userId==profileId }">
+	        <th class="colcenter">DELETE</th>
+        </c:if>
       </tr>
     </thead>
     <tbody>
-    	<c:if test="${!empty guestbookList }">
-    		<c:forEach var="g" items="${guestbookList }">
+    	<c:if test="${!empty gbList }">
+    		<c:forEach var="g" items="${gbList }">
 			   	<tr>
-			   		<td>${g.guestbookComment }</td>
-					<td class="colend">${g.userIdWriter }</td>
-					<td class="colend"><fmt:formatDate value="${g.guestbookDate }" pattern="yy/MM/dd"/></td>
-					<td class="colend">&times;</td>
+			   		<td>${g['GUESTBOOK_COMMENT'] }</td>
+					<td class="colcenter">${g['USER_NICK'] }</td>
+					<td class="colcenter"><fmt:formatDate value="${g['GUESTBOOK_DATE'] }" pattern="yy/MM/dd"/></td>
+					<c:if test="${userSession.userId==profileId }">
+						<td class="colcenter pointer" onclick="fn_deleteGb('${g['GUESTBOOK_SEQ'] }');">&times;</td>
+					</c:if>
 		  		</tr>
 	 		</c:forEach>
     	</c:if>
-    	<c:if test="${empty guestbookList }">
+    	<c:if test="${empty gbList }">
     		<tr>
     			<td colspan="4">첫번째 방명록의 주인공이 되어보세요!</td>
     		</tr>
@@ -39,5 +45,26 @@
     </tbody>
 </table>
 
-<div class="pagebar">
-</div>
+<nav aria-label="Page navigation example">
+	 ${pageBar }
+</nav>
+
+<script>
+	function fn_deleteGb(gbSeq){
+		if(confirm("방명록을 삭제하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/profile/deleteGb",
+				data:{"gbSeq":gbSeq},
+				success:data=>{
+					if(data>0){
+						alert("방명록이 삭제되었습니다.");
+						$("#guestbookAllModal").modal("hide");
+					}else{
+						alert("방명록이 삭제되지 않았습니다.");
+					}
+				}
+			})
+		}
+	};
+</script>

@@ -11,7 +11,7 @@ public interface ProfileServiceInterface {
 	
 User selectProfileInfo(String profileId);
 	
-	List<Guestbook> selectGuestbook(String profileId);
+	List<Map> selectGuestbook(String profileId);
 	
 	List<Map> selectAllFeed(String profileId, int index, int btnsu);
 	
@@ -22,5 +22,11 @@ User selectProfileInfo(String profileId);
 	int insertGuestbookAlarm(Guestbook gb);
 
 	Friend friendCheck(Friend f);
+	
+	List<Map> selectGuestbookAll(String profileId, int cPage, int numPerPage);
+	
+	int guestbookListCount(String profileId);
+	
+	int deleteGuestbook(String gbSeq);
 
 }

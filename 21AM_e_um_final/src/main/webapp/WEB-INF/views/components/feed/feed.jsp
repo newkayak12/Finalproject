@@ -7,7 +7,7 @@
 <c:forEach var="feed" items="${list }" varStatus="i">
  <div class="col-9 mt-3 mb-3 p-0  border" id="feed-innerContainer">
 	  			<!-- 누르면 프로필로 이동 -->
-        <div class="d-flex flex-row justify-content-start col-12" style="max-height: 100px;" onclick="">
+        <div class="d-flex flex-row justify-content-start col-12" style="max-height: 100px;" data-toggle="modal" data-target="#headerprofile" onclick="headerProfile('${feed.feederId}','${feed.feedProfilePhoto}','${feed.feedNick }','${feed.profileStatus }')">
             <img alt="프사" src="${pageContex.request.contextPath }/resources/upload/profile/${feed.feedProfilePhoto}"  class="m-2" style="width: 75px; height: 75px; border-radius: 100%;">
                 <div class="d-flex flex-column justify-content-center col-7" >
                     <p class="mt-1 mb-1 m-0">${feed.feedNick }</p>

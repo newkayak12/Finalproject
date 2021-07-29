@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Component
 public class Feed {
 	
-	private String feedSeq, feederId, feedNick, feedProfilePhoto, feedContents;
+	private String feedSeq, feederId, feedNick, feedProfilePhoto, feedContents, profileStatus;
 	private Date feedDate;
 	private String feedImage1, feedImage2, feedImage3, feedFlag, feedBlock;
 	private String feedLike;

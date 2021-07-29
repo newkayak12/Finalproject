@@ -76,26 +76,35 @@
 			        </table>
 			    </div>
 		    	<c:if test="${profileInfo.userId!=userId }">
-				    <div id="profileBtn" class="ml-md-5 mt-4 ">
+				    <div id="profileBtn" class="ml-md-5 mt-4">
 				    	<!-- 차단된 친구는 친구 신청 버튼 볼 수 없게 설정, 이미 친구를 신청한 경우 친구 요청 중으로 띄우고 버튼 사용 불가로, 친구인 경우 친구라고 띄우고 버튼 사용 불가로 -->
 				    	<c:choose>
 				    		<c:when test="${friFlag eq 'applyFri' }">
-			        			<button type="button" id="applyFriend" class="btn btn-outline-info mx-xs-2" value="${profileInfo.userId }">친구 신청</button>
+			        			<button type="button" id="applyFriend" class="btn checkBtn mx-xs-2" value="${profileInfo.userId }">친구 신청</button>
 			        		</c:when>
 			        		<c:when test="${friFlag eq 'friend' }">
-			        			<button type="button" class="btn btn-light mx-xs-2" disabled><i class="fas fa-check mr-2"></i>친구</button>
+			        			<button type="button" class="btn disableBtn mx-xs-2" disabled><i class="fas fa-check mr-2"></i>친구</button>
 			        		</c:when>
 			        		<c:when test="${friFlag eq 'alreadyApply' }">
-			        			<button type="button" class="btn btn-light mx-xs-2" disabled>친구 요청됨</button>
+			        			<button type="button" class="btn disableBtn mx-xs-2" disabled>친구 요청됨</button>
 			        		</c:when>
 			        		<c:when test="${friFlag eq 'acceptFri' }">
-			        			<button type="button" id="acceptFriend" class="btn btn-outline-success mx-xs-2" value="${profileInfo.userId }">친구 수락</button>
+			        			<button type="button" id="acceptFriend" class="btn checkBtn mx-xs-2" value="${profileInfo.userId }">친구 수락</button>
 			        		</c:when>
 			        	</c:choose>
 				        <a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
-							<button type="button" class="btn btn-outline-danger"><i class="fas fa-exclamation"></i></button>
-						</a>
+				            <button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;">
+				            	<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" data-toggle="modal" data-target="#ReportModal">
+				            </button>
+				        </a>
 				    </div>
+				</c:if>
+				<c:if test="${profileInfo.userId==userId }">
+					<div id="profileBtn" class="ml-md-5 mt-4">
+						<button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;">
+			            	<i class="fas fa-cog" width="20px"></i>
+			            </button>
+					</div>
 				</c:if>
 			</div>
 		</div>
@@ -103,10 +112,12 @@
 		<div id="profileGuestBook" class="mx-md-5 mt-5 px-md-5">
 		    <span class="float-left mt-5" style="font-family: twayair;"><h4>방명록</h4></span>
 		    <!-- 차단된 친구는 방명록 버튼 볼 수 없게 설정 -->
-		    <c:if test="${friFlag ne 'blockedFri' }">
-			    <span class="float-right  mt-5">
-			    	<button type="button" class="btn btn-outline-dark btn-sm" onclick="fn_openWriteModal('guestbook');"><b><i class="fas fa-pencil-alt mr-2"></i>방명록 쓰기</b></button>
-			    </span>
+		    <c:if test="${profileInfo.userId!=userId }">
+			    <c:if test="${friFlag ne 'blockedFri' }">
+				    <span class="float-right  mt-5">
+				    	<button type="button" class="btn btn-outline-dark btn-sm" onclick="fn_openWriteModal('guestbook');"><b><i class="fas fa-pencil-alt mr-2"></i>방명록 쓰기</b></button>
+				    </span>
+			    </c:if>
 		    </c:if>
 		    <table class="table table-borderless mb-0 table-sm">
 		        <colgroup>
@@ -118,9 +129,9 @@
 		        	<c:if test="${!empty guestbookList }">
 		        		<c:forEach var="g" items="${guestbookList }">
 					    	<tr>
-					    		<td>${g.guestbookComment }</td>
-					            <td class="colend">${g.userIdWriter }</td>
-					            <td class="colend"><fmt:formatDate value="${g.guestbookDate }" pattern="yy/MM/dd"/></td>
+					    		<td>${g['GUESTBOOK_COMMENT'] }</td>
+					            <td class="colend">${g['USER_NICK'] }</td>
+					            <td class="colend"><fmt:formatDate value="${g['GUESTBOOK_DATE'] }" pattern="yy/MM/dd"/></td>
 					   		</tr>
 				   		</c:forEach>
 		        	</c:if>
@@ -131,7 +142,9 @@
 		        	</c:if>
 		        </tbody>
 		    </table>
-		    <span class="float-right mb-5"><button type="button" class="btn btn-outline-light text-dark btn-sm">> 더보기</button></span>
+		    <span class="float-right mb-5">
+		    	<button type="button" class="btn btn-outline-light text-dark btn-sm" onclick="fn_openGuestbookModal('${profileInfo.userId}');">> 더보기</button>
+		    </span>
 		</div>
 		
 		<div id="profileFeed" class="px-5 mt-5"><hr>
@@ -155,7 +168,7 @@
 	
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <h4 class="modal-title"></h4>
+	        <h4 class="modal-title pointFont mainColor"></h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 	
@@ -165,7 +178,7 @@
 	
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn cancelBtn" data-dismiss="modal">Close</button>
 	      </div>
 	
 	    </div>
@@ -179,17 +192,18 @@
 	
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <h4 class="modal-title">방명록</h4>
+	        <h4 class="modal-title pointFont mainColor">방명록</h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 	
 	      <!-- Modal body -->
-	      <div class="modal-body">
-	      </div>
+		<div class="modal-body" id="guestbookmodalroot">
+	      	
+		</div>
 	
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn cancelBtn" data-dismiss="modal">Close</button>
 	      </div>
 	
 	    </div>
@@ -260,6 +274,14 @@
 	})
 	
 	$(function(){
+		
+		let feedSeq ='${feedSeq}';
+		
+		if(feedSeq=='none'){
+			
+		}
+		
+		
 	    let index=0;
 	    let profileId="${profileInfo.userId }";
 	    
@@ -305,12 +327,30 @@
 				},
 			success: data=>{
 				if(flag=="guestbook"){
-					$("#writeModal .modal-title").html("<b>방명록 등록</b>");
+					$("#writeModal .modal-title").html("방명록 등록");
 				}else{
-					$("#writeModal .modal-title").html("<b>피드 등록</b>");
+					$("#writeModal .modal-title").html("피드 등록");
 				}
 				$("#writeModal .modal-body").html(data);
 				$("#writeModal").modal("show");
+			}
+		})
+	}
+	
+	function fn_openGuestbookModal(profileId){
+		fn_loadAllGuestbook(profileId);
+		$("#guestbookAllModal").modal("show");
+	}
+	
+	function fn_loadAllGuestbook(profileId){
+		$.ajax({
+			type:"get",
+			url: "${pageContext.request.contextPath}/profile/open/loadAllGb",
+			data:{
+				"profileId":profileId
+			},
+			success: data=>{
+				$("#guestbookAllModal .modal-body").html(data);
 			}
 		})
 	}

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
 	
@@ -10,41 +11,20 @@
 				url:"<%=request.getContextPath()%>/movie/moviePerson",
 				data:{"moviePersonName":moviePersonName},
 				success:data=>{
-					console.log(data);
 					let date = data["moviePersonBirth"];
 					let result = date.split("-"); 
-
-						console.log(data["movies"]);
 					$("#modalImage").attr("src","${applicationScope.path}/resources/upload/movie/movie_person_picture/"+data["moviePersonPhoto"])
-					/* $("#modalTitleKr").html(data["movieTitleKr"])
-					$("#modalTitleEn").html(data["movieTitleEn"])
-					$("#modalOpenDate").html("개봉일 : "+result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
-					$("#modalReserveRate").html("예매율 : "+data["movieReserveRate"]+"%")
-					$("#btn1").attr("value",data["movieSeq"])  */
 					$("#modalPersonName").html(data["moviePersonName"])
 					$("#modalBirth").html("출생 : " +result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
 					$("#modalPhilmo").html("")
 					data["movies"].forEach((v,i)=>{
-						
 						$("#modalPhilmo").append($("<li>").html(v).attr("class","list-group-item col-12 small").css("max-height","40px"));
 					})
-					/* for(int i=0; i<data["movies"].length; i++){
-						$("#modalPhilmo").append($("<li>").html(data[i]));
-					}  */
+
 				}
 			});
 		}
 		
-		<%-- function trailerAjax(){
-    		console.log(movieSeq);
-			$.ajax({
-    			url:"<%=request.getContextPath()%>/movie/selectMovieVideo",
-    			data:{"movieSeq":movieSeq},
-    			success:data=>{
-    				$("#movieVideo").attr("src",data["movieVideo"])
-    			}
-    		})
-    	} --%>
 		
 		const basicInfoShow=()=>{
 			$("#basicInfocontainer").css("display","block")
@@ -69,23 +49,73 @@
 			
 		}
 		const reviewShow=(movieSeq)=>{
-			$.ajax({
-    			url:"<%=request.getContextPath()%>/movie/movieReview",
-    			data:{"movieSeq":movieSeq},
-    			success:data=>{
-    				console.log(data);
-    				$(".table-container").append("<tr>").html(data["userId"][0])
-    			}
-    		})
-    		
-			
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","block")
 			$("#graphcontainer").css("display","none")
 			
+			$.ajax({
+				url:"<%=request.getContextPath()%>/movie/movieReview",
+				data:{"movieSeq":movieSeq},
+				success:data=>{
+					
+					data.forEach((v,i)=>{
+						console.log(v["movieReviewWriteDate"]);
+						let date = (v["movieReviewWriteDate"]);
+						let result = date.split("-");
+						console.log(result);
+						$("#reviewBody").append(
+								$("<tr>").append($("<td>").html(v["userId"]["userId"]))
+								.append($("<td>").html("★"+v["movieEvaluationAvg"]))
+								.append($("<td>").html(v["movieReviewContent"]))
+								.append($("<td>").html(result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일"))
+						)
+					})
+					
+						
+				}
+				
+				
+			})
+			
 		}
-		const graphShow=()=>{
+		const graphShow=(movieSeq)=>{
+			$.ajax({
+    			url:"<%=request.getContextPath()%>/movie/movieReviewData",
+    			data:{"movieSeq":movieSeq},
+    			success:data=>{
+    				console.log(data);
+    				$("#totalPoint").html("★"+data['total']).css("font-size","30px");
+    				new Chart($("#radar-chart"), {
+    				    type: 'radar',
+    				    data: {
+    				      labels: ["연출", "영상미", "스토리", "연기력", "음악성"],
+    				      datasets: [
+    				        {
+    				          label: '평균 분포',
+    				          fill: true,
+    				          backgroundColor: "rgba(179,181,198,0.2)",
+    				          borderColor: "#6543b1",
+    				          pointBorderColor: "#fff",
+    				          pointBackgroundColor: "#6543b1",
+    				          /* data: [10,12,13,18,20] */
+    				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
+    				        }
+    				      ]
+    				    },
+    				    options: {
+    				      title: {
+    				        
+    				      }
+    				    }
+    				}); 
+    					
+    			}
+    		})
+    		
+    		
+					
+			
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","none")
@@ -123,7 +153,7 @@
 			                        <strong>${movie.movieReserveRate }</strong>
 			                    </span><br>
 			                    <span>영화평점 &nbsp;
-			                        <strong>${movie.movieTotalEvalution }</strong>
+			                        <strong>★${movie.movieTotalEvalution }</strong>
 			                    </span>
 			                </div>
 			                <button class="btn btn-success mt-5">예매하기</button>
@@ -137,7 +167,7 @@
 			                    <li><button class="btn" id="basicinfobtn" onclick="basicInfoShow()">기본정보</button></li>
 			                    <li><button class="btn" id="trailerbtn" onclick="trailerShow('${movie.movieSeq}')">트레일러</button></li>
 			                    <li><button class="btn" id="reviewbtn" onclick="reviewShow('${movie.movieSeq}')">관람평</button></li>
-			                    <li><button class="btn" id="graphbtn" onclick="graphShow()">예매분포</button></li>
+			                    <li><button class="btn" id="graphbtn" onclick="graphShow('${movie.movieSeq}')">예매분포</button></li>
 			                </ul>
 			               
 			            </div>
@@ -199,22 +229,38 @@
 						<table class="table">
 						    <thead>
 						      <tr>
-						        <th>작성자</th>
-						        <th>별점</th>
-						        <th>리뷰</th>
-						        <th>작성일</th>
-						      </tr>
+						        <th class="col-2">작성자</th>
+						        <th class="col-2">평점</th>
+						        <th class="col-5 justify-content-center">리뷰</th>
+						        <th class="col-3">작성일</th>
+						      </tr >
 						    </thead>
-						    <tbody>
-							    <tr class="table-container">
-							        
-							    </tr>
+						    <tbody id="reviewBody">
+							    
 						    </tbody>
 						  </table>
 					</div>
 					
 					<div id="graphcontainer">
-						graph
+						<h3>예매분포</h3>
+						<div class="col-12" style="height: 300px; display: flex;">
+							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>평균 별점</h5>
+								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 200px; height: 200px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
+										<span id="totalPoint"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>관람포인트</h5>
+								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
+										<canvas id="radar-chart" width="250" height="250"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 			    </div>
 			</div>

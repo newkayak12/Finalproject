@@ -77,6 +77,9 @@
 .colend{
     text-align: end;
 }
+.colcenter{
+	text-align: center;
+}
 #feedContainer>.box{
     width:300px;
     height:300px;
@@ -94,4 +97,16 @@
 	width: 140px;
 	height: 140px;
 	object-fit: cover;
+}
+
+.disableBtn{
+	border : 2px solid;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
+
+
+.pointer{
+	cursor:pointer;
 }

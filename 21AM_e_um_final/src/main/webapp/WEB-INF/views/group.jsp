@@ -68,7 +68,8 @@
 						<td><c:out value="${g.groupTitle }" /></td>
 
 						<td><button id="btn-groupinit" class="btn"
-								onclick="location.assign('${path}/group/groupJoin.do?groupSeq='+${g.groupSeq })">입장</button></td>
+								onclick="<%-- location.assign('${path}/group/groupJoin.do?groupSeq='+${g.groupSeq }) --%>
+								javascript:moveFn('${g.groupSeq}');">입장</button></td>
 					</tr>
 				</tbody>
 
@@ -89,11 +90,10 @@
 			<c:forEach var="g" items="${list }">
 
 				<!-- 리스트 div -->
-				<a href="${rqeust.getContextPath }/group/groupJoin.do?groupSeq="
-					+${g.groupSeq }>
+				<a href="javascript:moveFn('${g.groupSeq }');">
 					<div class="list_container">
 						<div class="list_imgBox1">
-							<img
+							<imgw
 								src="${request.getContextPath}/resources/upload/group/${g.groupFileUpload } ">
 						</div>
 						<div class="list_containerTxt d-flex justify-content-start">

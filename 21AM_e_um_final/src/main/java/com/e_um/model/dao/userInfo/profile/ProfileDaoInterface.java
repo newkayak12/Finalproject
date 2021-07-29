@@ -11,9 +11,9 @@ import com.e_um.model.vo.userInfo.user.User;
 
 public interface ProfileDaoInterface {
 	
-User selectProfileInfo(SqlSessionTemplate session, String profileId);
+	User selectProfileInfo(SqlSessionTemplate session, String profileId);
 	
-	List<Guestbook> selectGuestbook(SqlSessionTemplate session, String profileId);
+	List<Map> selectGuestbook(SqlSessionTemplate session, String profileId);
 	
 	List<Map> selectAllFeed(SqlSessionTemplate session, String profileId, int index, int btnsu);
 	
@@ -24,5 +24,11 @@ User selectProfileInfo(SqlSessionTemplate session, String profileId);
 	int insertGuestbookAlarm(SqlSessionTemplate session, Guestbook gb);
 
 	Friend friendCheck(SqlSessionTemplate session, Friend f);
+	
+	List<Map> selectGuestbookAll (SqlSessionTemplate session, String profileId, int cPage, int numPerPage);
+	
+	int guestbookListCount(SqlSessionTemplate session, String profileId);
+	
+	int deleteGuestbook(SqlSessionTemplate session, String gbSeq);
 
 }

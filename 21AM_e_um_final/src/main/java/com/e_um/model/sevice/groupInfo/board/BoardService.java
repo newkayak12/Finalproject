@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.groupInfo.board.BoardDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.groupinfo.board.Board;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,4 +17,12 @@ public class BoardService implements BoardServiceInterface {
 	BoardDaoInterface dao;
 	@Autowired
 	SqlSessionTemplate session;
+	
+	
+	
+	@Override
+	public int groupboardinsert(Board board) {
+		return dao.groupboardinsert(session,board);
+		
+	}
 }
