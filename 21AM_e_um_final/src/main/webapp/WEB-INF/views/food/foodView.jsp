@@ -124,10 +124,11 @@
 		$.ajax({
 			url : "${path}/food/selectFoodCommentList",
 			data : {
-				"foodSeq" : ${food.foodSeq}
+				"foodSeq" : "${food.foodSeq}"
 			},
 			success : data => {
 				console.log(data);
+				$("#foodView-review-container").append(data);
 			}
 		});
 	});

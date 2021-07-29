@@ -205,9 +205,12 @@ public class FoodController {
 			// System.out.println("테스트 : " + files.length + " " + files[0]);
 			
 		for(MultipartFile f : files) {
+			
 			if(f.getSize()==0) break;
-			 map.put("foodPhoto"+i, renamepolicy(req, f, "foodComment"));
-				i+=1;
+			
+			map.put("foodPhoto"+i, renamepolicy(req, f, "foodComment"));
+			
+			i+=1;
 			
 		}
 			
@@ -411,13 +414,18 @@ public class FoodController {
 	
 	
 	@RequestMapping("/food/selectFoodCommentList")
-	public String selectFoodCommentList(@RequestParam(value="foodSeq") String foodSeq) {
+	public String selectFoodCommentList(@RequestParam(value="foodSeq") String foodSeq, 
+										@RequestParam(value="cPage", defaultValue = "1") String cPage,
+										Model model) {
 		
+		List<FoodComment> foodCommentList = service.selectFoodCommentList(foodSeq, Integer.parseInt(cPage));
 		
+		int foodCommentCount = service.countFoodComment(foodSeq);
 		
+		log.warn("{}", foodCommentList);
 		
-		
-		
+		model.addAttribute("foodCommentList", foodCommentList);
+		model.addAttribute("foodCommentCount", foodCommentCount);
 		
 		return "components/food/foodCommentList";
 		

@@ -102,5 +102,17 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public List<FoodComment> selectFoodCommentList(String foodSeq, int cPage) {
+		return dao.selectFoodCommentList(session, foodSeq, cPage);
+	}
+
+
+	@Override
+	public int countFoodComment(String foodSeq) {
+		return dao.countFoodComment(session, foodSeq);
+	}
+
+
 
 }
