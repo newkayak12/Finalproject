@@ -25,7 +25,8 @@ public interface UserDaoInterface {
 	public int insertalarm7(User user, SqlSessionTemplate session);
 	public int insertalarm8(User user, SqlSessionTemplate session);
 	public int insertalarm9(User user, SqlSessionTemplate session);
+	public int insertalarm10(User user, SqlSessionTemplate session);
 	
-	public List<User> recommandFriend(SqlSessionTemplate session);
-	
+	public List<User> recommandFriend(SqlSessionTemplate session, String userId);
+	public int InsertKako(User user,SqlSessionTemplate session);
 }	

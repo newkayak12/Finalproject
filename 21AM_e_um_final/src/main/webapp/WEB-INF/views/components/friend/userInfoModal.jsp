@@ -1,14 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!-- Modal body -->
 <div class="modal-body d-flex align-items-center">
      <img src="${path }/resources/upload/profile/${friend.profileImageFile}" class="col w-50 h-100">
      <div class="col">
      	<h4><b><b>${friend.userNick }</b></b></h4><br>
-     	<div>
-	     	${friend.profileStatus }
-     	</div><br><br><br>
+     	<c:if test="${friend.profileStatus!=null }">
+	     	<div class="bg-light py-2 pl-2">
+		     	${friend.profileStatus }
+	     	</div>
+     	</c:if><br><br><br>
      	<small><b>
      		<div class="d-flex flex-wrap">
 		     	<span class="mx-1">
@@ -22,17 +28,17 @@
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
-		        	<c:if test="${user.interest.profileInterestName3 !=null}">
+		        	<c:if test="${friend.interest.profileInterestName3 !=null}">
 		        		${friend.interest.profileInterestName3 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
-		        	<c:if test="${user.interest.profileInterestName4 !=null}">
+		        	<c:if test="${friend.interest.profileInterestName4 !=null}">
 		        		${friend.interest.profileInterestName4 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
-		        	<c:if test="${user.interest.profileInterestName5 !=null}">
+		        	<c:if test="${friend.interest.profileInterestName5 !=null}">
 		        		${friend.interest.profileInterestName5 }
 		        	</c:if>
 		       	</span>
@@ -43,11 +49,25 @@
 
 <!-- Modal footer -->
 <div class="modal-footer justify-content-center">
-    <button type="button" class="btn btn-info mx-2" data-dismiss="modal" value="${friend.userId }">프로필로 이동</button>
-    <button type="button" id="applyFriend" class="btn btn-info mx-2" value="${friend.userId }" data-dismiss="modal">친구 신청</button>
+    <button type="button" id="openProfile" class="btn btn-info mx-2" data-dismiss="modal" value="${friend.userId }">프로필로 이동</button>
+    <c:if test="${friend.userId!=userSession.userId }">
+    	<!-- 차단된 친구는 친구 신청 버튼 볼 수 없게 설정, 이미 친구를 신청한 경우 친구 요청 중으로 띄우고 버튼 사용 불가로, 친구인 경우 친구라고 띄우고 버튼 사용 불가로 -->
+    	<c:choose>
+    		<c:when test="${friFlag eq 'applyFri' }">
+       			<button type="button" id="applyFriend" class="btn btn-info mx-2" data-dismiss="modal" value="${friend.userId }">친구 신청</button>
+       		</c:when>
+       		<c:when test="${friFlag eq 'friend' }">
+       			<button type="button" class="btn btn-light mx-xs-2" disabled><i class="fas fa-check mr-2"></i>친구</button>
+       		</c:when>
+       		<c:when test="${friFlag eq 'alreadyApply' }">
+       			<button type="button" class="btn btn-light mx-xs-2" disabled>친구 요청됨</button>
+       		</c:when>
+       		<c:when test="${friFlag eq 'acceptFri' }">
+       			<button type="button" id="acceptFriend" class="btn btn-success mx-2" data-dismiss="modal" value="${friend.userId }">친구 수락</button>
+       		</c:when>
+       	</c:choose>
+	</c:if>
 </div>
-
-
 
 <script>
 	$("#applyFriend").click(e=>{
@@ -57,7 +77,8 @@
 				type:"post",
 				url:"${pageContext.request.contextPath}/friend/applyfriend/start",
 				data:{
-					"friendId":e.target.value
+					"friendId":e.target.value,
+					"flag":"apply"
 				},
 				success:data=>{
 					if(data>0){
@@ -68,5 +89,31 @@
 				}
 			})
 		}
+	})
+	
+	$("#acceptFriend").click(e=>{
+		let friendNick="${friend.userNick }";
+		if(confirm(friendNick+"님의 친구 신청을 수락하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+				data:{
+					"friendId":e.target.value,
+					"flag":"accept"
+				},
+				success:data=>{
+					if(data>0){
+						alert("서로 친구가 되었습니다!");
+					}else{
+						alert("친구 신청 수락을 실패했습니다.");
+					}
+				}
+			})
+		}
+	})
+	
+	$("#openProfile").click(e=>{
+		let profileId=e.target.value;
+		location.assign("${pageContext.request.contextPath}/profile/open/"+profileId);
 	})
 </script>

@@ -1,8 +1,11 @@
 package com.e_um.model.vo.communicateinfo.feed;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
+
+import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,14 +19,15 @@ import lombok.NoArgsConstructor;
 @Component
 public class Feed {
 	
-	private String userId, feedContents;
+	private String feedSeq, feederId, feedNick, feedProfilePhoto, feedContents, profileStatus;
 	private Date feedDate;
 	private String feedImage1, feedImage2, feedImage3, feedFlag, feedBlock;
-	
-//	private List<Likefeed> likeFeed = new ArrayList<>();
+	private String feedLike;
 	/*
 	 * 보류
 	 */
+	
+	private List<FeedComment> commentlist;
 	
 
 }

@@ -53,7 +53,7 @@ public class UserService implements UserServiceInterface {
 				dao.insertalarm7(user, session);
 				dao.insertalarm8(user, session);
 				dao.insertalarm9(user, session);
-				
+				dao.insertalarm10(user, session);
 			}
 		return count;
 	}
@@ -76,8 +76,27 @@ public class UserService implements UserServiceInterface {
 		return dao.changepw(user, session);
 	}
 	@Override
-	public List<User> recommandFriend() {
+	public List<User> recommandFriend( String userId) {
 		// TODO Auto-generated method stub
-		return dao.recommandFriend(session);
+		return dao.recommandFriend(session, userId);
+	}
+	@Override
+	public int InsertKako(User user) {
+		// TODO Auto-generated method stub
+		int result = dao.InsertKako(user,session);
+		if(result>0) {
+			dao.insertalarm1(user, session);
+			dao.insertalarm2(user, session);
+			dao.insertalarm3(user, session);
+			dao.insertalarm4(user, session);
+			dao.insertalarm5(user, session);
+			dao.insertalarm6(user, session);
+			dao.insertalarm7(user, session);
+			dao.insertalarm8(user, session);
+			dao.insertalarm9(user, session);
+			
+		}
+		
+		return result;
 	}
 }

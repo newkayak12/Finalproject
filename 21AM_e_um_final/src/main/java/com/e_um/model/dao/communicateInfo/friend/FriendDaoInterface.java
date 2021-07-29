@@ -5,14 +5,24 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.e_um.model.vo.communicateinfo.friend.Friend;
+import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
 import com.e_um.model.vo.userInfo.user.User;
 
 public interface FriendDaoInterface {
 	
-	List<User> selectAllUser(SqlSessionTemplate session, String userId);
-	
 	User selectUserOne(SqlSessionTemplate session, String userId);
 	
-	int insertFriend(SqlSessionTemplate session, Map param);
+	int insertFriend(SqlSessionTemplate session, Friend friend);
+	
+	List<User> selectAllUser(SqlSessionTemplate session, String userId, int index, int btnsu);
+	
+	List<User> searchKeyword(SqlSessionTemplate session, Map param);
+	
+	int insertAlarm(SqlSessionTemplate session, Map param);
+
+	int isExist(Friend fr,SqlSessionTemplate session);
+	
+	List<Friend> fetchFriendList(String userId,SqlSessionTemplate session);
 
 }

@@ -22,99 +22,109 @@ import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Controller
 @Slf4j
 public class GroupController {
 
 	@Autowired
 	GroupServiceInterface service;
-	
 
-	
 	@RequestMapping("/group/groupCreate.do")
-	public String groupCreate(){
+	public String groupCreate() {
 		return "group/groupCreate";
 	}
-	
-	/* 메인으로 내가가입한, 인기있는, 새로생긴 소모임*/
+
+	/* 메인으로 내가가입한, 인기있는, 새로생긴 소모임 */
 	@RequestMapping("/group/groupMain.do")
 	public String groupList(Model m, HttpServletRequest rq) {
-		List<Group> list=service.selectGroupList(); 
-		List<Group> list2=service.selectGroupListConditional((User)rq.getSession().getAttribute("userSession"));	//내가가입한 소모임
-		
-		m.addAttribute("list2",list2);
-		m.addAttribute("list",list); 
+		List<Group> list = service.selectGroupList();
+		List<Group> list2 = service.selectGroupListConditional((User) rq.getSession().getAttribute("userSession")); // 내가가입한
+																													// 소모임
+
+		m.addAttribute("list2", list2);
+		m.addAttribute("list", list);
 		return "group";
 	}
-	
+
 	/* 더보기 버튼 전체 페이지 조회 */
 	@RequestMapping("/group/groupListAll.do")
 	public String groupListAll(Model m) {
-		
-		List<Group> list=service.selectGroupList();	//전체소모임
-		m.addAttribute("list",list);
+
+		List<Group> list = service.selectGroupList(); // 전체소모임
+		m.addAttribute("list", list);
 		return "group/groupList";
 	}
-	
-	@RequestMapping("/group/Gomain.do") 
-	public String  groupInsert(@RequestParam Map param, Model model, HttpServletRequest rq, MultipartFile file){ 
-		
+
+	@RequestMapping("/group/Gomain.do")
+	public String groupInsert(@RequestParam Map param, Model model, HttpServletRequest rq, MultipartFile file) {
+
 		User user = (User) rq.getSession().getAttribute("userSession");
-		
+
 		param.put("file", renamepolicy(rq, file, "group"));
-		int result = service.groupInsert(param,user.getUserId());
+		int result = service.groupInsert(param, user.getUserId());
+		
 		return "redirect:/group/groupMain.do";
 	}
-	 
-	@RequestMapping("/group/groupJoinForm.do") 
-	public String groupJoin(@RequestParam Map param,HttpServletRequest rq, Model model) {
+	
+	
+
+	@RequestMapping("/group/groupJoinForm.do")
+	public String groupJoin(@RequestParam Map param, HttpServletRequest rq, Model model) {
 		User user = (User) rq.getSession().getAttribute("userSession");
-		param.put("user", user);
+		System.out.println(param);
+		String userId= user.getUserId();
+		param.put("user", userId);
+		System.out.println(userId);
 		int result = service.groupJoin(param);
 		return "group";
 	}
+
 	
-	@RequestMapping("/group/groupJoin.do")
-	public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq) {
-		System.out.println(groupSeq);
-		User user=(User) rq.getSession().getAttribute("userSession");
-		String userId= user.getUserId(); 
-		/*Group group=service.selectGroupUserid;*/
-		/*
-		 * if() { return "group/groupJoin"; } else { return
-		 * "group/groupboard/groupBoardMain"; }
-		 */
-		return "group";
+	  @RequestMapping("/group/groupJoin.do") 
+	  public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq,Model model) { 
+		  System.out.println(groupSeq); 
+		  User user=(User) rq.getSession().getAttribute("userSession"); 
+		  String userId= user.getUserId();
+		  System.out.println(userId);
+		  
+	  Group group=service.selectGroupUseridCheck(groupSeq);
+	  
+	  System.out.println(group);
+	  model.addAttribute("group",group);
+	  String page ="group/groupJoin";
+	  log.warn("{}", user.getUserId());
+	  
+	  
+	  
+	  for(Member m : group.getMembers()) {
+		  log.warn("{}",m.getGroupUser().getUserId());
+		  
+		  
+		  if( m.getGroupUser().getUserId().equals(userId)) { 
+				  log.warn("돌팔이 의사에게 가면 이렇게 됩니다.");
+				  page="group/groupboard/groupBoardMain"; 
+		  }    
+	  }
+	  
+	  return page;
 	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	  
+
 	@RequestMapping("group/groupSigned.do")
 	public String groupSigned() {
 		return "group/groupboard/groupBoardMain";
 	}
-	
+
 	@RequestMapping("group/groupBoard.do")
 	public String groupBoard() {
 		return "group/groupboard/groupBoardSub";
 	}
-	
+
 	@RequestMapping("group/groupScheduler.do")
 	public String groupScheduler() {
 		return "group/groupboard/groupBoardSchedule";
 	}
-	
-	
-	
+
 }

@@ -17,9 +17,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Component
 public class Alarm {
+	private String alarmSeq;
 	private AlarmToggle alarmToggle;
 	private String alarmContent;
 	private Date alarmDate;
-	private String alarmRead;
+	private String alarmRead, refSeq;
+	
 	
 }

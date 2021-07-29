@@ -12,5 +12,6 @@ public interface UserServiceInterface {
 	public User login(User user);
 	public User verify(User user);
 	public int changepw(User user);
-	public List<User> recommandFriend();
+	public List<User> recommandFriend(String userId);
+	public int InsertKako(User user);
 }
