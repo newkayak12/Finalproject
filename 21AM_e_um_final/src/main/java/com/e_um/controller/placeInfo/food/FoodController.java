@@ -140,7 +140,10 @@ public class FoodController {
 		
 		Food food = service.selectFood(foodSeq);
 		
+		int foodCommentCount = service.countFoodComment(foodSeq);
+		
 		model.addAttribute("food", food);
+		model.addAttribute("foodCommentCount", foodCommentCount);
 		
 		return "/food/foodView";
 		
@@ -422,7 +425,16 @@ public class FoodController {
 	}
 	
 	
-	
+	@RequestMapping("/food/foodLike")
+	public String foodLike(String foodSeq, String userId) {
+		
+		log.warn("좋아요{}", foodSeq);
+		log.warn("좋아요{}", userId);
+		
+		
+		return "";
+		
+	}
 	
 	
 }
