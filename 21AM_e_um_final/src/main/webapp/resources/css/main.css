@@ -302,7 +302,6 @@ body{
     border-radius: 10px;
     font-family: 'Noto Sans KR';
     font-weight: bold;
-    width: 80px;
 }
 /*취소 버튼*/
 .cancelBtn{
@@ -311,7 +310,6 @@ body{
     border-radius: 10px;
     font-family: 'Noto Sans KR';
     font-weight: bold;
-    width: 80px;
 }
 
 /*포인트 주는 폰트*/
@@ -342,4 +340,25 @@ body{
 }
 .tway {
 	font-family: 'twayair';
+}
+
+
+
+
+
+/*---------------pagebar---------------*/
+.selectColor.pagination > .active > a, 
+.selectColor.pagination > .active > span, 
+.selectColor.pagination > .active > a:hover, 
+.selectColor.pagination > .active > span:hover, 
+.selectColor.pagination > .active > a:focus, 
+.selectColor.pagination > .active > span:focus {
+	background: #2AC1BC;
+	/* border-color: #2AC1BC; */
+}
+.pagination *{
+	border:none;
+}
+.pagination a{
+	color:black;
 }
