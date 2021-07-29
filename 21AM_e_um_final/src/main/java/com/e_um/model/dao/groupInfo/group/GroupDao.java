@@ -51,9 +51,9 @@ public class GroupDao implements GroupDaoInterface {
 	}
 
 	@Override
-	public List<Member> selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq) {
+	public Group selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq) {
 		
-		return session.selectList("group.selectGroupUseridCheck", groupSeq);
+		return session.selectOne("group.selectGroupUseridCheck", groupSeq);
 	}
 	
 	

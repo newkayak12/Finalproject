@@ -22,5 +22,5 @@ public interface GroupDaoInterface {
 	
 	int groupJoin(SqlSessionTemplate session, Map param);
 	
-	List<Member> selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq);
+	Group selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq);
 }

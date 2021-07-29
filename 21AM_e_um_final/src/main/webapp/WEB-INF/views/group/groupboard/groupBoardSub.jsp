@@ -6,6 +6,14 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<script>
+	$(function(){
+		$("#btnWrite").click(function(){
+			location.href="${path }/group/groupBoardWrite.do";
+		});
+	});
+</script>
 <!--본인 css 파일 포함시켜주세요-->
     
     
@@ -41,6 +49,12 @@
       </div>
       
       <br><br>
+      
+      <div>
+      	<button type="button" id="btnWrite" class="btn btn-primary" align="right">
+      		게시판 생성
+      	</button>
+      </div>
       
       <table class="table">
       	<thead>
@@ -79,6 +93,8 @@
       	</tbody>
       </table>
    </div>
+   
+   
 </section>
    
 

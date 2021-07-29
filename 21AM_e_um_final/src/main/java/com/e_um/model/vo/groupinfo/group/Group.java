@@ -31,7 +31,9 @@ public class Group {
 	private int groupCountToday, groupCountTotal;
 	private Date groupDate;
 	private String groupFileUpload, groupTitle, groupAge, groupDestroyFlag;
+	private int groupBoardLevel;
 	
 	private List<Member> members = new ArrayList<>();
+	
 	
 }

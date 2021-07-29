@@ -66,7 +66,7 @@ public class GroupService implements GroupServiceInterface {
 	}
 
 	@Override
-	public List<Member> selectGroupUseridCheck(String groupSeq) {
+	public Group selectGroupUseridCheck(String groupSeq) {
 		 
 		return dao.selectGroupUseridCheck(session,groupSeq);
 	}
