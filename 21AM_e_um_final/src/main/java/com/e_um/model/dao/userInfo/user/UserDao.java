@@ -126,6 +126,12 @@ public class UserDao implements UserDaoInterface {@Override
 	}
 
 	@Override
+	public int insertalarm10(User user, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.insert("user.insertAlarm10",user);
+	}
+	
+	@Override
 	public List<User> recommandFriend(SqlSessionTemplate session, String userId) {
 		// TODO Auto-generated method stub
 		return session.selectList("user.recommandFriend", userId);
@@ -136,6 +142,7 @@ public class UserDao implements UserDaoInterface {@Override
 		// TODO Auto-generated method stub
 		return session.insert("user.insertUser", user);
 	}
+
 
 	
 

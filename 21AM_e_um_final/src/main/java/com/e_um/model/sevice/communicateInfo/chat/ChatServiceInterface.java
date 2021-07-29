@@ -6,4 +6,6 @@ import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
 
 public interface ChatServiceInterface {
 	public List<ChatRoom> fetchChatlist(String userId);
+	public int  fetchChatAlarm(String userId);
+	public ChatRoom chatInit(String myId, String apartId);
 }

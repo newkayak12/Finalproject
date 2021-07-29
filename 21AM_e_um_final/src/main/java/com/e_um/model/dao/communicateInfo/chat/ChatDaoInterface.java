@@ -8,4 +8,6 @@ import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
 
 public interface ChatDaoInterface {
 	public List<ChatRoom> fetchChatlist(String userId, SqlSessionTemplate session);
+	public int fetchChatAlarm (String userId, SqlSessionTemplate session);
+	public ChatRoom chatInit(String myId, String apartId, SqlSessionTemplate session);
 }

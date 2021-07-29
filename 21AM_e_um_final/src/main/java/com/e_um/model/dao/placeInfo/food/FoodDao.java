@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
+import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
@@ -61,6 +62,13 @@ public class FoodDao implements FoodDaoInterface {
 	public List<Food> searchFood(SqlSessionTemplate session, Map<String, Object> param) {
 		return session.selectList("food.searchFood", param);
 	}
+
+	@Override
+	public int insertFoodComment(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.insert("food.insertFoodComment", map);
+	}
+
+	
 
 	
 

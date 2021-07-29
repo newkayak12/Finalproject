@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.e_um.model.dao.placeInfo.food.FoodDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
+import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 
@@ -93,6 +94,13 @@ public class FoodService implements FoodServiceInterface {
 	public List<Food> searchFood(Map<String, Object> param) {
 		return dao.searchFood(session, param);
 	}
+
+
+	@Override
+	public int insertFoodComment(Map<String, Object> map) {
+		return dao.insertFoodComment(session, map);
+	}
+
 
 
 }
