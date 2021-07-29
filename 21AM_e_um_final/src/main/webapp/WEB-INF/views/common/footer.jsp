@@ -1,7 +1,7 @@
 
 
 		<div id="footerContainer">
-			<div class="d-flex justify-content-around  border col-12">
+			<div class="d-flex justify-content-between  border col-12">
 				<span id="controlpanelprev"></span>
 				<span id="controlpanelfooter"></span>
 				<span id="controlpanelnext"></span>

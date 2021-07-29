@@ -140,7 +140,10 @@ public class FoodController {
 		
 		Food food = service.selectFood(foodSeq);
 		
+		int foodCommentCount = service.countFoodComment(foodSeq);
+		
 		model.addAttribute("food", food);
+		model.addAttribute("foodCommentCount", foodCommentCount);
 		
 		return "/food/foodView";
 		
@@ -205,22 +208,15 @@ public class FoodController {
 			// System.out.println("테스트 : " + files.length + " " + files[0]);
 			
 		for(MultipartFile f : files) {
+			
 			if(f.getSize()==0) break;
-			 map.put("foodPhoto"+i, renamepolicy(req, f, "foodComment"));
-				i+=1;
+			
+			map.put("foodPhoto"+i, renamepolicy(req, f, "foodComment"));
+			
+			i+=1;
 			
 		}
 			
-		
-		
-		// System.out.println("map : " + map);
-		
-		// System.out.println("리뷰, 로그인유저 : " + userId);
-		// System.out.println("리뷰, 푸드시퀀스 : " + foodSeq);
-		// System.out.println("리뷰, 리뷰내용 : " + foodCommentContents);
-		// System.out.println("리뷰, 별점 : " + rating);
-		
-		
 		int result = service.insertFoodComment(map);
 		
 		System.out.println(result > 0 ? "성공" : "실패");
@@ -411,20 +407,40 @@ public class FoodController {
 	
 	
 	@RequestMapping("/food/selectFoodCommentList")
-	public String selectFoodCommentList(@RequestParam(value="foodSeq") String foodSeq) {
+	public String selectFoodCommentList(@RequestParam(value="foodSeq") String foodSeq, 
+										@RequestParam(value="cPage", defaultValue = "1") String cPage,
+										Model model) {
 		
+		List<FoodComment> foodCommentList = service.selectFoodCommentList(foodSeq, Integer.parseInt(cPage));
 		
+		int foodCommentCount = service.countFoodComment(foodSeq);
 		
+		log.warn("{}", foodCommentList);
 		
-		
-		
+		model.addAttribute("foodCommentList", foodCommentList);
+		model.addAttribute("foodCommentCount", foodCommentCount);
 		
 		return "components/food/foodCommentList";
 		
 	}
 	
 	
-	
+	@RequestMapping("/food/addFoodLike")
+	public String addFoodLike(String foodSeq, String userId) {
+		
+		log.warn("좋아요{}", foodSeq);
+		log.warn("좋아요{}", userId);
+		
+//		Map<String, String> param = new HashMap<>();
+//		param.put("foodSeq", foodSeq);
+//		param.put("userId", userId);
+//		
+//		int result = service.addFoodLike(param);
+//		
+		
+		return "";
+		
+	}
 	
 	
 }
