@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -43,16 +44,16 @@ public class ChatHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
 			String msg = message.getPayload();
-			String[] process = msg.split("/");
+			log.error("22{}",msg);
+			JacksonJsonParser parser = new JacksonJsonParser();
+			Map result = parser.parseMap(msg);
+			log.error("33{}",result);
+			
+			
 //			메시지 처리
 			
 //			init > idset에 내 아이디 넣고 room에 넣고
-				if(process[3].equals("$init$")) {
-					chatRoom.put(process[0], process[0]);
-					idSet.put(process[1], session);
-					session.sendMessage(new TextMessage("ready"));
-				}
-			
+				
 			
 			
 //			아이디1, 아이디2로 채팅방 확인하기
@@ -64,7 +65,7 @@ public class ChatHandler extends TextWebSocketHandler {
 				
 			
 			
-			session.sendMessage(new TextMessage(process.toString()));
+//			session.sendMessage(new TextMessage(process.toString()));
 			
 			
 		super.handleTextMessage(session, message);
@@ -89,4 +90,6 @@ public class ChatHandler extends TextWebSocketHandler {
 			return false;
 		}
 	}
+	
+	
 }
