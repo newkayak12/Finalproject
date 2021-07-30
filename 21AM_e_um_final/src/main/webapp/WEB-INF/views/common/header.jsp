@@ -251,9 +251,9 @@ function headerchatclean(){
 
 
 	if($(".iconboxfooter").css("display")=="none"){
-		console.log('헤더')
+		/*  console.log('헤더') */ 
 	} else {
-		console.log('푸터')					
+		/* console.log('푸터') */					
 	}
 
 	
@@ -266,7 +266,7 @@ $(function(){
 	$("#chatdraggerable").draggable();
 	$("#chatdraggerable").resizable();
 	
-	console.log("start"+$(".iconboxfooter").css("display"))
+	/* console.log("start"+$(".iconboxfooter").css("display")) */
 	    	
     setInterval(()=>{
     	alarmCount()
@@ -287,7 +287,7 @@ function onlinesocketinit(){
 	onlinesocket.onopen=e=>{
 		
 		onlinesocket.send("${userSession.userId}")
-		console.log(e)
+		/* console.log(e) */
 	}
 	
 	onlinesocket.onmessage=onlinereceive
@@ -312,7 +312,7 @@ function onlinereceive(e){
 
 
 function online(){
-console.log(onlinelist)
+/* console.log(onlinelist) */
 	
 	/* onlinesocket.onmessage=e=>{
 		let dt = e["data"].substring(1,e["data"].length-1)
@@ -372,7 +372,7 @@ function kakaoLogout(){
 		
 		if(!Kako.Auth.getAccessToken()){
 			
-			console.log("not logged in")
+			/* console.log("not logged in") */
 			return
 		}
 		Kakao.Auth.logout(function(){
@@ -685,10 +685,10 @@ function kakaoLogout(){
 	const fn_startChat=(chatroom,id1, id2)=>{
 		
 		$("#headerprofile").modal("hide")
-		console.log("start"+$(".iconboxfooter").css("display"))
+		/* console.log("start"+$(".iconboxfooter").css("display")) */
 		if($(".iconboxfooter").css("display")=="none"){
 			
-			console.log("socketstart header")
+			/* console.log("socketstart header") */
 			/* 헤더 ui */
 					let tar = '';
 					if(id1!='${userSession.userId}'){
@@ -705,7 +705,7 @@ function kakaoLogout(){
 			/*  */
 			/* footerui */
 			let tar = '';
-			console.log("socketstart header")
+			/* console.log("socketstart header") */
 			if(id1!='${userSession.userId}'){
 				tar = id1;
 			} else {
@@ -716,7 +716,7 @@ function kakaoLogout(){
 		}
 		
 		
-		console.log("socketstart")
+		/* console.log("socketstart") */
 		socket = new SockJS("${pageContext.request.contextPath}/chat")
 		let myId =''
 		let target = '' 
@@ -728,17 +728,17 @@ function kakaoLogout(){
 			myId = id2;
 			target = id1
 		}
-		console.log(myId)
-		console.log(target)
+	/* 	console.log(myId)
+		console.log(target) */
 		
 		socket.onopen=function(e){
-		console.log(myId)
-		console.log(target)
+		/* console.log(myId)
+		console.log(target) */
 			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"init","msg":""}';
 			let result = JSON.parse(data)
 			socket.send(data)
-			console.log("open")
-			console.log(socket)
+		/* 	console.log("open")
+			console.log(socket) */
 			
 		}
 		
@@ -748,7 +748,7 @@ function kakaoLogout(){
 			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
 			let result = JSON.parse(data)
 			socket.send(data)
-			console.log(socket)
+			/* console.log(socket) */
 			
 		}
 		
@@ -775,7 +775,7 @@ function kakaoLogout(){
 		chatRootDockBottom.append(chatRoomBottomhidden1).append(chatRoomBottomhidden2).append(chatinputboxBottom).append(chatSendBottom)
 		
 		$("#footerinnerContainer").append(chatRootBottom).append(chatRootDockBottom).attr("class","p-0")
-		console.log('s2')
+		/* console.log('s2') */
 	}
 	
 	/* *******채팅 보내기******************************** */
@@ -793,7 +793,7 @@ function kakaoLogout(){
 			let target = ''
 			
 			
-			console.log(data)
+			/* console.log(data) */
 
 			
 			if(data["data"]["chatrommId1"]=='${userSession.userId}'){
@@ -806,12 +806,12 @@ function kakaoLogout(){
 			if($(".iconboxfooter").css("display")=="none"){
 				
 				
-				console.log('헤더에 방번호???????????????????????ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ/')
-				console.log(data["data"]["chatRoomSeq"])
+			/* 	console.log('헤더에 방번호???????????????????????ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ/')
+				console.log(data["data"]["chatRoomSeq"]) */
 				$("#chatRoomTophidden1").val(data["data"]["chatRoomSeq"])
 				$("#chatRoomTophidden2").val(target)
 			} else {
-				console.log('푸터')					
+				/* console.log('푸터')					 */
 				 $("#controlpanelfooter").html(target)
 				 
 				 $("#chatRoomBottomhidden1").val(data["data"]["chatRoomSeq"])
@@ -825,9 +825,9 @@ function kakaoLogout(){
 			 let chatRoottop = $("#chatRoottop");
 			 chatRoottop.html("")
 			 
-			 console.log(socket)
+			/*  console.log(socket)
 			 console.log("==========================")
-			 console.log(data)
+			 console.log(data) */
 			 if(data["data"]["chats"]!=null){
 				 data["data"]["chats"].forEach((v,i)=>{
 			 	
@@ -841,10 +841,10 @@ function kakaoLogout(){
 				 			
 	
 				 			if($(".iconboxfooter").css("display")=="none"){
-				 						console.log('헤더')
+				 						/* console.log('헤더') */
 				 						chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
 		 					} else {
-				 						console.log('푸터')					
+				 						/* console.log('푸터') */					
 						 				chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
 		 					}
 				 			
@@ -862,10 +862,10 @@ function kakaoLogout(){
 				 			
 				 			
 					 			if($(".iconboxfooter").css("display")=="none"){
-					 				console.log('헤더')
+					 				/* console.log('헤더') */
 						 			chatRoottop.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
 					 			} else {
-					 				console.log('푸터')					
+					 				/* console.log('푸터') */					
 						 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
 					 			}
 				 		}
@@ -876,15 +876,15 @@ function kakaoLogout(){
 			 }
 			 	
 			 	if($(".iconboxfooter").css("display")=="none"){
-					console.log('헤더')
+					/* console.log('헤더') */
 					$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
 				} else {
-					console.log('푸터')					
+					/* console.log('푸터') */					
 					$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
 				}
 
 		} else if(data["flag"]=='running'){
-			console.log('들어오냐? ')
+			/* console.log('들어오냐? ') */
 			let chatRootBottom = $("#chatRootBottom");
 			let chatRoottop = $("#chatRoottop");
 			/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
@@ -899,24 +899,24 @@ function kakaoLogout(){
 	 			
 	 			
 		 			if($(".iconboxfooter").css("display")=="none"){
-		 				console.log('헤더')
+		 				/* console.log('헤더') */
 			 			chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
 		 			} else {
-		 				console.log('푸터')					
+		 				/* console.log('푸터') */					
 			 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
 		 			}
 	 			
 	 			
 	 		} else {
-	 			console.log('들어오냐? 타인')
+	 			/* console.log('들어오냐? 타인') */
 	 			let chatRootBottom = $("#chatRootBottom");
 	 			let chatRoottop = $("#chatRoottop");
 
-	 			console.log(nickname)
+	 			/* console.log(nickname)
 	 			console.log(photos)
 	 			console.log(data)
 	 			console.log(data["msg"])
-	 			
+	 			 */
 	 			let bCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
 	 			let bphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+photos}))
 	 			let boutter = $("<div>").attr("class","col-6 my-auto")
@@ -925,10 +925,10 @@ function kakaoLogout(){
 	 			
 	 			
 		 			if($(".iconboxfooter").css("display")=="none"){
-		 				console.log('헤더')
+		 				/* console.log('헤더') */
 		 				chatRoottop.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))	
 		 			} else {
-		 				console.log('푸터')					
+		 				/* console.log('푸터') */					
 			 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
 		 			}
 	 			
@@ -936,10 +936,10 @@ function kakaoLogout(){
 			
 			
 			if($(".iconboxfooter").css("display")=="none"){
-				console.log('헤더')
+				/* console.log('헤더') */
 				$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
 			} else {
-				console.log('푸터')					
+				/* console.log('푸터') */					
 				$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
 			}
 			
@@ -964,13 +964,13 @@ function kakaoLogout(){
 	
 		
 		if($(".iconboxfooter").css("display")=="none"){
-			console.log('헤더 send 방번 호!!!!!!!!!!!!!!!!')
-			console.log(room)
+		/* 	console.log('헤더 send 방번 호!!!!!!!!!!!!!!!!')
+			console.log(room) */
 			room = $("#chatRoomTophidden1").val();
 			target = $("#chatRoomTophidden2").val();
 			msg = $("#chatinputboxTop").val()
 		} else {
-			console.log('푸터 send')					
+			/* console.log('푸터 send')					 */
 			room = $("#chatRoomBottomhidden1").val();
 			target = $("#chatRoomBottomhidden2").val();
 			msg = $("#chatinputboxBottom").val()
@@ -978,20 +978,20 @@ function kakaoLogout(){
 		
 		
 		
-		console.log(msg)
+		/* console.log(msg) */
 		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
 		let result = JSON.stringify(data);
 		socket.send(result)
-		console.log(socket)
+		/* console.log(socket) */
 		
 	
 	
 
 			if($(".iconboxfooter").css("display")=="none"){
-				console.log('헤더')
+				/* console.log('헤더') */
 				$("#chatinputboxTop").val("")
 			} else {
-				console.log('푸터')					
+				/* console.log('푸터') */					
 				$("#chatinputboxBottom").val("")
 			}
 	}
@@ -1019,7 +1019,7 @@ function kakaoLogout(){
 			url:"${pageContext.request.contextPath}/fetch/chatalarm",
 			data:{"userId":userId},
 			success:data=>{
-				console.log(data)
+				/* console.log(data) */
 				if(data>0){
 				$("#chatCount").html(data).css("display","block")
 				$("#chatCountbot").html(data).css("display","block")
@@ -1222,20 +1222,22 @@ function kakaoLogout(){
 					
 				if(data.length>0){
 						data.forEach((v,i)=>{
-							console.log(v)
+							/* console.log(v) */
 							if(v["alarmRead"]=='unread'){
-							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}else {
-								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}
 						})
-						/* 문제점 1 */
+						/* 문제점 1 
+							,"onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"
+						*/
 						
 							$("#footerinnerContainer").html(outterf)
 							$("#toolinnerbox").html(outter)
@@ -1282,14 +1284,16 @@ function kakaoLogout(){
 	
 	
 	
-	const fn_delAlarm=(seq)=>{
+	const fn_delAlarm=(seq, event)=>{
+		/* console.log("delAlarm") */
+		/* console.log(event.stopPropagation()) */
 		$.ajax({
 			url:"${pageContext.request.contextPath}/alarm/deleteAlarm",
 			data:{"alarmSeq": seq},
 			success:data=>{
 				
 				/* 알람 삭제 */
-				console.log(data)
+		/* 		console.log(data) */
 			}
 		})
 		
@@ -1309,7 +1313,7 @@ function kakaoLogout(){
 					
 					
 					
-						switch (key) {
+						 switch (key) {
 						case "friend_alarm":
 							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"requestfriend")
 							break;
@@ -1340,10 +1344,10 @@ function kakaoLogout(){
 						default:
 							break;
 						
-						console.log(key)
-						console.log(seq)
-						
-						}
+						/* console.log(key)
+						console.log(seq) */
+						 
+						} 
 				}
 			}
 		})
