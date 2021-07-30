@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.userInfo.profile.ProfileDaoInterface;
+import com.e_um.model.vo.communicateinfo.feed.NoHasAFeed;
+import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
+import com.e_um.model.vo.communicateinfo.likefeed.Likefeed;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -82,6 +85,24 @@ public class ProfileService implements ProfileServiceInterface {
 	@Override
 	public int deleteGuestbook(String gbSeq) {
 		return dao.deleteGuestbook(session, gbSeq);
+	}
+
+
+	@Override
+	public NoHasAFeed selectFeed(String feedSeq) {
+		return dao.selectFeed(session, feedSeq);
+	}
+
+
+	@Override
+	public List<Likefeed> selectLike(String feedSeq) {
+		return dao.selectLike(session, feedSeq);
+	}
+
+
+	@Override
+	public List<FeedComment> selectComment(String feedSeq) {
+		return dao.selectComment(session, feedSeq);
 	}
 
 }

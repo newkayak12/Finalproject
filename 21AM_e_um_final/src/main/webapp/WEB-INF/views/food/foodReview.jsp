@@ -262,11 +262,11 @@
 	// 리뷰 입력창 글자수 카운트 
 	$(document).ready(function() {
 		$("#DOC_TEXT").on("keyup", function() {
-			$("#counter").html("("+$(this).val().length+" / 300)");
-	 			if($(this).val().length > 300) {	
-	 				alert("최대 300자까지 입력 가능합니다.");
-					$(this).val($(this).val().substring(0, 300));
-					$("#counter").html("(300 / 300)");
+			$("#counter").html("("+$(this).val().length+" / 1000)");
+	 			if($(this).val().length > 1000) {	
+	 				alert("최대 1000자까지 입력 가능합니다.");
+					$(this).val($(this).val().substring(0, 1000));
+					$("#counter").html("(1000 / 1000)");
 			}
 		});
 	});

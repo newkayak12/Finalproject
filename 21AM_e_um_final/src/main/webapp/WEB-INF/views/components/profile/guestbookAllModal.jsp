@@ -19,9 +19,7 @@
         <th class="colcenter">CONTENT</th>
         <th class="colcenter">WRITER</th>
         <th class="colcenter">DATE</th>
-        <c:if test="${userSession.userId==profileId }">
-	        <th class="colcenter">DELETE</th>
-        </c:if>
+        <th> </th>
       </tr>
     </thead>
     <tbody>
@@ -31,7 +29,7 @@
 			   		<td>${g['GUESTBOOK_COMMENT'] }</td>
 					<td class="colcenter">${g['USER_NICK'] }</td>
 					<td class="colcenter"><fmt:formatDate value="${g['GUESTBOOK_DATE'] }" pattern="yy/MM/dd"/></td>
-					<c:if test="${userSession.userId==profileId }">
+					<c:if test="${userSession.userId==profileId or userSession.userId==g['USER_ID_WRITER'] }">
 						<td class="colcenter pointer" onclick="fn_deleteGb('${g['GUESTBOOK_SEQ'] }');">&times;</td>
 					</c:if>
 		  		</tr>
