@@ -19,27 +19,27 @@
      		<div class="d-flex flex-wrap">
 		     	<span class="mx-1">
 		        	<c:if test="${friend.interest.profileInterestName1 !=null}">
-		        		${friend.interest.profileInterestName1 }
+		        		#${friend.interest.profileInterestName1 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
 		        	<c:if test="${friend.interest.profileInterestName2 !=null}">
-		        		${friend.interest.profileInterestName2 }
+		        		#${friend.interest.profileInterestName2 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
 		        	<c:if test="${friend.interest.profileInterestName3 !=null}">
-		        		${friend.interest.profileInterestName3 }
+		        		#${friend.interest.profileInterestName3 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
 		        	<c:if test="${friend.interest.profileInterestName4 !=null}">
-		        		${friend.interest.profileInterestName4 }
+		        		#${friend.interest.profileInterestName4 }
 		        	</c:if>
 		       	</span>
 		       	<span class="mx-1">
 		        	<c:if test="${friend.interest.profileInterestName5 !=null}">
-		        		${friend.interest.profileInterestName5 }
+		        		#${friend.interest.profileInterestName5 }
 		        	</c:if>
 		       	</span>
      		</div>

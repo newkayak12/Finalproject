@@ -1,8 +1,10 @@
 package com.e_um.model.dao.placeInfo.food;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -66,6 +68,26 @@ public class FoodDao implements FoodDaoInterface {
 	@Override
 	public int insertFoodComment(SqlSessionTemplate session, Map<String, Object> map) {
 		return session.insert("food.insertFoodComment", map);
+	}
+
+	@Override
+	public List<FoodComment> selectFoodCommentList(SqlSessionTemplate session, String foodSeq, int cPage) {
+		
+		// offset : 시작 : (cPage-1)*numPerPage ( 데이터를 가져오는 시점에서 얼만큼 떨어져있는 데이터인지 ) 
+		// limit : 범위 : numPerPage ( 한페이지에 몇개의 데이터가 들어갈지 ) 
+		int numPerPage = 5;
+	
+		return session.selectList("food.selectFoodCommentList", foodSeq, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int countFoodComment(SqlSessionTemplate session, String foodSeq) {
+		return session.selectOne("food.countFoodComment", foodSeq);
+	}
+
+	@Override
+	public int addFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.insert("food.addFoodLike", param);
 	}
 
 	

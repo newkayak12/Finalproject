@@ -35,4 +35,44 @@ public ChatRoom chatInit(String myId, String apartId, SqlSessionTemplate session
 	return session.selectOne("chat.chatInit", param);
 }
 
+@Override
+public int createChatRoom(String myId, String apartId, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	
+	Map<String,String> map = new HashMap();
+	map.put("myId", myId);
+	map.put("apartId", apartId);
+	return session.insert("chat.createChatRoom", map);
+}
+
+@Override
+public ChatRoom fetchChat(String roomseq, String userId, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	Map<String, String> map = new HashMap();
+	map.put("roomseq", roomseq);
+	map.put("userId", userId);
+	return session.selectOne("chat.fetchChat",map );
+}
+
+@Override
+public int iReadit(String roomseq, String userId, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	Map<String,String> map = new HashMap();
+	map.put("roomseq", roomseq);
+	map.put("userId", userId);
+	return session.update("chat.iReadit", map);
+}
+
+@Override
+public int chatToOffline(Map map, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.insert("chat.chatToOnffline", map);
+}
+
+@Override
+public int chatToOnline(Map map, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.insert("chat.chatToOnline",map);
+}
+
 }

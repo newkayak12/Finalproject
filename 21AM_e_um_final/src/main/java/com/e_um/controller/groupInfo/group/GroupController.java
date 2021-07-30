@@ -6,16 +6,23 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.e_um.model.sevice.groupInfo.board.BoardServiceInterface;
 import com.e_um.model.sevice.groupInfo.group.GroupServiceInterface;
+import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
@@ -28,6 +35,9 @@ public class GroupController {
 
 	@Autowired
 	GroupServiceInterface service;
+	
+	@Autowired
+	BoardServiceInterface serviceb;
 
 	@RequestMapping("/group/groupCreate.do")
 	public String groupCreate() {
@@ -71,60 +81,87 @@ public class GroupController {
 	@RequestMapping("/group/groupJoinForm.do")
 	public String groupJoin(@RequestParam Map param, HttpServletRequest rq, Model model) {
 		User user = (User) rq.getSession().getAttribute("userSession");
-		System.out.println(param);
+		log.warn("추측{}",param);
 		String userId= user.getUserId();
-		param.put("user", userId);
-		System.out.println(userId);
+		param.put("userId", userId);
 		int result = service.groupJoin(param);
-		return "group";
+		return "redirect:/group/groupMain.do";
 	}
 
 	
-	  @RequestMapping("/group/groupJoin.do") 
-	  public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq,Model model) { 
-		  System.out.println(groupSeq); 
+	@RequestMapping("/group/groupJoin.do") 
+	  public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq ,Model model) { 
 		  User user=(User) rq.getSession().getAttribute("userSession"); 
 		  String userId= user.getUserId();
-		  System.out.println(userId);
+		  String page ="group/groupJoin";
+		  System.out.println(groupSeq);
+		  Group list=service.selectGroupUseridCheck(groupSeq);
+		  model.addAttribute("group",list);
 		  
-	  Group group=service.selectGroupUseridCheck(groupSeq);
-	  
-	  System.out.println(group);
-	  model.addAttribute("group",group);
-	  String page ="group/groupJoin";
-	  log.warn("{}", user.getUserId());
-	  
-	  
-	  
-	  for(Member m : group.getMembers()) {
-		  log.warn("{}",m.getGroupUser().getUserId());
+
+		  log.warn("{}",list);
+		  for(Member m : list.getMembers()) {
 		  
-		  
-		  if( m.getGroupUser().getUserId().equals(userId)) { 
-				  log.warn("돌팔이 의사에게 가면 이렇게 됩니다.");
-				  page="group/groupboard/groupBoardMain"; 
-		  }    
-	  }
-	  
-	  return page;
-	}
+				
+			if(m.getGroupUser().getUserId().equals(userId)) {
+				log.warn("야호!")
+	;			return "redirect:/group/groupSigned.do";
+			}
+		  }
+		  return page;
+		}
 
 	
+	@RequestMapping("/group/groupBoardWrite.do")
+	public String groupBoardWrite(HttpSession session) {
+		return"group/groupboard/groupBoardWrite";
+	}
 	  
 
-	@RequestMapping("group/groupSigned.do")
+	  
+	
+	@RequestMapping("/group/groupBoardInsert.do")
+	public String groupBoardInsert(Board board , Model model, MultipartFile[] file, HttpServletRequest rq) {
+		User user=(User) rq.getSession().getAttribute("userSession");
+		String userId= user.getUserId();
+		
+		board.setGroupBoardUser(user);
+		
+		log.warn("{}",user);
+		log.warn("{}",board);
+		log.warn("{}",file);
+		
+		
+		int result = serviceb.groupboardinsert(board);
+		
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/group/groupSigned.do")
 	public String groupSigned() {
 		return "group/groupboard/groupBoardMain";
 	}
 
-	@RequestMapping("group/groupBoard.do")
+	@RequestMapping("/group/groupBoard.do")
 	public String groupBoard() {
 		return "group/groupboard/groupBoardSub";
 	}
 
-	@RequestMapping("group/groupScheduler.do")
+	@RequestMapping("/group/groupScheduler.do")
 	public String groupScheduler() {
 		return "group/groupboard/groupBoardSchedule";
+	}
+	
+	@RequestMapping(value = "/group/filesupload", method = RequestMethod.POST)
+	@ResponseBody
+	public String fileUpload(HttpServletRequest rq, MultipartHttpServletRequest files) {
+		log.warn("asdfasdf{}",files);
+		return null;
 	}
 
 }

@@ -2,14 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!--본인 css 파일 포함시켜주세요-->
-    
+    <script type="text/javascript">
+		console.log($("#testt").val())
+</script>
     
 <section class="mt-5 pt-5">
    <div id="root" class="container mt-5">
    <h1 style="text-align:left;">소모임 가입하기</h1>
-      <form name="gorupJoinFrm" action="${path }/group/groupJoinForm.do"
+      <form id="gorupJoinFrm" action="${path }/group/groupJoinForm.do"
       method="post">
-      	<input type="hidden" value="${group.groupSeq }" name="groupJoinSeq">
+      	<input type="hidden" value="${group.groupSeq }" name="groupSeq" id="testt">
       	<div>
       		<label>제목</label>
       		<p><c:out value="${group.groupTitle }"/><p>

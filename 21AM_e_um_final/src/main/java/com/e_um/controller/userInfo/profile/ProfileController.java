@@ -188,5 +188,19 @@ public class ProfileController {
 	public int deleteGuestbook(@RequestParam(value="gbSeq", required=false) String gbSeq) {
 		return service.deleteGuestbook(gbSeq);
 	}
+	
+	
+	@RequestMapping("/profile/openFeedModal")
+	public String openFeedModal(@RequestParam(value="feedSeq", required=false) String feedSeq, Model m) {
+		m.addAttribute("feed",service.selectFeed(feedSeq));
+		log.warn("feed: {}",service.selectFeed(feedSeq));
+		m.addAttribute("like", service.selectLike(feedSeq));
+		log.warn("like: {}",service.selectLike(feedSeq));
+		m.addAttribute("comment",service.selectComment(feedSeq));
+		log.warn("comment: {}",service.selectComment(feedSeq));
+		
+//		return "";
+		return "components/profile/feedDetailModal";
+	}
 
 }

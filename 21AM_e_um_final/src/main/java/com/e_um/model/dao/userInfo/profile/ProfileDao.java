@@ -8,8 +8,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.dao.communicateInfo.friend.FriendDao;
+import com.e_um.model.vo.communicateinfo.feed.NoHasAFeed;
+import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
+import com.e_um.model.vo.communicateinfo.likefeed.Likefeed;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -78,6 +81,24 @@ public class ProfileDao implements ProfileDaoInterface {
 	@Override
 	public int deleteGuestbook(SqlSessionTemplate session, String gbSeq) {
 		return session.update("profile.deleteGuestbook",gbSeq);
+	}
+
+
+	@Override
+	public NoHasAFeed selectFeed(SqlSessionTemplate session, String feedSeq) {
+		return session.selectOne("profile.selectFeed",feedSeq);
+	}
+
+
+	@Override
+	public List<Likefeed> selectLike(SqlSessionTemplate session, String feedSeq) {
+		return session.selectList("profile.selectLike",feedSeq);
+	}
+
+
+	@Override
+	public List<FeedComment> selectComment(SqlSessionTemplate session, String feedSeq) {
+		return session.selectList("feed.feedComment",feedSeq);
 	}
 
 }

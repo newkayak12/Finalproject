@@ -24,11 +24,16 @@ public class Board {
 	 * user를 join 할 떄, 전체를 다 가져와야하는지를 고민해볼 필요가 있음
 	 */
 	
+	private String groupSeq;
 	private String groupBoardSeq;
 	private User groupBoardUser;
 	private String groupBoardTitle, groupBoardContents;
 	private Date groupBoardDate;
-	private String groupBoardFile, groupBoardFlag, groupBoardBlock;
+	private String groupBoardLevel, groupBoardFlag, groupBoardBlock;
+	
+	
+	
+	
 	
 //	private List<LikeBoard> likeBoard = new ArrayList<>();
 	/*

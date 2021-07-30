@@ -27,5 +27,11 @@ public interface FoodServiceInterface {
 
 	int insertFoodComment(Map<String, Object> map);
 
+	List<FoodComment> selectFoodCommentList(String foodSeq, int cPage);
+
+	int countFoodComment(String foodSeq);
+
+	int addFoodLike(Map<String, String> param);
+
 
 }
