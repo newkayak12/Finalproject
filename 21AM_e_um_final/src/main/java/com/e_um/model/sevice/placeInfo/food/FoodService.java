@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.placeInfo.food.FoodDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
@@ -117,6 +118,18 @@ public class FoodService implements FoodServiceInterface {
 	@Override
 	public int addFoodLike(Map<String, String> param) {
 		return dao.addFoodLike(session, param);
+	}
+
+
+	@Override
+	public LikeFood checkFoodLike(Map<String, String> param) {
+		return dao.checkFoodLike(session, param);
+	}
+
+
+	@Override
+	public int delFoodLike(Map<String, String> param) {
+		return dao.delFoodLike(session, param);
 	}
 
 
