@@ -13,8 +13,9 @@
 	.foodView-inner-sideMenu { width : 100px; float : right; }
 	
 	.foodView-icons { display: flex; justify-content: flex-end; }
-	.foodView-icons-inner { margin : 10px; align-self:center; text-decoration: none; color : lightgray !important;}
-	.foodView-icons-inner:hover {  font-weight: 500 !important; color : #2AC1BC !important; cursor: pointer;}
+	.foodView-icons-inner { margin : 10px; align-self:center; text-decoration: none; color : lightgray ;}
+	.foodView-icons-inner:hover {  font-weight: 500 !important; color : #2AC1BC; cursor: pointer;}
+	
 	.foodView-icons-inner a { text-decoration: none; color : lightgray !important; }
 	.foodView-icons-inner a:hover { color : #2AC1BC !important; font-weight: 500 !important; }
 	
@@ -23,6 +24,7 @@
 	.lightgray { color : lightgray;}
 	.atag { text-decoration: none; color : black !important; font-weight : 900;}
 	.foodView-icon-style { font-size:35px; text-align: center; }
+	
 	
 	/* 토스트 메시지 */
 	.toast-wrap {
@@ -102,7 +104,8 @@
 						
 						<!-- 로그인한 회원이 이 맛집을 좋아요했다면 로드할때 채워진 하트로 보이도록 --> 
 						<c:if test="${ likecheck ne null }">
-							<div id="likeicon" class="foodView-icons-inner mr-3" style="color : #2AC1BC !important;" onclick="fn_FoodLike(event);">
+						<!-- style="color : #2AC1BC !important; -->
+							<div id="likeicon" class="foodView-icons-inner mr-3" " onclick="fn_FoodLike(event);">
 								<div class="foodView-icon-style">
 									<i class="fas fa-heart" id = "like" style="color : #2AC1BC !important;"></i>
 								</div>
@@ -110,9 +113,10 @@
 							</div>
 						</c:if>
 						<c:if test="${ likecheck eq null }">
-							<div id="likeicon" class="foodView-icons-inner mr-3" style="color : lightgray !important;" onclick="fn_FoodLike(event);">
+						<!-- style="color : lightgray !important;" -->
+							<div id="likeicon" class="foodView-icons-inner mr-3"  onclick="fn_FoodLike(event);">
 								<div class="foodView-icon-style">
-									<i class="far fa-heart"id = "unlike" style="color : lightgray !important;"></i>
+									<i class="far fa-heart" id = "like" style="color : rgb(201,201,201);"></i>
 								</div>
 								<span style="font-size:15px; font-weight:900;" id="unlikecontent" style="color : lightgray !important;">가고싶다</span>
 							</div>
@@ -262,7 +266,6 @@
 				"foodSeq" : "${food.foodSeq}"
 			},
 			success : data => {
-				console.log(data);
 				$("#foodView-review-container").append(data);
 			}
 		});
@@ -288,9 +291,12 @@
 					if(data == 'success') {
 						console.log('좋아요추가 됩니까?')
 						console.log($(e.target))
+						console.log($("#like"))
 						//$(e.target).attr("class", "fas fa-heart").css({ "color" : "#2AC1BC !important" });
-						alert($("#like").css("color"))
+						$("#like").removeClass("fa fa-heart")
 						$("#like").attr("class", "fas fa-heart").css({ "color" : "#2AC1BC !important" });
+
+						
 						// 토스트메세지 띄우기 
 						showToast("가고싶다 리스트에 추가 완료!");
 					}
@@ -310,9 +316,11 @@
 					console.log(data);
 					if(data == 'success') {
 						console.log('좋아요삭제 됩니까?')
+						console.log($("#unlike"))
 						//$(e.target).attr("class", "far fa-heart").css({ "color" : "lightgray !important" });
-						alert($("#unlike").css("color"))
-						$("#unlike").attr("class", "far fa-heart").css({ "color" : "lightgray !important" });
+						$("#like").removeClass("fas fa-heart")
+						$("#like").attr("class", "far fa-heart").css({ "color" : "rgb(201,201,201)" });
+						
 					}
 				}
 			});
