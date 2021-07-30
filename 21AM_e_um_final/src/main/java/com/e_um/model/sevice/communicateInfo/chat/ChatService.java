@@ -1,6 +1,7 @@
 package com.e_um.model.sevice.communicateInfo.chat;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,17 @@ public class ChatService implements ChatServiceInterface {
 	public int iReadit(String roomseq, String userId) {
 		// TODO Auto-generated method stub
 		return dao.iReadit(roomseq, userId, session);
+	}
+
+	@Override
+	public int chatToOffline(Map map) {
+		// TODO Auto-generated method stub
+		return dao.chatToOffline(map, session);
+	}
+
+	@Override
+	public int chatToOnline(Map map) {
+		// TODO Auto-generated method stub
+		return dao.chatToOnline(map, session);
 	}
 }

@@ -1,5 +1,8 @@
 package com.e_um.common.webSocketHandler;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +18,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.e_um.model.sevice.communicateInfo.chat.ChatServiceInterface;
 import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,11 +56,16 @@ public class ChatHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
 			String msg = message.getPayload();
+			log.error("msgsmg"+msg);
+			log.error("idsetidset{}",idSet);
 			JacksonJsonParser parser = new JacksonJsonParser();
 			Map<String,Object> result = parser.parseMap(msg);
+			log.error("resultresult{}",result);
 			
 			/* 채팅 시작부*/
 			if(((String) result.get("flag")).equals("init")) {
+				
+				log.warn("init!");
 //				init을 사용자가 보내면
 					if(checkId((String)result.get("my"), session)) {
 	//				로그인 여부 확인 (MAP)에 업로드
@@ -75,13 +81,15 @@ public class ChatHandler extends TextWebSocketHandler {
 				
 				ChatRoom prev = fetchChatlist((String) chatroomdata.getChatRoomSeq(), (String) result.get("my"));
 //				채팅방과 채팅 리스트 가져옴 
+				Map map  = new HashMap();
+				map.put("data", prev);
+				map.put("flag", "init");
+				
+				log.warn("mapmapampampa{}",map);
+				String prevchat = wrapper.writeValueAsString(map);
 				
 				
-				
-				String prevchat = wrapper.writeValueAsString(prev.getChats());
-				
-				
-
+				log.warn("init{}",prevchat);
 				idSet.get(((String)result.get("my"))).sendMessage(new TextMessage(prevchat));
 				
 				iReadit((String) chatroomdata.getChatRoomSeq(), (String) result.get("target"));
@@ -89,20 +97,48 @@ public class ChatHandler extends TextWebSocketHandler {
 				
 				
 				/* 채팅 중반부 */
-			} else if(((String) result.get("flag")).equals("runing")) {
+			} else if(((String) result.get("flag")).equals("running")) {
 				
+//	{room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text}
 //				상대방이 온라인이 아닌 경우 || 채팅방에 들어와 있지 않은 경우 
+				log.warn("target{}",idSet.get((String)(result.get("target"))));
 				if(idSet.get((String)(result.get("target"))) == null){
 //					DB로 바로 저장
+					log.warn("DB로 바로 저장");
+					log.warn("{}",idSet);
+					chatToOffline(result);
+
+					ChatRoom prev = fetchChatlist((String) result.get("room"), (String) result.get("my"));
+//					채팅방과 채팅 리스트 가져옴 
+					Map map  = new HashMap();
+					map.put("data", prev);
+					map.put("flag", "init");
+					String prevchat = wrapper.writeValueAsString(map);
 					
+					idSet.get((String) result.get("my")).sendMessage(new TextMessage(prevchat));
 					
 					
 				} else {
 //					바로 메시지 보내야함 + DB에 일정 수가 쌓이면 저장
+					log.warn("서버로 보내고 나중에 DB로 저장");
+					log.warn("chatchatchat{}",result);
+					LocalDateTime time = LocalDateTime.now();
 					
+							
+							
+					result.put("time",LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm")));
+					
+					
+					log.warn("targettargettarget{}",idSet.get((String)(result.get("target"))));
+					idSet.get((String)result.get("my")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
+					Thread.sleep(500);
+					idSet.get((String)result.get("target")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
+					chatToOnlind(result);
 					
 				}
 				
+			} else if(((String) result.get("flag")).equals("fin")) {
+				idSet.remove((String) result.get("my"));
 			}
 			
 			
@@ -166,4 +202,13 @@ public class ChatHandler extends TextWebSocketHandler {
 		return service.iReadit(roomseq, targetId);
 	}
 	
+	
+	public int chatToOffline(Map map) {
+		
+		return service.chatToOffline(map);
+	}
+	
+	public int chatToOnlind(Map map) {
+		return service.chatToOnline(map);
+	}
 }

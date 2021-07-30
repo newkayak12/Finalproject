@@ -10,7 +10,7 @@
 <c:set var="session" value="${userSession }" scope="session" />
 <style>
 * {
-	/* border: 1px black solid    */
+	   /* border: 1px black solid  */
 	
 }
 </style>
@@ -221,7 +221,7 @@ $(function(){
     	fn_chatAlarmCount();
     	onlinesend()
     	
-    },20000)
+    },5000)
 })
 
 
@@ -300,7 +300,7 @@ console.log(onlinelist)
 					profileboxf.append(photof).append(nickf)
 					outf.append(profileboxf).append(statusboxf)
 					
-					$("#footerinnerContainer").append(outf)
+					$("#footerinnerContainer").append(outf).attr("class","p-2")
 					
 				})
 				
@@ -402,12 +402,13 @@ function kakaoLogout(){
 		$("#controlpanelfooter").html("")
 		showmypage()
 		/* $("#footerContainer").css("overflow","visible") */
-		$("#footerContainer").toggle(240)
 		
-			if($("#footerContainer").css("display")=='block'){
+			if($("#footerContainer").css("display")=='none'){
 				$("body").css("overflow","hidden")
+				$("#footerContainer").show(240)
 			} else {
 				$("body").css("overflow","visible")
+				$("#footerContainer").hide(240)
 			}
 	}
 	
@@ -492,10 +493,11 @@ function kakaoLogout(){
 		if($("#footerContainer").css("display")=='none'){
 			$("#footerinnerContainer").css("overflow","auto");
 			$("body").css("overflow","hidden")
+			$("#footerContainer").show(240)
 		} else {
 			$("body").css("overflow","")
+			$("#footerContainer").hide(240)
 		}
-		$("#footerContainer").toggle(240)
 	}
 	
 	
@@ -639,9 +641,8 @@ function kakaoLogout(){
 			} else {
 				tar =id2;
 			}
-			$("#footerinnerContainer").html("")
-			$("#controlpanelfooter").html(tar)
-			$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fn_chatList()"}).css({"width":"30px","height":"30px"}))
+			
+			chatInterfacebottom();
 		}
 		
 		
@@ -672,33 +673,170 @@ function kakaoLogout(){
 		
 		socket.onmessage=msghandle;
 		
-		
+		socket.onclose=function(e){
+			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
+			let result = JSON.parse(data)
+			socket.send(data)
+			
+		}
 		
 		
 		
 	}
 	
+	
+	function chatInterfacebottom(){
+		$("body").css("overflow","hidden")
+		$("#footerinnerContainer").html("").css("height","477px")
+		
+		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
+		
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"550px"}).css({"overflow-y":"auto"})
+		
+		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-5 pb-5 pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
+		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})
+		let chatRoomBottomhidden1 = $("<input>").attr({"id":"chatRoomBottomhidden1", "type":"hidden"})
+		let chatRoomBottomhidden2 = $("<input>").attr({"id":"chatRoomBottomhidden2", "type":"hidden"})
+		let chatSendBottom = $("<input>").attr({"id":"chatSendBottom","type":"button", "class":"checkBtn","value":"전송","onclick":"sendmsg()"})
+		
+		/* 1방 2상대 */
+		chatRootDockBottom.append(chatRoomBottomhidden1).append(chatRoomBottomhidden2).append(chatinputboxBottom).append(chatSendBottom)
+		
+		$("#footerinnerContainer").append(chatRootBottom).append(chatRootDockBottom).attr("class","p-0")
+		console.log('s2')
+	}
+	
 	/* *******채팅 보내기******************************** */
-	
-	
+
+	let nickname='';
+	let photos = '';
 	function msghandle(e){
 		
 		let temp = e["data"]
 			temp = temp.replace(/\//gi, "");
 		let data = JSON.parse(temp);
+		console.log(data)
 		
-		 data.forEach((v,i)=>{
-			 console.log(v)
-		 })
-		
+		if(data["flag"]=='init'){
+			let target = ''
+			 	if(data["data"]["chatrommId1"]=='${userSession.userId}'){
+			 		target = data["data"]["chatrommId2"]
+			 	} else {
+			 		target = data["data"]["chatrommId1"]
+			 	}
+			 $("#controlpanelfooter").html(target)
+			 
+			 $("#chatRoomBottomhidden1").val(data["data"]["chatRoomSeq"])
+			 $("#chatRoomBottomhidden2").val(target)
+			 /* roomseq , target */
+			 
+			 let chats = data["data"]["chats"];
+			 let chatRootBottom = $("#chatRootBottom");
+			 chatRootBottom.html("")
+			 console.log("datadata"+data["data"])
+			 	chats.forEach((v,i)=>{
+			 	
+			 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
+			 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
+			 			let outter = $("<div>").attr("class","col-6")
+			 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
+			 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
+			 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
+			 			
+			 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+			 		} else {
+			 			
+			 			
+			 			nickname = v["chatSender"]["userNick"];
+			 			photos=v["chatSender"]["profileImageFile"]
+			 				
+			 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
+			 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
+			 			let aoutter = $("<div>").attr("class","col-6 my-auto")
+			 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
+			 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
+			 			
+			 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+			 			
+			 			
+			 		}
+			 		
+			 		
+			 	})
+			$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+
+		} else if(data["flag"]=='running'){
+			console.log('들어오냐? ')
+			let chatRootBottom = $("#chatRootBottom");
+			
+			/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
+			if(data["my"]=='${userSession.userId}'){
+				
+				
+	 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
+	 			let outter = $("<div>").attr("class","col-6")
+	 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
+	 			let content = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
+	 			let timeline = $("<span>").attr("class","small").html(data["time"]);
+	 			
+	 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+	 			
+	 		} else {
+	 			console.log('들어오냐? 타인')
+	 			
+	 			console.log(nickname)
+	 			console.log(photos)
+	 			console.log(data)
+	 			console.log(data["msg"])
+	 			
+	 			let bCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
+	 			let bphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+photos}))
+	 			let boutter = $("<div>").attr("class","col-6 my-auto")
+	 			let bnickandtime = $("<div>").append($("<span>").html(nickname)).append($("<span>").attr("class","ml-2 small").css("color","gray").html(data["time"]))
+	 			let bcontent = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
+	 			
+	 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
+	 			
+	 			
+	 		}
+			
+			$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+			
+		}
 		
 	}
 	
+	function entertosend(){
+		if (window.event.keyCode == 13) {
+			 
+			sendmsg()
+       }
+	}
 	
-	function sendsmg(room, my, target, flag, msg){
-		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg};
-		let result = JSON.parse(data);
+	
+	function sendmsg(){
+	let room = $("#chatRoomBottomhidden1").val();
+	let my = '${userSession.userId}'
+	let target = $("#chatRoomBottomhidden2").val();
+	let flag = "running"
+	let msg = $("#chatinputboxBottom").val()
+		
+		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
+		let result = JSON.stringify(data);
 		socket.send(result)
+		
+	$("#chatinputboxBottom").val("")
+	}
+	
+	function fin(){
+		let room = $("#chatRoomBottomhidden1").val();
+		let target = $("#chatRoomBottomhidden2").val();
+		let myId= '${userSession.userId}'
+		
+		let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
+		let result = JSON.parse(data)
+		socket.send(data)
+		fn_chatList();
 	}
 	
 	/* *******채팅******************************** */
@@ -767,7 +905,6 @@ function kakaoLogout(){
 			url:"${pageContext.request.contextPath}/fetch/chatlist",
 			data:{"userId":userId},
 			success:data=>{
-				
 				/* data.forEach((v,i)=>{
 					
 							
@@ -826,17 +963,36 @@ function kakaoLogout(){
 	
 	/* 헤더 채팅 리스트 */
 	function showchatList(){
+		
+		
 		$("#controlpanel").html("채팅목록")
 		$("#toolbox").toggle(240)
 		$("#toolinnerbox").html("")
+		
+		let room = $("#chatRoomBottomhidden1").val();
+		let my = '${userSession.userId}'
+		let target = $("#chatRoomBottomhidden2").val();
+		let flag = "running"
+		let msg = $("#chatinputboxBottom").val()
+		
+		
+		
 		fn_chatList()
 	}
 	
 	/* 푸터 채팅 리스트 */
 	function showchatListf(){
-		$("#footerContainer").toggle(240)
-		$("#footerinnerContainer").html("")
-		fn_chatList()
+		if($("#footerContainer").css("display")=='none'){
+			fn_chatList()
+			$("#footerContainer").show(240)	
+			$("body").css("overflow","hidden")
+		} else {
+			$("#footerContainer").hide(240)	
+			$("body").css("overflow","")
+		}
+		
+		/* $("#footerContainer").toggle(240)
+		$("#footerinnerContainer").html("") */
 	}
 	
 	
