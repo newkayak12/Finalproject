@@ -36,7 +36,7 @@ public interface MovieDaoInterface {
 	
 	int movieReviewCount2(SqlSessionTemplate session, Map param);
 
-	List<MovieSeatStatus> movieBox(SqlSessionTemplate session);
+	List<MovieSeatStatus> movieBox(SqlSessionTemplate session, String movieSeq);
 
 	List<MovieTime> movieTime(SqlSessionTemplate session);
 }

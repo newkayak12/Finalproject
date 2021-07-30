@@ -93,7 +93,7 @@
 				<a href="javascript:moveFn('${g.groupSeq }');">
 					<div class="list_container">
 						<div class="list_imgBox1">
-							<imgw
+							<img
 								src="${request.getContextPath}/resources/upload/group/${g.groupFileUpload } ">
 						</div>
 						<div class="list_containerTxt d-flex justify-content-start">

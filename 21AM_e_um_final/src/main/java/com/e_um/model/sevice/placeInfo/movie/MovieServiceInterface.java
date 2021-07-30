@@ -34,7 +34,7 @@ public interface MovieServiceInterface {
 	
 	int movieReviewCount2(Map param);
 	
-	List<MovieSeatStatus> movieBox();
+	List<MovieSeatStatus> movieBox(String movieSeq);
 	
 	List<MovieTime> movieTime();
 	

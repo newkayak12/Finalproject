@@ -126,6 +126,10 @@
 		const reviewWrite=(movieSeq)=>{
 			location.assign("<%=request.getContextPath()%>/movie/movieWriteStart?movieSeq="+movieSeq);
 		}
+		
+		const movieReserve=()=>{
+			location.assign("<%=request.getContextPath()%>/movie/movieReserve");
+		}
 	
 	</script>
 	
@@ -156,7 +160,7 @@
 			                        <strong>★${movie.movieTotalEvalution }</strong>
 			                    </span>
 			                </div>
-			                <button class="btn btn-success mt-5">예매하기</button>
+			                <button class="btn btn-success mt-5" onclick="movieReserve();">예매하기</button>
 			            </div>
 			        </div>
 			        

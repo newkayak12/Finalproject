@@ -22,4 +22,5 @@ public interface GroupServiceInterface {
 	Group selectGroupUseridCheck(String groupSeq);
 	
 	
+	
 }

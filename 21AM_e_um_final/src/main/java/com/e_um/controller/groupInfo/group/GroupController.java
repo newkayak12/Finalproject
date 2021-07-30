@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.e_um.model.sevice.groupInfo.board.BoardServiceInterface;
 import com.e_um.model.sevice.groupInfo.group.GroupServiceInterface;
 import com.e_um.model.vo.groupinfo.board.Board;
+import com.e_um.model.vo.groupinfo.comment.Comment;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
@@ -98,14 +97,13 @@ public class GroupController {
 		  Group list=service.selectGroupUseridCheck(groupSeq);
 		  model.addAttribute("group",list);
 		  
-
 		  log.warn("{}",list);
 		  for(Member m : list.getMembers()) {
 		  
 				
 			if(m.getGroupUser().getUserId().equals(userId)) {
-				log.warn("야호!")
-	;			return "redirect:/group/groupSigned.do";
+				log.warn("야호!");
+				return "redirect:/group/groupSigned.do?groupSeq="+groupSeq;
 			}
 		  }
 		  return page;
@@ -113,28 +111,32 @@ public class GroupController {
 
 	
 	@RequestMapping("/group/groupBoardWrite.do")
-	public String groupBoardWrite(HttpSession session) {
+	public String groupBoardWrite(HttpSession session, String groupSeq, Model model) {
+		model.addAttribute("groupSeq",groupSeq);
+		
 		return"group/groupboard/groupBoardWrite";
+		
 	}
 	  
 
 	  
 	
 	@RequestMapping("/group/groupBoardInsert.do")
-	public String groupBoardInsert(Board board , Model model, MultipartFile[] file, HttpServletRequest rq) {
+	public String groupBoardInsert(Board board ,String groupSeq, Model model, MultipartFile[] file, HttpServletRequest rq) {
 		User user=(User) rq.getSession().getAttribute("userSession");
 		String userId= user.getUserId();
 		
 		board.setGroupBoardUser(user);
-		
+	
+		System.out.println(groupSeq);
 		log.warn("{}",user);
 		log.warn("{}",board);
 		log.warn("{}",file);
 		
-		
+	
 		int result = serviceb.groupboardinsert(board);
 		
-		return "";
+		return "redirect:/group/groupBoard.do?groupSeq="+groupSeq;
 	}
 	
 	
@@ -143,17 +145,37 @@ public class GroupController {
 	
 	
 	@RequestMapping("/group/groupSigned.do")
-	public String groupSigned() {
+	public String groupSigned(HttpSession session,Group group,Model model) {
+		log.warn("signed{}",group);
+		String groupSeq = group.getGroupSeq();
+		Group list=service.selectGroupUseridCheck(groupSeq);
+		System.out.println(list);
+		model.addAttribute("group",list);
 		return "group/groupboard/groupBoardMain";
 	}
 
 	@RequestMapping("/group/groupBoard.do")
-	public String groupBoard() {
+	public String groupBoard(HttpSession session,Group group,String groupSeq,Model model) {
+		log.warn("Board{}",group);
+		Group list=service.selectGroupUseridCheck(groupSeq);
+		System.out.println(list);
+		model.addAttribute("group",list);
+		
+		
+		
+		  List<Board> boardlist=serviceb.selectBoardList(groupSeq);
+		  System.out.println(boardlist);
+		  model.addAttribute("boardlist",boardlist);
+		 
+		
 		return "group/groupboard/groupBoardSub";
 	}
 
 	@RequestMapping("/group/groupScheduler.do")
-	public String groupScheduler() {
+	public String groupScheduler(String groupSeq,Model model) {
+		Group list=service.selectGroupUseridCheck(groupSeq);
+		System.out.println(list);
+		model.addAttribute("group",list);
 		return "group/groupboard/groupBoardSchedule";
 	}
 	
@@ -162,6 +184,19 @@ public class GroupController {
 	public String fileUpload(HttpServletRequest rq, MultipartHttpServletRequest files) {
 		log.warn("asdfasdf{}",files);
 		return null;
+	}
+	
+	@RequestMapping("/group/groupBoardContents.do")
+	public String groupBoardContents(String groupBoardSeq,Model model) {
+		Board board = serviceb.selectGroupBoard(groupBoardSeq);
+		List<Comment> commentlist = serviceb.selectGroupBoardComment(groupBoardSeq);
+		model.addAttribute("board",board);
+		
+		
+		model.addAttribute("comment",commentlist);
+		
+		
+		return "group/groupboard/groupBoardContents";
 	}
 
 }

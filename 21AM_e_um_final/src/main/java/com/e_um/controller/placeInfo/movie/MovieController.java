@@ -215,7 +215,7 @@ public class MovieController {
 	
 	  @RequestMapping("/movie/movieBox")
 	  @ResponseBody public List<MovieSeatStatus>movieBox(@RequestParam(value="movieSeq")String movieSeq){
-		  List<MovieSeatStatus> list = service.movieBox();
+		  List<MovieSeatStatus> list = service.movieBox(movieSeq);
 		  	
 		  return list;
 	  }

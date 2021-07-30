@@ -7,7 +7,17 @@
     
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!--본인 css 파일 포함시켜주세요-->
-    
+
+<script>
+	const moveFnBoard=(groupSeq)=>{
+		console.log(groupSeq);
+		location.assign("<%=request.getContextPath()%>/group/groupBoard.do?groupSeq="+groupSeq);
+	}
+	const moveFnScheduler=(groupSeq)=>{
+		console.log(groupSeq);
+		location.assign("<%=request.getContextPath()%>/group/groupScheduler.do?groupSeq="+groupSeq);
+	}
+</script>
     
 <section class="mt-5 pt-5">
    <div id="root" class="container mt-5">
@@ -22,9 +32,9 @@
       	<br><br>
       	<button type="button" class="btn btn-primary" disabled>정보</button>
    		<button type="button" class="btn btn-outline-primary"
-   		onclick="location.assign('${path}/group/groupBoard.do')">게시판</button>
+   		onclick="moveFnBoard('${group.groupSeq}');">게시판</button>
    		<button type="button" class="btn btn-outline-primary"
-   		onclick="location.assign('${path }/group/groupScheduler.do')">스케쥴러</button>
+   		onclick= "moveFnScheduler('${group.groupSeq}')">스케쥴러</button>
       </div>
       
       <br><br>
