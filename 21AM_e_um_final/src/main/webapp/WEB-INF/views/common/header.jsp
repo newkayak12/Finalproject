@@ -222,6 +222,15 @@
 		</div>
 	</div>
 	
+<div class="toast" style = "position:fixed; top: 60px; right:0px; width: 200px; max-width:300px">
+  <div class="toast-header" style="background-color : #2AC1BC; color:black; font-weight:bold">
+    <span id="toastId"></span>
+    <span id="toastCount" class="ml-4 small"></span>
+  </div>
+  <div class="toast-body" id="toastContent">
+    Some text inside the toast body
+  </div>
+</div>
 	
 	<script>
 	
@@ -272,8 +281,9 @@ $(function(){
     	alarmCount()
     	fn_chatAlarmCount();
     	onlinesend()
+    	/* $('.toast').toast('show'); */
     	
-    },5000)
+    },1000)
 })
 
 
@@ -298,16 +308,77 @@ function onlinesend(){
 }
 
 function onlinereceive(e){
-	let dt = e["data"].substring(1,e["data"].length-1)
-	onlinelist = dt.split(", ");
-	$(".offline").css("color","#bababa")
-	onlinelist.forEach((v,i)=>{
-		$("#"+v+'t').css("color","rgb(40,198,50)")
-		$("#"+v+'b').css("color","rgb(40,198,50)")
-		
-	})
+	let temp = e["data"]
+	temp = temp.replace(/\//gi, "");
+	let data = JSON.parse(temp);
+		if(data["flag"]=='online'){
+			console.log(data["data"])
+			/* let dt = data["data"].substring(1,e["data"].length-1) */
+			/* onlinelist = dt.split(", "); */
+			onlinelist = data["data"]
+			$(".offline").css("color","#bababa")
+			
+				onlinelist.forEach((v,i)=>{
+					$("#"+v+'t').css("color","rgb(40,198,50)")
+					$("#"+v+'b').css("color","rgb(40,198,50)")
+				})
+	 
+			
+		} else {
+			let count = 0;
+			let countvalue=''
+			let id = '';
+			let msg = data["data"][0]["chats"][0]["chatContent"]
+			console.log(data)
+			data["data"].forEach((v,i)=>{
+				
+				v["chats"].forEach((v,i)=>{
+					count+=1;
+				})
+			}) 
+			if(data["data"][0]["chatrommId1"]=='${userSession.userId}'){
+				id= data["data"][0]["chatrommId2"]
+			} else {
+				id = data["data"][0]["chatrommId1"]
+			}
+			
+			console.log(count)
+			console.log(id)
+			console.log(msg)
+			if(count>1){
+				countvalue= '외 '+count+'건의 메시지'
+			} 
+			
+			$("#toastId").html(id);
+			$("#toastCount").html(countvalue)
+			$("#toastContent").html(msg)
+			$('.toast').toast("show");
+ /* 			$('.toast').toast({delay:1000,animation:true}); */ 
+ 
+ 			let sound = new Audio();
+			 sound.src= "${pageContext.request.contextPath}/resources/sound/Pulse.mp3";
+			 /* sound.loop(false);
+			 sound.volume(1) */
+			 sound.play()
+			console.log("runtoast")
+			/* 
+			$("#toastId").html("");
+			$("#toastCount").html("")
+			$("#toastContent").html("") */
+		}
 	
 }
+
+/*
+ <span id="toastId"></span>
+    <span id="toastCount"></span>
+  </div>
+  <div class="toast-body">
+    Some text inside the toast body
+  </div>
+*
+*
+*/
 
 
 
