@@ -10,7 +10,7 @@
 <c:set var="session" value="${userSession }" scope="session" />
 <style>
 * {
-	   /* border: 1px black solid  */
+	/*    border: 1px black solid */ 
 	
 }
 </style>
@@ -24,10 +24,12 @@
 	crossorigin="anonymous">
 <link href="<c:url value="${path }/resources/css/main.css" />"
 	rel="stylesheet">
+<link href="${pageContext.request.contextPath } /resources/js/jquery-ui-1.12.1/jquery-ui.css" 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
 <script src="${path }/resources/js/jquery-3.6.0.min.js"></script>
+<script src="${path }/resources/js/jquery-ui-1.12.1/jquery-ui.js"></script>
 <!-- Popper JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -207,14 +209,62 @@
 			</div>
 		</div>
 	</div>
-	<script>
+	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:600px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none;">
+		<div class="col-12 border d-flex justify-content-between" style="height:10%; max-height:50px position:fixed; top:0px;">
+			<span id="headerchatidBox">제목</span>
+			<span onclick ="headerchatclean()">X</span>
+		</div>
+		<div id="chatRoottop" class="col-12 border mb-0" style="height:80%;  overflow:auto;">
+			LOAD
+		</div>
+		<div class="col-12 border mb-0 d-flex justify-content-around align-items-center" style="height:10%; max-height:100px; position:absolute; bottom:0px;">
+			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> <input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
 
+			<input type="hidden" id="chatRoomTophidden1">
+			<input type="hidden" id="chatRoomTophidden2">
+		</div>
+	</div>
+	
+	
+	<script>
+/* 헤더 채팅 */
+function headerchatclean(){
+	$("#headerchatroot").html("")
+	$("headerchatidBox").html("")
+	$("#chatdraggerable").css("display","none")
+	let room = $("#chatRoomTophidden1").val();
+	let target = $("#chatRoomTophidden2").val();
+	let myId= '${userSession.userId}'
+		
+		let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
+		let result = JSON.parse(data)
+		socket.send(data)
+	
+	
+}
+	
+	
+
+
+
+
+	if($(".iconboxfooter").css("display")=="none"){
+		console.log('헤더')
+	} else {
+		console.log('푸터')					
+	}
+
+	
+	/* 초기화 , 알람 */
 
 $(function(){
 	alarmCount()
 	fn_chatAlarmCount();
 	onlinesocketinit()
-	    	
+	$("#chatdraggerable").draggable();
+	$("#chatdraggerable").resizable();
+	
+	console.log("start"+$(".iconboxfooter").css("display"))
 	    	
     setInterval(()=>{
     	alarmCount()
@@ -631,11 +681,27 @@ function kakaoLogout(){
 	/* *******채팅******************************** */
 	let sockect = null;
 	const fn_startChat=(chatroom,id1, id2)=>{
+		console.log("start"+$(".iconboxfooter").css("display"))
 		if($(".iconboxfooter").css("display")=="none"){
+			
+			console.log("socketstart header")
 			/* 헤더 ui */
+					let tar = '';
+					if(id1!='${userSession.userId}'){
+						tar = id1;
+					} else {
+						tar =id2;
+					}
+					
+				$("#chatdraggerable").css("display","block");
+				$("#headerchatidBox").html(tar)
+			
 		} else {
+			
+			/*  */
 			/* footerui */
 			let tar = '';
+			console.log("socketstart header")
 			if(id1!='${userSession.userId}'){
 				tar = id1;
 			} else {
@@ -646,7 +712,7 @@ function kakaoLogout(){
 		}
 		
 		
-		
+		console.log("socketstart")
 		socket = new SockJS("${pageContext.request.contextPath}/chat")
 		let myId =''
 		let target = '' 
@@ -667,7 +733,8 @@ function kakaoLogout(){
 			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"init","msg":""}';
 			let result = JSON.parse(data)
 			socket.send(data)
-			console.log(e)
+			console.log("open")
+			console.log(socket)
 			
 		}
 		
@@ -677,6 +744,7 @@ function kakaoLogout(){
 			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
 			let result = JSON.parse(data)
 			socket.send(data)
+			console.log(socket)
 			
 		}
 		
@@ -711,29 +779,47 @@ function kakaoLogout(){
 	let nickname='';
 	let photos = '';
 	function msghandle(e){
-		
 		let temp = e["data"]
 			temp = temp.replace(/\//gi, "");
 		let data = JSON.parse(temp);
-		console.log(data)
+		
+				
 		
 		if(data["flag"]=='init'){
 			let target = ''
-			 	if(data["data"]["chatrommId1"]=='${userSession.userId}'){
-			 		target = data["data"]["chatrommId2"]
-			 	} else {
-			 		target = data["data"]["chatrommId1"]
-			 	}
-			 $("#controlpanelfooter").html(target)
+     		let chats = data["data"]["chats"];
+
+			
+			if(data["data"]["chatrommId1"]=='${userSession.userId}'){
+		 		target = data["data"]["chatrommId2"]
+		 	} else {
+		 		target = data["data"]["chatrommId1"]
+		 	}
+			
+			
+			if($(".iconboxfooter").css("display")=="none"){
+				
+				
+				console.log('헤더')
+				
+				$("#chatRoomTophidden1").val(data["data"]["chatRoomSeq"])
+				$("#chatRoomTophidden2").val(target)
+			} else {
+				console.log('푸터')					
+				 $("#controlpanelfooter").html(target)
+				 
+				 $("#chatRoomBottomhidden1").val(data["data"]["chatRoomSeq"])
+				 $("#chatRoomBottomhidden2").val(target)
+				 /* roomseq , target */
+			}
 			 
-			 $("#chatRoomBottomhidden1").val(data["data"]["chatRoomSeq"])
-			 $("#chatRoomBottomhidden2").val(target)
-			 /* roomseq , target */
 			 
-			 let chats = data["data"]["chats"];
 			 let chatRootBottom = $("#chatRootBottom");
 			 chatRootBottom.html("")
-			 console.log("datadata"+data["data"])
+			 let chatRoottop = $("#chatRoottop");
+			 chatRoottop.html("")
+			 
+			 console.log(socket)
 			 	chats.forEach((v,i)=>{
 			 	
 			 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
@@ -743,7 +829,16 @@ function kakaoLogout(){
 			 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
 			 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
 			 			
-			 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+			 			
+
+			 			if($(".iconboxfooter").css("display")=="none"){
+			 						console.log('헤더')
+			 						chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
+	 					} else {
+			 						console.log('푸터')					
+					 				chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+	 					}
+			 			
 			 		} else {
 			 			
 			 			
@@ -756,19 +851,33 @@ function kakaoLogout(){
 			 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
 			 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
 			 			
-			 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
 			 			
-			 			
+				 			if($(".iconboxfooter").css("display")=="none"){
+				 				console.log('헤더')
+					 			chatRoottop.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+				 			} else {
+				 				console.log('푸터')					
+					 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+				 			}
 			 		}
 			 		
 			 		
 			 	})
-			$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+			
+			 	
+			 	
+			 	if($(".iconboxfooter").css("display")=="none"){
+					console.log('헤더')
+					$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
+				} else {
+					console.log('푸터')					
+					$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+				}
 
 		} else if(data["flag"]=='running'){
 			console.log('들어오냐? ')
 			let chatRootBottom = $("#chatRootBottom");
-			
+			let chatRoottop = $("#chatRoottop");
 			/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
 			if(data["my"]=='${userSession.userId}'){
 				
@@ -779,11 +888,21 @@ function kakaoLogout(){
 	 			let content = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
 	 			let timeline = $("<span>").attr("class","small").html(data["time"]);
 	 			
-	 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+	 			
+		 			if($(".iconboxfooter").css("display")=="none"){
+		 				console.log('헤더')
+			 			chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 			} else {
+		 				console.log('푸터')					
+			 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 			}
+	 			
 	 			
 	 		} else {
 	 			console.log('들어오냐? 타인')
-	 			
+	 			let chatRootBottom = $("#chatRootBottom");
+	 			let chatRoottop = $("#chatRoottop");
+
 	 			console.log(nickname)
 	 			console.log(photos)
 	 			console.log(data)
@@ -795,12 +914,25 @@ function kakaoLogout(){
 	 			let bnickandtime = $("<div>").append($("<span>").html(nickname)).append($("<span>").attr("class","ml-2 small").css("color","gray").html(data["time"]))
 	 			let bcontent = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
 	 			
-	 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
 	 			
+		 			if($(".iconboxfooter").css("display")=="none"){
+		 				console.log('헤더')
+		 				chatRoottop.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))	
+		 			} else {
+		 				console.log('푸터')					
+			 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
+		 			}
 	 			
 	 		}
 			
-			$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+			
+			if($(".iconboxfooter").css("display")=="none"){
+				console.log('헤더')
+				$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
+			} else {
+				console.log('푸터')					
+				$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+			}
 			
 		}
 		
@@ -815,17 +947,43 @@ function kakaoLogout(){
 	
 	
 	function sendmsg(){
-	let room = $("#chatRoomBottomhidden1").val();
 	let my = '${userSession.userId}'
-	let target = $("#chatRoomBottomhidden2").val();
 	let flag = "running"
-	let msg = $("#chatinputboxBottom").val()
+	let room = '';
+	let target = '';
+	let msg  = '';
+	
 		
+		if($(".iconboxfooter").css("display")=="none"){
+			console.log('헤더 send')
+			room = $("#chatRoomTophidden1").val();
+			target = $("#chatRoomTophidden2").val();
+			msg = $("#chatinputboxTop").val()
+		} else {
+			console.log('푸터 send')					
+			room = $("#chatRoomBottomhidden1").val();
+			target = $("#chatRoomBottomhidden2").val();
+			msg = $("#chatinputboxBottom").val()
+		}
+		
+		
+		
+		console.log(msg)
 		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
 		let result = JSON.stringify(data);
 		socket.send(result)
+		console.log(socket)
 		
-	$("#chatinputboxBottom").val("")
+	
+	
+
+			if($(".iconboxfooter").css("display")=="none"){
+				console.log('헤더')
+				$("#chatinputboxTop").val("")
+			} else {
+				console.log('푸터')					
+				$("#chatinputboxBottom").val("")
+			}
 	}
 	
 	function fin(){

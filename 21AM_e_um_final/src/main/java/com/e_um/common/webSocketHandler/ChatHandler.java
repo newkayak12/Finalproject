@@ -132,7 +132,10 @@ public class ChatHandler extends TextWebSocketHandler {
 					log.warn("targettargettarget{}",idSet.get((String)(result.get("target"))));
 					idSet.get((String)result.get("my")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
 					Thread.sleep(500);
-					idSet.get((String)result.get("target")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
+					
+					if(idSet.get((String)result.get("target"))!=null) {
+						idSet.get((String)result.get("target")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
+					}
 					chatToOnlind(result);
 					
 				}

@@ -132,6 +132,10 @@
 		justify-content: space-between;
 		
 	}
+	
+	#chatdraggerable{
+		display: none;
+	}
 	#submenu{
 		display:none;
 	}
