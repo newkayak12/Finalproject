@@ -80,7 +80,7 @@
 		                                	${feed.feedContents}
 		                                </div>
 		                            	<div class="m-2">
-		                            		<input type="text" id="comment${index.get(i.index) }" class="col-9 col-md-9 col-lg-9">
+		                            		<input type="text" id="comment${index.get(i.index) }" class="col-9 col-md-9 col-lg-9"   onkeyup="enterrepl('${feed.feedSeq}','comment${index.get(i.index) }', 'commentbox${index.get(i.index) }')">
 		                            		<input type="button" value="입력" class="small"  onclick="repl('${feed.feedSeq}','comment${index.get(i.index) }', 'commentbox${index.get(i.index) }')">
 		                            	</div>
 		                            </div>

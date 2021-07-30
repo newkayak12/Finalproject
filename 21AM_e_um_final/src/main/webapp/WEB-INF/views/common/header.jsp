@@ -763,9 +763,9 @@ function kakaoLogout(){
 		
 		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
 		
-		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"550px"}).css({"overflow-y":"auto"})
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"600px"}).css({"overflow-y":"auto"})
 		
-		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-5 pb-5 pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
+		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
 		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})
 		let chatRoomBottomhidden1 = $("<input>").attr({"id":"chatRoomBottomhidden1", "type":"hidden"})
 		let chatRoomBottomhidden2 = $("<input>").attr({"id":"chatRoomBottomhidden2", "type":"hidden"})
