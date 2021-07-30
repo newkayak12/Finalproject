@@ -1,0 +1,40 @@
+target/
+src/main/resources/
+.settings/
+logs/
+.project
+.classpath
+.factorypath
+<<<<<<< HEAD
+.project
+.settings
+.springBeans
+.sts4-cache
+src/main/resources/
+bin/
+logs/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+/bin/
+../.metadata/
+=======
+/bin/
+
+>>>>>>> 8d2f59bf48c1b45baebc3090a01f65700800142c

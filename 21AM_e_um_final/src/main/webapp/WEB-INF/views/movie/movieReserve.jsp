@@ -6,10 +6,9 @@
 		$.ajax({
 			url:"${path}/movie/movieList",
 			success:data=>{
-				console.log(data);
 				for(var i=0; i<data.length;i++){
 					$(".movie-list-ul").append(
-							$("<li>").append($("<button>").html(data[i]["movieTitleKr"])
+							$("<li>").addClass("movieList").append($("<button>").html(data[i]["movieTitleKr"])
 							.addClass('movieName col-12')
 							.attr({"value":data[i]["movieSeq"],"onclick":"movieSeqFn(event);"})))
 				}
@@ -20,19 +19,23 @@
 	
 	const movieSeqFn=(e)=>{
 		let seq = e.target.value;
+		$(".movieName").removeClass('active');
+		$(e.target).addClass('active');
 		
 		$.ajax({
 			url:"${path}/movie/movieBox",
 			data:{"movieSeq":seq},
 			success:data=>{
-				console.log(data);
 				$("#location-1").html("")
-				
+				$("#movieTitle").append().html("영화 : " +data[0]['movieSeq']['movieTitleKr']).css("font-weight","bold");
 				for(var i=0; i<data.length; i++){
 					$("#location-1").append(
 							$("<button>").addClass("theater-place justify-content-center")
 							.html(data[i]["movieBoxSeq"]["movieLocation"])
-							.attr({"value":data[i]["movieBoxSeq"]["movieLocation"],"onclick":"showDate();"}).css("text-align","center"))
+							.attr({"value":data[i]["movieBoxSeq"]["movieLocation"]
+							,"onclick":"showDate(event);"}).css("text-align","center"))
+							
+							
 				}
 			}
 		})
@@ -40,24 +43,40 @@
 		$.ajax({
 			url:"${path}/movie/movieTime",
 			success:data=>{
-				console.log(data)
+
 				$(".reserve-time-wrapper").html("")
 				for(var i=0; i<data.length;i++){
-					$(".reserve-time-wrapper").append($("<button>").addClass("reserve-time-button").append($("<span>").addClass("reserve-time-want").html(data[i]["movieTime"])))
 					
+					$(".reserve-time-wrapper").append($("<button>").addClass("reserve-time-button ml-3 mr-3")
+							.attr({"onclick":"showTime(event)","value":data[i]['movieTime']})
+							.html(data[i]["movieTime"]))				
 				}
 				
 			}
 		})
 	}
 	
-	const showDate=()=>{
+	/* $(".movieName").on("click",function(){
+		$("reserve-time-button")
+	}); */
+	
+	const showDate=(e)=>{
+		$("#movieLocation").append().html("지역 : "+e.target.value).css("font-weight","bold");
 		$(".reserve-date").css("display","flex");
+		$(".theater-place").removeClass('active');
+		$(e.target).addClass('active');
 	}
 	
+	const showTime=(e)=>{
+		$(".reserve-time-button").removeClass('active');
+		$(e.target).addClass('active');
+
+		$("#movieTime").append().html("시간 : "+ e.target.value);
+		$("#infomation").css("display","block");
+		
+	}
 	
-	
-	const seoul=()=>{
+	/* const seoul=()=>{
 		$("#location-2").css("display","none")
 		$("#location-1").css("display","flex")
 	}
@@ -65,12 +84,19 @@
 		$("#location-1").css("display","none")
 		$("#location-2").css("display","flex")
 	}
-	
+	 */
 </script>	
+<style>
+	.active{
+		background-color: #2AC1BC;
+		
+	}
+</style>
 
 	
 	<section class="mt-5 pt-5" data-spy="scroll" data-target=".movie-list-ul" data-offset="50">
 		<div id="root" class="container mt-5">
+			<div><h1 class="pl-5">영화예매</h1></div>
 			<div class="reserve-container">
 		        <div class="movie-part" style="height: 498px;">
 		            <div class="reserve-title">영화</div>
@@ -95,21 +121,23 @@
 		                    <div class="theater-place-wrapper" id="location-1" style="overflow:scroll; height: 450px;">
 		                        
 		                    </div>
-		                    <div class="theater-place-wrapper" id="location-2" style="display: none">
-		                        
+		                    <div class="theater-box-wrapper" id="movieBox" >
+		                    
 		                    </div>
+		                   
 		                </div>
 		            </div>
 		        </div>
 		        <div class="day-part" style="height: 498px;">
 		            <div class="reserve-title" >날짜</div>
-		            <div class="reserve-date" style="overflow:scroll; height: 450px; display: none"></div>
+		            <div class="reserve-date" style="overflow:scroll; height: 450px; display: none">
+		            </div>
 		        </div>
 		        <div class="time-part">
 		            <div class="reserve-title">시간</div>
-		            <div class="reserve-time">
+		            <div class="reserve-time col-12" style="height: 100px;">
 		                <div class="reserve-where"></div>
-		                <div class="reserve-time-wrapper">
+		                <div class="reserve-time-wrapper" style="display: none;">
 		                    <!-- <button class="reserve-time-button"> 
 		                        <span class="reserve-time-want">ㅎ</span>
 		                        
@@ -118,17 +146,20 @@
 		
 		                </div>
 		            </div>
-		            <div class="">
-		            
+		            <div id="infomation" style="height: 200px; display: none;" >
+		            	<h3 id="movieTitle">영화 : </h3>
+		            	<h4 id="movieLocation">지역 : </h4> <h4 id="movieBox">관 : </h4>
+		            	<h5 id="movieDate">날짜 : </h5> <h5 id="movieTime">시간 : </h5>
 		            </div>
 		            
 		            <div>
-		            <form class="moveSeatForm" action="moveSeat.do" method="post">
-		            <input type="hidden" class="title" name="title"> 
-		            <input type="hidden" class="movieAge" name="movieAge">
-		            <input type="hidden" class="selectedTheater" name="selectedTheater">
-		            <input type="hidden" class="reserveDate" name="movieDate">
-		            <button class="moveSeatButton" type="button" style="vertical-align:bottom;">예매하기</button>
+		            <form class="moveSeatForm" action="${path }/movie/seatStart" method="post">
+			            <input type="hidden" id="movieSeq" name="title"> 
+			            <input type="hidden" id="movieTime" name="title"> 
+			            <input type="hidden" id="movieLocation" name="movieAge">
+			            <input type="hidden" id="movieBox" name="selectedTheater">
+			            <input type="hidden" id="" name="movieDate">
+			            <button class="moveSeatButton btn btn-primary" type="submit" style="float: right;">예매하기</button>
 		            </form>
 		            </div>
 		        </div>
@@ -143,8 +174,6 @@
 		    console.log(date.getMonth()+1);
 		    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 		    const reserveDate = document.querySelector(".reserve-date");
-		    console.log(lastDay);
-		    console.log(reserveDate);
 		  
 		        const weekOfDay = ["일", "월", "화", "수", "목", "금", "토"]
 		        const year = date.getFullYear();
@@ -188,7 +217,8 @@
 		
 		    function dayClickEvent(button) {
 		        button.addEventListener("click", function() {
-		            const movieDateWrapperActive = document.querySelectorAll(".movie-date-wrapper-active");
+		            $(".reserve-time-wrapper").css("display","block"); 
+		        	const movieDateWrapperActive = document.querySelectorAll(".movie-date-wrapper-active");
 		            movieDateWrapperActive.forEach((list) => {
 		                list.classList.remove("movie-date-wrapper-active");
 		            })
@@ -212,7 +242,7 @@
 		/* content */
 		
 		.reserve-container {
-		    margin-top: 140px;
+		    margin-top: 30px;
 		    display: flex;
 		    justify-content: center;
 		    height: 500px;
@@ -225,7 +255,7 @@
 		
 		.reserve-title {
 		    border-bottom: 1px solid #dddddd;
-		    background-color: #444444;
+		    background-color: #2AC1BC;
 		    text-align: center;
 		    color: #dddddd;
 		    padding: 5px;
@@ -318,7 +348,7 @@
 		}
 		
 		.movie-date-wrapper-active {
-		    background-color: #333333;
+		    background-color: #2AC1BC;
 		}
 		
 		.movie-date-wrapper-active>* {
@@ -399,12 +429,12 @@
 		}
 		
 		.reserve-time-active {
-		    background-color: #333333;
+		    background-color: #2AC1BC;
 		    color: white;
 		}
 		
 		.theater-place-active {
-		    background-color: #333333;
+		    background-color: #2AC1BC;
 		    color: white;
 		}
 		
