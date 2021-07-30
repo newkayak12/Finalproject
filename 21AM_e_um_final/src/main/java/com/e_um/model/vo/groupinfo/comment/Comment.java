@@ -30,7 +30,7 @@ public class Comment {
 	 */
 	private String groupCommentRef;
 	private int groupCommentLevel;
-	
+	private String groupBoardSeq;
 	
 	private String groupCommentContents, groupCommentBlock, groupCommentFlag;
 	private Date groupCommentDate;

@@ -7,9 +7,13 @@
     
     
 <section class="mt-5 pt-5">
+	
    <div id="root" class="container mt-5">
    <form method="post" action="${path }/group/groupBoardInsert.do" enctype="multipart/form-data">
-   
+   	  <div>
+   	  	<input type="hidden" name="groupSeq" value="${groupSeq }">
+   	  	
+   	  </div>
       <div>
       	제목 : 
       		<input name="groupBoardTitle" id="title" size="80" placeholder="제목을입력하세요">
