@@ -190,16 +190,13 @@
 				</div>
 
 				<!-- Modal footer -->
-				<div class="d-flex flex-row justify-content-center pt-2 pb-2"
-					style="background-color: rgb(113, 120, 127);">
-					<span class="ml-2 mr-2" id="headerGoprofile"> <i
-						class="fa fa-th-large m-4" aria-hidden="true"
-						style="font-size: 30px; color: white"></i>
-						<div class="text-center" style="color: white;">프로필 보기</div>
-					</span> <span class="ml-2 mr-2" id="headerChat"> <i
-						class="fa fa-comments m-4 mb-1 " aria-hidden="true"
-						style="font-size: 30px; color: white"></i>
-						<div class="text-center" style="color: white;">채팅하기</div>
+				<div class="d-flex flex-row justify-content-center pt-2 pb-2" style="background-color: rgb(113, 120, 127);">
+					<span class="ml-2 mr-2" id="headerGoprofile"> 
+					<i class="fa fa-th-large m-4" aria-hidden="true" style="font-size: 30px; color: white"></i>
+					<div class="text-center" style="color: white;">프로필 보기</div>
+					</span> <span class="ml-2 mr-2" id="headerChat"> 
+					<i class="fa fa-comments m-4 mb-1 " aria-hidden="true" style="font-size: 30px; color: white"></i>
+						<div class="text-center" style="color: white;" >채팅하기</div>
 					</span>
 
 					<!-- <button type="button" class="btn btn-primary eumbtn-1" data-dismiss="modal" id="headerGoprofile">프로필</button> -->
@@ -215,7 +212,7 @@
 			<span onclick ="headerchatclean()">X</span>
 		</div>
 		<div id="chatRoottop" class="col-12 border mb-0" style="height:80%;  overflow:auto;">
-			LOAD
+			
 		</div>
 		<div class="col-12 border mb-0 d-flex justify-content-around align-items-center" style="height:10%; max-height:100px; position:absolute; bottom:0px;">
 			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> <input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
@@ -227,6 +224,11 @@
 	
 	
 	<script>
+	
+	function profileChat(){
+		$("")
+	}
+	
 /* 헤더 채팅 */
 function headerchatclean(){
 	$("#headerchatroot").html("")
@@ -575,8 +577,8 @@ function kakaoLogout(){
 		$("#headerProfileStatus").html(status)
 		}
 		$("#headerGoprofile").attr("onclick","fn_goProfile('"+userId+"')")
-		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
-		
+		$("#headerChat").attr("onclick","fn_startChat('','${userSession.userId}','"+userId+"')")
+		/* chatroom,id1, id2 */
 	}
 	
 	/* 푸터 친구 프로필 */
@@ -600,7 +602,7 @@ function kakaoLogout(){
 		let chatfspan = $("<span>").attr("class","ml-2 mr-2")
 		
 		let prof = $("<i>").attr({"onclick":"fn_goProfile('"+userId+"')", "class":'fa fa-th-large m-4', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
-		let chatf = $("<i>").attr({"onclick":"fn_startChatf('"+userId+"')",'class':'fa fa-comments m-4 mb-1 ', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
+		let chatf = $("<i>").attr({"onclick":"fn_startChat('','${userSession.userId}','"+userId+"')",'class':'fa fa-comments m-4 mb-1 ', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
 		
 		let profdiv =$("<div>").html("프로필 보기").attr("class","text-center").css("color","white")
 		let chatfdiv = $("<div>").html("채팅하기").attr("class","text-center").css("color","white")
@@ -681,6 +683,8 @@ function kakaoLogout(){
 	/* *******채팅******************************** */
 	let sockect = null;
 	const fn_startChat=(chatroom,id1, id2)=>{
+		
+		$("#headerprofile").modal("hide")
 		console.log("start"+$(".iconboxfooter").css("display"))
 		if($(".iconboxfooter").css("display")=="none"){
 			
@@ -787,7 +791,9 @@ function kakaoLogout(){
 		
 		if(data["flag"]=='init'){
 			let target = ''
-     		let chats = data["data"]["chats"];
+			
+			
+			console.log(data)
 
 			
 			if(data["data"]["chatrommId1"]=='${userSession.userId}'){
@@ -800,8 +806,8 @@ function kakaoLogout(){
 			if($(".iconboxfooter").css("display")=="none"){
 				
 				
-				console.log('헤더')
-				
+				console.log('헤더에 방번호???????????????????????ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ/')
+				console.log(data["data"]["chatRoomSeq"])
 				$("#chatRoomTophidden1").val(data["data"]["chatRoomSeq"])
 				$("#chatRoomTophidden2").val(target)
 			} else {
@@ -820,51 +826,54 @@ function kakaoLogout(){
 			 chatRoottop.html("")
 			 
 			 console.log(socket)
-			 	chats.forEach((v,i)=>{
+			 console.log("==========================")
+			 console.log(data)
+			 if(data["data"]["chats"]!=null){
+				 data["data"]["chats"].forEach((v,i)=>{
 			 	
-			 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
-			 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
-			 			let outter = $("<div>").attr("class","col-6")
-			 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
-			 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
-			 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
-			 			
-			 			
-
-			 			if($(".iconboxfooter").css("display")=="none"){
-			 						console.log('헤더')
-			 						chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
-	 					} else {
-			 						console.log('푸터')					
-					 				chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
-	 					}
-			 			
-			 		} else {
-			 			
-			 			
-			 			nickname = v["chatSender"]["userNick"];
-			 			photos=v["chatSender"]["profileImageFile"]
-			 				
-			 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
-			 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
-			 			let aoutter = $("<div>").attr("class","col-6 my-auto")
-			 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
-			 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
-			 			
-			 			
+				 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
+				 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
+				 			let outter = $("<div>").attr("class","col-6")
+				 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
+				 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
+				 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
+				 			
+				 			
+	
 				 			if($(".iconboxfooter").css("display")=="none"){
-				 				console.log('헤더')
-					 			chatRoottop.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
-				 			} else {
-				 				console.log('푸터')					
-					 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
-				 			}
-			 		}
-			 		
-			 		
-			 	})
-			
-			 	
+				 						console.log('헤더')
+				 						chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 					} else {
+				 						console.log('푸터')					
+						 				chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 					}
+				 			
+				 		} else {
+				 			
+				 			
+				 			nickname = v["chatSender"]["userNick"];
+				 			photos=v["chatSender"]["profileImageFile"]
+				 				
+				 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
+				 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
+				 			let aoutter = $("<div>").attr("class","col-6 my-auto")
+				 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
+				 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
+				 			
+				 			
+					 			if($(".iconboxfooter").css("display")=="none"){
+					 				console.log('헤더')
+						 			chatRoottop.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+					 			} else {
+					 				console.log('푸터')					
+						 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+					 			}
+				 		}
+				 		
+				 		
+				 	})
+				
+			 }
 			 	
 			 	if($(".iconboxfooter").css("display")=="none"){
 					console.log('헤더')
@@ -955,7 +964,8 @@ function kakaoLogout(){
 	
 		
 		if($(".iconboxfooter").css("display")=="none"){
-			console.log('헤더 send')
+			console.log('헤더 send 방번 호!!!!!!!!!!!!!!!!')
+			console.log(room)
 			room = $("#chatRoomTophidden1").val();
 			target = $("#chatRoomTophidden2").val();
 			msg = $("#chatinputboxTop").val()

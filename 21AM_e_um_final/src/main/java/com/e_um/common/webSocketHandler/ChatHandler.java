@@ -76,10 +76,15 @@ public class ChatHandler extends TextWebSocketHandler {
 				
 				ChatRoom chatroomdata = roomChecker((String)result.get("my"),(String)result.get("target"));
 //				1:1채팅방이기에 DB에 채팅방이 있는지 확인 
+				
+				
+				log.warn("chatroomdata {}",chatroomdata);
 				chatRoom.put((String) chatroomdata.getChatRoomSeq(), new String[] {(String)result.get("my"),(String)result.get("target")});
 //				map에 채팅방 반영
 				
 				ChatRoom prev = fetchChatlist((String) chatroomdata.getChatRoomSeq(), (String) result.get("my"));
+				log.warn("initTask_______{}"+prev);
+				
 //				채팅방과 채팅 리스트 가져옴 
 				Map map  = new HashMap();
 				map.put("data", prev);
@@ -184,12 +189,13 @@ public class ChatHandler extends TextWebSocketHandler {
 	public ChatRoom roomChecker(String userId1, String userId2) {
 		log.warn("{}",service);
 			ChatRoom room = service.chatInit(userId1, userId2);
-			
+		log.warn("roomchecker1{}", room);
 		if(room!=null) {
 			
 			return room;
 		} else {
-			service.createChatRoom(userId1, userId2);
+			int result = service.createChatRoom(userId1, userId2);
+			log.warn("roomchecker2{}", result);
 			
 			return service.chatInit(userId1, userId2);
 		}
