@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.e_um.model.vo.communicateinfo.feed.NoHasAFeed;
+import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
+import com.e_um.model.vo.communicateinfo.likefeed.Likefeed;
 import com.e_um.model.vo.userInfo.user.User;
 
 public interface ProfileDaoInterface {
@@ -30,5 +33,11 @@ public interface ProfileDaoInterface {
 	int guestbookListCount(SqlSessionTemplate session, String profileId);
 	
 	int deleteGuestbook(SqlSessionTemplate session, String gbSeq);
+	
+	NoHasAFeed selectFeed(SqlSessionTemplate session, String feedSeq);
+	
+	List<Likefeed> selectLike(SqlSessionTemplate session, String feedSeq);
+	
+	List<FeedComment> selectComment(SqlSessionTemplate session, String feedSeq);
 
 }

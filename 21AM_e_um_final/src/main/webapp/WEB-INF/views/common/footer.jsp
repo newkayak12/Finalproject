@@ -1,12 +1,12 @@
 
 
-		<div id="footerContainer">
-			<div class="d-flex justify-content-around  border col-12">
+		<div id="footerContainer" style="">
+			<div class="d-flex justify-content-between  border col-12">
 				<span id="controlpanelprev"></span>
 				<span id="controlpanelfooter"></span>
 				<span id="controlpanelnext"></span>
 			</div>
-			<div id="footerinnerContainer" style="height:610px" class="mb-5" >
+			<div id="footerinnerContainer" style="height:520px" class="mb-5 p-0" >
 				
 			</div>
 				

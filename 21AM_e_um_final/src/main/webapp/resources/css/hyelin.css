@@ -110,3 +110,46 @@
 .pointer{
 	cursor:pointer;
 }
+
+
+/*feedDetailModal*/
+.feedImg{
+    /* width:550px;
+    height:550px; */
+    max-width: 100%;
+	height: auto;
+	display: block;
+    object-fit: cover;
+    /* object-position: 50% 50%; */
+}
+#feedCC{
+    overflow:auto; 
+    height:550px;
+}
+#feedBtn i{
+    font-size:25px;
+}
+#feedCommentShow{
+    font-size: 14px;
+}
+.commImg{
+    width:50px;
+    height:50px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+.writeBtn{
+	background-color: #2AC1BC;
+    color:white;
+    width:60px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
+.likeLink:hover{
+	text-decoration:underline;
+}
+.carouselImgDiv{
+	width: 550px;
+  	height: 550px;
+  	overflow: hidden;
+}

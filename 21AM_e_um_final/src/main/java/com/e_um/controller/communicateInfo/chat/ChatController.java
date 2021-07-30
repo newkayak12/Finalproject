@@ -35,19 +35,7 @@ public class ChatController {
 		return service.fetchChatAlarm(userId);
 	}
 	
-	@RequestMapping("/chatting/init")
-	@ResponseBody
-	public ChatRoom chatInit(String myId, String apartId) {
-		ChatRoom chatroom = service.chatInit(myId, apartId);
-
-		
-		log.error("{}",chatroom);
-		return chatroom;
-	}
-	@RequestMapping("/chatting/create")
-	@ResponseBody
-	public int createChatRoom (String myId, String apartId){
-		
-		return 0;
-	}
+	
+	
+//	chat
 }

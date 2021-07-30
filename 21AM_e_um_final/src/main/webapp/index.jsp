@@ -188,6 +188,7 @@
 		})
 		
 	}
+	
 	function loginVerifyAjax(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/loginverify",

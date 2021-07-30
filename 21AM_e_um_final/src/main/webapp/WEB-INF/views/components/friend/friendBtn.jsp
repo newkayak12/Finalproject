@@ -15,27 +15,27 @@
 	        		<div class="d-flex flex-wrap">
 			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName1 !=null}">
-			           		<c:out value="${u.interest.profileInterestName1 }"/>
+			           		#<c:out value="${u.interest.profileInterestName1 }"/>
 			           	</c:if>
 			          	</span>
 			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName2 !=null}">
-			           		<c:out value="${u.interest.profileInterestName2 }"/>
+			           		#<c:out value="${u.interest.profileInterestName2 }"/>
 			           	</c:if>
 			          	</span>
 			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName3 !=null}">
-			           		<c:out value="${u.interest.profileInterestName3 }"/>
+			           		#<c:out value="${u.interest.profileInterestName3 }"/>
 			           	</c:if>
 			          	</span>
 			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName4 !=null}">
-			           		<c:out value="${u.interest.profileInterestName4 }"/>
+			           		#<c:out value="${u.interest.profileInterestName4 }"/>
 			           	</c:if>
 			          	</span>
 			          	<span class="mx-1">
 			           	<c:if test="${u.interest.profileInterestName5 !=null}">
-			           		<c:out value="${u.interest.profileInterestName5 }"/>
+			           		#<c:out value="${u.interest.profileInterestName5 }"/>
 			           	</c:if>
 			          	</span>
 	        		</div>
