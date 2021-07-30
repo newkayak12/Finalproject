@@ -85,9 +85,9 @@ public class MovieService implements MovieServiceInterface {
 		return dao.movieReviewCount2(session, param);
 	}
 	@Override
-	public List<MovieSeatStatus> movieBox() {
+	public List<MovieSeatStatus> movieBox(String movieSeq) {
 		// TODO Auto-generated method stub
-		return dao.movieBox(session);
+		return dao.movieBox(session,movieSeq);
 	}
 	@Override
 	public List<MovieTime> movieTime() {

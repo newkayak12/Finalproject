@@ -1,6 +1,7 @@
 package com.e_um.model.dao.communicateInfo.chat;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -13,4 +14,6 @@ public interface ChatDaoInterface {
 	public int createChatRoom(String myId, String apartId,  SqlSessionTemplate session);
 	public ChatRoom fetchChat(String roomseq, String userId, SqlSessionTemplate session);
 	public int iReadit(String roomseq, String userId, SqlSessionTemplate session);
+	public int chatToOffline(Map map, SqlSessionTemplate session);
+	public int chatToOnline(Map map, SqlSessionTemplate session);
 }

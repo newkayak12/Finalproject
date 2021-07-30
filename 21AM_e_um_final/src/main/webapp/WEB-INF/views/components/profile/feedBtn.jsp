@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:forEach var="f" items="${list }">
-	<div class="box col-xs-6 col-lg-4 mb-3 d-flex justify-content-center">
+	<div class="box col-xs-6 col-lg-4 mb-3 d-flex justify-content-center" onclick="fn_openFeedModal('${f['FEED_SEQ']}');">
 		<c:if test="${f['FEED_IMAGE1']  eq null}">
 			<img src="${path }/resources/images/feed/default.jpg" alt="피드 사진">
 		</c:if>
@@ -15,4 +15,3 @@
 		</c:if>
 	</div>
 </c:forEach>
-

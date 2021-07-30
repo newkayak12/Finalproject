@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.groupInfo.group.GroupDaoInterface;
+import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
@@ -70,6 +71,8 @@ public class GroupService implements GroupServiceInterface {
 		 
 		return dao.selectGroupUseridCheck(session,groupSeq);
 	}
+
+	
 	
 	
 	

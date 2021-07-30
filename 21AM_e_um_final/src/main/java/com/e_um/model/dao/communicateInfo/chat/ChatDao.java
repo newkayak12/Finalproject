@@ -63,4 +63,16 @@ public int iReadit(String roomseq, String userId, SqlSessionTemplate session) {
 	return session.update("chat.iReadit", map);
 }
 
+@Override
+public int chatToOffline(Map map, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.insert("chat.chatToOnffline", map);
+}
+
+@Override
+public int chatToOnline(Map map, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.insert("chat.chatToOnline",map);
+}
+
 }

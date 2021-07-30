@@ -91,9 +91,9 @@ public class MovieDao implements MovieDaoInterface {
 	}
 
 	@Override
-	public List<MovieSeatStatus> movieBox(SqlSessionTemplate session) {
+	public List<MovieSeatStatus> movieBox(SqlSessionTemplate session,String movieSeq) {
 		// TODO Auto-generated method stub
-		return session.selectList("movie.movieBox");
+		return session.selectList("movie.movieBox",movieSeq);
 	}
 
 	@Override

@@ -10,7 +10,7 @@
 <c:set var="session" value="${userSession }" scope="session" />
 <style>
 * {
-	/* border: 1px black solid    */
+	/*    border: 1px black solid */ 
 	
 }
 </style>
@@ -24,10 +24,12 @@
 	crossorigin="anonymous">
 <link href="<c:url value="${path }/resources/css/main.css" />"
 	rel="stylesheet">
+<link href="${pageContext.request.contextPath } /resources/js/jquery-ui-1.12.1/jquery-ui.css" 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
 <script src="${path }/resources/js/jquery-3.6.0.min.js"></script>
+<script src="${path }/resources/js/jquery-ui-1.12.1/jquery-ui.js"></script>
 <!-- Popper JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -188,16 +190,13 @@
 				</div>
 
 				<!-- Modal footer -->
-				<div class="d-flex flex-row justify-content-center pt-2 pb-2"
-					style="background-color: rgb(113, 120, 127);">
-					<span class="ml-2 mr-2" id="headerGoprofile"> <i
-						class="fa fa-th-large m-4" aria-hidden="true"
-						style="font-size: 30px; color: white"></i>
-						<div class="text-center" style="color: white;">프로필 보기</div>
-					</span> <span class="ml-2 mr-2" id="headerChat"> <i
-						class="fa fa-comments m-4 mb-1 " aria-hidden="true"
-						style="font-size: 30px; color: white"></i>
-						<div class="text-center" style="color: white;">채팅하기</div>
+				<div class="d-flex flex-row justify-content-center pt-2 pb-2" style="background-color: rgb(113, 120, 127);">
+					<span class="ml-2 mr-2" id="headerGoprofile"> 
+					<i class="fa fa-th-large m-4" aria-hidden="true" style="font-size: 30px; color: white"></i>
+					<div class="text-center" style="color: white;">프로필 보기</div>
+					</span> <span class="ml-2 mr-2" id="headerChat"> 
+					<i class="fa fa-comments m-4 mb-1 " aria-hidden="true" style="font-size: 30px; color: white"></i>
+						<div class="text-center" style="color: white;" >채팅하기</div>
 					</span>
 
 					<!-- <button type="button" class="btn btn-primary eumbtn-1" data-dismiss="modal" id="headerGoprofile">프로필</button> -->
@@ -207,21 +206,74 @@
 			</div>
 		</div>
 	</div>
-	<script>
+	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:600px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none;">
+		<div class="col-12 border d-flex justify-content-between" style="height:10%; max-height:50px position:fixed; top:0px;">
+			<span id="headerchatidBox">제목</span>
+			<span onclick ="headerchatclean()">X</span>
+		</div>
+		<div id="chatRoottop" class="col-12 border mb-0" style="height:80%;  overflow:auto;">
+			
+		</div>
+		<div class="col-12 border mb-0 d-flex justify-content-around align-items-center" style="height:10%; max-height:100px; position:absolute; bottom:0px;">
+			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> <input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
 
+			<input type="hidden" id="chatRoomTophidden1">
+			<input type="hidden" id="chatRoomTophidden2">
+		</div>
+	</div>
+	
+	
+	<script>
+	
+	function profileChat(){
+		$("")
+	}
+	
+/* 헤더 채팅 */
+function headerchatclean(){
+	$("#headerchatroot").html("")
+	$("headerchatidBox").html("")
+	$("#chatdraggerable").css("display","none")
+	let room = $("#chatRoomTophidden1").val();
+	let target = $("#chatRoomTophidden2").val();
+	let myId= '${userSession.userId}'
+		
+		let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
+		let result = JSON.parse(data)
+		socket.send(data)
+	
+	
+}
+	
+	
+
+
+
+
+	if($(".iconboxfooter").css("display")=="none"){
+		console.log('헤더')
+	} else {
+		console.log('푸터')					
+	}
+
+	
+	/* 초기화 , 알람 */
 
 $(function(){
 	alarmCount()
 	fn_chatAlarmCount();
 	onlinesocketinit()
-	    	
+	$("#chatdraggerable").draggable();
+	$("#chatdraggerable").resizable();
+	
+	console.log("start"+$(".iconboxfooter").css("display"))
 	    	
     setInterval(()=>{
     	alarmCount()
     	fn_chatAlarmCount();
     	onlinesend()
     	
-    },20000)
+    },5000)
 })
 
 
@@ -300,7 +352,7 @@ console.log(onlinelist)
 					profileboxf.append(photof).append(nickf)
 					outf.append(profileboxf).append(statusboxf)
 					
-					$("#footerinnerContainer").append(outf)
+					$("#footerinnerContainer").append(outf).attr("class","p-2")
 					
 				})
 				
@@ -402,12 +454,13 @@ function kakaoLogout(){
 		$("#controlpanelfooter").html("")
 		showmypage()
 		/* $("#footerContainer").css("overflow","visible") */
-		$("#footerContainer").toggle(240)
 		
-			if($("#footerContainer").css("display")=='block'){
+			if($("#footerContainer").css("display")=='none'){
 				$("body").css("overflow","hidden")
+				$("#footerContainer").show(240)
 			} else {
 				$("body").css("overflow","visible")
+				$("#footerContainer").hide(240)
 			}
 	}
 	
@@ -492,10 +545,11 @@ function kakaoLogout(){
 		if($("#footerContainer").css("display")=='none'){
 			$("#footerinnerContainer").css("overflow","auto");
 			$("body").css("overflow","hidden")
+			$("#footerContainer").show(240)
 		} else {
 			$("body").css("overflow","")
+			$("#footerContainer").hide(240)
 		}
-		$("#footerContainer").toggle(240)
 	}
 	
 	
@@ -523,8 +577,8 @@ function kakaoLogout(){
 		$("#headerProfileStatus").html(status)
 		}
 		$("#headerGoprofile").attr("onclick","fn_goProfile('"+userId+"')")
-		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
-		
+		$("#headerChat").attr("onclick","fn_startChat('','${userSession.userId}','"+userId+"')")
+		/* chatroom,id1, id2 */
 	}
 	
 	/* 푸터 친구 프로필 */
@@ -548,7 +602,7 @@ function kakaoLogout(){
 		let chatfspan = $("<span>").attr("class","ml-2 mr-2")
 		
 		let prof = $("<i>").attr({"onclick":"fn_goProfile('"+userId+"')", "class":'fa fa-th-large m-4', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
-		let chatf = $("<i>").attr({"onclick":"fn_startChatf('"+userId+"')",'class':'fa fa-comments m-4 mb-1 ', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
+		let chatf = $("<i>").attr({"onclick":"fn_startChat('','${userSession.userId}','"+userId+"')",'class':'fa fa-comments m-4 mb-1 ', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
 		
 		let profdiv =$("<div>").html("프로필 보기").attr("class","text-center").css("color","white")
 		let chatfdiv = $("<div>").html("채팅하기").attr("class","text-center").css("color","white")
@@ -629,23 +683,40 @@ function kakaoLogout(){
 	/* *******채팅******************************** */
 	let sockect = null;
 	const fn_startChat=(chatroom,id1, id2)=>{
+		
+		$("#headerprofile").modal("hide")
+		console.log("start"+$(".iconboxfooter").css("display"))
 		if($(".iconboxfooter").css("display")=="none"){
+			
+			console.log("socketstart header")
 			/* 헤더 ui */
+					let tar = '';
+					if(id1!='${userSession.userId}'){
+						tar = id1;
+					} else {
+						tar =id2;
+					}
+					
+				$("#chatdraggerable").css("display","block");
+				$("#headerchatidBox").html(tar)
+			
 		} else {
+			
+			/*  */
 			/* footerui */
 			let tar = '';
+			console.log("socketstart header")
 			if(id1!='${userSession.userId}'){
 				tar = id1;
 			} else {
 				tar =id2;
 			}
-			$("#footerinnerContainer").html("")
-			$("#controlpanelfooter").html(tar)
-			$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fn_chatList()"}).css({"width":"30px","height":"30px"}))
+			
+			chatInterfacebottom();
 		}
 		
 		
-		
+		console.log("socketstart")
 		socket = new SockJS("${pageContext.request.contextPath}/chat")
 		let myId =''
 		let target = '' 
@@ -666,39 +737,274 @@ function kakaoLogout(){
 			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"init","msg":""}';
 			let result = JSON.parse(data)
 			socket.send(data)
-			console.log(e)
+			console.log("open")
+			console.log(socket)
 			
 		}
 		
 		socket.onmessage=msghandle;
 		
-		
+		socket.onclose=function(e){
+			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
+			let result = JSON.parse(data)
+			socket.send(data)
+			console.log(socket)
+			
+		}
 		
 		
 		
 	}
 	
-	/* *******채팅 보내기******************************** */
 	
-	
-	function msghandle(e){
+	function chatInterfacebottom(){
+		$("body").css("overflow","hidden")
+		$("#footerinnerContainer").html("").css("height","477px")
 		
+		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
+		
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"600px"}).css({"overflow-y":"auto"})
+		
+		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
+		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})
+		let chatRoomBottomhidden1 = $("<input>").attr({"id":"chatRoomBottomhidden1", "type":"hidden"})
+		let chatRoomBottomhidden2 = $("<input>").attr({"id":"chatRoomBottomhidden2", "type":"hidden"})
+		let chatSendBottom = $("<input>").attr({"id":"chatSendBottom","type":"button", "class":"checkBtn","value":"전송","onclick":"sendmsg()"})
+		
+		/* 1방 2상대 */
+		chatRootDockBottom.append(chatRoomBottomhidden1).append(chatRoomBottomhidden2).append(chatinputboxBottom).append(chatSendBottom)
+		
+		$("#footerinnerContainer").append(chatRootBottom).append(chatRootDockBottom).attr("class","p-0")
+		console.log('s2')
+	}
+	
+	/* *******채팅 보내기******************************** */
+
+	let nickname='';
+	let photos = '';
+	function msghandle(e){
 		let temp = e["data"]
 			temp = temp.replace(/\//gi, "");
 		let data = JSON.parse(temp);
 		
-		 data.forEach((v,i)=>{
-			 console.log(v)
-		 })
+				
 		
+		if(data["flag"]=='init'){
+			let target = ''
+			
+			
+			console.log(data)
+
+			
+			if(data["data"]["chatrommId1"]=='${userSession.userId}'){
+		 		target = data["data"]["chatrommId2"]
+		 	} else {
+		 		target = data["data"]["chatrommId1"]
+		 	}
+			
+			
+			if($(".iconboxfooter").css("display")=="none"){
+				
+				
+				console.log('헤더에 방번호???????????????????????ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ/')
+				console.log(data["data"]["chatRoomSeq"])
+				$("#chatRoomTophidden1").val(data["data"]["chatRoomSeq"])
+				$("#chatRoomTophidden2").val(target)
+			} else {
+				console.log('푸터')					
+				 $("#controlpanelfooter").html(target)
+				 
+				 $("#chatRoomBottomhidden1").val(data["data"]["chatRoomSeq"])
+				 $("#chatRoomBottomhidden2").val(target)
+				 /* roomseq , target */
+			}
+			 
+			 
+			 let chatRootBottom = $("#chatRootBottom");
+			 chatRootBottom.html("")
+			 let chatRoottop = $("#chatRoottop");
+			 chatRoottop.html("")
+			 
+			 console.log(socket)
+			 console.log("==========================")
+			 console.log(data)
+			 if(data["data"]["chats"]!=null){
+				 data["data"]["chats"].forEach((v,i)=>{
+			 	
+				 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
+				 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
+				 			let outter = $("<div>").attr("class","col-6")
+				 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
+				 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
+				 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
+				 			
+				 			
+	
+				 			if($(".iconboxfooter").css("display")=="none"){
+				 						console.log('헤더')
+				 						chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 					} else {
+				 						console.log('푸터')					
+						 				chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 					}
+				 			
+				 		} else {
+				 			
+				 			
+				 			nickname = v["chatSender"]["userNick"];
+				 			photos=v["chatSender"]["profileImageFile"]
+				 				
+				 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
+				 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
+				 			let aoutter = $("<div>").attr("class","col-6 my-auto")
+				 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
+				 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
+				 			
+				 			
+					 			if($(".iconboxfooter").css("display")=="none"){
+					 				console.log('헤더')
+						 			chatRoottop.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+					 			} else {
+					 				console.log('푸터')					
+						 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+					 			}
+				 		}
+				 		
+				 		
+				 	})
+				
+			 }
+			 	
+			 	if($(".iconboxfooter").css("display")=="none"){
+					console.log('헤더')
+					$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
+				} else {
+					console.log('푸터')					
+					$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+				}
+
+		} else if(data["flag"]=='running'){
+			console.log('들어오냐? ')
+			let chatRootBottom = $("#chatRootBottom");
+			let chatRoottop = $("#chatRoottop");
+			/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
+			if(data["my"]=='${userSession.userId}'){
+				
+				
+	 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
+	 			let outter = $("<div>").attr("class","col-6")
+	 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
+	 			let content = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
+	 			let timeline = $("<span>").attr("class","small").html(data["time"]);
+	 			
+	 			
+		 			if($(".iconboxfooter").css("display")=="none"){
+		 				console.log('헤더')
+			 			chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 			} else {
+		 				console.log('푸터')					
+			 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 			}
+	 			
+	 			
+	 		} else {
+	 			console.log('들어오냐? 타인')
+	 			let chatRootBottom = $("#chatRootBottom");
+	 			let chatRoottop = $("#chatRoottop");
+
+	 			console.log(nickname)
+	 			console.log(photos)
+	 			console.log(data)
+	 			console.log(data["msg"])
+	 			
+	 			let bCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
+	 			let bphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+photos}))
+	 			let boutter = $("<div>").attr("class","col-6 my-auto")
+	 			let bnickandtime = $("<div>").append($("<span>").html(nickname)).append($("<span>").attr("class","ml-2 small").css("color","gray").html(data["time"]))
+	 			let bcontent = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
+	 			
+	 			
+		 			if($(".iconboxfooter").css("display")=="none"){
+		 				console.log('헤더')
+		 				chatRoottop.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))	
+		 			} else {
+		 				console.log('푸터')					
+			 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
+		 			}
+	 			
+	 		}
+			
+			
+			if($(".iconboxfooter").css("display")=="none"){
+				console.log('헤더')
+				$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
+			} else {
+				console.log('푸터')					
+				$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+			}
+			
+		}
 		
 	}
 	
+	function entertosend(){
+		if (window.event.keyCode == 13) {
+			 
+			sendmsg()
+       }
+	}
 	
-	function sendsmg(room, my, target, flag, msg){
-		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg};
-		let result = JSON.parse(data);
+	
+	function sendmsg(){
+	let my = '${userSession.userId}'
+	let flag = "running"
+	let room = '';
+	let target = '';
+	let msg  = '';
+	
+		
+		if($(".iconboxfooter").css("display")=="none"){
+			console.log('헤더 send 방번 호!!!!!!!!!!!!!!!!')
+			console.log(room)
+			room = $("#chatRoomTophidden1").val();
+			target = $("#chatRoomTophidden2").val();
+			msg = $("#chatinputboxTop").val()
+		} else {
+			console.log('푸터 send')					
+			room = $("#chatRoomBottomhidden1").val();
+			target = $("#chatRoomBottomhidden2").val();
+			msg = $("#chatinputboxBottom").val()
+		}
+		
+		
+		
+		console.log(msg)
+		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
+		let result = JSON.stringify(data);
 		socket.send(result)
+		console.log(socket)
+		
+	
+	
+
+			if($(".iconboxfooter").css("display")=="none"){
+				console.log('헤더')
+				$("#chatinputboxTop").val("")
+			} else {
+				console.log('푸터')					
+				$("#chatinputboxBottom").val("")
+			}
+	}
+	
+	function fin(){
+		let room = $("#chatRoomBottomhidden1").val();
+		let target = $("#chatRoomBottomhidden2").val();
+		let myId= '${userSession.userId}'
+		
+		let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
+		let result = JSON.parse(data)
+		socket.send(data)
+		fn_chatList();
 	}
 	
 	/* *******채팅******************************** */
@@ -767,7 +1073,6 @@ function kakaoLogout(){
 			url:"${pageContext.request.contextPath}/fetch/chatlist",
 			data:{"userId":userId},
 			success:data=>{
-				
 				/* data.forEach((v,i)=>{
 					
 							
@@ -826,17 +1131,36 @@ function kakaoLogout(){
 	
 	/* 헤더 채팅 리스트 */
 	function showchatList(){
+		
+		
 		$("#controlpanel").html("채팅목록")
 		$("#toolbox").toggle(240)
 		$("#toolinnerbox").html("")
+		
+		let room = $("#chatRoomBottomhidden1").val();
+		let my = '${userSession.userId}'
+		let target = $("#chatRoomBottomhidden2").val();
+		let flag = "running"
+		let msg = $("#chatinputboxBottom").val()
+		
+		
+		
 		fn_chatList()
 	}
 	
 	/* 푸터 채팅 리스트 */
 	function showchatListf(){
-		$("#footerContainer").toggle(240)
-		$("#footerinnerContainer").html("")
-		fn_chatList()
+		if($("#footerContainer").css("display")=='none'){
+			fn_chatList()
+			$("#footerContainer").show(240)	
+			$("body").css("overflow","hidden")
+		} else {
+			$("#footerContainer").hide(240)	
+			$("body").css("overflow","")
+		}
+		
+		/* $("#footerContainer").toggle(240)
+		$("#footerinnerContainer").html("") */
 	}
 	
 	

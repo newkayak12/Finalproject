@@ -47,27 +47,27 @@
 			                <td class="d-flex flex-wrap">
 			                	<span class="mx-1">
 					           	<c:if test="${profileInfo.interest.profileInterestName1 !=null}">
-					           		<c:out value="${profileInfo.interest.profileInterestName1 }"/>
+					           		#<c:out value="${profileInfo.interest.profileInterestName1 }"/>
 					           	</c:if>
 					          	</span>
 					          	<span class="mx-1">
 					           	<c:if test="${profileInfo.interest.profileInterestName2 !=null}">
-					           		<c:out value="${profileInfo.interest.profileInterestName2 }"/>
+					           		#<c:out value="${profileInfo.interest.profileInterestName2 }"/>
 					           	</c:if>
 					          	</span>
 					          	<span class="mx-1">
 					           	<c:if test="${profileInfo.interest.profileInterestName3 !=null}">
-					           		<c:out value="${profileInfo.interest.profileInterestName3 }"/>
+					           		#<c:out value="${profileInfo.interest.profileInterestName3 }"/>
 					           	</c:if>
 					          	</span>
 					          	<span class="mx-1">
 					           	<c:if test="${profileInfo.interest.profileInterestName4 !=null}">
-					           		<c:out value="${profileInfo.interest.profileInterestName4 }"/>
+					           		#<c:out value="${profileInfo.interest.profileInterestName4 }"/>
 					           	</c:if>
 					          	</span>
 					          	<span class="mx-1">
 					           	<c:if test="${profileInfo.interest.profileInterestName5 !=null}">
-					           		<c:out value="${profileInfo.interest.profileInterestName5 }"/>
+					           		#<c:out value="${profileInfo.interest.profileInterestName5 }"/>
 					           	</c:if>
 					          	</span>
 			                </td>
@@ -205,7 +205,6 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn cancelBtn" data-dismiss="modal">Close</button>
 	      </div>
-	
 	    </div>
 	  </div>
 	</div>
@@ -351,6 +350,19 @@
 			},
 			success: data=>{
 				$("#guestbookAllModal .modal-body").html(data);
+			}
+		})
+	}
+	
+	function fn_openFeedModal(feedSeq){
+		console.log(feedSeq);
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/profile/openFeedModal",
+			data:{"feedSeq":feedSeq},
+			success:data=>{
+				$("#feedDetailModal .modal-body").html(data);
+				$("#feedDetailModal").modal("show");
 			}
 		})
 	}
