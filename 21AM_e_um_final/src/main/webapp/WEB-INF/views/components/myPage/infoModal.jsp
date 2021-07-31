@@ -123,6 +123,10 @@
     <div class="tab-pane container fade" id="email">
         <div class="d-flex flex-column justify-content-center align-items-center">
             <table class="table table-borderless col-xl-6 col bgColor fakeborder">
+            	<colgroup>
+            		<col class="col-5">
+            		<col class="col-7">
+            	</colgroup>
                 <tbody>
                     <tr>
                         <td class="colend"><b>현재 이메일</b></td>

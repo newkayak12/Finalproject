@@ -101,7 +101,7 @@
 				</c:if>
 				<c:if test="${profileInfo.userId==userId }">
 					<div id="profileBtn" class="ml-md-5 mt-4">
-						<button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;">
+						<button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;" onclick="location.assign('${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}');">
 			            	<i class="fas fa-cog" width="20px"></i>
 			            </button>
 					</div>
