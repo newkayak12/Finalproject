@@ -428,7 +428,7 @@ public class FoodController {
 		
 		int foodCommentCount = service.countFoodComment(foodSeq);
 		
-		log.warn("{}", foodCommentList);
+		log.warn("foodcommentseqfoodcommentseqfoodcommentseqfoodcommentseq{}", foodCommentList);
 		
 		model.addAttribute("foodCommentList", foodCommentList);
 		model.addAttribute("foodCommentCount", foodCommentCount);
@@ -497,5 +497,48 @@ public class FoodController {
 		
 	}
 	
+	@RequestMapping("/food/deleteFoodComment")
+	@ResponseBody
+	public int deleteFoodComment(String foodCommentSeq) {
+		
+		int result = service.deleteFoodComment(foodCommentSeq);
+		
+		return result;
+		
+	}
+	
+	
+	@RequestMapping("/food/FCReport")
+	@ResponseBody
+	public int openFCReportModal(String foodSeq, String foodCommentSeq, String userId, String targetId, String reportContent, Model model) {
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("foodSeq", foodSeq);
+		param.put("userId", userId);
+		param.put("foodCommentSeq", foodCommentSeq);
+		param.put("targetId", targetId);
+		param.put("reportContent", reportContent);
+		
+		log.error("{}", param); 
+		 
+		int result = service.insertReportFoodComment(param);
+		
+		return result;
+	}
+	
+	// 리뷰신고카운트 up, 유저신고카운트 up, 신고테이블에 insert ? 
+	
+	
+	
+//	@RequestMapping("food/updateFoodComment/start")
+//	public String updateFoodCommentStart(String foodCommentSeq, Model model) {
+//		
+//		FoodComment fc = service.selectFoodComment(foodCommentSeq);
+//		
+//		model.addAttribute("fc", fc);
+//		
+//		return "/food/foodReview";
+//		
+//	}
 	
 }

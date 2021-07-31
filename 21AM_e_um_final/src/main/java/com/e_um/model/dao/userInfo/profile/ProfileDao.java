@@ -1,5 +1,6 @@
 package com.e_um.model.dao.userInfo.profile;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,12 +8,12 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.e_um.model.dao.communicateInfo.friend.FriendDao;
 import com.e_um.model.vo.communicateinfo.feed.NoHasAFeed;
 import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
 import com.e_um.model.vo.communicateinfo.likefeed.Likefeed;
+import com.e_um.model.vo.userInfo.alarm.Alarm;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -99,6 +100,58 @@ public class ProfileDao implements ProfileDaoInterface {
 	@Override
 	public List<FeedComment> selectComment(SqlSessionTemplate session, String feedSeq) {
 		return session.selectList("feed.feedComment",feedSeq);
+	}
+
+
+	@Override
+	public int deleteFeedComment(SqlSessionTemplate session, String fcSeq) {
+		return session.update("profile.deleteFeedComment",fcSeq);
+	}
+
+
+	@Override
+	public int deleteFeed(SqlSessionTemplate session, String feedSeq) {
+		return session.update("profile.deleteFeed",feedSeq);
+	}
+
+
+	@Override
+	public int feedUnlike(SqlSessionTemplate session, Likefeed likef) {
+		return session.delete("profile.feedUnlike",likef);
+	}
+	
+	
+	@Override
+	public int feedLike(SqlSessionTemplate session, Likefeed likef, String profileId, String userNick) {
+		int result=0;
+		
+		if(session.insert("profile.feedLike",likef)>0) {
+			if(!profileId.equals("me")) {
+				Map param=new HashMap();
+				param.put("userId", profileId);
+				param.put("friendNick", userNick);
+				param.put("refSeq", likef.getFeedSeq());
+				result=session.insert("alarm.insertFeedLike",param);
+			}
+		}
+		return result;
+	}
+
+
+	@Override
+	public int writeFeedComment(SqlSessionTemplate session, FeedComment fc, String profileId, String userNick) {
+		int result=0;
+		
+		if(session.insert("profile.writeFeedComment",fc)>0) {
+			if(!profileId.equals("me")) {
+				Map param=new HashMap();
+				param.put("userId", profileId);
+				param.put("friendNick", userNick);
+				param.put("refSeq", fc.getFeedSeqRef());
+				result=session.insert("alarm.insertFeed",param);
+			}
+		}
+		return result;
 	}
 
 }
