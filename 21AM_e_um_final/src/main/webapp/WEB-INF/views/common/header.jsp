@@ -63,8 +63,9 @@
 			<!--로고 자리-->
 			<div
 				style="font-family: 'twayair', cursive; font-weight: 900; font-size: 25px;">
-				<a href="${pageContext.request.contextPath }/user/gotomain"
-					style="text-decoration: none" class="navbar_brand  ml-2 whiteText">E_um</a>
+				<a href="${pageContext.request.contextPath }/user/gotomain" style="text-decoration: none" class="navbar_brand  ml-2 whiteText">
+					<img src="${pageContext.request.contextPath }/resources/images/header/header.png" width="90px" height="45px"> 
+				</a>
 			</div>
 			<%-- <div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div> --%>
 
@@ -830,11 +831,11 @@ function kakaoLogout(){
 	
 	function chatInterfacebottom(){
 		$("body").css("overflow","hidden")
-		$("#footerinnerContainer").html("").css("height","477px")
+		$("#footerinnerContainer").html("")
 		
 		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
 		
-		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"600px"}).css({"overflow-y":"auto"})
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"800px"}).css({"overflow-y":"auto"})
 		
 		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
 		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})

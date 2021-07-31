@@ -5,8 +5,79 @@
 	--eumfontcolorwhite: white;
 	--mobile: 575px;
 	--pc:576px;
+}
+@keyframes showup{ 
+	from{
+		transform:translateY(50px) ;
+		opacity: 0;
+	}
+	to{
+		transform:translateY(0px);
+		opacity: 1;
+	}
+}
+.showsc{
+	animation: showup 3s normal
+}
+
+
+
+/* welcome */
+@media(max-width: 779px){
+	.typo{
+		width: 100%;
+		background-color:white;
+		font-size : 40px;
+		height: 800px;
+		font-family: 'twayair';
+	}
 	
 }
+
+@media(min-width: 780px){
+ 	.typo{
+		width: 100%;
+		background-color: white;
+		font-size : 64px;
+		height: 800px;
+		font-family: 'twayair';
+	}	
+	
+	
+}
+
+@media(min-width:862px){
+	.typoscreen{
+	
+		font-size:40px;
+		/* letter-spacing: 10px; */
+		 font-family: 'twayair';
+	}
+}
+@media(max-width:861px){
+	.typoscreen{
+	
+		font-size:28px;
+		/* letter-spacing: 4px; */
+		 font-family: 'twayair';
+	}
+}
+
+
+.screen00{
+	background-color: white;
+	height: 800px;
+	margin-top: 10px;
+}
+.screen01{
+	background-color: white;
+	height: 800px;
+	margin-top: 10px;
+}
+
+
+
+
 
 
 .balloonleft {  
@@ -41,7 +112,7 @@
  width:200px; 
  min-height:40px;
  height:100%;
-  background: #7ee3e0;
+  background: #FFE08C;
   border-radius: 10px;
  padding: 10px;
 }
@@ -50,7 +121,7 @@
  border-top:0px solid transparent; 
  border-left: 6px solid transparent; 
  border-right: 6px solid transparent; 
- border-bottom: 10px solid #7ee3e0; 
+ border-bottom: 10px solid #FFE08C; 
  content:""; 
  position:absolute;
  top:-3px;
@@ -59,7 +130,13 @@
 
 
 }
-
+.scitems{
+	
+	width:1000px;
+	display:flex;
+	justify-content: space-around;
+	
+}
 
 
 #toolbox{
@@ -148,14 +225,14 @@
 	}
 	
 	#chatdraggerable{
-		display: none;
+		display: none !important;
 	}
 	#submenu{
 		display:none;
 	}
 	
 	.footerInfo{
-		display:none;
+		display:none !important;
 	}
 	
 	.carubtn{
@@ -256,6 +333,12 @@
 	position: fixed;
 	right:10px;
 }
+
+
+
+
+
+
 
 
 
@@ -402,6 +485,11 @@ body{
 .bgColorMainColor {
 	background-color: #2AC1BC;
 }
+.bgColorMainColorSub {
+	background-color: #7ee3e0;
+}
+
+
 .tway {
 	font-family: 'twayair';
 }

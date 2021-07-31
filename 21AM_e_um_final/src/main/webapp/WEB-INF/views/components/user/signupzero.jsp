@@ -53,7 +53,7 @@ eXpert 서비스 가입 등록정보 : 신청일로부터 6개월(등록 거절 
     </pre>
     <div class="d-flex justify-content-center flex-column align-items-center">
         <label><input type="checkbox" onclick="fn_agree()" id="agreebox">동의</label>
-        <input type="button" class="btn btn-success col-2 m-2" value="다음" id="agreebtn" disabled onclick="fn_signupfirst()">
+        <input type="button" class="checkBtn col-2 m-2" value="다음" id="agreebtn" disabled onclick="fn_signupfirst()">
     </div>
 </div>
 
