@@ -37,5 +37,15 @@ User selectProfileInfo(String profileId);
 	List<Likefeed> selectLike(String feedSeq);
 	
 	List<FeedComment> selectComment(String feedSeq);
+	
+	int deleteFeedComment(String fcSeq);
+	
+	int deleteFeed(String feedSeq);
+	
+	int feedUnlike(Likefeed likef);
+	
+	int feedLike(Likefeed likef, String profileId, String userNick);
+	
+	int writeFeedComment(FeedComment fc, String profileId, String userNick);
 
 }

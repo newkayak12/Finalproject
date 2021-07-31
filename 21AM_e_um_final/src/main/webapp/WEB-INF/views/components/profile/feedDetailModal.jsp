@@ -69,10 +69,10 @@
 	            </c:forEach>
 	            <c:choose>
 	            	<c:when test="${likeFlag=='fas' }">
-			            <i class="fas fa-heart pointer"></i>
+			            <i class="fas fa-heart pointer" onclick="fn_unlike('${feed.feedSeq}');"></i><!-- 색칠 하트 -->
 	            	</c:when>
 	            	<c:otherwise>
-			            <i class="far fa-heart pointer"></i>
+			            <i class="far fa-heart pointer" onclick="fn_like('${feed.feedSeq}');"></i><!-- 빈 하트 -->
 	            	</c:otherwise>
 	            </c:choose>
 	            <span class="ml-2 mr-4">${fn:length(like) }</span>
@@ -80,9 +80,9 @@
 	            <span class="ml-2">${fn:length(comment) }</span>
             </div>
             <div style="font-size:14px;">
-	            <span class="likeLink pointer">수정</span>
+	            <span class="likeLink pointer" onclick="fn_modifyFeed('${feed.feedSeq}')">수정</span>
 	            <span> | </span>
-	            <span class="likeLink pointer">삭제</span>
+	            <span class="likeLink pointer" onclick="fn_deleteFeed('${feed.feedSeq}')">삭제</span>
             </div>
         </div>
         <div class="my-4 p-3" style="border:1px dotted #b8d8d7">
@@ -114,7 +114,9 @@
 				                            </small>
 				                        </div>
 				                    </div>
-				                    <div class="my-auto pointer">&times;</div>
+				                    <c:if test="${userSession.userNick==c.commenterNick }">
+				                    	<div class="my-auto pointer" onclick="fn_delComm('${c.feedCommentSeq}')">&times;</div>
+				                    </c:if>
 				                </div>
 							</c:when>
 			                <c:otherwise>
@@ -132,7 +134,9 @@
 				                            </small>
 				                        </div>
 				                    </div>
-				                    <div class="my-auto pointer">&times;</div>
+				                    <c:if test="${userSession.userNick==c.commenterNick }">
+				                    	<div class="my-auto pointer" onclick="fn_delComm('${c.feedCommentSeq}')">&times;</div>
+				                    </c:if>
 				                </div>
 			                </c:otherwise>
 			        	</c:choose>
@@ -140,15 +144,119 @@
 				</c:if>
             </div>
             
-            <form action="" method="" class="mt-3">
-                <div class="d-flex">
-                <!--덧글 입력-->
-                    <input type="text" class="form-control">
-                    <div class="input-group-append">
-                        <button class="btn writeBtn" type="submit">작성</button>  
-                    </div>
+            <div class="d-flex mt-3">
+            <!--덧글 입력-->
+                <input id="fcc" name="feedCommentContents" type="text" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn writeBtn" type="submit" onclick="fn_writefeedComm('${feed.feedSeq}');">작성</button>  
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+	function fn_delComm(fcSeq){
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/profile/deleteFeedComment",
+				data:{"fcSeq":fcSeq},
+				success:data=>{
+					if(data>0){
+						alert("댓글이 삭제되었습니다.");
+					}else{
+						alert("댓글이 삭제되지 않았습니다.");
+					}
+					fn_openFeedModal('${feed.feedSeq}');
+				}
+			})
+		}
+	}
+	
+	function fn_modifyFeed(feedSeq){
+		//피드 작성 폼에 내용 포함해서 띄우기
+	}
+	
+	function fn_deleteFeed(feedSeq){
+		if(confirm("피드를 삭제하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/profile/deleteFeed",
+				data:{"feedSeq":feedSeq},
+				success:data=>{
+					if(data>0){
+						alert("피드가 삭제되었습니다.");
+						$("#feedDetailModal").modal("hide");
+						location.replace("${pageContext.request.contextPath}/profile/open/${feed.feederId}");
+					}else{
+						alert("피드가 삭제되지 않았습니다.");
+						fn_openFeedModal(feedSeq);
+					}
+				}
+			})
+		}
+	}
+	
+	function  fn_unlike(feedSeq){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/profile/unlike",
+			data:{"feedSeq":feedSeq},
+			success:data=>{
+				fn_openFeedModal(feedSeq);
+			}
+		})
+	}
+	
+	function  fn_like(feedSeq){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/profile/like",
+			data:{
+				"feedSeq":feedSeq,
+				"profileId":'${feed.feederId}'
+				},
+			success:data=>{
+				fn_openFeedModal(feedSeq);
+			}
+		})
+	}
+	
+	function fn_writefeedComm(feedSeq){
+		//답글인지 그냥 덧글인지 플래그를 같이 받아서 구분하고 입력받으면 될 듯
+		
+		const maxByte = 200;
+	    const text_val = $("input#fcc").val();
+	    const text_len = text_val.length;
+	    
+	    let totalByte=0;
+	    for(let i=0; i<text_len; i++){
+	    	const each_char = text_val.charAt(i);
+	        const uni_char = escape(each_char);
+	        if(uni_char.length>4){
+	            totalByte += 2;
+	        }else{
+	            totalByte += 1;
+	        }
+	    }
+	    
+	    if(totalByte>maxByte){
+	    	alert('최대 200Byte까지만 입력가능합니다.');
+	    	
+	    } else{
+	    	$.ajax({
+	    		type:"post",
+	    		url:"${pageContext.request.contextPath}/profile/writeFeedComment",
+	    		data:{
+	    			"feedSeq":feedSeq,
+	    			"fcc":text_val,
+	    			"profileId":'${feed.feederId}'
+	    		},
+	    		success:data=>{
+	    			fn_openFeedModal(feedSeq);
+	    		}
+	    	})
+	    }
+	}
+</script>
