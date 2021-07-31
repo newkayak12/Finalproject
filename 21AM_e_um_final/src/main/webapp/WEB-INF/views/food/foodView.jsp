@@ -5,7 +5,7 @@
 <style>
 	/*  foodView  */
 	.foodView-info-container { margin : 10px; }
-	.foodView-info-container table tr th { color : gray; width:15%; min-width:100px;}
+	.foodView-info-container table tr th { color : #2AC1BC; font-family: twayair; width:15%; min-width:100px;}
 	.foodView-info-container table tr td { color : black; width:85%; }
 	
 	.foodView-image-container{ height : 200px; }
@@ -14,10 +14,12 @@
 	
 	.foodView-icons { display: flex; justify-content: flex-end; }
 	.foodView-icons-inner { margin : 10px; align-self:center; text-decoration: none; color : lightgray ;}
-	.foodView-icons-inner:hover {  font-weight: 500 !important; color : #2AC1BC; cursor: pointer;}
+	.foodView-icons-inner:hover {  font-weight: 500 !important; color : #2AC1BC !important; cursor: pointer;}
 	
 	.foodView-icons-inner a { text-decoration: none; color : lightgray !important; }
 	.foodView-icons-inner a:hover { color : #2AC1BC !important; font-weight: 500 !important; }
+	
+	#like:hover { color : #2AC1BC !important; }
 	
 	.font-twayair { font-family: twayair; }
 	.foodView-main a { text-decoration: none; color: black;}
@@ -89,18 +91,6 @@
 					<div class=" foodView-info-container foodView-icons" style="display:flex;">
 					
 						<!-- 아이콘1 : 하트 -->
-						<%-- <div id="likeicon" class="foodView-icons-inner mr-3" onclick="fn_FoodLike(event);">
-							<div class="foodView-icon-style">
-								<!-- 로그인한 회원이 이 맛집을 좋아요했다면 로드할때 채워진 하트로 보이도록 --> 
-								<c:if test="${ likecheck ne null }">
-									<i class="fas fa-heart"></i>
-								</c:if>
-								<c:if test="${ likecheck eq null }">
-									<i class="far fa-heart"></i>
-								</c:if>
-							</div>
-							<span style="font-size:15px; font-weight:900;">가고싶다</span>
-						</div> --%>
 						
 						<!-- 로그인한 회원이 이 맛집을 좋아요했다면 로드할때 채워진 하트로 보이도록 --> 
 						<c:if test="${ likecheck ne null }">
@@ -112,6 +102,7 @@
 								<span style="font-size:15px; font-weight:900;" id="likecontent" style="color : #2AC1BC !important;">가고싶다</span>
 							</div>
 						</c:if>
+						
 						<c:if test="${ likecheck eq null }">
 						<!-- style="color : lightgray !important;" -->
 							<div id="likeicon" class="foodView-icons-inner mr-3"  onclick="fn_FoodLike(event);">
@@ -181,10 +172,14 @@
 							<th class="">영업시간</th>
 							<td class=""><c:out value="${ food.foodTimeFirst} - ${ food.foodTimeLast }"/></td>
 						</tr>
-						<tr>
-							<th class="">웹사이트</th>
-							<td class=""><a class="atag" href="${ food.foodUrl }" target="_blank">맛집 홈페이지로 가기</a></td>
-						</tr>
+						<c:if test="${fn:length(food.foodUrl) gt 15 }">
+							<tr>
+								<th class="">웹사이트</th>
+								<td class="">
+									<a class="atag" href="${ food.foodUrl }" target="_blank">맛집 홈페이지로 가기</a>
+								</td>
+							</tr>
+						</c:if>
 						<tr>
 							<th class="">식당 소개</th>
 							<td class=""><c:out value="${ food.foodContents }"/></td>
@@ -276,7 +271,7 @@
 	// 좋아요(가고싶다)
 	const fn_FoodLike = (e) => {
 		
-		// 빈하트이고 로그인되어있으면 
+		// 빈하트이고 로그인되어있으면 좋아요 insert 
 		if( $(e.target).attr("class") == 'far fa-heart' && `${ session.userId }` != null ) {
 			
 			// console.log("좋아요 go !!! ");
@@ -292,10 +287,10 @@
 						console.log('좋아요추가 됩니까?')
 						console.log($(e.target))
 						console.log($("#like"))
-						//$(e.target).attr("class", "fas fa-heart").css({ "color" : "#2AC1BC !important" });
-						$("#like").removeClass("fa fa-heart")
+						
+						$("#like").removeClass("far fa-heart")
 						$("#like").attr("class", "fas fa-heart").css({ "color" : "#2AC1BC !important" });
-
+						// $("#like").parent().parent().css({ "color" : "#2AC1BC !important" });
 						
 						// 토스트메세지 띄우기 
 						showToast("가고싶다 리스트에 추가 완료!");
@@ -303,7 +298,7 @@
 				}
 			});
 		
-		// 채워진 하트이고 로그인되어있으면 
+		// 채워진 하트이고 로그인되어있으면 좋아요 delete
 		} else if( $(e.target).attr("class") == 'fas fa-heart' && `${ session.userId }` != null  ) {
 			
 			$.ajax({
@@ -317,9 +312,10 @@
 					if(data == 'success') {
 						console.log('좋아요삭제 됩니까?')
 						console.log($("#unlike"))
-						//$(e.target).attr("class", "far fa-heart").css({ "color" : "lightgray !important" });
+						
 						$("#like").removeClass("fas fa-heart")
 						$("#like").attr("class", "far fa-heart").css({ "color" : "rgb(201,201,201)" });
+						/* $("#like").parent().parent().css({ "color" : rgb(201,201,201) !important" }); */
 						
 					}
 				}

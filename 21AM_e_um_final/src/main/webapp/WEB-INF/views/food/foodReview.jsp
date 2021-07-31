@@ -118,7 +118,7 @@
 				        <input type="radio" id="1-star" name="rating" value="1" checked/>
 				        <label for="1-star" class="star">★</label>
 				    </div>
-					<textarea id="DOC_TEXT" name="foodCommentContents" style="width:100%;"  rows="13" required></textarea>
+					<textarea id="DOC_TEXT" name="foodCommentContents" style="width:90%;"  rows="13" required></textarea>
 				</div>
 				
 				<div style="color:#aaa;" id="counter">(0 / 300)</div>
