@@ -17,7 +17,7 @@ public class MypageController {
 	MypageServiceInterface service;
 	
 
-	@RequestMapping("user/mypage/start")
+	@RequestMapping("user/mypage")
 	public String gotoMypage(String userId) {
 		
 		return "myPage";

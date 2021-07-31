@@ -221,6 +221,17 @@
 	    	})
 	    	
 	    }
+	    
+	    const enterrepl=(seq, comment, commentbox)=>{
+	    	
+	    	 if (window.event.keyCode == 13) {
+	    		 
+	    		repl(seq,comment,commentbox)
+	        }
+	    }
+	    
+	    
+	    
 	    const repl=(seq,comment, commentbox)=>{
 	    	
 	    	 let commentUserId = '${session.userId}'; 

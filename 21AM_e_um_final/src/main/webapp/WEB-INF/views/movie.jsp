@@ -72,15 +72,14 @@
    
 
     <style>
-     *{
-     	border: 1px solid black;
-     }
+    
      #root{
-     	font-family:'NanumBarunGothic';
+     	font-family:'NanumBarunGothic';v
      }
      .features-boxed {
         
       }
+
 
       .features-boxed p {
         color: #7d8285;

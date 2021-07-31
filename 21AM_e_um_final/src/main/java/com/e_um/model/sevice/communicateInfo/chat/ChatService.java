@@ -1,12 +1,14 @@
 package com.e_um.model.sevice.communicateInfo.chat;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.communicateInfo.chat.ChatDaoInterface;
+import com.e_um.model.vo.communicateinfo.chat.Chat;
 import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,5 +55,35 @@ public class ChatService implements ChatServiceInterface {
 	public int iReadit(String roomseq, String userId) {
 		// TODO Auto-generated method stub
 		return dao.iReadit(roomseq, userId, session);
+	}
+
+	@Override
+	public int chatToOffline(Map map) {
+		// TODO Auto-generated method stub
+		return dao.chatToOffline(map, session);
+	}
+
+	@Override
+	public int chatToOnline(Map map) {
+		// TODO Auto-generated method stub
+		return dao.chatToOnline(map, session);
+	}
+
+	@Override
+	public List<ChatRoom> loadchat(String userId) {
+		// TODO Auto-generated method stub
+		return dao.loadchat(userId, session);
+	}
+
+	@Override
+	public int okayToast(String userId, String chatRoomSeq) {
+		// TODO Auto-generated method stub
+		return dao.okayToast(userId,  chatRoomSeq, session);
+	}
+
+	@Override
+	public int checkToast(String userId) {
+		// TODO Auto-generated method stub
+		return dao.checkToast(userId,session);
 	}
 }
