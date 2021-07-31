@@ -30,7 +30,7 @@
     </span>
     <span class="d-flex flex-row w-50 justify-content-around align-content-center">
         <span onclick="fn_lostAndFound()">
-               아이디/비밀번호
+               아이디/비밀번호 찾기
         </span>
         
     </span>

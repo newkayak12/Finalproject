@@ -235,7 +235,7 @@ public class UserController {
 			return "main";
 		} else {
 			String path = rq.getContextPath();
-			return "redirect : /";
+			return "redirect:/";
 		}
 		
 	}

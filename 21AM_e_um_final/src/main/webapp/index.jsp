@@ -30,7 +30,7 @@
  <style>
  
  *{
-      border:1px black solid 
+      /* border:1px black solid  */
 }
 @font-face {
         font-family: 'twayair';
@@ -304,7 +304,7 @@
 		
 		
 		 $(window).scroll(function(){
-			 let scroll  = $(this).scrollTop() +550;
+			 let scroll  = $(this).scrollTop() +620;
 			console.log(scroll)
 			
 			if(scroll> parseInt($("#sc00").offset().top)){
@@ -368,7 +368,7 @@
 		</header>
 	
 	
-		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-5 p-0 pt-2 col-12 img-holder" style="height: 5900px; container:''; background-color: #EAEAEA;">
+		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-5 p-0 pt-2 col-12 img-holder" style="height: 5600px; container:''; background-color: #EAEAEA;">
 			
 			<div class="typo text-center d-flex justify-content-center align-items-center">
 			</div>
@@ -409,7 +409,7 @@
 				<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="600px" height="300px">	
 				<br>
 					<div class="d-flex  align-items-center typoscreen">
-						친해진 친구와 함께,
+						친해진 친구와 함께,<br>
 						 &nbsp;&nbsp;시간을 공유할 수 있는 방법
 					</div>
 					
@@ -432,7 +432,8 @@
 				
 				<div class="p-3 m-5 scitems" id="scCont02">
 					<div class="d-flex align-items-center typoscreen">
-						새로운 친구와 함께할 수 있는 방법
+						새로운 친구와 
+						<br>함께할 수 있는 방법
 					</div>
 					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="300px" height="600px">
 
@@ -443,10 +444,10 @@
 			<div class="screen00 p-3 d-flex flex-column justify-content-center align-items-center"  id="sc05" style="background-size: cover ; background-image: url('${pageContext.request.contextPath }/resources/images/index/main6.png');">
 				<%-- <img src="${pageContext.request.contextPath }/resources/images/index/main6.png" width="300px" height="600px"> --%>
 				<div>
-					<h1 class="text-center tway" style="color:white; font-size:64px;">E_um</h1>
-					<h5 class="text-center tway" style="color:white; font-size:32px" > 친구를 만나는 가장 쉬운 방법</h5>
+					<h1 class="text-center tway" style="color:white; font-size:96px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">E_um</h1>
+					<h5 class="text-center tway" style="color:white; font-size:32px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"  > 친구를 만나는 가장 쉬운 방법</h5>
 				</div>
-				<div>
+				<div class="mt-2">
 					<a><img src="${pageContext.request.contextPath }/resources/images/index/google.png" width="200px"></a>
 					<a><img src="${pageContext.request.contextPath }/resources/images/index/apple.png" width="200px"></a>
 				</div>
