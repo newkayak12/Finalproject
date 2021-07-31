@@ -993,7 +993,7 @@ function kakaoLogout(){
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId)
 							break;
 						case "accept_friend_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friend")
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friendmain")
 							break;
 						case "feed_alarm":
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId+'?feedSeq='+ref);

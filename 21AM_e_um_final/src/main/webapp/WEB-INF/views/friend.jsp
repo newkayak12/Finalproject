@@ -75,7 +75,7 @@
 	                	</div>
 	                </div>
 	                <div class="d-flex mt-1" style="display:inline-block">
-	                	<div class="mark col-1"><b>MBIT</b></div>
+	                	<div class="mark col-1"><b>MBTI</b></div>
 	                	<div class="d-flex flex-wrap col-11">
 		                    <div class="fribtn choice-5 m-2"><span class="interBtn">INTJ</span></div>
 		                    <div class="fribtn choice-5 m-2"><span class="interBtn">INTP</span></div>

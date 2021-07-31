@@ -276,8 +276,8 @@
 		
 		let feedSeq ='${feedSeq}';
 		
-		if(feedSeq=='none'){
-			
+		if(feedSeq!='none'){
+			fn_openFeedModal(feedSeq);
 		}
 		
 		
@@ -355,7 +355,6 @@
 	}
 	
 	function fn_openFeedModal(feedSeq){
-		console.log(feedSeq);
 		$.ajax({
 			type:"post",
 			url:"${pageContext.request.contextPath}/profile/openFeedModal",
