@@ -190,16 +190,13 @@
 				</div>
 
 				<!-- Modal footer -->
-				<div class="d-flex flex-row justify-content-center pt-2 pb-2"
-					style="background-color: rgb(113, 120, 127);">
-					<span class="ml-2 mr-2" id="headerGoprofile"> <i
-						class="fa fa-th-large m-4" aria-hidden="true"
-						style="font-size: 30px; color: white"></i>
-						<div class="text-center" style="color: white;">프로필 보기</div>
-					</span> <span class="ml-2 mr-2" id="headerChat"> <i
-						class="fa fa-comments m-4 mb-1 " aria-hidden="true"
-						style="font-size: 30px; color: white"></i>
-						<div class="text-center" style="color: white;">채팅하기</div>
+				<div class="d-flex flex-row justify-content-center pt-2 pb-2" style="background-color: rgb(113, 120, 127);">
+					<span class="ml-2 mr-2" id="headerGoprofile"> 
+					<i class="fa fa-th-large m-4" aria-hidden="true" style="font-size: 30px; color: white"></i>
+					<div class="text-center" style="color: white;">프로필 보기</div>
+					</span> <span class="ml-2 mr-2" id="headerChat"> 
+					<i class="fa fa-comments m-4 mb-1 " aria-hidden="true" style="font-size: 30px; color: white"></i>
+						<div class="text-center" style="color: white;" >채팅하기</div>
 					</span>
 
 					<!-- <button type="button" class="btn btn-primary eumbtn-1" data-dismiss="modal" id="headerGoprofile">프로필</button> -->
@@ -215,7 +212,7 @@
 			<span onclick ="headerchatclean()">X</span>
 		</div>
 		<div id="chatRoottop" class="col-12 border mb-0" style="height:80%;  overflow:auto;">
-			LOAD
+			
 		</div>
 		<div class="col-12 border mb-0 d-flex justify-content-around align-items-center" style="height:10%; max-height:100px; position:absolute; bottom:0px;">
 			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> <input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
@@ -225,8 +222,22 @@
 		</div>
 	</div>
 	
+<div class="toast" style = "position:fixed; top: 60px; right:0px; width: 200px; max-width:300px">
+  <div class="toast-header" style="background-color : #2AC1BC; color:black; font-weight:bold">
+    <span id="toastId"></span>
+    <span id="toastCount" class="ml-4 small"></span>
+  </div>
+  <div class="toast-body" id="toastContent">
+    Some text inside the toast body
+  </div>
+</div>
 	
 	<script>
+	
+	function profileChat(){
+		$("")
+	}
+	
 /* 헤더 채팅 */
 function headerchatclean(){
 	$("#headerchatroot").html("")
@@ -249,9 +260,9 @@ function headerchatclean(){
 
 
 	if($(".iconboxfooter").css("display")=="none"){
-		console.log('헤더')
+		/*  console.log('헤더') */ 
 	} else {
-		console.log('푸터')					
+		/* console.log('푸터') */					
 	}
 
 	
@@ -264,14 +275,15 @@ $(function(){
 	$("#chatdraggerable").draggable();
 	$("#chatdraggerable").resizable();
 	
-	console.log("start"+$(".iconboxfooter").css("display"))
+	/* console.log("start"+$(".iconboxfooter").css("display")) */
 	    	
     setInterval(()=>{
     	alarmCount()
     	fn_chatAlarmCount();
     	onlinesend()
+    	/* $('.toast').toast('show'); */
     	
-    },5000)
+    },1000)
 })
 
 
@@ -285,7 +297,7 @@ function onlinesocketinit(){
 	onlinesocket.onopen=e=>{
 		
 		onlinesocket.send("${userSession.userId}")
-		console.log(e)
+		/* console.log(e) */
 	}
 	
 	onlinesocket.onmessage=onlinereceive
@@ -296,21 +308,82 @@ function onlinesend(){
 }
 
 function onlinereceive(e){
-	let dt = e["data"].substring(1,e["data"].length-1)
-	onlinelist = dt.split(", ");
-	$(".offline").css("color","#bababa")
-	onlinelist.forEach((v,i)=>{
-		$("#"+v+'t').css("color","rgb(40,198,50)")
-		$("#"+v+'b').css("color","rgb(40,198,50)")
-		
-	})
+	let temp = e["data"]
+	temp = temp.replace(/\//gi, "");
+	let data = JSON.parse(temp);
+		if(data["flag"]=='online'){
+			console.log(data["data"])
+			/* let dt = data["data"].substring(1,e["data"].length-1) */
+			/* onlinelist = dt.split(", "); */
+			onlinelist = data["data"]
+			$(".offline").css("color","#bababa")
+			
+				onlinelist.forEach((v,i)=>{
+					$("#"+v+'t').css("color","rgb(40,198,50)")
+					$("#"+v+'b').css("color","rgb(40,198,50)")
+				})
+	 
+			
+		} else {
+			let count = 0;
+			let countvalue=''
+			let id = '';
+			let msg = data["data"][0]["chats"][0]["chatContent"]
+			console.log(data)
+			data["data"].forEach((v,i)=>{
+				
+				v["chats"].forEach((v,i)=>{
+					count+=1;
+				})
+			}) 
+			if(data["data"][0]["chatrommId1"]=='${userSession.userId}'){
+				id= data["data"][0]["chatrommId2"]
+			} else {
+				id = data["data"][0]["chatrommId1"]
+			}
+			
+			console.log(count)
+			console.log(id)
+			console.log(msg)
+			if(count>1){
+				countvalue= '외 '+count+'건의 메시지'
+			} 
+			
+			$("#toastId").html(id);
+			$("#toastCount").html(countvalue)
+			$("#toastContent").html(msg)
+			$('.toast').toast("show");
+ /* 			$('.toast').toast({delay:1000,animation:true}); */ 
+ 
+ 			let sound = new Audio();
+			 sound.src= "${pageContext.request.contextPath}/resources/sound/Pulse.mp3";
+			 /* sound.loop(false);
+			 sound.volume(1) */
+			 sound.play()
+			console.log("runtoast")
+			/* 
+			$("#toastId").html("");
+			$("#toastCount").html("")
+			$("#toastContent").html("") */
+		}
 	
 }
+
+/*
+ <span id="toastId"></span>
+    <span id="toastCount"></span>
+  </div>
+  <div class="toast-body">
+    Some text inside the toast body
+  </div>
+*
+*
+*/
 
 
 
 function online(){
-console.log(onlinelist)
+/* console.log(onlinelist) */
 	
 	/* onlinesocket.onmessage=e=>{
 		let dt = e["data"].substring(1,e["data"].length-1)
@@ -370,7 +443,7 @@ function kakaoLogout(){
 		
 		if(!Kako.Auth.getAccessToken()){
 			
-			console.log("not logged in")
+			/* console.log("not logged in") */
 			return
 		}
 		Kakao.Auth.logout(function(){
@@ -575,8 +648,8 @@ function kakaoLogout(){
 		$("#headerProfileStatus").html(status)
 		}
 		$("#headerGoprofile").attr("onclick","fn_goProfile('"+userId+"')")
-		$("#headerChat").attr("onclick","fn_startChat('"+userId+"')")
-		
+		$("#headerChat").attr("onclick","fn_startChat('','${userSession.userId}','"+userId+"')")
+		/* chatroom,id1, id2 */
 	}
 	
 	/* 푸터 친구 프로필 */
@@ -600,7 +673,7 @@ function kakaoLogout(){
 		let chatfspan = $("<span>").attr("class","ml-2 mr-2")
 		
 		let prof = $("<i>").attr({"onclick":"fn_goProfile('"+userId+"')", "class":'fa fa-th-large m-4', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
-		let chatf = $("<i>").attr({"onclick":"fn_startChatf('"+userId+"')",'class':'fa fa-comments m-4 mb-1 ', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
+		let chatf = $("<i>").attr({"onclick":"fn_startChat('','${userSession.userId}','"+userId+"')",'class':'fa fa-comments m-4 mb-1 ', "aria-hidden":"true"}).css({"color":"white","font-size":"30px"})
 		
 		let profdiv =$("<div>").html("프로필 보기").attr("class","text-center").css("color","white")
 		let chatfdiv = $("<div>").html("채팅하기").attr("class","text-center").css("color","white")
@@ -681,10 +754,12 @@ function kakaoLogout(){
 	/* *******채팅******************************** */
 	let sockect = null;
 	const fn_startChat=(chatroom,id1, id2)=>{
-		console.log("start"+$(".iconboxfooter").css("display"))
+		
+		$("#headerprofile").modal("hide")
+		/* console.log("start"+$(".iconboxfooter").css("display")) */
 		if($(".iconboxfooter").css("display")=="none"){
 			
-			console.log("socketstart header")
+			/* console.log("socketstart header") */
 			/* 헤더 ui */
 					let tar = '';
 					if(id1!='${userSession.userId}'){
@@ -701,7 +776,7 @@ function kakaoLogout(){
 			/*  */
 			/* footerui */
 			let tar = '';
-			console.log("socketstart header")
+			/* console.log("socketstart header") */
 			if(id1!='${userSession.userId}'){
 				tar = id1;
 			} else {
@@ -712,7 +787,7 @@ function kakaoLogout(){
 		}
 		
 		
-		console.log("socketstart")
+		/* console.log("socketstart") */
 		socket = new SockJS("${pageContext.request.contextPath}/chat")
 		let myId =''
 		let target = '' 
@@ -724,17 +799,17 @@ function kakaoLogout(){
 			myId = id2;
 			target = id1
 		}
-		console.log(myId)
-		console.log(target)
+	/* 	console.log(myId)
+		console.log(target) */
 		
 		socket.onopen=function(e){
-		console.log(myId)
-		console.log(target)
+		/* console.log(myId)
+		console.log(target) */
 			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"init","msg":""}';
 			let result = JSON.parse(data)
 			socket.send(data)
-			console.log("open")
-			console.log(socket)
+		/* 	console.log("open")
+			console.log(socket) */
 			
 		}
 		
@@ -744,7 +819,7 @@ function kakaoLogout(){
 			let data = '{"room":"","my":"'+myId+'","target":"'+target+'","flag":"fin","msg":""}';
 			let result = JSON.parse(data)
 			socket.send(data)
-			console.log(socket)
+			/* console.log(socket) */
 			
 		}
 		
@@ -759,9 +834,9 @@ function kakaoLogout(){
 		
 		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
 		
-		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"550px"}).css({"overflow-y":"auto"})
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"600px"}).css({"overflow-y":"auto"})
 		
-		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-5 pb-5 pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
+		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
 		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})
 		let chatRoomBottomhidden1 = $("<input>").attr({"id":"chatRoomBottomhidden1", "type":"hidden"})
 		let chatRoomBottomhidden2 = $("<input>").attr({"id":"chatRoomBottomhidden2", "type":"hidden"})
@@ -771,7 +846,7 @@ function kakaoLogout(){
 		chatRootDockBottom.append(chatRoomBottomhidden1).append(chatRoomBottomhidden2).append(chatinputboxBottom).append(chatSendBottom)
 		
 		$("#footerinnerContainer").append(chatRootBottom).append(chatRootDockBottom).attr("class","p-0")
-		console.log('s2')
+		/* console.log('s2') */
 	}
 	
 	/* *******채팅 보내기******************************** */
@@ -787,7 +862,9 @@ function kakaoLogout(){
 		
 		if(data["flag"]=='init'){
 			let target = ''
-     		let chats = data["data"]["chats"];
+			
+			
+			/* console.log(data) */
 
 			
 			if(data["data"]["chatrommId1"]=='${userSession.userId}'){
@@ -800,12 +877,12 @@ function kakaoLogout(){
 			if($(".iconboxfooter").css("display")=="none"){
 				
 				
-				console.log('헤더')
-				
+			/* 	console.log('헤더에 방번호???????????????????????ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ/')
+				console.log(data["data"]["chatRoomSeq"]) */
 				$("#chatRoomTophidden1").val(data["data"]["chatRoomSeq"])
 				$("#chatRoomTophidden2").val(target)
 			} else {
-				console.log('푸터')					
+				/* console.log('푸터')					 */
 				 $("#controlpanelfooter").html(target)
 				 
 				 $("#chatRoomBottomhidden1").val(data["data"]["chatRoomSeq"])
@@ -819,63 +896,66 @@ function kakaoLogout(){
 			 let chatRoottop = $("#chatRoottop");
 			 chatRoottop.html("")
 			 
-			 console.log(socket)
-			 	chats.forEach((v,i)=>{
+			/*  console.log(socket)
+			 console.log("==========================")
+			 console.log(data) */
+			 if(data["data"]["chats"]!=null){
+				 data["data"]["chats"].forEach((v,i)=>{
 			 	
-			 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
-			 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
-			 			let outter = $("<div>").attr("class","col-6")
-			 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
-			 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
-			 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
-			 			
-			 			
-
-			 			if($(".iconboxfooter").css("display")=="none"){
-			 						console.log('헤더')
-			 						chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
-	 					} else {
-			 						console.log('푸터')					
-					 				chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
-	 					}
-			 			
-			 		} else {
-			 			
-			 			
-			 			nickname = v["chatSender"]["userNick"];
-			 			photos=v["chatSender"]["profileImageFile"]
-			 				
-			 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
-			 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
-			 			let aoutter = $("<div>").attr("class","col-6 my-auto")
-			 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
-			 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
-			 			
-			 			
+				 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
+				 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
+				 			let outter = $("<div>").attr("class","col-6")
+				 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
+				 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
+				 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
+				 			
+				 			
+	
 				 			if($(".iconboxfooter").css("display")=="none"){
-				 				console.log('헤더')
-					 			chatRoottop.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
-				 			} else {
-				 				console.log('푸터')					
-					 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
-				 			}
-			 		}
-			 		
-			 		
-			 	})
-			
-			 	
+				 						/* console.log('헤더') */
+				 						chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 					} else {
+				 						/* console.log('푸터') */					
+						 				chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+		 					}
+				 			
+				 		} else {
+				 			
+				 			
+				 			nickname = v["chatSender"]["userNick"];
+				 			photos=v["chatSender"]["profileImageFile"]
+				 				
+				 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
+				 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
+				 			let aoutter = $("<div>").attr("class","col-6 my-auto")
+				 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
+				 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
+				 			
+				 			
+					 			if($(".iconboxfooter").css("display")=="none"){
+					 				/* console.log('헤더') */
+						 			chatRoottop.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+					 			} else {
+					 				/* console.log('푸터') */					
+						 			chatRootBottom.append(aCover.append(aphoto).append(aoutter.append(anickandtime).append(acontent)))
+					 			}
+				 		}
+				 		
+				 		
+				 	})
+				
+			 }
 			 	
 			 	if($(".iconboxfooter").css("display")=="none"){
-					console.log('헤더')
+					/* console.log('헤더') */
 					$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
 				} else {
-					console.log('푸터')					
+					/* console.log('푸터') */					
 					$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
 				}
 
 		} else if(data["flag"]=='running'){
-			console.log('들어오냐? ')
+			/* console.log('들어오냐? ') */
 			let chatRootBottom = $("#chatRootBottom");
 			let chatRoottop = $("#chatRoottop");
 			/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
@@ -890,24 +970,24 @@ function kakaoLogout(){
 	 			
 	 			
 		 			if($(".iconboxfooter").css("display")=="none"){
-		 				console.log('헤더')
+		 				/* console.log('헤더') */
 			 			chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
 		 			} else {
-		 				console.log('푸터')					
+		 				/* console.log('푸터') */					
 			 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
 		 			}
 	 			
 	 			
 	 		} else {
-	 			console.log('들어오냐? 타인')
+	 			/* console.log('들어오냐? 타인') */
 	 			let chatRootBottom = $("#chatRootBottom");
 	 			let chatRoottop = $("#chatRoottop");
 
-	 			console.log(nickname)
+	 			/* console.log(nickname)
 	 			console.log(photos)
 	 			console.log(data)
 	 			console.log(data["msg"])
-	 			
+	 			 */
 	 			let bCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
 	 			let bphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+photos}))
 	 			let boutter = $("<div>").attr("class","col-6 my-auto")
@@ -916,10 +996,10 @@ function kakaoLogout(){
 	 			
 	 			
 		 			if($(".iconboxfooter").css("display")=="none"){
-		 				console.log('헤더')
+		 				/* console.log('헤더') */
 		 				chatRoottop.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))	
 		 			} else {
-		 				console.log('푸터')					
+		 				/* console.log('푸터') */					
 			 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
 		 			}
 	 			
@@ -927,10 +1007,10 @@ function kakaoLogout(){
 			
 			
 			if($(".iconboxfooter").css("display")=="none"){
-				console.log('헤더')
+				/* console.log('헤더') */
 				$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
 			} else {
-				console.log('푸터')					
+				/* console.log('푸터') */					
 				$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
 			}
 			
@@ -955,12 +1035,13 @@ function kakaoLogout(){
 	
 		
 		if($(".iconboxfooter").css("display")=="none"){
-			console.log('헤더 send')
+		/* 	console.log('헤더 send 방번 호!!!!!!!!!!!!!!!!')
+			console.log(room) */
 			room = $("#chatRoomTophidden1").val();
 			target = $("#chatRoomTophidden2").val();
 			msg = $("#chatinputboxTop").val()
 		} else {
-			console.log('푸터 send')					
+			/* console.log('푸터 send')					 */
 			room = $("#chatRoomBottomhidden1").val();
 			target = $("#chatRoomBottomhidden2").val();
 			msg = $("#chatinputboxBottom").val()
@@ -968,20 +1049,20 @@ function kakaoLogout(){
 		
 		
 		
-		console.log(msg)
+		/* console.log(msg) */
 		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
 		let result = JSON.stringify(data);
 		socket.send(result)
-		console.log(socket)
+		/* console.log(socket) */
 		
 	
 	
 
 			if($(".iconboxfooter").css("display")=="none"){
-				console.log('헤더')
+				/* console.log('헤더') */
 				$("#chatinputboxTop").val("")
 			} else {
-				console.log('푸터')					
+				/* console.log('푸터') */					
 				$("#chatinputboxBottom").val("")
 			}
 	}
@@ -1009,7 +1090,7 @@ function kakaoLogout(){
 			url:"${pageContext.request.contextPath}/fetch/chatalarm",
 			data:{"userId":userId},
 			success:data=>{
-				console.log(data)
+				/* console.log(data) */
 				if(data>0){
 				$("#chatCount").html(data).css("display","block")
 				$("#chatCountbot").html(data).css("display","block")
@@ -1212,20 +1293,22 @@ function kakaoLogout(){
 					
 				if(data.length>0){
 						data.forEach((v,i)=>{
-							console.log(v)
+							/* console.log(v) */
 							if(v["alarmRead"]=='unread'){
-							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}else {
-								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
-								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between","onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent'])).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"')"}));
+								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}
 						})
-						/* 문제점 1 */
+						/* 문제점 1 
+							,"onclick":"fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')"
+						*/
 						
 							$("#footerinnerContainer").html(outterf)
 							$("#toolinnerbox").html(outter)
@@ -1272,14 +1355,16 @@ function kakaoLogout(){
 	
 	
 	
-	const fn_delAlarm=(seq)=>{
+	const fn_delAlarm=(seq, event)=>{
+		/* console.log("delAlarm") */
+		/* console.log(event.stopPropagation()) */
 		$.ajax({
 			url:"${pageContext.request.contextPath}/alarm/deleteAlarm",
 			data:{"alarmSeq": seq},
 			success:data=>{
 				
 				/* 알람 삭제 */
-				console.log(data)
+		/* 		console.log(data) */
 			}
 		})
 		
@@ -1299,7 +1384,7 @@ function kakaoLogout(){
 					
 					
 					
-						switch (key) {
+						 switch (key) {
 						case "friend_alarm":
 							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"requestfriend")
 							break;
@@ -1330,10 +1415,10 @@ function kakaoLogout(){
 						default:
 							break;
 						
-						console.log(key)
-						console.log(seq)
-						
-						}
+						/* console.log(key)
+						console.log(seq) */
+						 
+						} 
 				}
 			}
 		})

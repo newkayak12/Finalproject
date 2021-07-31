@@ -10,6 +10,7 @@
     
 	<!-- jQuery library -->
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script> 
+	<script src="${pageContext.request.contextPath}/resources/js/Parallax-ImageScroll-master/jquery.imageScroll.js"></script> 
 	<%-- <script   src="https://code.jquery.com/jquery-3.6.0.slim.js"   integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="   crossorigin="anonymous"></script> --%>
 	<!-- <script src="${path }/resources/js/jquery-3.6.0.min.js"></script> -->
 	<!-- Popper JS -->
@@ -53,6 +54,10 @@
 </style>
 	
 <script>
+	$('.img-holder').imageScroll({
+		
+	})
+	
 
 	function loginAjax(){
 		$.ajax({
@@ -197,7 +202,7 @@
 				if(data!=0){
 					location.assign("${pageContext.request.contextPath}/user/gotomain");					
 				} else {
-					alert('존재하지 않는 아이디 입니다.')
+					alert('존재하지 않는 아이디이거나 틀린 비밀번호입니다.')
 				}
 			}
 		})
@@ -287,7 +292,7 @@
 		</header>
 	
 	
-		<section class=" fluid-container position-relative headerfix sectionMinHeight mb-1 mt-1">
+		<section class=" fluid-container position-relative headerfix sectionMinHeight mb-1 mt-1 img-holder">
 			
 	
 				<div class="fluid-container">

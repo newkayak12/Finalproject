@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MypageController {
 
-	@RequestMapping("user/mypage/start")
+	@RequestMapping("user/mypage")
 	public String gotoMypage(String userId) {
 		
 		return "";

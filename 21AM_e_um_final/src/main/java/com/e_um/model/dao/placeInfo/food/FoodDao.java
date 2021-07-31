@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
@@ -88,6 +89,16 @@ public class FoodDao implements FoodDaoInterface {
 	@Override
 	public int addFoodLike(SqlSessionTemplate session, Map<String, String> param) {
 		return session.insert("food.addFoodLike", param);
+	}
+
+	@Override
+	public LikeFood checkFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.selectOne("food.checkFoodLike", param);
+	}
+
+	@Override
+	public int delFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.delete("food.delFoodLike", param);
 	}
 
 	

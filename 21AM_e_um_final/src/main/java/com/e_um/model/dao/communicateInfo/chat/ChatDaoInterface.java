@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.e_um.model.vo.communicateinfo.chat.Chat;
 import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
 
 public interface ChatDaoInterface {
@@ -16,4 +17,7 @@ public interface ChatDaoInterface {
 	public int iReadit(String roomseq, String userId, SqlSessionTemplate session);
 	public int chatToOffline(Map map, SqlSessionTemplate session);
 	public int chatToOnline(Map map, SqlSessionTemplate session);
+	public int checkToast(String userId, SqlSessionTemplate session);
+	public List<ChatRoom> loadchat (String userId, SqlSessionTemplate session);
+	public int okayToast(String userId , String chatRoomSeq, SqlSessionTemplate session);
 }
