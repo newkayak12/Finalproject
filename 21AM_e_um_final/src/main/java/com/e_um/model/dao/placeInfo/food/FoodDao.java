@@ -136,6 +136,13 @@ public class FoodDao implements FoodDaoInterface {
 		return session.selectOne("food.selectFoodComment", foodCommentSeq);
 	}
 
+	@Override
+	public int updateFoodComment(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.update("food.updateFoodComment", map);
+	}
+
+	
+
 
 	
 

@@ -3,92 +3,22 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <style>
-.foodReviewForm-container {
-		text-align: center;
-	}
-	
-	.foodReviewForm-input {
-		border : 2px solid black;
-		width: 70%;
-    	margin-left: 15%;
-    	margin-right: 15%;
-    	border-radius : 10px;
-	}
-	
-	.foodReviewForm-input textarea, .foodReviewForm-input textarea:focus {
-		outline : none;
-		border : 0;
-		border-radius : 10px;
-	}
-	
-	.btn-eum {
-		height: 40px;
-        width: 6100x;
-	}
-	
-	.bgcolor-eum {
-        background-color: #70b3d9;
-	}
-	
-	.border-eum {
-		border : 1px solid #70b3d9;	
-	}
-	
-	.textcolor-eum {
-		color: #70b3d9;
-	}
-	
-	.input-file-button{
-		padding: 34px 37px;
-		background-color: white;
-		border-radius: 10px;
-		color: lightgray;
-		cursor: pointer;
-		border : 2px dashed lightgray;
-	}
-	
-	.foodReviewForm-container ul li {
-		display: inline-block;
-        margin-left: 10px;
-        margin-right: 10px;
-	}
-	/* 별점 */	
-	.star-rating {
-            display: flex;
-            flex-direction: row-reverse;
-            font-size: 40px;
-            justify-content: space-around;
-            padding: 0 0 0 0;
-            text-align: center;
-            width: 5em;
-        }
-        
-        .star-rating input {
-            display: none;
-        }
-        
-        .star-rating label {
-            opacity: 95%;
-            color: lightgray;
-            cursor: pointer;
-        }
-        
-        .star-rating :checked ~ label {
-            color : #2AC1BC;
-        }
-        
-        .star-rating label:hover,
-        .star-rating label:hover ~ label {
-            color : #7ee3e0;
-        }
-        
-        /* 리뷰 파일 업로드 */
-        /* .outterDiv:hover.innerDiv {
-        	display : block;
-        } */	
-       
-        
-        
+.foodReviewForm-container { text-align: center; }
+.foodReviewForm-input { border : 2px solid black; width: 70%; margin-left: 15%; margin-right: 15%; border-radius : 10px; }
+.foodReviewForm-input textarea, .foodReviewForm-input textarea:focus { outline : none; border : 0; border-radius : 10px; }
+.btn-eum { height: 40px; width: 6100x; }
+.bgcolor-eum { background-color: #70b3d9; }
+.border-eum { border : 1px solid #70b3d9; }
+.textcolor-eum { color: #70b3d9; }
+.input-file-button{ padding: 34px 37px; background-color: white; border-radius: 10px; color: lightgray; cursor: pointer; border : 2px dashed lightgray; }
+.foodReviewForm-container ul li { display: inline-block; margin-left: 10px; margin-right: 10px; }
+/* 별점 */	
+.star-rating { display: flex; flex-direction: row-reverse; font-size: 40px; justify-content: space-around; padding: 0 0 0 0; text-align: center; width: 5em; }
+.star-rating input { display: none; }
+.star-rating label { opacity: 95%; color: lightgray; cursor: pointer; }
+.star-rating :checked ~ label { color : #2AC1BC; }
+.star-rating label:hover, .star-rating label:hover ~ label { color : #7ee3e0; }
+
 </style>
 
 
@@ -102,6 +32,7 @@
 			<form action="${ pageContext.request.contextPath }/food/foodReview/end?foodSeq=${ food.foodSeq }" method="post" enctype="multipart/form-data">
 				
 				<div class="foodReviewForm-input" >
+					<!-- 별점 -->
 					<div id="star" class="star-rating space-x-4 mx-auto">
 				        <input type="radio" id="5-stars" name="rating" value="5"/> 
 				        <label for="5-stars" class="star pr-4">★</label>
@@ -118,6 +49,7 @@
 				        <input type="radio" id="1-star" name="rating" value="1" checked/>
 				        <label for="1-star" class="star">★</label>
 				    </div>
+				    <!-- 내용 -->
 					<textarea id="DOC_TEXT" name="foodCommentContents" style="width:90%;"  rows="13" required></textarea>
 				</div>
 				
@@ -177,9 +109,10 @@
 							"class" : "outterDiv"
 						}).css({
 							"background-image" : "url(" + e.target.result + ")",
+							"background-repeat" : "no-repeat",
 							"width" : "100px",
 							"height" : "100px", 
-							"background-size" : "contain", 
+							"background-size" : "cover", 
 							"border-radius" : "10px"
 						});
 						
@@ -225,9 +158,6 @@
 			"display" : ""
 		}); 
 		
-		/* console.log("in : ");
-		console.log($(e.target).children());  */
-		
 	}
 	
 	
@@ -239,8 +169,6 @@
 			"display" : "none"
 		});
 		
-		/* console.log("out : ");
-		console.log($(e.target).children()); */
 	}
 	
 	
