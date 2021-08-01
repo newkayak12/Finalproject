@@ -226,7 +226,7 @@
 <div class="toast" style = "position:fixed; top: 60px; right:0px; width: 200px; max-width:300px">
   <div class="toast-header" style="background-color : #2AC1BC; color:black; font-weight:bold">
     <span id="toastId"></span>
-    <span id="toastCount" class="ml-4 small"></span>
+    <span id="toastCount" class="ml-4 small badge badge-light"></span>
   </div>
   <div class="toast-body" id="toastContent">
     Some text inside the toast body
@@ -496,18 +496,25 @@ function kakaoLogout(){
 		$("#controlpanel").html("")
 		$("#toolbox").slideToggle(240)
 		$("#toolinnerbox").html("")
-		
+		$("#menubox").html("")
 		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
-		
 		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr({
 			"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
 			"class" : "tway blackText"
 		}).css("text-decoration","none"))
 		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
-		
 		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pagecontext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
-		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
+		
+		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink).attr({"class":"text-center pt-4","id":"menubox"}))
+		
+		
+		console.log('${userSession.userRole}')
+		if('${userSession.userRole}' =='admin'){
+			$("#menubox").append($("<div>").html($("<a>").html("관리자").attr({"href":"${pagecontext.request.contextPath}/admin/enter", "class" : "tway blackText"}).css("text-decoration","none")))
+		}
+		
+		
 		
 		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr({"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}","class" : "tway blackText" }).css("text-decoration","none"))
 		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))

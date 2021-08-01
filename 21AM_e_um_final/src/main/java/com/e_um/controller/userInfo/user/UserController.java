@@ -204,15 +204,13 @@ public class UserController {
 			}
 		
 		int flag = 0;
-		
-			if(encrypt.matches(user.getUserPassword(), userResult.getUserPassword())) {
+			if(userResult!=null&&encrypt.matches(user.getUserPassword(), userResult.getUserPassword())) {
 				model.addAttribute("user", userResult);
 				HttpSession session = rq.getSession();
 				session.setAttribute("userSession", userResult);
 				session.setMaxInactiveInterval(60*60*30);
 				flag =1;
 			}
-			
 			
 		return flag;
 	}
@@ -235,7 +233,7 @@ public class UserController {
 			return "main";
 		} else {
 			String path = rq.getContextPath();
-			return "redirect : /";
+			return "redirect:/";
 		}
 		
 	}
