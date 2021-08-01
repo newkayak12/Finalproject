@@ -39,5 +39,15 @@ public interface ProfileDaoInterface {
 	List<Likefeed> selectLike(SqlSessionTemplate session, String feedSeq);
 	
 	List<FeedComment> selectComment(SqlSessionTemplate session, String feedSeq);
+	
+	int deleteFeedComment(SqlSessionTemplate session, String fcSeq);
+	
+	int deleteFeed(SqlSessionTemplate session, String feedSeq);
+	
+	int feedUnlike(SqlSessionTemplate session, Likefeed likef);
+	
+	int feedLike(SqlSessionTemplate session, Likefeed likef, String profileId, String userNick);
+	
+	int writeFeedComment(SqlSessionTemplate session, FeedComment fc, String profileId, String userNick);
 
 }

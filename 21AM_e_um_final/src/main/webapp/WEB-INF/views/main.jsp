@@ -221,6 +221,17 @@
 	    	})
 	    	
 	    }
+	    
+	    const enterrepl=(seq, comment, commentbox)=>{
+	    	
+	    	 if (window.event.keyCode == 13) {
+	    		 
+	    		repl(seq,comment,commentbox)
+	        }
+	    }
+	    
+	    
+	    
 	    const repl=(seq,comment, commentbox)=>{
 	    	
 	    	 let commentUserId = '${session.userId}'; 
@@ -337,7 +348,7 @@
         
         
 		     <div class="mt-4 mb-5" >
-		     <h5 class="mt-4 mb-0 text-left pl-lg-5">&nbsp;&nbsp;&nbsp;추천 친구</h5>
+		     <h5 class="mt-4 mb-0 text-left pl-lg-5 pointFont mainColor">&nbsp;&nbsp;&nbsp;추천 친구</h5>
 	        <div id="recommand-container" class="carousel slide col-12 col-lg-10 mt-0 container p-2 pt-4 border" data-ride="carousel">
 		       
 		        <div class="carousel-inner" id="recommand-inner-conatiner">
@@ -419,9 +430,9 @@
 			  <div class="modal-content">
 		  
 				<!-- Modal Header -->
-				<div class="modal-header eumbtn-2">
+				<div class="modal-header mainColor">
 				  <h4 class="modal-title" id="modalPrifileHeader">프로필 정보</h4>
-				  <button type="button" class="close" data-dismiss="modal" style="color:white;">&times;</button>
+				  <button type="button" class="close" data-dismiss="modal" >&times;</button>
 				</div>
 		  
 				<!-- Modal body -->
@@ -483,7 +494,7 @@
       <div class="modal-content">
 
     <div class="modal-header">
-          <h4 class="modal-title">신고하기</h4>
+          <h4 class="modal-title bgColorMainColor">신고하기</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -561,8 +572,8 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="reportthis()">신고하기</button>
+          <button type="button" class="cancelBtn" data-dismiss="modal">닫기</button>
+          <button type="button" class="checkBtn" data-dismiss="modal" onclick="reportthis()">신고하기</button>
         </div>
   
       </div>

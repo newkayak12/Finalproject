@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.communicateInfo.chat.ChatDaoInterface;
+import com.e_um.model.vo.communicateinfo.chat.Chat;
 import com.e_um.model.vo.communicateinfo.chat.ChatRoom;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,5 +67,23 @@ public class ChatService implements ChatServiceInterface {
 	public int chatToOnline(Map map) {
 		// TODO Auto-generated method stub
 		return dao.chatToOnline(map, session);
+	}
+
+	@Override
+	public List<ChatRoom> loadchat(String userId) {
+		// TODO Auto-generated method stub
+		return dao.loadchat(userId, session);
+	}
+
+	@Override
+	public int okayToast(String userId, String chatRoomSeq) {
+		// TODO Auto-generated method stub
+		return dao.okayToast(userId,  chatRoomSeq, session);
+	}
+
+	@Override
+	public int checkToast(String userId) {
+		// TODO Auto-generated method stub
+		return dao.checkToast(userId,session);
 	}
 }

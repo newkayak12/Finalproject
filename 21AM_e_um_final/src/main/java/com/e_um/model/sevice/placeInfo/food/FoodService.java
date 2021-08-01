@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.placeInfo.food.FoodDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
@@ -113,11 +114,73 @@ public class FoodService implements FoodServiceInterface {
 		return dao.countFoodComment(session, foodSeq);
 	}
 
-
+	@Transactional
 	@Override
 	public int addFoodLike(Map<String, String> param) {
-		return dao.addFoodLike(session, param);
+		
+		int result = dao.addFoodLike(session, param);
+		
+		if(result > 0) {
+			return dao.increFoodLike(session, param);
+		} else {
+			return 0;
+		}
+		
 	}
+	
+	@Transactional
+	@Override
+	public int delFoodLike(Map<String, String> param) {
+		
+		int result = dao.delFoodLike(session, param);
+		
+		if(result > 0) {
+			return dao.decreFoodLike(session, param);
+		} else {
+			return 0;
+		}
+	
+	}
+
+
+	@Override
+	public LikeFood checkFoodLike(Map<String, String> param) {
+		return dao.checkFoodLike(session, param);
+	}
+
+
+	@Override
+	public int deleteFoodComment(String foodCommentSeq) {
+		return dao.deleteFoodComment(session, foodCommentSeq);
+	}
+
+
+	@Transactional
+	@Override
+	public int insertReportFoodComment(Map<String, String> param) {
+		
+		int result = dao.insertReportFoodComment(session, param);
+		
+		if(result > 0) {
+			int result2 = dao.increReportFoodComment(session, param);
+			if(result2 > 0) {
+				return dao.increUserReport(session, param);
+			} else {
+				return 0;
+			}
+		} else {
+			return 0;
+		}
+	
+	}
+
+
+	@Override
+	public FoodComment selectFoodComment(String foodCommentSeq) {
+		return dao.selectFoodComment(session, foodCommentSeq);
+	}
+
+	
 
 
 

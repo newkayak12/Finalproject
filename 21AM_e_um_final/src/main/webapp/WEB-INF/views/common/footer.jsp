@@ -6,7 +6,7 @@
 				<span id="controlpanelfooter"></span>
 				<span id="controlpanelnext"></span>
 			</div>
-			<div id="footerinnerContainer" style="height:520px" class="mb-5 p-0" >
+			<div id="footerinnerContainer" style="height:570px !important" class="mb-5 p-0" >
 				
 			</div>
 				

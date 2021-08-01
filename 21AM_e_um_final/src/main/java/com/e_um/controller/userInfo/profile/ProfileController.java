@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.userInfo.profile.ProfileServiceInterface;
+import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
+import com.e_um.model.vo.communicateinfo.likefeed.Likefeed;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -132,7 +134,7 @@ public class ProfileController {
 		int result=service.insertGuestbook(gb);
 		
 		String msg="방명록이 등록되지 않았습니다.";
-		m.addAttribute("loc","/friend/openProfile/"+userIdReceiver);
+		m.addAttribute("loc","/profile/open/"+userIdReceiver);
 		if(result>0) {
 			String guestbookSeq=service.selectGuestbookSeq(gb);
 //			log.warn("guestbookSeq: {}",guestbookSeq);
@@ -193,14 +195,65 @@ public class ProfileController {
 	@RequestMapping("/profile/openFeedModal")
 	public String openFeedModal(@RequestParam(value="feedSeq", required=false) String feedSeq, Model m) {
 		m.addAttribute("feed",service.selectFeed(feedSeq));
-		log.warn("feed: {}",service.selectFeed(feedSeq));
+//		log.warn("feed: {}",service.selectFeed(feedSeq));
 		m.addAttribute("like", service.selectLike(feedSeq));
-		log.warn("like: {}",service.selectLike(feedSeq));
+//		log.warn("like: {}",service.selectLike(feedSeq));
 		m.addAttribute("comment",service.selectComment(feedSeq));
-		log.warn("comment: {}",service.selectComment(feedSeq));
+//		log.warn("comment: {}",service.selectComment(feedSeq));
 		
 //		return "";
 		return "components/profile/feedDetailModal";
+	}
+	
+	
+	@RequestMapping("/profile/deleteFeedComment")
+	@ResponseBody
+	public int deleteFeedComment(@RequestParam(value="fcSeq", required=false) String fcSeq) {
+		return service.deleteFeedComment(fcSeq);
+	}
+	
+	
+	@RequestMapping("/profile/deleteFeed")
+	@ResponseBody
+	public int deleteFeed(@RequestParam(value="feedSeq", required=false) String feedSeq) {
+		return service.deleteFeed(feedSeq);
+	}
+	
+	
+	@RequestMapping("/profile/unlike")
+	@ResponseBody
+	public int feedUnlike(@RequestParam(value="feedSeq", required=false) String feedSeq, HttpServletRequest rq) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		Likefeed likef=Likefeed.builder().feedSeq(feedSeq).likeFeedId(user.getUserId()).build();
+		return service.feedUnlike(likef);
+	}
+	
+	
+	@RequestMapping("/profile/like")
+	@ResponseBody
+	public int feedLike(@RequestParam(value="feedSeq", required=false) String feedSeq, HttpServletRequest rq,
+			@RequestParam(value="profileId", required=false) String profileId) {
+//		log.warn("profileId: {}",profileId);
+		User user=(User)rq.getSession().getAttribute("userSession");
+		Likefeed likef=Likefeed.builder().feedSeq(feedSeq).likeFeedId(user.getUserId()).build();
+		if(profileId.equals(user.getUserId())) {
+			profileId="me";
+		}
+		return service.feedLike(likef, profileId, user.getUserNick());
+	}
+	
+	
+	@RequestMapping("profile/writeFeedComment")
+	@ResponseBody
+	public int writeFeedComment(@RequestParam(value="feedSeq", required=false) String feedSeq, HttpServletRequest rq,
+			@RequestParam(value="fcc", required=false) String fcc,
+			@RequestParam(value="profileId", required=false) String profileId) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		FeedComment fc=FeedComment.builder().feedSeqRef(feedSeq).commenter(user.getUserId()).feedCommentContents(fcc).build();
+		if(profileId.equals(user.getUserId())) {
+			profileId="me";
+		}
+		return service.writeFeedComment(fc, profileId, user.getUserNick());
 	}
 
 }

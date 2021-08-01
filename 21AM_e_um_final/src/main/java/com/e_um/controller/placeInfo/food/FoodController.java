@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
+import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
@@ -136,14 +136,27 @@ public class FoodController {
 	
 
 	@RequestMapping("/food/foodView")
-	public String foodView(String foodSeq, Model model) throws Exception {
+	public String foodView(String foodSeq, Model model, HttpServletRequest req) throws Exception {
 		
+		// foodSeq에 해당하는 맛집 추출 
 		Food food = service.selectFood(foodSeq);
 		
+		// foodSeq에 해당하는 맛집 리뷰 추출
 		int foodCommentCount = service.countFoodComment(foodSeq);
+		
+		User loginUser = (User) req.getSession().getAttribute("userSession");
+		String userId = loginUser.getUserId();
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("foodSeq", foodSeq);
+		param.put("userId", userId);
+		
+		// foodSeq와 user에 해당하는 좋아요 추출 
+		LikeFood like = service.checkFoodLike(param);
 		
 		model.addAttribute("food", food);
 		model.addAttribute("foodCommentCount", foodCommentCount);
+		model.addAttribute("likecheck", like);
 		
 		return "/food/foodView";
 		
@@ -415,7 +428,7 @@ public class FoodController {
 		
 		int foodCommentCount = service.countFoodComment(foodSeq);
 		
-		log.warn("{}", foodCommentList);
+		log.warn("foodcommentseqfoodcommentseqfoodcommentseqfoodcommentseq{}", foodCommentList);
 		
 		model.addAttribute("foodCommentList", foodCommentList);
 		model.addAttribute("foodCommentCount", foodCommentCount);
@@ -425,22 +438,107 @@ public class FoodController {
 	}
 	
 	
+	
+	
 	@RequestMapping("/food/addFoodLike")
+	@ResponseBody
 	public String addFoodLike(String foodSeq, String userId) {
 		
-		log.warn("좋아요{}", foodSeq);
-		log.warn("좋아요{}", userId);
+			log.warn("좋아요{}", foodSeq);
+			log.warn("좋아요{}", userId);
 		
-//		Map<String, String> param = new HashMap<>();
-//		param.put("foodSeq", foodSeq);
-//		param.put("userId", userId);
-//		
-//		int result = service.addFoodLike(param);
-//		
+		Map<String, String> param = new HashMap<>();
+		param.put("foodSeq", foodSeq);
+		param.put("userId", userId);
 		
-		return "";
+		int result = service.addFoodLike(param);
+		
+			log.warn("좋아요 insert결과 {}", result);		
+		
+		return "success";
 		
 	}
 	
+	
+	@RequestMapping("/food/delFoodLike")
+	@ResponseBody
+	public String delFoodLike(String foodSeq, String userId) {
+		
+			log.warn("좋아요{}", foodSeq);
+			log.warn("좋아요{}", userId);
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("foodSeq", foodSeq);
+		param.put("userId", userId);
+		
+		int result = service.delFoodLike(param);
+		
+			log.warn("좋아요 delete결과 {}", result);		
+		
+		return "success";
+		
+	}
+	
+	
+	
+	
+	@RequestMapping("/food/checkFoodLike")
+	public String checkFoodLike(String foodSeq, String userId, Model model) {
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("foodSeq", foodSeq);
+		param.put("userId", userId);
+		
+		LikeFood like = service.checkFoodLike(param);
+		
+		model.addAttribute("likecheck", like);
+		
+		return "/food/foodView";
+		
+	}
+	
+	@RequestMapping("/food/deleteFoodComment")
+	@ResponseBody
+	public int deleteFoodComment(String foodCommentSeq) {
+		
+		int result = service.deleteFoodComment(foodCommentSeq);
+		
+		return result;
+		
+	}
+	
+	
+	@RequestMapping("/food/FCReport")
+	@ResponseBody
+	public int openFCReportModal(String foodSeq, String foodCommentSeq, String userId, String targetId, String reportContent, Model model) {
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("foodSeq", foodSeq);
+		param.put("userId", userId);
+		param.put("foodCommentSeq", foodCommentSeq);
+		param.put("targetId", targetId);
+		param.put("reportContent", reportContent);
+		
+		log.error("{}", param); 
+		 
+		int result = service.insertReportFoodComment(param);
+		
+		return result;
+	}
+	
+	// 리뷰신고카운트 up, 유저신고카운트 up, 신고테이블에 insert ? 
+	
+	
+	
+//	@RequestMapping("food/updateFoodComment/start")
+//	public String updateFoodCommentStart(String foodCommentSeq, Model model) {
+//		
+//		FoodComment fc = service.selectFoodComment(foodCommentSeq);
+//		
+//		model.addAttribute("fc", fc);
+//		
+//		return "/food/foodReview";
+//		
+//	}
 	
 }

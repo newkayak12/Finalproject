@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.e_um.common.verifyCodeMaker.VerifyCodeMaker;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
@@ -42,9 +43,9 @@ public class UserController {
 	@Autowired
 	VerifyCodeMaker maker;
 	@RequestMapping("/")
-	public String gotoIndex() {
+	public RedirectView gotoIndex(HttpServletRequest rq) {
 		
-		return "../../index";
+		return new RedirectView(rq.getContextPath()+"/index.jsp");
 	}
 	
 	
@@ -234,7 +235,7 @@ public class UserController {
 			return "main";
 		} else {
 			String path = rq.getContextPath();
-			return "redirect : /";
+			return "redirect:/";
 		}
 		
 	}
@@ -269,9 +270,10 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/logout")
-	public String logout(HttpServletRequest rq) {
+	public RedirectView logout(HttpServletRequest rq) {
 		rq.getSession().invalidate();
-		return "../../index";
+		
+		return new RedirectView("/");
 	}
 	
 	

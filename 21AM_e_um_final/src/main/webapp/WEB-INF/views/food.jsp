@@ -177,7 +177,7 @@
 											<div class="info">
 												<span class="title"><c:out value="${ f.foodName }"/></span>
 												<strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
-												<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
+												<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;-&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
 											</div>
 										</div>
 									</a>
@@ -209,22 +209,31 @@
 						<div id="modal-content">
 							<img class="mr-3" style="float:left;" width="200px" height="200px" src="">
 							<div class="modal-info">
-								<p></p> <!-- 대분류 -->
-								<h5></h5> <!-- 맛집이름 -->
-								<p></p> <!-- 주소 -->
-								<p></p> <!-- 전화번호 -->
-								<p></p> <!-- 영업시간 -->
-								<p></p> <!-- 별점 -->
+								<span></span><!-- 대분류 -->
+								<br>
+								
+								<span class="mainColor tway" style="font-size:30px;"></span>&nbsp; <!-- 맛집이름 -->
+								<span style="font-size:30px;"></span> <!-- 별점 -->
+								<br><br>
+								
+								<span><i class="fas fa-map-marker-alt"></i></span>&nbsp;
+								<span></span> <!-- 주소 -->
+								<br>
+								
+								<span><i class="fas fa-phone"></i></span>&nbsp;
+								<span></span> <!-- 전화번호 -->
+								<br>
+								
+								<span><i class="far fa-clock"></i></span>&nbsp;
+								<span></span><!-- 영업시간 -->
 								<input type="hidden" value="">
 							</div>
 						</div>
 					</div>
 			
 					<div class="modal-footer">
-						<%-- <c:if test="${  }"> --%>
-							<button type="button" id="foodModalBooking" class="btn" style="border: 1px solid #70b3d9;" onclick="fn_foodBooking();">예약하기</button>
-						<%-- </c:if> --%>
-						<button type="button" class="btn" style="background-color: #70b3d9;" onclick="fn_foodView();">상세보기</button>
+						<button type="button" id="foodModalBooking" class="btn cancelBtn" onclick="fn_foodBooking();">예약하기</button>
+						<button type="button" class="btn checkBtn" onclick="fn_foodView();">상세보기</button>
 					</div>
 			
 				</div>
@@ -250,16 +259,31 @@
 			data : {"foodSeq":seq},
 			success : data => {
 				// console.log(data);
-				$("#modal-content").find("img").attr("src", "${ path }/resources/upload/food/" + data.menus[0].menuPhoto);
-				$("#modal-content").find("p").first().text(data.foodCategoryMain);
-				$("#modal-content").find("h5").text(data.foodName);
-				$("#modal-content").find("p").eq(1).text(data.foodAddr);
-				$("#modal-content").find("p").eq(2).text(data.foodCall);
-				$("#modal-content").find("p").eq(3).text(data.foodTimeFirst.concat(' ~ ', data.foodTimeLast));
-				$("#modal-content").find("p").eq(4).text(data.foodStar);
+				$("#modal-content").find("img").attr("src", "${ path }/resources/upload/food/" + data.menus[0].menuPhoto).css({"border-radius":"10px"});
+			 	
+				let cateMain;
+				switch(data.foodCategoryMain) {
+					case '한국' : cateMain = '🇰🇷한식'; break;
+					case '미국' : cateMain = '🇺🇸아메리칸'; break;
+					case '중국' : cateMain = '🇨🇳중식'; break;
+					case '일본' : cateMain = '🇯🇵일식'; break;
+					case '이탈리아' : cateMain = '🇮🇹이탈리안'; break;
+					case '기타' : cateMain = '기타'; break;
+					case '술집' : cateMain = '🍺주점'; break;
+					case '카페/디저트' : cateMain = '🍰카페/디저트'; break;
+					
+				}
+				
+				$("#modal-content").find("span").first().text(cateMain);
+				$("#modal-content").find("span").eq(1).text(data.foodName);
+				$("#modal-content").find("span").eq(2).text(data.foodStar);
+				
+				$("#modal-content").find("span").eq(4).text(data.foodAddr);
+				$("#modal-content").find("span").eq(6).text(data.foodCall);
+				$("#modal-content").find("span").eq(8).text(data.foodTimeFirst.concat(' ~ ', data.foodTimeLast));
+				
 				$("#modal-content").find("input").attr("value", data.foodSeq);
 				
-				// console.log(data.foodCategoryMain === "카페/디저트");
 				
 				// 카테고리가 카페/디저트일경우 예약하기 버튼을 숨김
 				if( data.foodCategoryMain === "카페/디저트" ) {

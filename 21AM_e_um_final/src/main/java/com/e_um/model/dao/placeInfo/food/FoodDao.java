@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.sevice.userInfo.user.UserService;
+import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.food.food.Food;
@@ -89,8 +90,52 @@ public class FoodDao implements FoodDaoInterface {
 	public int addFoodLike(SqlSessionTemplate session, Map<String, String> param) {
 		return session.insert("food.addFoodLike", param);
 	}
-
 	
+	@Override
+	public int increFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.update("food.increFoodLike", param);
+	}
+
+	@Override
+	public int delFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.delete("food.delFoodLike", param);
+	}
+
+	@Override
+	public int decreFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.delete("food.decreFoodLike", param);
+	}
+
+	@Override
+	public LikeFood checkFoodLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.selectOne("food.checkFoodLike", param);
+	}
+
+	@Override
+	public int deleteFoodComment(SqlSessionTemplate session, String foodCommentSeq) {
+		return session.update("food.deleteFoodComment", foodCommentSeq);
+	}
+
+	@Override
+	public int insertReportFoodComment(SqlSessionTemplate session, Map<String, String> param) {
+		return session.insert("food.insertReportFoodComment", param);
+	}
+
+	@Override
+	public int increReportFoodComment(SqlSessionTemplate session, Map<String, String> param) {
+		return session.update("food.increReportFoodComment", param);
+	}
+
+	@Override
+	public int increUserReport(SqlSessionTemplate session, Map<String, String> param) {
+		return session.update("food.increUserReport", param);
+	}
+
+	@Override
+	public FoodComment selectFoodComment(SqlSessionTemplate session, String foodCommentSeq) {
+		return session.selectOne("food.selectFoodComment", foodCommentSeq);
+	}
+
 
 	
 
