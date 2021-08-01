@@ -1,7 +1,5 @@
 package com.e_um.model.vo.placeinfo.movie.seat;
 
-import java.util.Date;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 

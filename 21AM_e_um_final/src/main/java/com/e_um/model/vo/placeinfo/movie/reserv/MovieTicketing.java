@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Component
-public class MovieTiecketing {
+public class MovieTicketing {
 	private String movieReservNum;
 	private String userId;
-	private Seat[] seats = new Seat[4];
+	private Seat seats1, seat2, seat3,seat4; 
 	private String movieSeq, movieBox, movieLocation,movieTime;
 	private int moviePrice;
 	private Date movieReservDate;
