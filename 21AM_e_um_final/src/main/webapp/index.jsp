@@ -283,24 +283,43 @@
 		})
 	}
 	
+		let count = 0;
+		let arr = 0;
+		
+	function board(){
+		let list = ['새로운 친구를 만나고 싶다면?','우리 영화 보러 갈래?','너와 있으면 너무 좋아, 너와 있는 나는 어떠니?']
+		let typ0 = 	list[arr].split("");
 	
 		
+			 		setInterval(function(){
+				if(count<typ0.length+1){
+					$(".typo").append(typ0[count])
+					count+=1;
+				} else {
+					/* arr+=1; */
+					/* $(".typo").html("") */
+					// if(arr>2){
+					// 	arr = 0;
+					// }
+					// typ0 = 	list[arr].split("");
+					// $(".typo").html("")
+					// count =0;
+					
+					// clearInterval();
+					
+					
+				}
+			},200)
+			
+			
+	}
+		
+	
+	
 	$(function(){
-		let typ0 = 	'새로운 친구를 만나고 싶다면?'.split("");
+		board()
+		
 
-		console.log(typ0)
-		let count = 0;
-		 let interval = setInterval(function(){
-			if(count<typ0.length+1){
-				console.log('esdt')
-				$(".typo").append(typ0[count])
-				count+=1;
-			} else {
-				
-				
-				clearInterval(interval);
-			}
-		},200)
 		
 		
 		 $(window).scroll(function(){
@@ -424,7 +443,7 @@
 					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="300px" height="600px">
 					<div class="d-flex align-items-center typoscreen">
 						좋아하는 음식을 
-							<br>&nbsp;&nbsp;함께 먹을 수 있는 방법
+							<br>&nbsp;함께 먹을 수 있는 방법
 					</div>
 				</div>
 			</div>
