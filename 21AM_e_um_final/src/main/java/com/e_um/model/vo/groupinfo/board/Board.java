@@ -1,13 +1,10 @@
 package com.e_um.model.vo.groupinfo.board;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.e_um.model.vo.groupinfo.group.Group;
-import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
+import com.e_um.model.vo.groupinfo.photo.Photo;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.AllArgsConstructor;
@@ -32,6 +29,7 @@ public class Board {
 	private Date groupBoardDate;
 	private String groupBoardLevel, groupBoardFlag, groupBoardBlock;
 	
+	private Photo groupBoardPhoto;
 	
 	
 	

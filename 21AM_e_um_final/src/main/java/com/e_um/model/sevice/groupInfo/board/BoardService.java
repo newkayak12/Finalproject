@@ -1,6 +1,7 @@
 package com.e_um.model.sevice.groupInfo.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,14 @@ public class BoardService implements BoardServiceInterface {
 	public List<Comment> selectGroupBoardComment(String groupBoardSeq) {
 		// TODO Auto-generated method stub
 		return dao.selectGroupBoardComment(session, groupBoardSeq);
+	}
+
+
+
+	@Override
+	public int groupboardfileinsert(Map<String, Object> map) {
+		
+		return dao.groupboardfileinsert(session, map);
 	}
 	
 	

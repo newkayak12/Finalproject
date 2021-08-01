@@ -79,17 +79,19 @@
       	</tr>
       	</thead>
       	<tbody>
+      		<c:forEach var="b" items="${notice }">
       		<tr class="table-primary">
-        		<td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+        		<td><c:out value="${b.groupBoardSeq }"/></td>
+		        <td>공지</td>
+		        <td><a href="javascript:moveFn('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
+		        <td><c:out value="${b.groupBoardUser.userId}"/></td>
+		        <td><c:out value="${b.groupBoardDate }"/></td>
       		</tr>
+      		</c:forEach>
       
       		<tr class="table-warning">
 		        <td></td>
-		        <td></td>
+		        <td>베스트게시글</td>
 		        <td></td>
 		        <td></td>
 		        <td></td>
@@ -97,7 +99,7 @@
       		<c:forEach var="b" items="${boardlist }">
      		<tr class="table-light">
 		        <td><c:out value="${b.groupBoardSeq }"/></td>
-		        <td><c:out value="${b.groupBoardLevel }"/></td>
+		        <td>일반</td>
 		        <td><a href="javascript:moveFn('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
 		        <td><c:out value="${b.groupBoardUser.userId}"/></td>
 		        <td><c:out value="${b.groupBoardDate }"/></td>

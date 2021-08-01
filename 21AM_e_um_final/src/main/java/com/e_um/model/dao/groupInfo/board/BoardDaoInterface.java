@@ -1,6 +1,7 @@
 package com.e_um.model.dao.groupInfo.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -16,5 +17,7 @@ public interface BoardDaoInterface {
 	Board selectGroupBoard(SqlSessionTemplate session, String groupBoardSeq);
 
 	List<Comment> selectGroupBoardComment(SqlSessionTemplate session, String groupBoardSeq);
+
+	int groupboardfileinsert(SqlSessionTemplate session, Map<String, Object> map);
 
 }

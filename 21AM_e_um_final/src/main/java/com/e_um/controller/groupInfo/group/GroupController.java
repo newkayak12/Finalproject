@@ -2,6 +2,9 @@ package com.e_um.controller.groupInfo.group;
 
 import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -117,6 +120,8 @@ public class GroupController {
 		return"group/groupboard/groupBoardWrite";
 		
 	}
+	
+	
 	  
 
 	  
@@ -126,15 +131,49 @@ public class GroupController {
 		User user=(User) rq.getSession().getAttribute("userSession");
 		String userId= user.getUserId();
 		
+		
+		
+		Group groupmaster = new Group();
+		groupmaster.getGroupMaster();
+		
 		board.setGroupBoardUser(user);
-	
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("groupBoardPhoto1",null);
+		map.put("groupBoardPhoto2",null);
+		map.put("groupBoardPhoto3",null);
+		
 		System.out.println(groupSeq);
 		log.warn("{}",user);
 		log.warn("{}",board);
 		log.warn("{}",file);
 		
-	
+		/*
+		 * if(groupmaster=userId)
+		 */
+			
+		int i = 1;
+		
+		if(file != null) {
+			for(MultipartFile f : file) {
+				System.out.println("파일이름 : "+f.getOriginalFilename());
+				
+				if(f.getSize()==0) break;
+				
+				map.put("groupBoardPhoto"+i,renamepolicy(rq, f, "board"));
+				
+				i++;
+			}
+		}
 		int result = serviceb.groupboardinsert(board);
+		log.error("{}",board.getGroupBoardSeq());
+		
+		
+		
+		 if(result>0) { 
+			 map.put("groupBoardSeq", board.getGroupBoardSeq());
+			 int resultfile = serviceb.groupboardfileinsert(map);
+		 }
 		
 		return "redirect:/group/groupBoard.do?groupSeq="+groupSeq;
 	}
@@ -158,14 +197,28 @@ public class GroupController {
 	public String groupBoard(HttpSession session,Group group,String groupSeq,Model model) {
 		log.warn("Board{}",group);
 		Group list=service.selectGroupUseridCheck(groupSeq);
-		System.out.println(list);
+		log.warn("qeweq{}",list);
 		model.addAttribute("group",list);
 		
 		
 		
 		  List<Board> boardlist=serviceb.selectBoardList(groupSeq);
-		  System.out.println(boardlist);
+		  List<Board> notice = new ArrayList();
+		  
+		  log.warn("mastmastmastbefore{}",boardlist);
+		  log.error("groupgruop{}",group);
+		  for(Board b : boardlist) {
+			  log.error("testtsttasdasdasdasdasd{}",b.getGroupBoardUser().getUserId().equals(list.getGroupMaster()));
+			  if(b.getGroupBoardUser().getUserId().equals(list.getGroupMaster())) {
+				  notice.add(b);
+				  boardlist.remove(b);
+			  }
+		  }
+		  log.warn("mastmastmast{}",notice);
+		  log.warn("mastmastmast{}",boardlist);
+		  
 		  model.addAttribute("boardlist",boardlist);
+		  model.addAttribute("notice",notice);
 		 
 		
 		return "group/groupboard/groupBoardSub";
@@ -190,13 +243,17 @@ public class GroupController {
 	public String groupBoardContents(String groupBoardSeq,Model model) {
 		Board board = serviceb.selectGroupBoard(groupBoardSeq);
 		List<Comment> commentlist = serviceb.selectGroupBoardComment(groupBoardSeq);
-		model.addAttribute("board",board);
+		Board notice = serviceb.selectGroupBoard(groupBoardSeq);
 		
+		
+		model.addAttribute("board",board);
+		model.addAttribute("notice",notice);
 		
 		model.addAttribute("comment",commentlist);
 		
 		
 		return "group/groupboard/groupBoardContents";
 	}
+	
 
 }
