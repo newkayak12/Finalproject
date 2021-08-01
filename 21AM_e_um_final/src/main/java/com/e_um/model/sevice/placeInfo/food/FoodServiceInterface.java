@@ -38,5 +38,12 @@ public interface FoodServiceInterface {
 
 	int delFoodLike(Map<String, String> param);
 
+	int deleteFoodComment(String foodCommentSeq);
+
+	int insertReportFoodComment(Map<String, String> param);
+
+	FoodComment selectFoodComment(String foodCommentSeq);
+
+	int updateFoodComment(Map<String, Object> map);
 
 }

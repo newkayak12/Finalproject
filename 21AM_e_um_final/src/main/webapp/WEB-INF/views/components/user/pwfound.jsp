@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
             
                 <div class="col-12 text-center">
-	                    <p class="mb-0 mt-3 small col-6 text-center">비밀번호</p>
+	                    <p class="mb-0 mt-3 small col-6 text-center pointFont">비밀번호</p>
 	                    <input type="password" class="mb-2 mt-0 col-7" id="userPassword" placeholder="비밀번호" onkeyup="fn_pw_normaliztion()" required>
                         <br>
                         <span id="passwordSignfirst" class="m-2 h-fitcontent" ></span>
 	                    <br>
-	                    <p class="mb-0 mt-3 pl-1 small col-7 text-center">비밀번호 체크</p>
+	                    <p class="mb-0 mt-3 pl-1 small col-7 text-center pointFont">비밀번호 체크</p>
 	                    <input type="password" class="mb-2 mt-0 col-7" id="userPasswordCheck" onkeyup="fn_pwCheck()" placeholder="비밀번호 확인" required>
 	                    <br>
 	                    <span id="passwordSignsecond" class="m-2 h-fitcontent" ></span>
@@ -14,7 +14,7 @@
 	                </div>
 
                     <div class="d-flex justify-content-center col-12 pr-4 pl-4">
-                                <input type="submit" id="changePw" value="비밀번호 변경" class="col-6 m-2 ml-4" onclick="fn_changepw()">
+                                <input type="submit" id="changePw" value="비밀번호 변경" class="col-6 m-2 ml-4 checkBtn" onclick="fn_changepw()">
                     </div>
                 </form>
 

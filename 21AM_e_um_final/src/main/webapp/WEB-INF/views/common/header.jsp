@@ -63,8 +63,9 @@
 			<!--로고 자리-->
 			<div
 				style="font-family: 'twayair', cursive; font-weight: 900; font-size: 25px;">
-				<a href="${pageContext.request.contextPath }/user/gotomain"
-					style="text-decoration: none" class="navbar_brand  ml-2 whiteText">E_um</a>
+				<a href="${pageContext.request.contextPath }/user/gotomain" style="text-decoration: none" class="navbar_brand  ml-2 whiteText">
+					<img src="${pageContext.request.contextPath }/resources/images/header/header.png" width="90px" height="45px"> 
+				</a>
 			</div>
 			<%-- <div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div> --%>
 
@@ -225,7 +226,7 @@
 <div class="toast" style = "position:fixed; top: 60px; right:0px; width: 200px; max-width:300px">
   <div class="toast-header" style="background-color : #2AC1BC; color:black; font-weight:bold">
     <span id="toastId"></span>
-    <span id="toastCount" class="ml-4 small"></span>
+    <span id="toastCount" class="ml-4 small badge badge-light"></span>
   </div>
   <div class="toast-body" id="toastContent">
     Some text inside the toast body
@@ -495,18 +496,25 @@ function kakaoLogout(){
 		$("#controlpanel").html("")
 		$("#toolbox").slideToggle(240)
 		$("#toolinnerbox").html("")
-		
+		$("#menubox").html("")
 		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
-		
 		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr({
 			"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
 			"class" : "tway blackText"
 		}).css("text-decoration","none"))
 		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
-		
 		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pagecontext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
-		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink)).attr("class","text-center pt-4")
+		
+		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink).attr({"class":"text-center pt-4","id":"menubox"}))
+		
+		
+		console.log('${userSession.userRole}')
+		if('${userSession.userRole}' =='admin'){
+			$("#menubox").append($("<div>").html($("<a>").html("관리자").attr({"href":"${pagecontext.request.contextPath}/admin/enter", "class" : "tway blackText"}).css("text-decoration","none")))
+		}
+		
+		
 		
 		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr({"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}","class" : "tway blackText" }).css("text-decoration","none"))
 		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
@@ -830,11 +838,11 @@ function kakaoLogout(){
 	
 	function chatInterfacebottom(){
 		$("body").css("overflow","hidden")
-		$("#footerinnerContainer").html("").css("height","477px")
+		$("#footerinnerContainer").html("")
 		
 		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
 		
-		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"600px"}).css({"overflow-y":"auto"})
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"800px"}).css({"overflow-y":"auto"})
 		
 		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
 		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})
@@ -1392,7 +1400,7 @@ function kakaoLogout(){
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId)
 							break;
 						case "accept_friend_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friend")
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friendmain")
 							break;
 						case "feed_alarm":
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId+'?feedSeq='+ref);

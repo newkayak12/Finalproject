@@ -1,4 +1,6 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ 
 
 		<div id="footerContainer" style="">
 			<div class="d-flex justify-content-between  border col-12">
@@ -6,7 +8,7 @@
 				<span id="controlpanelfooter"></span>
 				<span id="controlpanelnext"></span>
 			</div>
-			<div id="footerinnerContainer" style="height:600px" class="mb-5 p-0" >
+			<div id="footerinnerContainer" style="height:570px !important" class="mb-5 p-0" >
 				
 			</div>
 				
@@ -54,7 +56,7 @@
 	        <li class="list-inline-item"><a href="#">Terms</a></li>
 	        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
 	    </ul>
-	   <!--  <p class="copyright">E_um | address : ... | email : eum@eum.com</p> -->
+	    <p class="copyright">E_um | address : 서울특별시 역상동 테헤란로  | email : eum@eum.com</p> 
 	    <p class="copyright">SanghyunKim YejinKim TaehuiKim WoosikLee HyerinJang</p>
 	    <p class="copyright">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
     </div>

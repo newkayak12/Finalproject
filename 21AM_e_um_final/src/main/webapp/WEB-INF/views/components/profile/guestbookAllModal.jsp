@@ -57,10 +57,10 @@
 				success:data=>{
 					if(data>0){
 						alert("방명록이 삭제되었습니다.");
-						$("#guestbookAllModal").modal("hide");
 					}else{
 						alert("방명록이 삭제되지 않았습니다.");
 					}
+					fn_openGuestbookModal('${profileId}');
 				}
 			})
 		}

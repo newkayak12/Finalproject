@@ -1,5 +1,6 @@
 package com.e_um.model.sevice.placeInfo.food;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,10 +115,32 @@ public class FoodService implements FoodServiceInterface {
 		return dao.countFoodComment(session, foodSeq);
 	}
 
-
+	@Transactional
 	@Override
 	public int addFoodLike(Map<String, String> param) {
-		return dao.addFoodLike(session, param);
+		
+		int result = dao.addFoodLike(session, param);
+		
+		if(result > 0) {
+			return dao.increFoodLike(session, param);
+		} else {
+			return 0;
+		}
+		
+	}
+	
+	@Transactional
+	@Override
+	public int delFoodLike(Map<String, String> param) {
+		
+		int result = dao.delFoodLike(session, param);
+		
+		if(result > 0) {
+			return dao.decreFoodLike(session, param);
+		} else {
+			return 0;
+		}
+	
 	}
 
 
@@ -128,8 +151,40 @@ public class FoodService implements FoodServiceInterface {
 
 
 	@Override
-	public int delFoodLike(Map<String, String> param) {
-		return dao.delFoodLike(session, param);
+	public int deleteFoodComment(String foodCommentSeq) {
+		return dao.deleteFoodComment(session, foodCommentSeq);
+	}
+
+
+	@Transactional
+	@Override
+	public int insertReportFoodComment(Map<String, String> param) {
+		
+		int result = dao.insertReportFoodComment(session, param);
+		
+		if(result > 0) {
+			int result2 = dao.increReportFoodComment(session, param);
+			if(result2 > 0) {
+				return dao.increUserReport(session, param);
+			} else {
+				return 0;
+			}
+		} else {
+			return 0;
+		}
+	
+	}
+
+
+	@Override
+	public FoodComment selectFoodComment(String foodCommentSeq) {
+		return dao.selectFoodComment(session, foodCommentSeq);
+	}
+
+
+	@Override
+	public int updateFoodComment(Map<String, Object> map) {
+		return dao.updateFoodComment(session, map);
 	}
 
 

@@ -43,6 +43,22 @@ public interface FoodDaoInterface {
 
 	int delFoodLike(SqlSessionTemplate session, Map<String, String> param);
 
+	int increFoodLike(SqlSessionTemplate session, Map<String, String> param);
+
+	int decreFoodLike(SqlSessionTemplate session, Map<String, String> param);
+
+	int deleteFoodComment(SqlSessionTemplate session, String foodCommentSeq);
+
+	int insertReportFoodComment(SqlSessionTemplate session, Map<String, String> param);
+
+	int increReportFoodComment(SqlSessionTemplate session, Map<String, String> param);
+
+	int increUserReport(SqlSessionTemplate session, Map<String, String> param);
+
+	FoodComment selectFoodComment(SqlSessionTemplate session, String foodCommentSeq);
+
+	int updateFoodComment(SqlSessionTemplate session, Map<String, Object> map);
+
 	
 
 }

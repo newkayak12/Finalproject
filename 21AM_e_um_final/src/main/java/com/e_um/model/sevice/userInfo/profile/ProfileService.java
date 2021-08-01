@@ -105,4 +105,34 @@ public class ProfileService implements ProfileServiceInterface {
 		return dao.selectComment(session, feedSeq);
 	}
 
+
+	@Override
+	public int deleteFeedComment(String fcSeq) {
+		return dao.deleteFeedComment(session, fcSeq);
+	}
+
+
+	@Override
+	public int deleteFeed(String feedSeq) {
+		return dao.deleteFeed(session, feedSeq);
+	}
+
+
+	@Override
+	public int feedUnlike(Likefeed likef) {
+		return dao.feedUnlike(session, likef);
+	}
+	
+	
+	@Override
+	public int feedLike(Likefeed likef, String profileId, String userNick) {
+		return dao.feedLike(session, likef, profileId, userNick);
+	}
+
+
+	@Override
+	public int writeFeedComment(FeedComment fc, String profileId, String userNick) {
+		return dao.writeFeedComment(session, fc, profileId, userNick);
+	}
+
 }

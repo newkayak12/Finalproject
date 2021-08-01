@@ -17,5 +17,11 @@ public class ReportDao implements ReportDaoInterface {@Override
 		return session.insert("report.insertReport", report);
 	}
 
+@Override
+public int reportCountUpdate(Report report, SqlSessionTemplate session) {
+	// TODO Auto-generated method stub
+	return session.update("report.reportCountUpdate",report);
+}
+
 
 }

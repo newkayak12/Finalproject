@@ -29,7 +29,7 @@ a#MOVE_TOP_BTN div {
 }
 
 /* food */
-.features-boxed {
+/* .features-boxed {
         border: 1px solid 70b3d9;
       }
 
@@ -39,7 +39,7 @@ a#MOVE_TOP_BTN div {
 
       .features-boxed h3 {
         font-weight: bold;
-        /* margin-bottom: 40px; */
+        margin-bottom: 40px;
         padding-top: 40px;
         color: inherit;
       }
@@ -111,11 +111,11 @@ a#MOVE_TOP_BTN div {
         height: 40px;
       }
       .search-container button{
-        /* height: 40px;
-        width: 60px; */
+        height: 40px;
+        width: 60px;
       }
 
-
+ */
 
 	
 /* foodReview */

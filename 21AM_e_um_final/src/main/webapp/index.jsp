@@ -9,8 +9,7 @@
     <title>Document</title>
     
 	<!-- jQuery library -->
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script> 
-	<script src="${pageContext.request.contextPath}/resources/js/Parallax-ImageScroll-master/jquery.imageScroll.js"></script> 
+	 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script> 
 	<%-- <script   src="https://code.jquery.com/jquery-3.6.0.slim.js"   integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="   crossorigin="anonymous"></script> --%>
 	<!-- <script src="${path }/resources/js/jquery-3.6.0.min.js"></script> -->
 	<!-- Popper JS -->
@@ -18,14 +17,14 @@
 	<!-- Latest compiled JavaScript -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <!-- all -->
 <!-- <link rel="stylesheet" href="../webapp/resources/css/main.css"> -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
  <style>
  
  *{
-    /* border:1px black solid */
+      /* border:1px black solid  */
 }
 @font-face {
         font-family: 'twayair';
@@ -51,12 +50,20 @@
     font-weight: bold;
 }
 
+
+
+*{
+	/* border:	1px black solid; */
+}
+
+
+
+
+
 </style>
 	
 <script>
-	$('.img-holder').imageScroll({
-		
-	})
+	
 	
 
 	function loginAjax(){
@@ -270,15 +277,97 @@
 		})
 	}
 	
+		let count = 0;
+		let arr = 0;
+		
+	function board(){
+		let list = ['새로운 친구를 만나고 싶다면?','우리 영화 보러 갈래?','너와 있으면 너무 좋아, 너와 있는 나는 어떠니?']
+		let typ0 = 	list[arr].split("");
+	
+		
+			 		setInterval(function(){
+				if(count<typ0.length+1){
+					$(".typo").append(typ0[count])
+					count+=1;
+				} else {
+					/* arr+=1; */
+					/* $(".typo").html("") */
+					// if(arr>2){
+					// 	arr = 0;
+					// }
+					// typ0 = 	list[arr].split("");
+					// $(".typo").html("")
+					// count =0;
+					
+					// clearInterval();
+					
+					
+				}
+			},200)
+			
+			
+	}
+		
+	
+	
+	$(function(){
+		board()
+		
+
+		
+		
+		 $(window).scroll(function(){
+			 let scroll  = $(this).scrollTop() +620;
+			console.log(scroll)
+			
+			if(scroll> parseInt($("#sc00").offset().top)){
+				$("#scCont00").addClass("showsc")
+			} else {
+				$("#scCont00").removeClass("showsc")
+			}
+			if(scroll> parseInt($("#sc01").offset().top)){
+				$("#scCont01").addClass("showsc")
+			} else {
+				$("#scCont01").removeClass("showsc")
+			}
+			if(scroll> parseInt($("#sc02").offset().top)){
+				$("#scCont02").addClass("showsc")
+			} else {
+				$("#scCont02").removeClass("showsc")
+			}
+			if(scroll> parseInt($("#sc03").offset().top)){
+				$("#scCont03").addClass("showsc")
+			} else {
+				$("#scCont03").removeClass("showsc")
+			}
+			if(scroll> parseInt($("#sc04").offset().top)){
+				$("#scCont04").addClass("showsc")
+			} else {
+				$("#scCont04").removeClass("showsc")
+			}
+			
+			
+			
+			
+		}) 
+		
+		
+		
+
+	})
 	
 	
 	
+	
+	
+
 	
 	
 </script>
+
 </head >
 <body >
-	<div id="root" class="container m-auto pt-5 pr-3 pl-3" style="border: 1px red solid;"></div>
+	
 		<!-- header -->
 		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
@@ -292,70 +381,95 @@
 		</header>
 	
 	
-		<section class=" fluid-container position-relative headerfix sectionMinHeight mb-1 mt-1 img-holder">
+		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-5 p-0 pt-2 col-12 img-holder" style="height: 5600px; container:''; background-color: #EAEAEA;">
 			
-	
-				<div class="fluid-container">
-					<div class="d-flex justify-content-center">
-						<img src="" alt="로고" class="col-3 m-1">
+			<div class="typo text-center d-flex justify-content-center align-items-center">
+			</div>
+			
+			
+			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc00" style="display:none;">
+				<div class="p-3 m-5 scitems" id="scCont00">
+					
+					<div class="d-flex align-items-center typoscreen">
+						새로운 친구를 찾는 방법
 					</div>
-					<div class="d-flex justify-content-center">
-						<div class="container text-center p-3 m-3">
-							내용
-							
-						</div>
-					</div>
+					<img src="${pageContext.request.contextPath }/resources/images/index/main1.png" width="300px" height="600px">
+
 				</div>
 				
-				<div class="d-flex flex-column align-content-center justify-content-center fluid-container">
-					
-					<div class="d-flex justify-content-around" >
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around row-equal-cols">
-							<img src="" alt="img" class="col-12">
-						</span>
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around">
-							<p>내용</p>
-						</span>
+				
+			</div>
+			
+			
+				
+			</div>
+			
+			<div class="screen00 p-3 d-flex justify-content-start align-items-center" id="sc01" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont01">
+				
+					<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="300px" height="600px">
+					<div class="d-flex align-items-center typoscreen">
+						친구와 함께 보낸 하루를
+						<br>&nbsp;&nbsp; 돌아볼 수 있는 방법
 					</div>
-	
-	
-					<div class="d-flex justify-content-around " >
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around">
-							<p>내용</p>
-						</span>
-	
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around">
-						<img src="" alt="img" class="col-12" >
-						</span>
-						
-					</div>
-	
-					<div class="d-flex justify-content-around " >
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around row-equal-cols">
-						<img src="" alt="img" class="col-12" >
-						</span>
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around">
-							<p>내용</p>
-						</span>
-					</div>
-	
-	
-					<div class="d-flex justify-content-around " >
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around">
-							<p>내용</p>
-						</span>
-	
-						<span class="col-5 text-center p-2 d-flex flex-column justify-content-around">
-						<img src="" alt="img" class="col-12" >
-						</span>
-						
-					</div>
-	
-	
 				</div>
-	
-	
-	
+			</div>
+
+			<div class="screen00 p-3 d-flex  justify-content-end align-items-center" id="sc02" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont02" style="flex-direction: column !important; align-content: middle">
+				<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="600px" height="300px">	
+				<br>
+					<div class="d-flex  align-items-center typoscreen">
+						친해진 친구와 함께,<br>
+						 &nbsp;&nbsp;시간을 공유할 수 있는 방법
+					</div>
+					
+					
+
+				</div>
+			</div>
+
+			<div class="screen00 p-3 d-flex justify-content-start align-items-center"  id="sc03" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont03">
+					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="300px" height="600px">
+					<div class="d-flex align-items-center typoscreen">
+						좋아하는 음식을 
+							<br>&nbsp;함께 먹을 수 있는 방법
+					</div>
+				</div>
+			</div>
+			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc04" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont02">
+					<div class="d-flex align-items-center typoscreen">
+						새로운 친구와 
+						<br>함께할 수 있는 방법
+					</div>
+					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="300px" height="600px">
+
+				</div>
+			</div>
+			
+			<!-- #2AC1BC -->
+			<div class="screen00 p-3 d-flex flex-column justify-content-center align-items-center"  id="sc05" style="background-size: cover ; background-image: url('${pageContext.request.contextPath }/resources/images/index/main6.png');">
+				<%-- <img src="${pageContext.request.contextPath }/resources/images/index/main6.png" width="300px" height="600px"> --%>
+				<div>
+					<h1 class="text-center tway" style="color:white; font-size:96px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">E_um</h1>
+					<h5 class="text-center tway" style="color:white; font-size:32px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"  > 친구를 만나는 가장 쉬운 방법</h5>
+				</div>
+				<div class="mt-2">
+					<a><img src="${pageContext.request.contextPath }/resources/images/index/google.png" width="200px"></a>
+					<a><img src="${pageContext.request.contextPath }/resources/images/index/apple.png" width="200px"></a>
+				</div>
+				
+			</div>
+			
+			
+ 
+
 			
 		</section> 
  		<footer class=" fluid-container footer-basic p-1 position-relative">
@@ -373,26 +487,10 @@
 	        <p class="copyright m-1">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
 	        <p class="copyright m-1">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
 	    </footer> 
-	   <!--  <footer>
-	    	<div class="footerInfo">
-			    <ul class="list-inline pt-3">
-			        <li class="list-inline-item"><a href="#">Home</a></li>
-			        <li class="list-inline-item"><a href="#">Services</a></li>
-			        <li class="list-inline-item"><a href="#">About</a></li>
-			        <li class="list-inline-item"><a href="#">Terms</a></li>
-			        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-			    </ul>
-			    <p class="copyright">E_um | address : ... | email : eum@eum.com</p>
-			    <p class="copyright">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
-			    <p class="copyright">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
-		    </div>
-	    </footer> -->
+	   
 
 
-<!-- 
-	modal-xl
-	modal-dialog-scrollable
- -->
+
 	<div class="modal" id="signin">
 		<div class="modal-dialog  modal-dialog-centered ">
 		  <div class="modal-content">
@@ -400,7 +498,7 @@
 			<!-- Modal Header -->
 			<div class="modal-header">
 			  <h4 class="modal-title" id="modalLoginTitle" style="font-family:'twayair'; color:#2AC1BC;">로그인</h4>
-			  <button type="button eumbtn-3" class="close" style="color:#2AC1BC;" data-dismiss="modal">&times;</button>
+			  <button type="cancelBtn" class="close" style="color:#2AC1BC;" data-dismiss="modal">&times;</button>
 			</div>
 	  
 			<!-- Modal body -->
@@ -452,4 +550,3 @@
 </html>
    
   
- 

@@ -6,14 +6,14 @@
 	      	</div>
 	    <div class="d-flex justify-content-center flex-column align-items-center" id="loginContainer">
 	        <span class="m-2 d-flex justify-content-center align-items-center p-3 w-fitcontent">
-	            <span class="w-25">ID</span>
+	            <span class="w-25 pointFont">ID</span>
 	            &nbsp;&nbsp;
 	            <input type="text" id="userId" class="w-20">
 	            &nbsp;&nbsp;
 	          
 	        </span>	
 	        <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
-	            <span class="w-10">EMail</span>
+	            <span class="w-10 pointFont">EMail</span>
 	            &nbsp;&nbsp; 
 	            <input type="email" id="userEmail" class="w-20 ">
 	             
@@ -21,7 +21,7 @@
 	        </span>
 	        <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
 	           
-	            <input type="button" id="findpwchange" class="w-20 btn eumbtn-2" value="비밀번호 변경하기" onclick="findmyidpwmiddle()">
+	            <input type="button" id="findpwchange" class="w-20 pointFont" value="비밀번호 변경하기" onclick="findmyidpwmiddle()">
 	            &nbsp;&nbsp; 
 	        </span>
 	        <input type="hidden" id="findmyflag" value="${flag}">
