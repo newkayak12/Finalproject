@@ -14,13 +14,16 @@ public interface AdminServiceInterface {
 	public int getMenCount();
 	public int getWomenCount();
 	public List<User> statisticsUser();
-	public List<Group>statisticsGroup();
 	
 	public List<Group> manageGroup(int cPage, int numPerPage);
 	public int groupTotalData();
 	public int blindGroup(String groupSeq);
 	public int unblindGroup(String groupSeq);
+	public List<Group>statisticsGroup();
 	
 	public List<Food> manageFood(int cPage, int numPerPage);
 	public int foodTotalData();
+	public int blockFood(String foodSeq);
+	public int unblockFood(String foodSeq);
+	public List<Food> statisticsFood();
 }

@@ -2,6 +2,7 @@ package com.e_um.controller.admin;
 
 import static com.e_um.common.pagebar.PageBar.getPageBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.e_um.model.sevice.admin.AdminServiceInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
+import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.user.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +26,9 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminController {
 	@Autowired
 	AdminServiceInterface service;
-
+	@Autowired
+	ObjectMapper obj;
+	
 	@RequestMapping("/admin/enter")
 	public String adminPageEnter() {
 		return "admin";
@@ -267,10 +273,46 @@ public class AdminController {
 	@RequestMapping("/admin/managefood")
 	public String manageFood(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		int numPerPage =10;
+		List<Food> statistics=service.statisticsFood();
+		
+		int intalian = 0;
+		int kroean = 0;
+		int etc = 0;
+		int american = 0;
+		int japanese = 0;
+		int caffe = 0;
+		List<double[]> price_star = new ArrayList();
+		
+		for(Food f : statistics) {
+			double[] temp = {f.getFoodPrice(), f.getFoodStar()};
+			price_star.add(temp);
+		}
+		
+		String parsed = "";
+		
+		try {
+			parsed = obj.writeValueAsString(price_star);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("price_star",parsed);
 		model.addAttribute("list",service.manageFood(Integer.parseInt(cPage), numPerPage));
 		model.addAttribute("pageBar",getPageBar(service.foodTotalData(), Integer.parseInt(cPage), numPerPage, "manageFood"));
 		return "components/admin/managefood";
 	}
+	@RequestMapping("/admin/blockfood")
+	@ResponseBody
+	public int blockFood(String foodSeq) {
+		return service.blockFood(foodSeq);
+	}
+	@RequestMapping("/admin/unblockfood")
+	@ResponseBody
+	public int unblockFood(String foodSeq) {
+		return service.unblockFood(foodSeq);
+	}
+	
+	
 	@RequestMapping("/admin/manageservice")
 	public String manageService(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		return "components/admin/manageservice";

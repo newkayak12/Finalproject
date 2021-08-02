@@ -3,7 +3,63 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="d-flex flex-column justify-content-between align-itmes-center">
-	<div style="height: 550px">
+	<div style="height: 650px" class="d-flex flex-column justify-content-around align-items-center">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      /* google.charts.load('current', {'packages':['corechart']}); */
+      
+			$(function(){
+				
+				 chart() 
+			})      
+      
+      
+	     function chart(){
+    	  let data = '${price_star}';
+    	  let content = JSON.parse(data)
+    	  console.log(content)
+	    	  
+	     /* 
+	      google.charts.setOnLoadCallback(drawChart1);
+		
+		      function drawChart1() {
+		        var data = google.visualization.arrayToDataTable([
+		          ['Age', 'Weight'],
+		          [ 8,      12],
+		          [ 4,      5.5],
+		          [ 11,     14],
+		          [ 4,      5],
+		          [ 3,      3.5],
+		          [ 6.5,    7]
+		        ]);
+		
+		        var options = {
+		          title: 'Age vs. Weight comparison',
+		          hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+		          vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+		          legend: 'none'
+		        };
+	
+	        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+	
+	        chart.draw(data, options);
+	      }
+		      */
+      } 
+    </script>
+	
+		<div>
+			<span>
+			</span>
+			<span>
+			</span>
+			<span>
+			</span>
+			<span>
+			</span>
+		
+		</div>
+	
 		<table class="table table-striped table-hover tway">
 			<tr>
 				<th class="bgColorMainColorSub whiteText">
@@ -77,7 +133,7 @@
 
 	function blockThisId(seq){
 		
-		if($("#B"+userId).val()=='unblock'){
+		if($("#B"+seq).val()=='unblock'){
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/admin/blockfood",

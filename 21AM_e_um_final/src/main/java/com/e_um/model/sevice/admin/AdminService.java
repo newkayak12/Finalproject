@@ -108,5 +108,20 @@ public class AdminService implements AdminServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.foodTotalData(session);
 	}
+	@Override
+	public int blockFood(String foodSeq) {
+		// TODO Auto-generated method stub
+		return dao.blockFood(foodSeq, session);
+	}
+	@Override
+	public int unblockFood(String foodSeq) {
+		// TODO Auto-generated method stub
+		return dao.unblockFood(foodSeq, session);
+	}
+	@Override
+	public List<Food> statisticsFood() {
+		// TODO Auto-generated method stub
+		return dao.statisticsFood(session);
+	}
 
 }

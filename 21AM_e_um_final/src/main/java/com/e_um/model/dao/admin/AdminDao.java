@@ -185,4 +185,22 @@ public class AdminDao implements AdminDaoInterface{
 		return session.selectOne("admin.foodTotalData");
 	}
 
+	@Override
+	public int blockFood(String foodSeq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.blockFood",foodSeq);
+	}
+
+	@Override
+	public int unblockFood(String foodSeq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.unblockFood",foodSeq);
+	}
+
+	@Override
+	public List<Food> statisticsFood(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.manageFood");
+	}
+
 }

@@ -26,7 +26,6 @@ public interface AdminDaoInterface {
 	public int getMenCount(SqlSession session);
 	public int getWomenCount(SqlSession session);
 	public List<User> statisticsUser(SqlSession session);
-	public List<Group>statisticsGroup(SqlSession session);
 	
 	public int unblindMovieComment(String userId, SqlSession session);
 	public int unblindFoodComment(String userId, SqlSession session);
@@ -39,7 +38,11 @@ public interface AdminDaoInterface {
 	public int groupTotalData(SqlSessionTemplate session);
 	public int blindGroup(String groupSeq, SqlSessionTemplate session);
 	public int unblindGroup(String groupSeq, SqlSessionTemplate session);
+	public List<Group>statisticsGroup(SqlSession session);
 	
 	public List<Food> manageFood(int cPage, int numPerPage,  SqlSessionTemplate session);
 	public int foodTotalData(SqlSessionTemplate session);
+	public int blockFood(String foodSeq,  SqlSessionTemplate session);
+	public int unblockFood(String foodSeq,  SqlSessionTemplate session);
+	public List<Food> statisticsFood( SqlSessionTemplate session);
 }
