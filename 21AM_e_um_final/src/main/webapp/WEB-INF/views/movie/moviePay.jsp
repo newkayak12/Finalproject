@@ -18,7 +18,7 @@
 	
 	 <script>
 		 $(function () {
-			 $.ajax({
+			  $.ajax({
 		        	url:"${path}/movie/payEnd",
 		        	data:{
 		        		"movieSeq":$("#movieSeq").val(),
@@ -31,10 +31,11 @@
 		        		"movieTitle":$("#movieTitle").val()
 		        	},
 		        	success:data=>{
+		        		console.log(data);
 		        		
 		        	}
 		        })
-			 	/* var IMP = window.IMP; // 생략가능
+		        /* var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
 			    IMP.request_pay({
@@ -42,7 +43,7 @@
 				    pay_method: 'card',
 				    merchant_uid: 'merchant_' + new Date().getTime(),
 				    name: $("#movieTitle").val(),
-				    amount: 1,
+				    amount: 100,
 				   
 			   
 			    }, function (rsp) {
@@ -65,7 +66,7 @@
 				        		"movieTitle":$("#movieTitle").val()
 				        	},
 				        	success:data=>{
-				        		
+				        		console.log(data);
 				        	}
 				        })
 				    } else {
@@ -74,14 +75,27 @@
 				        location.assign("${path}/movie/movieInfo");
 				    }
 				    alert(msg);
-			    });  */
+			    });   */
 		});
-		 
-		 
-		 
-		 
-		
+		 	
 	</script>
+	
+	<section class="mt-5 pt-5">
+		<div id="root" class="container mt-5">
+			<div class="col-12" style="border: 1px solid black;">
+				    <div style="width: 400px; height: 400px; border: 1px solid black; text-align: center;">
+			        <div><h2 id="movieTitle">영화제목:</h2></div>
+			        <div><h3 id="movie">예매번호:</h3></div>
+			        <div><h4>영화지역 :</h4></div>
+			        <div><h4>영화관:</h4></div>       
+			        <div><p>예매아이디:</p></div>
+			        <div><p>좌석:</p></div>
+			        <div><p>시간 : </p></div>
+			        <button>영화메인</button><button>홈으로</button>
+			    </div>
+			</div>
+		</div>
+	</section>
 	
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -19,9 +19,10 @@ import lombok.NoArgsConstructor;
 public class MovieTicketing {
 	private String movieReservNum;
 	private String userId;
-	private Seat seats1, seat2, seat3,seat4; 
+	private String seats1, seat2, seat3,seat4; 
 	private String movieSeq, movieBox, movieLocation,movieTime;
 	private int moviePrice;
 	private Date movieReservDate;
 	private String movieReservCancel;
+	private String movieTitle;
 }

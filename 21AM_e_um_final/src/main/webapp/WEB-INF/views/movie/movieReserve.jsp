@@ -107,7 +107,7 @@
 	
 	<section class="mt-5 pt-5">
 		<div id="root" class="container mt-5">
-			<div><h1 class="pl-5">영화예매</h1></div>
+			<div><h2 class="pl-5">영화예매</h2></div>
 			<div class="reserve-container">
 		        <div class="movie-part" style="height: 498px; width: 282px;">
 		            <div class="reserve-title">영화</div>
