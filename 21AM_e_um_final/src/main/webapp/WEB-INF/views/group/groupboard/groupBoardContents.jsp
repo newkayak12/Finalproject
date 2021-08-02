@@ -5,7 +5,7 @@
 
 <script>
 	$(function(){
-		likecheck()
+		likecheck();
 	})
 	function likecheck(){
 		$.ajax({
@@ -17,9 +17,9 @@
 			},
 			success : data=>{
 				console.log(data);
-				if(data=='okay'){
+				if(data['likeboard']=='okay'){
 					$("#like").removeClass("far fa-heart").addClass("fas fa-heart")
-				} else if(data=='no') {
+				} else if(data['likeboard']=='no') {
 					$("#like").removeClass("fas fa-heart").addClass("far fa-heart")
 				}
 			}

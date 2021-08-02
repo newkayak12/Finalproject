@@ -6,8 +6,6 @@
 </head>
 <body>
 
-${fuckingparam }
-
 
 	<input type="hidden" id="movieSeq" name="movieSeq" value="${newParam.movieSeq }">
 	<input type="hidden" id="movieLocation" name="movieLocation" value="${newParam.movieLocation }">
@@ -23,20 +21,19 @@ ${fuckingparam }
 			 $.ajax({
 		        	url:"${path}/movie/payEnd",
 		        	data:{
-		        		"movieSeq":$("#movieSeq").value,
-		        		"movieLocation":$("#movieLocation").value,
-		        		"movieBox":$("#movieBox").value,
-		        		"movieDate":$("#movieDate").value,
-		        		"movieTime":$("#movieTime").value,
-		        		"movieSeats":$("#movieSeats").value,
-		        		"moviePrice":$("#moviePrice").value,
-		        		"movieTitle":$("#movieTitle").value
+		        		"movieSeq":$("#movieSeq").val(),
+		        		"movieLocation":$("#movieLocation").val(),
+		        		"movieBox":$("#movieBox").val(),
+		        		"movieDate":$("#movieDate").val(),
+		        		"movieTime":$("#movieTime").val(),
+		        		"movieSeats":$("#movieSeats").val(),
+		        		"moviePrice":$("#moviePrice").val(),
+		        		"movieTitle":$("#movieTitle").val()
 		        	},
 		        	success:data=>{
-		        		console.log(data);
+		        		
 		        	}
 		        })
-		 });
 			 	/* var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
@@ -45,7 +42,7 @@ ${fuckingparam }
 				    pay_method: 'card',
 				    merchant_uid: 'merchant_' + new Date().getTime(),
 				    name: $("#movieTitle").val(),
-				    amount: $("#moviePrice").val(),
+				    amount: 1,
 				   
 			   
 			    }, function (rsp) {
@@ -77,8 +74,8 @@ ${fuckingparam }
 				        location.assign("${path}/movie/movieInfo");
 				    }
 				    alert(msg);
-			    }); 
-		});*/
+			    });  */
+		});
 		 
 		 
 		 

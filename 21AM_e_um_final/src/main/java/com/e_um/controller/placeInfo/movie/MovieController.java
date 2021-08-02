@@ -268,8 +268,8 @@ public class MovieController {
 	  
 	  @RequestMapping("/movie/payEnd")
 	  @ResponseBody
-	  public String payEnd(@RequestParam Map param,HttpServletRequest hsr,Model model) {
-		  System.out.println(param);
+	  public Map payEnd(@RequestParam Map param,HttpServletRequest hsr,Model model) {
+		  
 		  User user = (User)hsr.getSession().getAttribute("userSession");
 		  String userId=user.getUserId();
 		  String movieSeq = (String)param.get("movieSeq");
@@ -297,9 +297,11 @@ public class MovieController {
 		  param.put("movieSeat4", null);
 		  
 		  String[] seats = movieSeats.split(",");
-		  for(int i=1;i<=seats.length; i++) {
+		  int i=1;
+		  for(String seat : seats) {
 			  if(seats.length==0) break;
-			  param.put("movieSeat"+i,seats[i]);
+			  param.put("movieSeat"+i,seats[i-1]);
+			  i+=1;
 		  }
 		  System.out.println(param);
 		 int result = service.payEnd(param); 
@@ -307,7 +309,7 @@ public class MovieController {
 		  model.addAttribute("param",param);
 		  
 			
-		  return "movie";
+		  return param;
 	  }
 	  
 	  
