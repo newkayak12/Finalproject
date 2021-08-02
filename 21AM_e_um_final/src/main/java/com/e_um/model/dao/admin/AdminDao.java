@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.vo.groupinfo.group.Group;
+import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Repository
@@ -139,13 +140,19 @@ public class AdminDao implements AdminDaoInterface{
 	@Override
 	public int blindGroup(String groupSeq, SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
-		return session.update("admin.blindGroup");
+		return session.update("admin.blindGroup", groupSeq);
 	}
 
 	@Override
 	public int unblindGroup(String groupSeq, SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
-		return session.update("admin.unblindGroup");
+		return session.update("admin.unblindGroup",groupSeq);
+	}
+
+	@Override
+	public List<Food> manageFood(int cPage, int numPerPage, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.manageFood","",new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 
 }

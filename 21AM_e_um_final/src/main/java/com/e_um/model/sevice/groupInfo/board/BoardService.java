@@ -86,10 +86,17 @@ public class BoardService implements BoardServiceInterface {
 		
 		return dao.checkBoardLike(session, param);
 	}
+
+
+
+	@Override
+	public List<Board> selectBoardListBest(String groupSeq) {
+		return dao.selectBoardListBest(session, groupSeq);
+	}
 	
 	 
 	
-
+	
 	
 	
 }

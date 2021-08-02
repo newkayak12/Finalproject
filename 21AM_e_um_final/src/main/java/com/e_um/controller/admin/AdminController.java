@@ -76,6 +76,12 @@ public class AdminController {
 		return service.unblindGroup(groupSeq);
 	}
 	
+	@RequestMapping("/admin/managefood")
+	public String manageFood(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("list",service.manageFood(Integer.parseInt(cPage), numPerPage));
+		return "components/admin/managefood";
+	}
 	@RequestMapping("/admin/manageservice")
 	public String manageService(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		return "components/admin/manageservice";

@@ -1,5 +1,7 @@
 package com.e_um.model.dao.userInfo.mypage;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +36,12 @@ public class MypageDao implements MypageDaoInterface {
 	@Override
 	public Interest selectInterest(SqlSessionTemplate session, String userId) {
 		return session.selectOne("mypage.selectInterest",userId);
+	}
+
+
+	@Override
+	public int changeInterest(SqlSessionTemplate session, Map param) {
+		return session.update("mypage.changeInterest",param);
 	}
 
 }

@@ -64,6 +64,12 @@ public class BoardDao implements BoardDaoInterface {
 	public LikeBoard checkBoardLike(SqlSessionTemplate session, Map<String, String> param) {
 		return session.selectOne("group.checkBoardLike", param);
 	}
+
+	@Override
+	public List<Board> selectBoardListBest(SqlSessionTemplate session, String groupSeq) {
+		
+		return session.selectList("group.selectBoardListBest",groupSeq);
+	}
 	
 	
 	

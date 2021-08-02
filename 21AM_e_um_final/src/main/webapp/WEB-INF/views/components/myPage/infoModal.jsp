@@ -7,12 +7,6 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<style>
-.choCon{
-    background-color: rgb(165, 205, 230);
-}
-</style>
-
 <!-- Nav tabs -->
 <ul id="infoTab" class="nav nav-tabs nav-fill tway"  role="tablist">
     <li class="nav-item">
@@ -237,7 +231,7 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="btn changeBtn mt-4">변경하기</button>
+            <button id="changeInterBtn" class="btn changeBtn mt-4" onclick="fn_changeInter()">변경하기</button>
         </div>
     </div>
 </div>
@@ -257,9 +251,9 @@
 //						console.log(data['profileInterestName'+i]);
 //						console.log(data['profileInterestName'+i]==$(".interBtn")[j].innerHTML);
 						if(data['profileInterestName'+i]==$(".interBtn")[j].innerHTML){
-							console.log($(".interBtn")[j]);
-							$(".interBtn")[j].addClass("choCon"); 
-							console.log($(".interBtn")[j].hasClass("choCon"));
+//							console.log($(".interBtn")[j]);
+							$($(".interBtn")[j]).addClass("choCon"); 
+							//console.log($(".interBtn")[j].hasClass("choCon"));
 						}
 					}
 				}
@@ -354,12 +348,7 @@
 				if(data>0){
 					alert("비밀번호가 변경되었습니다.");
 					$("#myPageModal").modal("hide");
-					fn_openMPModal("info");
-/* 					console.log($("ul#infoTab a[href='#nickname']"));
-					console.log($("ul#infoTab"));
-					console.log($("ul#infoTab a"))
-					$("ul#infoTab a[href='#nickname']").removeClass("active");
-					$("ul#infoTab a[href='#password']").addClass("active"); */
+					fn_openMPModal("info","비밀번호");
 				}else{
 					alert("비밀번호 변경에 실패했습니다.");
 				}
@@ -422,7 +411,7 @@
 				if(data>0){
 					alert("주소가 변경되었습니다.");
 					$("#myPageModal").modal("hide");
-					fn_openMPModal("info");
+					fn_openMPModal("info","주소");
 				}else{
 					alert("주소 변경에 실패했습니다.");
 				}
@@ -443,4 +432,29 @@
 			}
 		}
 	})
+	
+ 	function fn_changeInter(){
+		//console.log($(".choCon"));
+		let interArr = [];
+        
+		$(".choCon").each(function(i){//체크된 리스트 저장
+       		interArr.push($(this).html());
+    	});
+		
+		$.ajax({
+			type:"post",
+			url: "${pageContext.request.contextPath}/user/mypage/changeInter",
+			datatype:'json',
+			data:{"interArr": interArr},
+			success: data=>{
+				if(data>0){
+					alert("관심사가 변경되었습니다.");
+					$("#myPageModal").modal("hide");
+					fn_openMPModal("info","관심사");
+				}else{
+					alert("관심사 변경에 실패했습니다.");
+				}
+			}
+		});
+    }
 </script>

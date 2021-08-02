@@ -204,6 +204,7 @@ public class GroupController {
 		
 		  List<Board> boardlist=serviceb.selectBoardList(groupSeq);
 		  List<Board> notice = new ArrayList();
+		  List<Board> best = serviceb.selectBoardListBest(groupSeq);
 		  
 		  log.warn("mastmastmastbefore{}",boardlist);
 		  log.error("groupgruop{}",group);
@@ -223,7 +224,8 @@ public class GroupController {
 		  
 		  model.addAttribute("boardlist",boardlist);
 		  model.addAttribute("notice",notice);
-		 
+		  
+		  model.addAttribute("best",best);
 		
 		return "group/groupboard/groupBoardSub";
 	}
@@ -301,7 +303,7 @@ public class GroupController {
 	
 	@RequestMapping("/group/checkLikeBoard")
 	@ResponseBody
-	public LikeBoard checkLikeBoard(String groupSeq, String groupBoardSeq, String userId, Model model) {
+	public String checkLikeBoard(String groupSeq, String groupBoardSeq, String userId, Model model) {
 		
 		Map<String, String> param=new HashMap<>();
 		param.put("groupSeq", groupSeq);
@@ -310,14 +312,15 @@ public class GroupController {
 		
 		LikeBoard like = serviceb.checkBoardLike(param);
 		log.warn("likebdbbdbdb{}",like);
+		String glike = "";
 		if(like != null) {
 			
-			model.addAttribute("likeboard","okay");
+			glike="okay";
 		} else {
-			model.addAttribute("likeboard","no");
+			glike="no";
 		}
 		
-		return like;
+		return glike;
 		
 		
 	}
