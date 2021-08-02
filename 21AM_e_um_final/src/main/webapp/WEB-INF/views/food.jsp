@@ -129,7 +129,7 @@
 											<img width="200px" height="200px" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
 											<div class="info">
 												<span class="title"><c:out value="${ f.foodName }"/></span>
-												<strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
+												<strong class="search_point "><fmt:formatNumber type="number" pattern="0.0" value="${ f.foodStar }"/></strong>
 												<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;-&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
 											</div>
 										</div>
@@ -216,20 +216,20 @@
 			 	
 				let cateMain;
 				switch(data.foodCategoryMain) {
-					case '한국' : cateMain = '🇰🇷한식'; break;
-					case '미국' : cateMain = '🇺🇸아메리칸'; break;
-					case '중국' : cateMain = '🇨🇳중식'; break;
-					case '일본' : cateMain = '🇯🇵일식'; break;
-					case '이탈리아' : cateMain = '🇮🇹이탈리안'; break;
+					case '한식' : cateMain = '🇰🇷한식'; break;
+					case '아메리칸' : cateMain = '🇺🇸아메리칸'; break;
+					case '중식' : cateMain = '🇨🇳중식'; break;
+					case '일식' : cateMain = '🇯🇵일식'; break;
+					case '이탈리안' : cateMain = '🇮🇹이탈리안'; break;
 					case '기타' : cateMain = '기타'; break;
-					case '술집' : cateMain = '🍺주점'; break;
+					case '주점' : cateMain = '🍺주점'; break;
 					case '카페/디저트' : cateMain = '🍰카페/디저트'; break;
 					
 				}
 				
 				$("#modal-content").find("span").first().text(cateMain);
 				$("#modal-content").find("span").eq(1).text(data.foodName);
-				$("#modal-content").find("span").eq(2).text(data.foodStar);
+				$("#modal-content").find("span").eq(2).text( String(data.foodStar).length == 1 ?  parseInt(data.foodStar).toFixed(1) : data.foodStar );
 				
 				$("#modal-content").find("span").eq(4).text(data.foodAddr);
 				$("#modal-content").find("span").eq(6).text(data.foodCall);
@@ -404,7 +404,7 @@
 							"color" : "#70b3d9",
 							"font-size" : "17px",
 							"font-weight" : "900"
-						}).text(data[i].foodStar + " ");
+						}).text("  " + parseInt(data[i].foodStar).toFixed(1) + " ");
 							
 						let foodAddrfoodCateMain = $("<p>").css({
 							"color" : "gray",

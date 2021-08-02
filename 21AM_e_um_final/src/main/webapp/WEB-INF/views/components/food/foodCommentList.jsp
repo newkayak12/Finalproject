@@ -14,6 +14,8 @@
 .fcImage { border-radius:10px; object-fit:cover; width:100px; height:100px; }
 .fcMore { text-align:center;  border-top : 1px solid gray;}
 .fcMore a { text-decoration: none; color : black; font-size : 17px;}
+.fcl-content { font-weight:900; line-height:30px; letter-spacing :0.8px; font-size:15px; }
+#fr_profile_img { border-radius:100%; width:65px; height:65px; }
 </style>
 
 <div id="foodCommentListDiv">
@@ -29,7 +31,7 @@
 				
 					<!-- 프사, 닉네임 -->
 					<div class="m-1" style="width:15%; text-align: center;">
-						<a href="${path }/profile/open/${fc.user.userId}"><img id="fr_profile_img" style="border-radius:100%;" width="70px" height="70px" src="${path}/resources/upload/profile/${fc.user.profileImageFile}"></a>
+						<a href="${path }/profile/open/${fc.user.userId}"><img id="fr_profile_img" src="${path}/resources/upload/profile/${fc.user.profileImageFile}"></a>
 						<p style="font-size:15px; font-weight:900;"><c:out value="${ fc.user.userNick }"/></p>
 					</div>
 					
@@ -77,7 +79,7 @@
 						<br>
 						
 						<div class="pl-3 pt-1 pb-1 pr-5">
-							<p style="font-weight:900;"><c:out value="${ fc.foodCommentContents }"/></p>
+							<p class="fcl-content"><c:out value="${ fc.foodCommentContents }"/></p>
 							
 							<c:if test="${ fc.foodPhoto1 ne null }">
 									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto1 }">
@@ -108,7 +110,8 @@
 		</c:forEach>
 		
 		<c:if test="${ foodCommentList ne null and fn:length(foodCommentList) ne 0 }">
-			<c:if test="${ fn:length(foodCommentList) eq 5 }">
+			<%-- <c:if test="${ fn:length(foodCommentList) eq 5 }"> --%>
+			<c:if test="${ cPage * 5 < totalFoodComment }">
 				<div class="fcMore mainColor tway p-3">
 					<a href="javascript:void(0)" onclick="moreList(event);">▾&nbsp;&nbsp;더보기&nbsp;&nbsp;▾</a>
 				</div>
@@ -121,8 +124,8 @@
 	<%-- <c:if test="${  foodCommentList eq null or fn:length(foodCommentList) eq 0 }"> --%>
 	<c:if test="${  totalFoodComment eq 0 }">
 		<div>
-			<p>아직 등록된 리뷰가 없네요.</p>
-			<p><b>'<c:out value="${ session.userNick }"/></b>'님, 첫 리뷰를 작성해주시겠어요? &nbsp; :)</p>
+			<p style="font-weight:900;">아직 등록된 리뷰가 없네요.</p>
+			<p style="font-weight:900;"><c:out value="${ session.userNick }"/>님, 첫 리뷰를 작성해주시겠어요? &nbsp; :)</p>
 		</div>
 		
 	</c:if>
