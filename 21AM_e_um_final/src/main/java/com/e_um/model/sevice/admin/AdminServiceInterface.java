@@ -2,8 +2,7 @@ package com.e_um.model.sevice.admin;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-
+import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.userInfo.user.User;
 
 public interface AdminServiceInterface {
@@ -11,4 +10,8 @@ public interface AdminServiceInterface {
 	public int userTotalData();
 	public int blockUser(String userId);
 	public int unblockUser(String userId);
+	public List<Group> manageGroup(int cPage, int numPerPage);
+	public int groupTotalData();
+	public int blindGroup(String groupSeq);
+	public int unblindGroup(String groupSeq);
 }

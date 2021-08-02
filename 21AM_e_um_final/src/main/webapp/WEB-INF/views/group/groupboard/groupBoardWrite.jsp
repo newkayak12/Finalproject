@@ -12,6 +12,7 @@
    <form method="post" action="${path }/group/groupBoardInsert.do" enctype="multipart/form-data">
    	  <div>
    	  	<input type="hidden" name="groupSeq" value="${groupSeq }">
+   	  
    	  	
    	  </div>
       <div>

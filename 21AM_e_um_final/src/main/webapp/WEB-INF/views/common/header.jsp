@@ -52,7 +52,13 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+
 <title>E_um</title>
+
+<link rel="shortcut icon" href="${pageContext.request.contextPath }/resources/images/favicon/favicon.ico" type="image/x-icon" sizes="64x64">
+
+<link rel="icon" href="${pageContext.request.contextPath }/resources/images/favicon/favicon.ico" type="image/x-icon" sizes="64x64">
 
 </head>
 <body>

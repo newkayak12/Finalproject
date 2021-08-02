@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Component
 public class LikeBoard {
+	private String groupSeq;
 	private String groupBoardSeq;
 	private String likeBoardId;
 	private Date likeGroupDate;
