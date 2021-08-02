@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
-<link href="<c:url value="${path }/resources/css/hyelin.css" />" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/hyelin.css" rel="stylesheet">
     
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">

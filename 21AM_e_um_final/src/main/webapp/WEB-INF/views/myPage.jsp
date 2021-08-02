@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
-<link href="<c:url value="${path }/resources/css/hyelin.css" />" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/hyelin.css" rel="stylesheet">
     
     
 <section class="mt-5 pt-5">
@@ -15,37 +15,37 @@
 	    </div>
 	    
 	    <div class="d-flex flex-wrap justify-content-center mt-5">
-	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('info');">
+	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('info','none');">
 	            <div class="mpBox col-lg-9 col py-3 px-0 d-flex flex-column align-items-center">
 	                <i class="fas fa-user-edit iSize"></i>
 	                <div class="mt-3"><h6>INFO</h6></div>
 	            </div>
 	        </div>
-	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('friendmain');">
+	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('friend','none');">
 	            <div class="mpBox col-lg-9 col py-3 px-0 d-flex flex-column align-items-center">
 	                <i class="fas fa-users iSize"></i>
 	                <div class="mt-3"><h6>FRIEND</h6></div>
 	            </div>
 	        </div>
-	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('movie');">
+	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('movie','none');">
 	            <div class="mpBox col-lg-9 col py-3 px-0 d-flex flex-column align-items-center">
 	                <i class="fas fa-film iSize"></i>
 	                <div class="mt-3"><h6>MOVIE</h6></div>
 	            </div>
 	        </div>
-	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('food');">
+	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('food','none');">
 	            <div class="mpBox col-lg-9 col py-3 px-0 d-flex flex-column align-items-center">
 	                <i class="fas fa-utensils iSize"></i>
 	                <div class="mt-3"><h6>RESTAURANT</h6></div>
 	            </div>
 	        </div>
-	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('calendar');">
+	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('calendar','none');">
 	            <div class="mpBox col-lg-9 col py-3 px-0 d-flex flex-column align-items-center">
 	                <i class="far fa-calendar-check iSize"></i>
 	                <div class="mt-3"><h6>CALENDAR</h6></div>
 	            </div>
 	        </div>
-	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('support');">
+	        <div class="col-3 my-3 mx-1 mx-md-3 px-0 d-flex justify-content-center" onclick="fn_openMPModal('support','none');">
 	            <div class="mpBox col-lg-9 col py-3 px-0 d-flex flex-column align-items-center">
 	                <i class="fas fa-paper-plane iSize"></i>
 	                <div class="mt-3"><h6>SUPPORT</h6></div>
@@ -77,7 +77,7 @@
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 <script>
-	function fn_openMPModal(flag){
+	function fn_openMPModal(flag,tab){
 		let modalName="";
 		let modalTitle="";
 		
@@ -92,6 +92,11 @@
 			success:data=>{
 				$("#myPageModal .modal-title").html(modalTitle);
 				$("#myPageModal .modal-body").html(data);
+				$("#myPageModal .modal-body ul#infoTab a").each((i,data)=>{
+					if(data.innerText==tab) {
+						$(data).trigger("click");
+					}
+				});
 				$("#myPageModal").modal("show");
 			}
 		})

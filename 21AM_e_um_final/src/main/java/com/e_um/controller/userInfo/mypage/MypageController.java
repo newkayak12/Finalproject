@@ -1,5 +1,11 @@
 package com.e_um.controller.userInfo.mypage;
 
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +114,24 @@ public class MypageController {
 		User user=(User)rq.getSession().getAttribute("userSession");
 //		log.warn("service.selectInterest(user.getUserId(): {}",service.selectInterest(user.getUserId()));
 		return service.selectInterest(user.getUserId());
+	}
+	
+	
+	@RequestMapping("/user/mypage/changeInter")
+	@ResponseBody
+	public int changeInterest(HttpServletRequest rq,
+			@RequestParam(value="interArr[]", required=false) List<String> interArr) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		Map param=new HashMap();
+		param.put("userId", user.getUserId());
+		param.put("InterArr", interArr);
+		if(service.changeInterest(param)>0) {
+//			User userResult = userService.login(u);
+//			rq.getSession().setAttribute("userSession", userResult);
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	
 }
