@@ -5,7 +5,7 @@
 
 <script>
 	$(function(){
-		likecheck()
+		likecheck();
 	})
 	function likecheck(){
 		$.ajax({
@@ -17,10 +17,12 @@
 			},
 			success : data=>{
 				console.log(data);
-				if(data=='okay'){
-					$("#like").removeClass("far fa-heart").addClass("fas fa-heart").css("color", "#2AC1BC !important");
-				} else if(data=='no') {
-					$("#like").removeClass("fas fa-heart").addClass("far fa-heart").css("color","rgb(201,201,201)");
+
+				if(data['likeboard']=='okay'){
+					$("#like").removeClass("far fa-heart").addClass("fas fa-heart")
+				} else if(data['likeboard']=='no') {
+					$("#like").removeClass("fas fa-heart").addClass("far fa-heart")
+
 				}
 			}
 		})

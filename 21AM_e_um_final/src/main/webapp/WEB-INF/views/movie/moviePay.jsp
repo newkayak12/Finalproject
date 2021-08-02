@@ -7,36 +7,35 @@
 <body>
 
 
-
-	<input type="hidden" id="movieSeq" name="movieSeq" value="${param.movieSeq }">
-	<input type="hidden" id="movieLocation" name="movieLocation" value="${param.movieLocation }">
-	<input type="hidden" id="movieBox" name="movieBox" value="${param.movieBox }">
-	<input type="hidden" id="movieDate" name="movieDate" value="${param.movieDate }">
-	<input type="hidden" id="movieTime" name="movieTime" value="${param.movieTime }">
-	<input type="hidden" id="movieSeats" name="movieSeats" value="${param.selectedSeat }">
-	<input type="hidden" id="moviePrice" name="moviePrice" value="${param.moviePrice }">
-	<input type="hidden" id="movieTitle" name="movieTitle" value="${param.movieTitle }">
+	<input type="hidden" id="movieSeq" name="movieSeq" value="${newParam.movieSeq }">
+	<input type="hidden" id="movieLocation" name="movieLocation" value="${newParam.movieLocation }">
+	<input type="hidden" id="movieBox" name="movieBox" value="${newParam.movieBox }">
+	<input type="hidden" id="movieDate" name="movieDate" value="${newParam.movieDate }">
+	<input type="hidden" id="movieTime" name="movieTime" value="${newParam.movieTime }">
+	<input type="hidden" id="movieSeats" name="movieSeats" value="${newParam.selectedSeat }">
+	<input type="hidden" id="moviePrice" name="moviePrice" value="${newParam.moviePrice }">
+	<input type="hidden" id="movieTitle" name="movieTitle" value="${newParam.movieTitle }">
 	
 	 <script>
 		 $(function () {
-			 $.ajax({
+			  $.ajax({
 		        	url:"${path}/movie/payEnd",
 		        	data:{
-		        		"movieSeq":$("#movieSeq").value,
-		        		"movieLocation":$("#movieLocation").value,
-		        		"movieBox":$("#movieBox").value,
-		        		"movieDate":$("#movieDate").value,
-		        		"movieTime":$("#movieTime").value,
-		        		"movieSeats":$("#movieSeats").value,
-		        		"moviePrice":$("#moviePrice").value,
-		        		"movieTitle":$("#movieTitle").value
+		        		"movieSeq":$("#movieSeq").val(),
+		        		"movieLocation":$("#movieLocation").val(),
+		        		"movieBox":$("#movieBox").val(),
+		        		"movieDate":$("#movieDate").val(),
+		        		"movieTime":$("#movieTime").val(),
+		        		"movieSeats":$("#movieSeats").val(),
+		        		"moviePrice":$("#moviePrice").val(),
+		        		"movieTitle":$("#movieTitle").val()
 		        	},
 		        	success:data=>{
 		        		console.log(data);
+		        		
 		        	}
 		        })
-		 });	 
-			 	/* var IMP = window.IMP; // 생략가능
+		        /* var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
 			    IMP.request_pay({
@@ -44,7 +43,7 @@
 				    pay_method: 'card',
 				    merchant_uid: 'merchant_' + new Date().getTime(),
 				    name: $("#movieTitle").val(),
-				    amount: $("#moviePrice").val(),
+				    amount: 100,
 				   
 			   
 			    }, function (rsp) {
@@ -67,7 +66,7 @@
 				        		"movieTitle":$("#movieTitle").val()
 				        	},
 				        	success:data=>{
-				        		
+				        		console.log(data);
 				        	}
 				        })
 				    } else {
@@ -76,14 +75,27 @@
 				        location.assign("${path}/movie/movieInfo");
 				    }
 				    alert(msg);
-			    }); 
-		});*/
-		 
-		 
-		 
-		 
-		
+			    });   */
+		});
+		 	
 	</script>
+	
+	<section class="mt-5 pt-5">
+		<div id="root" class="container mt-5">
+			<div class="col-12" style="border: 1px solid black;">
+				    <div style="width: 400px; height: 400px; border: 1px solid black; text-align: center;">
+			        <div><h2 id="movieTitle">영화제목:</h2></div>
+			        <div><h3 id="movie">예매번호:</h3></div>
+			        <div><h4>영화지역 :</h4></div>
+			        <div><h4>영화관:</h4></div>       
+			        <div><p>예매아이디:</p></div>
+			        <div><p>좌석:</p></div>
+			        <div><p>시간 : </p></div>
+			        <button>영화메인</button><button>홈으로</button>
+			    </div>
+			</div>
+		</div>
+	</section>
 	
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

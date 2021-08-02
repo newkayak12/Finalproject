@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
@@ -47,5 +48,11 @@ public interface MovieServiceInterface {
 	MovieBox getMovieSeat(Map param);
 	
 	int payEnd(Map param);
+	
+	MovieTicketing movieTicket(Map param);
+	
+	
+	
+	
 	
 }

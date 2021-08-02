@@ -292,7 +292,7 @@ $(function(){
     	onlinesend()
     	/* $('.toast').toast('show'); */
     	
-    },100000)
+    },1000)
 })
 
 
