@@ -7,35 +7,33 @@
 <body>
 
 
-
-	<input type="hidden" id="movieSeq" name="movieSeq" value="${param.movieSeq }">
-	<input type="hidden" id="movieLocation" name="movieLocation" value="${param.movieLocation }">
-	<input type="hidden" id="movieBox" name="movieBox" value="${param.movieBox }">
-	<input type="hidden" id="movieDate" name="movieDate" value="${param.movieDate }">
-	<input type="hidden" id="movieTime" name="movieTime" value="${param.movieTime }">
-	<input type="hidden" id="movieSeats" name="movieSeats" value="${param.selectedSeat }">
-	<input type="hidden" id="moviePrice" name="moviePrice" value="${param.moviePrice }">
-	<input type="hidden" id="movieTitle" name="movieTitle" value="${param.movieTitle }">
+	<input type="hidden" id="movieSeq" name="movieSeq" value="${newParam.movieSeq }">
+	<input type="hidden" id="movieLocation" name="movieLocation" value="${newParam.movieLocation }">
+	<input type="hidden" id="movieBox" name="movieBox" value="${newParam.movieBox }">
+	<input type="hidden" id="movieDate" name="movieDate" value="${newParam.movieDate }">
+	<input type="hidden" id="movieTime" name="movieTime" value="${newParam.movieTime }">
+	<input type="hidden" id="movieSeats" name="movieSeats" value="${newParam.selectedSeat }">
+	<input type="hidden" id="moviePrice" name="moviePrice" value="${newParam.moviePrice }">
+	<input type="hidden" id="movieTitle" name="movieTitle" value="${newParam.movieTitle }">
 	
 	 <script>
 		 $(function () {
 			 $.ajax({
 		        	url:"${path}/movie/payEnd",
 		        	data:{
-		        		"movieSeq":$("#movieSeq").value,
-		        		"movieLocation":$("#movieLocation").value,
-		        		"movieBox":$("#movieBox").value,
-		        		"movieDate":$("#movieDate").value,
-		        		"movieTime":$("#movieTime").value,
-		        		"movieSeats":$("#movieSeats").value,
-		        		"moviePrice":$("#moviePrice").value,
-		        		"movieTitle":$("#movieTitle").value
+		        		"movieSeq":$("#movieSeq").val(),
+		        		"movieLocation":$("#movieLocation").val(),
+		        		"movieBox":$("#movieBox").val(),
+		        		"movieDate":$("#movieDate").val(),
+		        		"movieTime":$("#movieTime").val(),
+		        		"movieSeats":$("#movieSeats").val(),
+		        		"moviePrice":$("#moviePrice").val(),
+		        		"movieTitle":$("#movieTitle").val()
 		        	},
 		        	success:data=>{
-		        		console.log(data);
+		        		
 		        	}
 		        })
-		 });	 
 			 	/* var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
@@ -44,7 +42,7 @@
 				    pay_method: 'card',
 				    merchant_uid: 'merchant_' + new Date().getTime(),
 				    name: $("#movieTitle").val(),
-				    amount: $("#moviePrice").val(),
+				    amount: 1,
 				   
 			   
 			    }, function (rsp) {
@@ -76,8 +74,8 @@
 				        location.assign("${path}/movie/movieInfo");
 				    }
 				    alert(msg);
-			    }); 
-		});*/
+			    });  */
+		});
 		 
 		 
 		 

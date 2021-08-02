@@ -105,7 +105,7 @@
 </style>
 
 	
-	<section class="mt-5 pt-5" data-spy="scroll" data-target=".movie-list-ul" data-offset="50">
+	<section class="mt-5 pt-5">
 		<div id="root" class="container mt-5">
 			<div><h1 class="pl-5">영화예매</h1></div>
 			<div class="reserve-container">
@@ -226,7 +226,7 @@
 		            spanDay.innerHTML = i;
 		            button.append(spanDay);
 		            //button.append(i);
-		            button.value=[(year + "." +"0"+month + "." + i)];
+		            button.value=[(year + "." +month + "." + i)];
 		            
 		            reserveDate.append(button);
 					
@@ -298,11 +298,12 @@
 		
 		<style>
 		
-		* {
-		    font-size: 11px;
-		}
 		
-		
+		#root{
+		    border:1px red solid;
+		    /* min-height:500px; */
+		    font-family:'Noto Sans KR';
+		 }
 		
 		
 		
