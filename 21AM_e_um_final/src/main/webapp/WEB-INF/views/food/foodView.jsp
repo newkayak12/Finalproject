@@ -84,9 +84,10 @@
 				
 					<div class="foodView-info-container">
 						<span class="tway " style="font-size:40px;"><c:out value="${ food.foodName }"/></span>&nbsp;
-						<span class="mainColor" style="font-size:40px; font-weight:900;"><c:out value="${ food.foodStar }"/></span>
+						<%-- <span class="mainColor" style="font-size:40px; font-weight:900;"><c:out value="${ food.foodStar }"/></span> --%>
+						<span class="mainColor" style="font-size:40px; font-weight:900;"><fmt:formatNumber type="number" pattern="0.0" value="${ food.foodStar }"/></span>
 						<br>
-						<%-- <span class="lightgray"><i class="fas fa-eye lightgray"></i>&nbsp;<c:out value="${ food.foodLikeCount }"/></span>&nbsp;&nbsp; --%>
+						
 						<span class="lightgray"><i class="fas fa-pencil-alt lightgray"></i>&nbsp;<c:out value="${ foodCommentCount }"/></span>&nbsp;&nbsp;
 						<span class="lightgray"><i class="fas fa-heart lightgray"></i>&nbsp;<c:out value="${ food.foodLikeCount }"/></span>
 					</div>
