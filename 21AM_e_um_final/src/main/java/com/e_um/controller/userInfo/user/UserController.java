@@ -271,7 +271,7 @@ public class UserController {
 	public RedirectView logout(HttpServletRequest rq) {
 		rq.getSession().invalidate();
 		
-		return new RedirectView("/");
+		return new RedirectView(rq.getContextPath()+"/index.jsp");
 	}
 	
 	

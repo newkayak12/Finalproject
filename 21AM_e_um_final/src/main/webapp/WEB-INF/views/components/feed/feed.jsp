@@ -8,7 +8,7 @@
  <div class="col-9 mt-3 mb-3 p-0  border" id="feed-innerContainer">
 	  			<!-- 누르면 프로필로 이동 -->
         <div class="d-flex flex-row justify-content-start col-12" style="max-height: 100px;" data-toggle="modal" data-target="#headerprofile" onclick="headerProfile('${feed.feederId}','${feed.feedProfilePhoto}','${feed.feedNick }','${feed.profileStatus }')">
-            <img alt="프사" src="${pageContex.request.contextPath }/resources/upload/profile/${feed.feedProfilePhoto}"  class="m-2" style="width: 75px; height: 75px; border-radius: 100%;">
+            <img alt="프사" src="${pageContext.request.contextPath }/resources/upload/profile/${feed.feedProfilePhoto}"  class="m-2" style="width: 75px; height: 75px; border-radius: 100%;">
                 <div class="d-flex flex-column justify-content-center col-7" >
                     <p class="mt-1 mb-1 m-0">${feed.feedNick }</p>
                     <p class="mt-1 mb-1 m-0"><fmt:formatDate value="${feed.feedDate }" pattern="yyyy년 MM월 dd일"/></p>
@@ -35,17 +35,17 @@
                                 <div class="carousel-inner ">
 									<c:if test="${feed.feedImage1!=null }">
 	                                    <div class="carousel-item active" >
-	                                        <img alt="사진1" src="${pageContex.request.contextPath }/resources/upload/feed/${feed.feedImage1}"  class="feedPhoto">
+	                                        <img alt="사진1" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage1}"  class="feedPhoto">
 	                                    </div>
 									</c:if>
 									<c:if test="${feed.feedImage2!=null }">
 	                                    <div class="carousel-item " >
-	                                        <img alt="사진2" src="${pageContex.request.contextPath }/resources/upload/feed/${feed.feedImage2}" class="feedPhoto">
+	                                        <img alt="사진2" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage2}" class="feedPhoto">
 	                                    </div>
 									</c:if>
 									<c:if test="${feed.feedImage3!=null }">
 	                                    <div class="carousel-item " >
-	                                        <img alt="사진3" src="${pageContex.request.contextPath }/resources/upload/feed/${feed.feedImage3}" class="feedPhoto">
+	                                        <img alt="사진3" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage3}" class="feedPhoto">
 	                                    </div>
                                     </c:if>
 	                                </div>

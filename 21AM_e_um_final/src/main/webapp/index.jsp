@@ -49,23 +49,14 @@
     font-family: 'Noto Sans KR';
     font-weight: bold;
 }
-
-
-
 *{
 	/* border:	1px black solid; */
 }
-
-
-
-
-
 </style>
 	
 <script>
 	
 	
-
 	function loginAjax(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/login/start",
@@ -86,7 +77,7 @@
 	}
 	function findmyidajaxstart(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/user/findmyid/start",
+			url:"${pageContext.request.contextPath}/21AM_e_um_final/user/findmyid/start",
 			success:data=>{
 				$("#minimodalRoot").html(data)
 			}
@@ -313,7 +304,6 @@
 	$(function(){
 		board()
 		
-
 		
 		
 		 $(window).scroll(function(){
@@ -353,14 +343,12 @@
 		
 		
 		
-
 	})
 	
 	
 	
 	
 	
-
 	
 	
 </script>
@@ -444,7 +432,7 @@
 			</div>
 			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc04" style="display:none;">
 				
-				<div class="p-3 m-5 scitems" id="scCont02">
+				<div class="p-3 m-5 scitems" id="scCont04">
 					<div class="d-flex align-items-center typoscreen">
 						새로운 친구와 
 						<br>함께할 수 있는 방법
@@ -549,5 +537,3 @@
 </div> <!-- root end -->
 </body>
 </html>
-   
-  

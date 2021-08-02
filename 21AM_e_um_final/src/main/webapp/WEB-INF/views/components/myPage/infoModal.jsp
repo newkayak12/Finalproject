@@ -5,8 +5,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <!-- Nav tabs -->
-<ul class="nav nav-tabs nav-fill tway"  role="tablist">
+<ul id="infoTab" class="nav nav-tabs nav-fill tway"  role="tablist">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#nickname">닉네임</a>
     </li>
@@ -36,19 +38,19 @@
                 <tbody>
                     <tr>
                         <td class="colend"><b>현재 닉네임</b></td>
-                        <td>닉네임</td>
+                        <td>${userSession.userNick }</td>
                     </tr>
                     <tr>
                         <td class="colend"><b>변경할 닉네임</b></td>
-                        <td><input type="text" id="newNick" name="newNick"></div></td>
+                        <td><input type="text" id="newNick" name="newNick" onkeyup="fn_checkNick()" required></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>존재하는 닉네임입니다.</td>
+                        <td id="NickSign"><small></small></td>
                     </tr>
                 </tbody>
             </table>
-            <button class="btn changeBtn mt-4">변경하기</button>
+            <button id="NickChangeBtn" class="btn changeBtn mt-4" onclick="fn_changeNick()">변경하기</button>
         </div>
     </div>
 
@@ -62,23 +64,31 @@
                 <tbody>
                     <tr>
                         <td class="colend"><b>기존 비밀번호</b></td>
-                        <td><input type="text" id="oldpw" name="oldpw"></td>
-                    </tr>
-                    <tr>
-                        <td class="colend"><b>신규 비밀번호</b></td>
-                        <td><input type="text" id="newpw" name="newpw"></div></td>
-                    </tr>
-                    <tr>
-                        <td class="colend"><b>비밀번호 확인</b></td>
-                        <td><input type="text" id="pwck" name="pwck"></div></td>
+                        <td><input type="password" id="oldpw" name="oldpw" onkeyup="fn_sameOldPw()" required></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>비밀번호가 일치하지 않습니다.</td>
+                        <td id="oldpwSign"><small></small></td>
+                    </tr>
+                    <tr>
+                        <td class="colend"><b>신규 비밀번호</b></td>
+                        <td><input type="password" id="newpw" name="newpw" required onkeyup="fn_pw_normaliztion()"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td id="newpwSign"><small></small></td>
+                    </tr>
+                    <tr>
+                        <td class="colend"><b>비밀번호 확인</b></td>
+                        <td><input type="password" id="pwck" name="pwck" required onkeyup="fn_pwCheck()"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td id="pwckSign"><small></small></td>
                     </tr>
                 </tbody>
             </table>
-            <button class="btn changeBtn mt-4">변경하기</button>
+            <button id="pwChangeBtn" class="btn changeBtn mt-4" onclick="fn_changePw()">변경하기</button>
         </div>
     </div>
 
@@ -93,7 +103,7 @@
                     <tr>
                         <td colspan="2" class="colcenter">
                             <b>기존 주소</b><br>
-                            주소 샬라샬라<br>
+                            <small>${userSession.userAddrZip } ${userSession.userAddrBasic } ${userSession.userAddrDetails }</small><br>
                         </td>
                     </tr>
                     <tr>
@@ -106,17 +116,13 @@
                     <tr>
                         <td class="colend"><b>주소</b></td>
                         <td>
-                            <input type="text" name="address" id="sample6_address" placeholder="주소" readonly style="width:300px"><br>
-                            <input type="text" name="addressSub" id="sample6_detailAddress" placeholder="상세주소" required style="width:300px"></div>
+                            <input type="text" name="address" id="sample6_address" placeholder="주소" readonly style="width:300px;"><br>
+                            <input type="text" name="addressSub" id="sample6_detailAddress" placeholder="상세주소" required style="width:300px">
                         </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
-            <button class="btn changeBtn mt-4">변경하기</button>
+            <button id="addrChangeBtn" class="btn changeBtn mt-4" onclick="fn_changeAddr()">변경하기</button>
         </div>
     </div>
 
@@ -129,16 +135,16 @@
             	</colgroup>
                 <tbody>
                     <tr>
-                        <td class="colend"><b>현재 이메일</b></td>
-                        <td>이메일</td>
+                        <td class="colend"><b>기존 이메일</b></td>
+                        <td>${userSession.userEmail }</td>
                     </tr>
                     <tr>
                         <td class="colend"><b>변경할 이메일</b></td>
-                        <td><input type="text" id="newNick" name="newNick"></div></td>
+                        <td><input type="text" id="newEmail" name="newEmail"></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>중복 이메일입니다.</td>
+                        <td id="emailSign"><small></small></td>
                     </tr>
                 </tbody>
             </table>
@@ -225,12 +231,131 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="btn changeBtn mt-4">변경하기</button>
+            <button id="changeInterBtn" class="btn changeBtn mt-4" onclick="fn_changeInter()">변경하기</button>
         </div>
     </div>
 </div>
 
 <script>
+	$(function(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/user/mypage/selectInterest",
+			success:data=>{
+/* 				console.log(data);
+				console.log(data['profileInterestName1']);
+				console.log($(".interBtn")[0]);
+				console.log($(".interBtn").length); */
+				//console.log($(".interBtn")[0].innerHTML);
+ 				for(let i=1;i<=5;i++){
+					for(let j=0;j<$(".interBtn").length;j++){
+//						console.log(data['profileInterestName'+i]);
+//						console.log(data['profileInterestName'+i]==$(".interBtn")[j].innerHTML);
+						if(data['profileInterestName'+i]==$(".interBtn")[j].innerHTML){
+//							console.log($(".interBtn")[j]);
+							$($(".interBtn")[j]).addClass("choCon"); 
+							//console.log($(".interBtn")[j].hasClass("choCon"));
+						}
+					}
+				}
+			}
+		})
+	})
+
+	function fn_validateNick(str) {
+	    var id = str;
+	    
+	    //특수문자가 있는지 확인
+	    var spe = id.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+	    // 한글이 있는지 확인
+	    
+	    if ((id.length < 4) || (id.length > 10)) {
+		    $("#NickSign>small").html("닉네임을 4자리 ~ 10자리 이내로 입력해주세요.").css("color","red");
+		    $("#NickChangeBtn").attr("disabled", true);
+		    return false;
+	    }
+	    if (id.search(/\s/) != -1) {
+	        $("#NickSign>small").html("닉네임을 공백없이 입력해주세요.").css("color","red");
+	        $("#NickChangeBtn").attr("disabled", true);
+	    	return false;
+	    }
+	    if (spe > 0) {
+		    $("#NickSign>small").html("닉네임은 한글, 영문, 숫자만 입력해주세요.").css("color","red");
+		    $("#NickChangeBtn").attr("disabled", true);
+		    return false;
+	    }
+	    return true;
+	}
+	
+	function fn_changeNick(){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/user/mypage/changeNick",
+			data:{"newNick":$("#newNick").val()},
+			success:data=>{
+				if(data>0){
+					alert("닉네임이 변경되었습니다.");
+					$("#myPageModal").modal("hide");
+					fn_openMPModal("info");
+				}else{
+					alert("닉네임 변경에 실패했습니다.");
+				}
+			}
+		})
+	}
+	
+	function fn_sameOldPw(){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/user/mypage/sameOldPw",
+			data:{"oldpw":$("#oldpw").val()},
+			success:data=>{
+				if(data>0){
+					$("#oldpwSign>small").html("기존 비밀번호와 일치하지 않습니다.").css("color","red");
+	                $("#pwChangeBtn").attr("disabled", true);
+				}else{
+					$("#oldpwSign>small").html("");
+					$("#pwChangeBtn").attr("disabled", false);
+				}
+			}
+		})
+	}
+	
+	function fn_passwordValidate(password){
+        if(!/^[a-zA-Z0-9]{8,16}$/.test(password)){
+            $("#newpwSign>small").html('숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.').css("color","red");
+            $("#pwChangeBtn").attr("disabled", true);
+            return false;
+        }
+
+        var checkNum = password.search(/[0-9]/g); // 숫자사용
+        var checkEng = password.search(/[a-z]/ig); // 영문사용
+
+        if(checkNum <0 || checkEng <0){
+            $("#newpwSign>small").html('숫자와 영문자를 조합해야 합니다.').css("color","red");
+            $("#pwChangeBtn").attr("disabled", true);
+            return false;
+        }
+
+        return true;
+    }
+	
+	function fn_changePw(){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/user/mypage/changePw",
+			data:{"newpw":$("#newpw").val()},
+			success:data=>{
+				if(data>0){
+					alert("비밀번호가 변경되었습니다.");
+					$("#myPageModal").modal("hide");
+					fn_openMPModal("info","비밀번호");
+				}else{
+					alert("비밀번호 변경에 실패했습니다.");
+				}
+			}
+		})
+	}
+	
 	function sample6_execDaumPostcode() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
@@ -273,9 +398,29 @@
 	    }).open();
 	}
 	
+	function fn_changeAddr(){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/user/mypage/changeAddr",
+			data:{
+				"userAddrBasic":$("#sample6_address").val(),
+				"userAddrDetails":$("#sample6_detailAddress").val(),
+				"userAddrZip":$("#sample6_postcode").val()
+				},
+			success:data=>{
+				if(data>0){
+					alert("주소가 변경되었습니다.");
+					$("#myPageModal").modal("hide");
+					fn_openMPModal("info","주소");
+				}else{
+					alert("주소 변경에 실패했습니다.");
+				}
+			}
+		})
+	}
+	
 	$(".choice-5").click(e=>{
   		/* console.log($(".choCon").filter(".interBtn").html()); */
-        
     	let inter_su=$(".choice-5").find(".choCon").length;
 		if($(e.target).hasClass("choCon")){
     		$(e.target).removeClass("choCon");    			
@@ -287,4 +432,29 @@
 			}
 		}
 	})
+	
+ 	function fn_changeInter(){
+		//console.log($(".choCon"));
+		let interArr = [];
+        
+		$(".choCon").each(function(i){//체크된 리스트 저장
+       		interArr.push($(this).html());
+    	});
+		
+		$.ajax({
+			type:"post",
+			url: "${pageContext.request.contextPath}/user/mypage/changeInter",
+			datatype:'json',
+			data:{"interArr": interArr},
+			success: data=>{
+				if(data>0){
+					alert("관심사가 변경되었습니다.");
+					$("#myPageModal").modal("hide");
+					fn_openMPModal("info","관심사");
+				}else{
+					alert("관심사 변경에 실패했습니다.");
+				}
+			}
+		});
+    }
 </script>

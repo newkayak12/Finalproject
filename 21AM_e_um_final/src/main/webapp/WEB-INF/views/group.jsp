@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<link href="<c:url value="${path }/resources/css/woosik.css" />" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/woosik.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
 	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
@@ -30,6 +30,9 @@
 		location.assign("<%=request.getContextPath()%>/group/groupJoin.do?groupSeq="+groupSeq);
 	}
 	
+	const fn_searchbox=()=>{$("#hide").slideToggle();}
+	
+	
 </script>
 
 
@@ -39,13 +42,22 @@
 		<!-- 소모임,찾기 버튼 -->
 		<div class="clearfix">
 			<span class="float-left">소모임</span> <span class="float-right">
-				<button>
-					<i class="fas fa-search"></i>
+				<button onclick="fn_searchbox()">
+					<i class="fas fa-search" id="search"></i>
 				</button>
 			</span>
 		</div>
-
+		
 		<br>
+		<div class="test" id="hide" style="display : none;">
+			<div class="input-group mb-3">
+			
+		      	<input type="text" class="form-control" placeholder="검색">
+			      	<div class="input-group-append">
+			      		<button class="btn btn-success" type="submit">찾기</button>
+			      	</div>
+		      </div>
+		</div>
 		<br>
 
 		<!-- 소모임 생성 버튼 -->
@@ -123,10 +135,26 @@
 		<p>새로 생긴 소모임</p>
 		<table id="tbl-new-group" class="table-scroll"
 			style="overflow-x: scroll;">
-			<tr>
-				<td></td>
-			</tr>
 		</table>
+		<div class="d-flex justify-content-start scroll"
+			style="overflow-x: hidden;">
+			<c:forEach var="g" items="${list }">
+
+				<!-- 리스트 div -->
+				<a href="javascript:moveFn('${g.groupSeq }');">
+					<div class="list_container">
+						<div class="list_imgBox1">
+							<img
+								src="${request.getContextPath}/resources/upload/group/${g.groupFileUpload } ">
+						</div>
+						<div class="list_containerTxt d-flex justify-content-start">
+							<p class="list_container_tit">${g.groupTitle }</p>
+							<p class="list_container_limit">${g.groupLimit }</p>
+						</div>
+					</div>
+				</a>
+			</c:forEach>
+		</div>
 		<button onclick="LeftScroll()">왼쪽으로</button>
 		<button onclick="RightScroll()">오른쪽으로</button>
 
