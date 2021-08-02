@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 
 public interface BoardDaoInterface {
 
@@ -19,5 +20,11 @@ public interface BoardDaoInterface {
 	List<Comment> selectGroupBoardComment(SqlSessionTemplate session, String groupBoardSeq);
 
 	int groupboardfileinsert(SqlSessionTemplate session, Map<String, Object> map);
+
+	int addBoardLike(SqlSessionTemplate session, Map<String, String> param);
+
+	int delBoardLike(SqlSessionTemplate session, Map<String, String> param);
+
+	LikeBoard checkBoardLike(SqlSessionTemplate session, Map<String, String> param);
 
 }

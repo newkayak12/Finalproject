@@ -11,6 +11,7 @@ import com.e_um.model.dao.groupInfo.board.BoardDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,8 +62,32 @@ public class BoardService implements BoardServiceInterface {
 		
 		return dao.groupboardfileinsert(session, map);
 	}
+
+
+
+	@Override
+	public int addBoardLike(Map<String, String> param) {
 	
+		return dao.addBoardLike(session, param);
+	}
+
+
+
+	@Override
+	public int delBoardLike(Map<String, String> param) {
 	
+		return dao.delBoardLike(session, param);
+	}
+
+
+
+	@Override
+	public LikeBoard checkBoardLike(Map<String, String> param) {
+		
+		return dao.checkBoardLike(session, param);
+	}
+	
+	 
 	
 
 	

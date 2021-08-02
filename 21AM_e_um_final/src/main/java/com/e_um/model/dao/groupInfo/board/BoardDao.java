@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +45,26 @@ public class BoardDao implements BoardDaoInterface {
 		// TODO Auto-generated method stub
 		return session.insert("group.groupboardfileinsert",map);
 	}
+
+	@Override
+	public int addBoardLike(SqlSessionTemplate session, Map<String, String> param) {
+//		int result = session.insert("group.insertAddBoardLike",param);
+		
+		log.error("mapmpampamapmapmapmapamp{}",param);
+		return session.insert("group.insertAddBoardLike",param) ; 
+	}
+
+	@Override
+	public int delBoardLike(SqlSessionTemplate session, Map<String, String> param) {
+	
+		return session.delete("group.insertDelBoardLike",param);
+	}
+
+	@Override
+	public LikeBoard checkBoardLike(SqlSessionTemplate session, Map<String, String> param) {
+		return session.selectOne("group.checkBoardLike", param);
+	}
+	
 	
 	
 	
