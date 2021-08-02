@@ -1,11 +1,13 @@
 package com.e_um.model.dao.userInfo.mypage;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.dao.communicateInfo.friend.FriendDao;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -48,6 +50,12 @@ public class MypageDao implements MypageDaoInterface {
 	@Override
 	public int changeInterest(SqlSessionTemplate session, Map param) {
 		return session.update("mypage.changeInterest",param);
+	}
+
+
+	@Override
+	public List<MovieTicketing> selectMovieTicketingInfo(SqlSessionTemplate session, String userId) {
+		return session.selectList("mypage.selectMovieTicketingInfo",userId);
 	}
 
 }

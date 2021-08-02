@@ -50,11 +50,9 @@ public class MypageController {
 	public String openMPModal(@RequestParam(value="modalName", required=false) String modalName,
 			HttpServletRequest rq, Model m) {
 		User user=(User)rq.getSession().getAttribute("userSession");
-		/*
-		 * switch(modalName) { case "movieName":
-		 * m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId())
-		 * ); break; }
-		 */
+		switch(modalName) {
+			case "movieName": m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId())); break;
+		}
 		return "components/myPage/"+modalName;
 	}
 	

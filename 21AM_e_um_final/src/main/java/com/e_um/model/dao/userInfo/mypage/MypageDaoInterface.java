@@ -1,9 +1,11 @@
 package com.e_um.model.dao.userInfo.mypage;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -20,5 +22,7 @@ public interface MypageDaoInterface {
 	Interest selectInterest(SqlSessionTemplate session, String userId);
 	
 	int changeInterest(SqlSessionTemplate session, Map param);
+	
+	List<MovieTicketing> selectMovieTicketingInfo(SqlSessionTemplate session, String userId);
 
 }

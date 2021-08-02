@@ -1,5 +1,6 @@
 package com.e_um.model.sevice.userInfo.mypage;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.userInfo.mypage.MypageDaoInterface;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -56,6 +58,12 @@ public class MypageService implements MypageServiceInterface {
 	@Override
 	public int changeInterest(Map param) {
 		return dao.changeInterest(session, param);
+	}
+
+
+	@Override
+	public List<MovieTicketing> selectMovieTicketingInfo(String userId) {
+		return dao.selectMovieTicketingInfo(session, userId);
 	}
 
 }
