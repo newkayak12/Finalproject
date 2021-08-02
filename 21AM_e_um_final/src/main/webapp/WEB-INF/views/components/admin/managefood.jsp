@@ -7,35 +7,22 @@
 		<table class="table table-striped table-hover tway">
 			<tr>
 				<th class="bgColorMainColorSub whiteText">
+					대분류
+				</th>
+				<th class="bgColorMainColorSub whiteText">
+					소분류
+				</th>
+				<th class="bgColorMainColorSub whiteText">
 					이름
 				</th>
 				<th class="bgColorMainColorSub whiteText">
-					주제
+					주소
 				</th>
 				<th class="bgColorMainColorSub whiteText">
-					소모임장
+					별점
 				</th>
 				<th class="bgColorMainColorSub whiteText">
-					최대인원
-				</th>
-				<th class="bgColorMainColorSub whiteText">
-					성별
-				</th>
-				<th class="bgColorMainColorSub whiteText">
-					연령제한
-				</th>
-				<th class="bgColorMainColorSub whiteText">
-					내용
-				</th>
-				<th class="bgColorMainColorSub whiteText">
-					오늘의 방문자 수
-				</th>
-				<th class="bgColorMainColorSub whiteText">
-					누적 방문자 수
-				</th>
-				<th class="bgColorMainColorSub whiteText">
-					개설일
-				
+					좋아요 수
 				</th>
 				<th class="bgColorMainColorSub whiteText">
 					상태
@@ -51,10 +38,7 @@
 					<td>${i.groupMaster }</td>
 					<td>${i.groupLimit }</td>
 					<td>${i.groupGender }</td>
-					<td>${i.groupAge }</td>
-					<td style="overflow: hidden">${i.groupComment }</td>
-					<td>${i.groupCountToday }</td>
-					<td>${i.groupCountTotal }</td>
+					
 					<td><fmt:formatDate value="${i.groupDate }" pattern="yy-mm-dd" /></td>
 					
 					

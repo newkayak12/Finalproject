@@ -8,15 +8,18 @@
 }
 @keyframes showup{ 
 	from{
+		display: none;
 		transform:translateY(50px) ;
 		opacity: 0;
 	}
 	to{
+		display: block;
 		transform:translateY(0px);
 		opacity: 1;
 	}
 }
 .showsc{
+	
 	animation: showup 3s normal
 }
 
