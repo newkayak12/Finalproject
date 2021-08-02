@@ -20,7 +20,19 @@
 	animation: showup 3s normal
 }
 
-
+/* admin */
+.adminMenu{
+        padding-top: 60px;
+        height: 150px;
+        font-family: 'twayair';
+        font-weight: bolder;
+    }
+.adminMenu:hover{
+    background-color: #7ee3e0;
+    color:white;
+    text-shadow: 1px -1px 1px -1px black;
+    cursor: grab;
+}
 
 /* welcome */
 @media(max-width: 779px){

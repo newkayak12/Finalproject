@@ -1,11 +1,11 @@
 
     <%@ page language="java" contentType="text/html; charset=UTF-8"%>
     <div class="d-flex justify-content-center flex-column align-items-center" id="loginContainer">
-    	<form class="col-12 d-flex flex-column justify-content-center align-items-center" action="javascript:signupsecond()">
-	        <div class="m-2 d-flex flex-column justify-content-center align-items-center p-3 col-8 border">
+    	<form class="col-12 p-0  m-0 d-flex flex-column justify-content-center align-items-center" action="javascript:signupsecond()">
+	        <div class="m-1 p-0 d-flex flex-column justify-content-center align-items-center  col-8 border">
 	        	
 	            <p class="col-10 text-left small">계정 정보 입력</p>
-	                <div class="col-10 text-center">
+	                <div class="col-10 text-center p-0">
 	                    
 	                        <p class="mb-0 mt-3 small col-6 text-center">아이디</p>
 	                         <input type="text" class="mb-2 mt-0  col-7" id="userId"  onkeyup="fn_id_normaliztion()" placeholder="아이디" required>
@@ -17,7 +17,7 @@
                              <br>
                             <span id="NickSign" class="m-2 h-fitcontent" ></span>
 	                </div>
-	                <div class="col-10 text-center">
+	                <div class="col-10 text-center p-0 ">
 	                    <p class="mb-0 mt-3 small col-6 text-center">비밀번호</p>
 	                    <input type="password" class="mb-2 mt-0 col-7" id="userPassword" placeholder="비밀번호" onkeyup="fn_pw_normaliztion()" required>
                         <br>
@@ -33,7 +33,7 @@
 	        <div class="m-2 d-flex flex-column justify-content-center align-items-center p-3 col-8 border">
 	            <p class="col-10 text-left small">개인 정보 입력</p>
 	
-	            <div class="col-10 text-center">
+	            <div class="col-10 text-center p-0 ">
 	                
 	                    <p class="mb-0 mt-3 pl-0 small col-6 text-center">이름</p>
 	                    <input type="text" class="mb-2 mt-0 col-7" id="userName" placeholder="이름" required>
@@ -53,9 +53,9 @@
 	                    <br>
 	                    
 	                    <p class="mb-0 mt-3 pl-0 small col-6 text-center">주소</p>
-	                    <div>
-	                        <input type="text" class="mb-2 mt-1 ml -0 col-4" id="userAddrZip" placeholder="우편번호" readonly required>
-	                        <input type="button" value="주소 찾기" class="mb-2 mt-1 col-3 checkBtn" onclick="addrSearch()">
+	                    <div class="p-0 ">
+	                        <input type="text" class="mb-2 mt-1 ml -0 col-5" id="userAddrZip" placeholder="우편번호" readonly required>
+	                        <input type="button" value="검색" class="mb-2 mt-1 p-0 col-2 small checkBtn" onclick="addrSearch()">
 	                        <br>
 	                        <input type="text" class="mb-2 mt-0 col-7" id="userAddrBasic"  placeholder="주소1" readonly required>
 	                        <br>
@@ -80,8 +80,8 @@
 	        </div>
 	
 	        <div class="d-flex justify-content-center col-8 pr-4 pl-4">
-	            <input type="button" value="이전으로" class="col-3 m-2 mr-4 cancelBtn" onclick="signupzero()" style="background-color: white !important;" >
-	            <input type="submit" id="nextStep" value="다음으로" class="col-3 m-2 ml-4 checkBtn" >
+	            <input type="button" value="이전으로" class="col-3 p-0 m-0 small mr-4 cancelBtn" onclick="signupzero()" style="background-color: white !important;" >
+	            <input type="submit" id="nextStep" value="다음으로" class="col-3 p-0 m-0 small  ml-4 checkBtn" >
 	        </div>
         </form>
     </div>

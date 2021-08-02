@@ -49,7 +49,7 @@
         		</c:choose>
 	        	
 	        	<c:if test="${nick_loop and nick_loop_go }">
-                    <span class="mr-auto"><b>${z.chatSender.userNick }</b></span>
+                    <span class="mr-auto small"><b>${z.chatSender.userNick }</b></span>
 					<c:set var="nick_loop_go" value="false"/>
                    
 	           	</c:if>	 

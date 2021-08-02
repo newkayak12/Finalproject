@@ -10,11 +10,6 @@
     
 	<!-- jQuery library -->
 	 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script> 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
-<%-- 	<script src="${pageContext.request.contextPath}/resources/js/parallax.js-1.5.0/parallax.js"></script> --%> 
-	
-	
-	
 	<%-- <script   src="https://code.jquery.com/jquery-3.6.0.slim.js"   integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="   crossorigin="anonymous"></script> --%>
 	<!-- <script src="${path }/resources/js/jquery-3.6.0.min.js"></script> -->
 	<!-- Popper JS -->
@@ -22,7 +17,6 @@
 	<!-- Latest compiled JavaScript -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <!-- all -->
 <!-- <link rel="stylesheet" href="../webapp/resources/css/main.css"> -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
@@ -283,24 +277,43 @@
 		})
 	}
 	
+		let count = 0;
+		let arr = 0;
+		
+	function board(){
+		let list = ['새로운 친구를 만나고 싶다면?','우리 영화 보러 갈래?','너와 있으면 너무 좋아, 너와 있는 나는 어떠니?']
+		let typ0 = 	list[arr].split("");
 	
 		
+			 		setInterval(function(){
+				if(count<typ0.length+1){
+					$(".typo").append(typ0[count])
+					count+=1;
+				} else {
+					/* arr+=1; */
+					/* $(".typo").html("") */
+					// if(arr>2){
+					// 	arr = 0;
+					// }
+					// typ0 = 	list[arr].split("");
+					// $(".typo").html("")
+					// count =0;
+					
+					// clearInterval();
+					
+					
+				}
+			},200)
+			
+			
+	}
+		
+	
+	
 	$(function(){
-		let typ0 = 	'새로운 친구를 만나고 싶다면?'.split("");
+		board()
+		
 
-		console.log(typ0)
-		let count = 0;
-		 let interval = setInterval(function(){
-			if(count<typ0.length+1){
-				console.log('esdt')
-				$(".typo").append(typ0[count])
-				count+=1;
-			} else {
-				
-				
-				clearInterval(interval);
-			}
-		},200)
 		
 		
 		 $(window).scroll(function(){
@@ -359,7 +372,8 @@
 		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
 				<span class="mr-3 right">
-					<button class="btn cancelBtn" onclick="fn_signupzero()" data-toggle="modal" data-target="#signup" >회원가입</button>
+					<button class="btn cancelBtn"  data-toggle="modal" data-target="#signup" >회원가입</button>
+					<!-- onclick="fn_signupzero()" -->
 				</span>
 				<span class=" justify-content-end mr-3">
 					<button class="btn checkBtn" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
@@ -424,7 +438,7 @@
 					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="300px" height="600px">
 					<div class="d-flex align-items-center typoscreen">
 						좋아하는 음식을 
-							<br>&nbsp;&nbsp;함께 먹을 수 있는 방법
+							<br>&nbsp;함께 먹을 수 있는 방법
 					</div>
 				</div>
 			</div>

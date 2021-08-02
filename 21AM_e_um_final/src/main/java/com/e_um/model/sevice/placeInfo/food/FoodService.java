@@ -1,5 +1,6 @@
 package com.e_um.model.sevice.placeInfo.food;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -180,7 +181,11 @@ public class FoodService implements FoodServiceInterface {
 		return dao.selectFoodComment(session, foodCommentSeq);
 	}
 
-	
+
+	@Override
+	public int updateFoodComment(Map<String, Object> map) {
+		return dao.updateFoodComment(session, map);
+	}
 
 
 

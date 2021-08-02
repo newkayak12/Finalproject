@@ -12,8 +12,10 @@ import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
+import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
+import com.e_um.model.vo.placeinfo.movie.seat.Seat;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -93,6 +95,26 @@ public class MovieService implements MovieServiceInterface {
 	public List<MovieTime> movieTime() {
 		// TODO Auto-generated method stub
 		return dao.movieTime(session);
+	}
+	@Override
+	public List<Seat> movieSeatList() {
+		// TODO Auto-generated method stub
+		return dao.movieSeatList(session);
+	}
+	@Override
+	public Movie movieName(Map param) {
+		// TODO Auto-generated method stub
+		return dao.movieName(session,param);
+	}
+	@Override
+	public MovieBox getMovieSeat(Map param) {
+		// TODO Auto-generated method stub
+		return dao.getMovieSeat(session,param);
+	}
+	@Override
+	public int payEnd(Map param) {
+		// TODO Auto-generated method stub
+		return dao.payEnd(session,param);
 	}
 	
 	

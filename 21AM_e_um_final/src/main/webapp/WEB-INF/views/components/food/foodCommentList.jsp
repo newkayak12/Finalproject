@@ -5,37 +5,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <style>
-	/* #fr_profile_img:hover {
-		border: 3px solid #7ee3e0;
-		width : 71px;
-		height : 71px;
-	} */
-	
-	.gray {
-		color : gray;
-	}
-	.dropdown-toggle::after {
-    	display:none;
-	}
-	#moreBtn {
-		border : 0;
-		outline : 0;
-		background-color: transparent;
-	}
-	.dropdown-menu {
-		min-width: fit-content;
-		/* transform: translate3d(500px, 1135px, 0px) !important; */
-	}
-	#fcreportModal .btn-danger {
-		border-radius: 10px;
-	}
+.gray { color : gray; }
+.dropdown-toggle::after { display:none; }
+#moreBtn { border : 0; outline : 0; background-color: transparent; }
+.dropdown-menu { min-width: fit-content; /* transform: translate3d(500px, 1135px, 0px) !important; */ }
+#fcreportModal .btn-danger { border-radius: 10px; }
+/* 리뷰목록에 출력되는 이미지들  */
+.fcImage { border-radius:10px; object-fit:cover; width:100px; height:100px; }
+.fcMore { text-align:center;  border-top : 1px solid gray;}
+.fcMore a { text-decoration: none; color : black; font-size : 17px;}
 </style>
 
 <div id="foodCommentListDiv">
 
-	<p>리뷰 (<c:out value="${ foodCommentCount }"/>)</p>
-	
-	<c:if test="${  foodCommentList ne null and foodCommentList.size() ne 0 }">
+	<c:if test="${  foodCommentList ne null and fn:length(foodCommentList) ne 0 }">
 		
 		<!-- 반복문 start -->		
 		<c:forEach var="fc" items="${ foodCommentList }">
@@ -53,7 +36,7 @@
 					<!-- 작성날짜, 별점, 내용 -->
 					<div class="m-1" style="width:85%;">
 					
-						<span class="p-1 gray" style="font-size:15px;"><fmt:formatDate value="${ fc.foodCommentDate }" pattern="yyyy-MM-dd"/></span>
+						<span class="p-1 gray pl-3" style="font-size:15px; font-weight:900;"><fmt:formatDate value="${ fc.foodCommentDate }" pattern="yyyy-MM-dd"/></span>
 						
 						<span class="mainColor">
 							<c:choose>
@@ -72,7 +55,7 @@
 						<!-- ⋮ 클릭하면 나오는 메뉴 -->
 						<div class="dropdown-menu">
 							<c:if test="${ session.userId eq fc.user.userId }">
-								<a class="dropdown-item" href="javascript:void(0);" onclick="${ path }/food/updateFoodComment/start?foodCommentSeq=${fc.foodCommentSeq}">
+								<a class="dropdown-item" href="javascript:void(0);" onclick="location.assign('${ path }/food/updateFoodComment/start?foodCommentSeq=${fc.foodCommentSeq}');">
 									<span id="fcUpdateBtn">수정</span>
 								</a>
 								<a class="dropdown-item" href="javascript:void(0);" onclick="fn_delFoodComment(`${fc.foodCommentSeq}`);">
@@ -93,22 +76,23 @@
 						
 						<br>
 						
-						<div class="p-1">
-							<p><c:out value="${ fc.foodCommentContents }"/></p>
+						<div class="pl-3 pt-1 pb-1 pr-5">
+							<p style="font-weight:900;"><c:out value="${ fc.foodCommentContents }"/></p>
+							
 							<c:if test="${ fc.foodPhoto1 ne null }">
-									<img style="border-radius:10px;" width="100px" height="100px" src="${path }/resources/upload/foodComment/${fc.foodPhoto1 }">
+									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto1 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto2 ne null }">
-									<img width="100px" height="100px" src="${path }/resources/upload/foodComment/${fc.foodPhoto2 }">
+									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto2 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto3 ne null }">
-									<img width="100px" height="100px" src="${path }/resources/upload/foodComment/${fc.foodPhoto3 }">
+									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto3 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto4 ne null }">
-									<img width="100px" height="100px" src="${path }/resources/upload/foodComment/${fc.foodPhoto4 }">
+									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto4 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto5 ne null }">
-									<img width="100px" height="100px" src="${path }/resources/upload/foodComment/${fc.foodPhoto5 }">
+									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto5 }">
 							</c:if>
 						</div>
 					</div>
@@ -123,15 +107,22 @@
 			
 		</c:forEach>
 		
+		<c:if test="${ foodCommentList ne null and fn:length(foodCommentList) ne 0 }">
+			<c:if test="${ fn:length(foodCommentList) eq 5 }">
+				<div class="fcMore mainColor tway p-3">
+					<a href="javascript:void(0)" onclick="moreList(event);">▾&nbsp;&nbsp;더보기&nbsp;&nbsp;▾</a>
+				</div>
+			</c:if>
+		</c:if>
 	</c:if>
 	
 	
 	
-	<c:if test="${  foodCommentList eq null or foodCommentList.size() eq 0 }">
-		
+	<%-- <c:if test="${  foodCommentList eq null or fn:length(foodCommentList) eq 0 }"> --%>
+	<c:if test="${  totalFoodComment eq 0 }">
 		<div>
 			<p>아직 등록된 리뷰가 없네요.</p>
-			<p> 해당 식당의 첫 리뷰를 작성해주시겠어요? :)</p>
+			<p><b>'<c:out value="${ session.userNick }"/></b>'님, 첫 리뷰를 작성해주시겠어요? &nbsp; :)</p>
 		</div>
 		
 	</c:if>
@@ -158,75 +149,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-
-	// 리뷰 호버시 회색배경으로 바뀜 
-	const fn_in = (e) => {
-		$(e.target).css({
-			"background-color" : "#f5f5f5"
-		});
-	}
-	
-	const fn_out = (e) => {
-		$(e.target).css({
-			"background-color" : ""
-		});
-	}
-	
-	
-	// 리뷰 수정 
-	
-	
-	// 리뷰 삭제 
-	const fn_delFoodComment = (foodCommentSeq) => {
-		
-		console.log(foodCommentSeq);
-		
-		if(confirm("리뷰를 정말 삭제하시겠습니까?")) {
-			$.ajax({
-				url : "${path}/food/deleteFoodComment",
-				data : {
-					"foodCommentSeq" : foodCommentSeq
-				},
-				success : data => {
-					console.log(data);
-					alert("리뷰가 삭제되었습니다.");
-					window.location.reload();
-				}
-			});
-		}
-		
-		
-	}
-	
-	// 리뷰 신고 
-	const fn_repFoodComment = () => {
-		
-		console.log($("#reportContent").val());
-		
-		let reportContent = $("#reportContent").val();
-		
-		
-		$.ajax({
-			url : "${path}/food/FCReport",
-			data : {
-				"foodSeq" : $("#hiddenFoodSeq").val(),
-				"foodCommentSeq" : $("#hiddenFoodCommentSeq").val(),
-				"userId" : $("#hiddenUserId").val(),
-				"targetId" : $("#hiddenTargetId").val(), 
-				"reportContent" : reportContent
-			},
-			success : data => {
-				console.log(data);
-				if(data > 0) {
-					alert("신고되었습니다.");
-					$("#fcreportModal").modal("hide");
-				}
-			}
-		}); 
-		
-		
-	}
-	
-</script>

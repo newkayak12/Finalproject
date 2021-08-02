@@ -10,8 +10,10 @@ import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
+import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
+import com.e_um.model.vo.placeinfo.movie.seat.Seat;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -100,6 +102,30 @@ public class MovieDao implements MovieDaoInterface {
 	public List<MovieTime> movieTime(SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
 		return session.selectList("movie.movieTime");
+	}
+
+	@Override
+	public List<Seat> movieSeatList(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("movie.movieSeatList");
+	}
+
+	@Override
+	public Movie movieName(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.movieName",param);
+	}
+
+	@Override
+	public MovieBox getMovieSeat(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.getMovieSeat",param);
+	}
+
+	@Override
+	public int payEnd(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("movie.payEnd",param);
 	}
 	
 	

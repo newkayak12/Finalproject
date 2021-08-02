@@ -96,4 +96,47 @@
 			}
 		})
 	}
+	
+	const fn_checkNick=()=>{
+		if(fn_validateNick($("#newNick").val())){
+			$.ajax({
+			    url:"${pageContext.request.contextPath}/user/nickCheker",
+			    data:{userNick:$("#newNick").val()},
+			    success:data=>{
+			        if(data!=0){
+		                $("#NickSign>small").html("이미 존재하는 닉네임입니다.").css("color","red");
+		                $("#NickChangeBtn").attr("disabled", true);
+		            } else {
+		                $("#NickSign>small").html("사용 가능한 닉네임입니다.").css("color","darkgreen");
+		                $("#NickChangeBtn").attr("disabled", false);
+		            }
+			    }
+			})
+		}
+	}
+	
+	const fn_pw_normaliztion=()=>{
+        if(fn_passwordValidate($("#newpw").val())){
+            $("#newpwSign>small").html("사용 가능한 비밀번호입니다.").css("color","darkgreen")
+            $("#pwChangeBtn").attr("disabled", false);
+        }
+    }
+	
+	const fn_pwCheck=()=>{
+        if($("#newpw").val()==$("#pwck").val()){
+			$("#pwckSign>small").html("비밀번호가 일치합니다.").css("color","darkgreen")
+			$("#pwChangeBtn").attr("disabled", false);
+        } else {
+	        $("#pwckSign>small").html("비밀번호가 불일치합니다.").css("color","red")
+	        $("#pwChangeBtn").attr("disabled", true);
+        }
+    }
+	
+	const fn_address_enroll_validate=()=>{
+    	if($("#sample6_postcode").val().length==0||$("sample6_address").val().length==0){
+    		alert("필수 입력 사항입니다.");
+    		$("#sample6_postcode").focus();
+    		return false;
+    	}
+    }
 </script>
