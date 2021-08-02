@@ -24,5 +24,7 @@ public interface BoardServiceInterface {
 	int delBoardLike(Map<String, String> param);
 
 	LikeBoard checkBoardLike(Map<String, String> param);
+
+	List<Board> selectBoardListBest(String groupSeq);
 	
 }
