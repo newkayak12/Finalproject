@@ -55,4 +55,34 @@ public class AdminController {
 	public int unblockUser(String userId) {
 		return service.unblockUser(userId);
 	}
+	
+	@RequestMapping("/admin/managegroup")
+	public String manageGroup(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+		model.addAttribute("list",service.manageGroup(Integer.parseInt(cPage), numPerPage));
+		
+		model.addAttribute("pageBar",getPageBar(service.groupTotalData(), Integer.parseInt(cPage), numPerPage, "managerGroup"));
+		
+		return "components/admin/managegroup";
+	}
+	@RequestMapping("/admin/blindgroup")
+	@ResponseBody
+	public int blindGroup(String groupSeq) {
+		return service.blindGroup(groupSeq);
+	}
+	@RequestMapping("/admin/unblindgroup")
+	@ResponseBody
+	public int unblindGroup(String groupSeq) {
+		return service.unblindGroup(groupSeq);
+	}
+	
+	@RequestMapping("/admin/manageservice")
+	public String manageService(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		return "components/admin/manageservice";
+	}
+	@RequestMapping("/admin/managemovie")
+	public String manageMovie(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		return "components/admin/managemovie";
+	}
+	
 }
