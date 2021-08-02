@@ -283,18 +283,7 @@
 				</div>
 
 				<!-- 메뉴 영역 -->
-<<<<<<< HEAD
-				<div class="foodView-menu-container">
-					<p class="mainColor tway">대표 메뉴</p>
-					<div class="row" style="border-top: 1px solid #2AC1BC;">
-						<c:forEach var="menu" items="${ food.menus }">
-							<div class="col-6 col-md-4 item">
-								<img style="border-radius: 10px;" width="100px" height="100px"
-									src="${ path }/resources/upload/food/${ menu.menuPhoto}">
-								<div style="display: inline;">
-									<span class=""><c:out value="${ menu.menuName }" /></span> <span
-										class=""><c:out value="${ menu.menuPrice }" /></span>
-=======
+
 				<div class="foodView-menu-container" >
 					<p class="mainColor tway" style="font-size:17px;">&nbsp;&nbsp;대표 메뉴</p>
 					<div class="row p-3">
@@ -305,7 +294,6 @@
 									<span><c:out value="${ menu.menuName }"/></span>
 									<br>
 									<span><c:out value="${ menu.menuPrice }"/>원</span>
->>>>>>> 77db014987f05f94fa73b5e475e656a95a9547b2
 								</div>
 							</div>
 						</c:forEach>
@@ -316,16 +304,11 @@
 				<div class=""></div>
 
 				<!-- 리뷰 영역 -->
-<<<<<<< HEAD
-				<div id="foodView-review-container"></div>
-
-=======
 				<br>
 				<div id="foodView-review-container">
 					
 				</div>
 				
->>>>>>> 77db014987f05f94fa73b5e475e656a95a9547b2
 			</div>
 
 		</div>
