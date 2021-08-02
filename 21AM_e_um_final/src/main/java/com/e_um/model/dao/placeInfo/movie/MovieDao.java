@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
@@ -126,6 +127,12 @@ public class MovieDao implements MovieDaoInterface {
 	public int payEnd(SqlSessionTemplate session, Map param) {
 		// TODO Auto-generated method stub
 		return session.insert("movie.payEnd",param);
+	}
+
+	@Override
+	public MovieTicketing movieTicket(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.movieTicket",param);
 	}
 	
 	

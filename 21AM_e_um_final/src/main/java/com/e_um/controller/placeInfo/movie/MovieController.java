@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.e_um.model.sevice.placeInfo.movie.MovieServiceInterface;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
@@ -305,11 +306,13 @@ public class MovieController {
 		  }
 		  System.out.println(param);
 		 int result = service.payEnd(param); 
+		 
+			/* param.put("movieReserveNum", MovieTicketing.); */
+		 
+		 model.addAttribute("param",param);
 		  
-		  model.addAttribute("param",param);
-		  
-			
-		  return param;
+		
+		 return param;
 	  }
 	  
 	  

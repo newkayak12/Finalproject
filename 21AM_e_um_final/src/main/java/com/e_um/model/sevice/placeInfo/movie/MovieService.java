@@ -11,6 +11,7 @@ import com.e_um.model.dao.placeInfo.movie.MovieDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
@@ -115,6 +116,12 @@ public class MovieService implements MovieServiceInterface {
 	public int payEnd(Map param) {
 		// TODO Auto-generated method stub
 		return dao.payEnd(session,param);
+	}
+	
+	@Override
+	public MovieTicketing movieTicket(Map param) {
+		// TODO Auto-generated method stub
+		return dao.movieTicket(session,param);
 	}
 	
 	

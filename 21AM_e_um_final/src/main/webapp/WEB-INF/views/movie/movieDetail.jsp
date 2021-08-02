@@ -143,7 +143,7 @@
 			        <div class="sect-base-movie pb-3">
 			            <div class="box-image">
 			                <span class="thumb-image justify-content-center">
-			                    <img class="thumb-size col-12" src="${applicationScope.page }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
+			                    <img class="thumb-size col-12" src="${path }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
 			                </span>
 			            </div>
 			            <div class="box-contents ml-5 pt-5">
