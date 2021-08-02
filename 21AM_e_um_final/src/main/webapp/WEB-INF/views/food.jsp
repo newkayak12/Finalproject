@@ -3,75 +3,28 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <style>
-	/* 조건펼치기 버튼 */
-	#showFoodSearchCondition {
-		border : 1px solid #70b3d9;
-		
-	}
-	
-	/* 보였다안보였다하는 검색 조건 div  */
-	#foodSearch-condition {
-		display: none;
-		background-color : #eaf7fe;
-		width: 90%;
-		/* height:500px; */
-		margin-left : 5%;
-		margin-right : 5%;
-		margin-top : 10px;
-		margin-bottom : 10px;
-	}
-	/* 검색조건 이름 */
-	#foodSearchCategoryTitle {
-		display: block;
-		font-weight: 900;
-		margin: 10px 10px 5px 10px;
-	}
-	
-	/* 조건검색 라디오버튼 */
-	#foodSearch-condition input[type=radio] {
-		display: none;
-	}
-	
-	#foodSearch-condition input[type=radio]:hover+label {
-		background-color: #70b3d9;
-		font-weight: 900;
-		cursor : pointer;
-	}
-	
-	#foodSearch-condition input[type=radio]:checked+label {
-		background-color: #70b3d9;
-		font-weight: 900;
-	}
-	
-	#foodSearch-condition input[type=radio]+label{
-		border: 1px solid #70b3d9;
-		border-radius: 20px;
-		padding: 5px 12px;
-		margin: 5px;
-		background-color: white;
-	}
-	
-	/* 선택된 검색조건 */
-	.selected {
-		background-color: #70b3d9;
-		font-weight: 900;
-	}
-	
-	/* 필터초기화 버튼 */
-	#clearFoodSearchCondition {
-		border: 1px solid #70b3d9;
-		float: right;
-		margin: 10px;
-		background-color: white;
-	}
-	
-	#clearFoodSearchCondition:hover {
-		background-color: #70b3d9;
-	}
+/* 조건펼치기 버튼 */
+#showFoodSearchCondition { border : 1px solid #70b3d9; }
+/* 보였다안보였다하는 검색 조건 div  */
+#foodSearch-condition { display: none; background-color : #eaf7fe; width: 90%; margin-left : 5%; margin-right : 5%; margin-top : 10px; margin-bottom : 10px; }
+/* 검색조건 이름 */
+#foodSearchCategoryTitle { display: block; font-weight: 900; margin: 10px 10px 5px 10px; }
+/* 조건검색 라디오버튼 */
+#foodSearch-condition input[type=radio] { display: none; }
+#foodSearch-condition input[type=radio]:hover+label { background-color: #70b3d9; font-weight: 900; cursor : pointer; }
+#foodSearch-condition input[type=radio]:checked+label { background-color: #70b3d9; font-weight: 900; }
+#foodSearch-condition input[type=radio]+label{ border: 1px solid #70b3d9; border-radius: 20px; padding: 5px 12px; margin: 5px; background-color: white; }
+/* 선택된 검색조건 */
+.selected { background-color: #70b3d9; font-weight: 900; }
+/* 필터초기화 버튼 */
+#clearFoodSearchCondition { border: 1px solid #70b3d9; float: right; margin: 10px; background-color: white; }
+#clearFoodSearchCondition:hover { background-color: #70b3d9; }
 </style>
 
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
+	
+		<p class="mainColor tway" style="font-size:35px; text-align:center;">맛집 찾기</p>
 	
 		<div>
 		
@@ -388,13 +341,9 @@
 		
 		// 검색어
 		let foodSearchKeyword = $("#foodSearchKeyword").val();
-			
 		let foodPriceCon = $("input[name='fsc1']:checked").val();
-			
 		let foodCateMainCon = $("input[name='fsc2']:checked").val();
-			
 		let foodAddrCon = $("input[name='fsc3']:checked").val();
-			
 		let foodStarCon = $("input[name='fsc4']:checked").val();
 		
 		

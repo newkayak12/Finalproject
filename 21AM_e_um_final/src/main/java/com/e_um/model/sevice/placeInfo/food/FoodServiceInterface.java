@@ -44,4 +44,6 @@ public interface FoodServiceInterface {
 
 	FoodComment selectFoodComment(String foodCommentSeq);
 
+	int updateFoodComment(Map<String, Object> map);
+
 }

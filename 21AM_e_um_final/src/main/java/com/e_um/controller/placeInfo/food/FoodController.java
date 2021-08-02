@@ -2,6 +2,7 @@ package com.e_um.controller.placeInfo.food;
 
 import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 메인페이지로 이동
 	@RequestMapping("/food/foodMain")
 	public String food(Model m) {
 		
@@ -56,7 +57,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 등록 시작 
 	@RequestMapping("/food/foodForm/start")
 	public String foodFormStart(Model model) {
 		
@@ -72,7 +73,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 등록 끝 
 	@RequestMapping("/food/foodForm/end")
 	public String foodInsert(HttpServletRequest rq, Food food, String[] menuName, 
 								String[] menuPrice, MultipartFile[] menuPhoto, Model model) {
@@ -115,7 +116,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 모달 보기 
 	@RequestMapping("/food/foodModal")
 	@ResponseBody
 	public Food openFoodModal(String foodSeq) throws Exception {
@@ -134,7 +135,7 @@ public class FoodController {
 	
 	
 	
-
+	// 맛집 상세보기 
 	@RequestMapping("/food/foodView")
 	public String foodView(String foodSeq, Model model, HttpServletRequest req) throws Exception {
 		
@@ -164,7 +165,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 리뷰 작성 시작 
 	@RequestMapping("/food/foodReview/start")
 	public String foodReview(String foodSeq, Model model) {
 		
@@ -177,7 +178,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 리뷰작성 끝 
 	@RequestMapping("/food/foodReview/end")
 	public String insertFoodComment(String foodSeq, String foodCommentContents, String rating, 
 									@RequestParam("file") MultipartFile[] files, 
@@ -234,7 +235,7 @@ public class FoodController {
 		
 		System.out.println(result > 0 ? "성공" : "실패");
 		
-		model.addAttribute("msg", result > 0 ? "리뷰등록성공" : "리뷰등록실패");
+		model.addAttribute("msg", result > 0 ? "리뷰가 등록되었습니다" : "리뷰를 등록하지 못했습니다. 다시 시도해주세요");
 		model.addAttribute("loc", "/food/foodView?foodSeq="+foodSeq);
 		
 		return "/common/msg";
@@ -242,7 +243,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 예약 시작 
 	@RequestMapping("/food/foodBooking/start")
 	public String foodBookingStart(String foodSeq, Model model) throws ParseException {
 		
@@ -294,7 +295,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 예약 끝 
 	@RequestMapping("/food/foodBooking/end")
 	public String foodBookingEnd(Date bookingDateDay, Date bookingDateTime, 
 									@RequestParam(value = "userId") String userId, 
@@ -320,7 +321,7 @@ public class FoodController {
 
 	
 	
-	
+	// 맛집 예약 조회 
 	@RequestMapping("/food/foodBookingView")
 	public String foodBookingView(String userId, Model model) {
 		
@@ -333,7 +334,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 카테고리 조회
 	@RequestMapping("/food/selectFoodCategoryList")
 	@ResponseBody
 	public Map selectFoodSearchCategory(Model model) {
@@ -352,7 +353,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 맛집 검색 
 	@RequestMapping("/food/foodSearch")
 	@ResponseBody
 	public List<Food> foodSearch(@RequestParam Map<String, Object> param) {	
@@ -418,20 +419,27 @@ public class FoodController {
 	
 	
 	
-	
+	// 리뷰 목록 출력 
 	@RequestMapping("/food/selectFoodCommentList")
 	public String selectFoodCommentList(@RequestParam(value="foodSeq") String foodSeq, 
 										@RequestParam(value="cPage", defaultValue = "1") String cPage,
 										Model model) {
 		
+		log.error("{}", cPage);
+		
 		List<FoodComment> foodCommentList = service.selectFoodCommentList(foodSeq, Integer.parseInt(cPage));
 		
-		int foodCommentCount = service.countFoodComment(foodSeq);
+		// 리뷰 총 개수 
+		int totalFoodComment = service.countFoodComment(foodSeq);
 		
-		log.warn("foodcommentseqfoodcommentseqfoodcommentseqfoodcommentseq{}", foodCommentList);
+		// log.error("리뷰목록{}", foodCommentList);
+		// log.error("리뷰총개수{}", totalFoodComment);
+		
+		// 페이징처리된 범위중에서 리뷰 개수
+		log.error("리뷰개수{}", foodCommentList.size());
 		
 		model.addAttribute("foodCommentList", foodCommentList);
-		model.addAttribute("foodCommentCount", foodCommentCount);
+		model.addAttribute("totalFoodComment", totalFoodComment);
 		
 		return "components/food/foodCommentList";
 		
@@ -439,7 +447,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 좋아요 추가 
 	@RequestMapping("/food/addFoodLike")
 	@ResponseBody
 	public String addFoodLike(String foodSeq, String userId) {
@@ -460,6 +468,7 @@ public class FoodController {
 	}
 	
 	
+	// 좋아요 삭제 
 	@RequestMapping("/food/delFoodLike")
 	@ResponseBody
 	public String delFoodLike(String foodSeq, String userId) {
@@ -481,7 +490,7 @@ public class FoodController {
 	
 	
 	
-	
+	// 좋아요 되어있는지 확인 
 	@RequestMapping("/food/checkFoodLike")
 	public String checkFoodLike(String foodSeq, String userId, Model model) {
 		
@@ -497,6 +506,9 @@ public class FoodController {
 		
 	}
 	
+	
+	
+	// 리뷰 삭제 
 	@RequestMapping("/food/deleteFoodComment")
 	@ResponseBody
 	public int deleteFoodComment(String foodCommentSeq) {
@@ -508,6 +520,8 @@ public class FoodController {
 	}
 	
 	
+	
+	// 리뷰 신고 
 	@RequestMapping("/food/FCReport")
 	@ResponseBody
 	public int openFCReportModal(String foodSeq, String foodCommentSeq, String userId, String targetId, String reportContent, Model model) {
@@ -526,19 +540,111 @@ public class FoodController {
 		return result;
 	}
 	
-	// 리뷰신고카운트 up, 유저신고카운트 up, 신고테이블에 insert ? 
 	
+	// 리뷰 수정 시작 
+	@RequestMapping("/food/updateFoodComment/start")
+	public String updateFoodCommentStart(String foodCommentSeq, Model model) {
+		
+		FoodComment fc = service.selectFoodComment(foodCommentSeq);
+		
+		log.error("리뷰업데이트{}", fc);
+		
+		model.addAttribute("fc", fc);
+		
+		return "/food/foodReviewUpdate";
+		
+	}
 	
+	// 리뷰 수정 끝 
+	@RequestMapping("/food/updateFoodComment/end")
+	public String updateFoodCommentEnd(String foodCommentSeq, String foodSeq, String foodCommentContents, String rating, 
+										@RequestParam("file") MultipartFile[] files, HttpServletRequest req, Model model) {
+		
+		// 이전의 파일 삭제 
+		FoodComment fc = service.selectFoodComment(foodCommentSeq);
+		
+		if(fc.getFoodPhoto1() != null) {
+			File deleteFile = new File(req.getServletContext().getRealPath("/resources/upload/foodComment/" + fc.getFoodPhoto1()));
+	        if(deleteFile.exists()) {
+	        	deleteFile.delete();
+	        	log.error("삭제완료");
+	        }
+		}
+		if(fc.getFoodPhoto2() != null) {
+			File deleteFile = new File(req.getServletContext().getRealPath("/resources/upload/foodComment/" + fc.getFoodPhoto2()));
+			if(deleteFile.exists()) {
+				deleteFile.delete();
+				log.error("삭제완료");
+			}
+		}
+		if(fc.getFoodPhoto3() != null) {
+			File deleteFile = new File(req.getServletContext().getRealPath("/resources/upload/foodComment/" + fc.getFoodPhoto3()));
+			if(deleteFile.exists()) {
+				deleteFile.delete();
+				log.error("삭제완료");
+			}
+		}
+		if(fc.getFoodPhoto4() != null) {
+			File deleteFile = new File(req.getServletContext().getRealPath("/resources/upload/foodComment/" + fc.getFoodPhoto4()));
+			if(deleteFile.exists()) {
+				deleteFile.delete();
+				log.error("삭제완료");
+			}	
+		}
+		if(fc.getFoodPhoto5() != null) {
+			File deleteFile = new File(req.getServletContext().getRealPath("/resources/upload/foodComment/" + fc.getFoodPhoto5()));
+			if(deleteFile.exists()) { 
+				deleteFile.delete();
+				log.error("삭제완료");
+			}
+		}
+
+		
+		// 리뷰 수정
+		User loginUser = (User) req.getSession().getAttribute("userSession");
+		String userId = loginUser.getUserId();
+
+		FoodComment comment = new FoodComment();
+		
+		comment.setFoodCommentSeq(foodCommentSeq);
+		comment.setFoodCommentContents(foodCommentContents);
+		comment.setFoodCommentStar(Double.parseDouble(rating));
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("comment", comment);
+		map.put("foodPhoto1", null);
+		map.put("foodPhoto2", null);
+		map.put("foodPhoto3", null);
+		map.put("foodPhoto4", null);
+		map.put("foodPhoto5", null);
+		
+		
+		int i =1;
+		
+			// System.out.println("테스트 : " + files.length + " " + files[0]);
+			
+		for(MultipartFile f : files) {
+			
+			if(f.getSize()==0) break;
+			
+			map.put("foodPhoto"+i, renamepolicy(req, f, "foodComment"));
+			
+			i+=1;
+			
+		}
+			
+		int result = service.updateFoodComment(map);
+		
+		System.out.println(result > 0 ? "성공" : "실패");
+		
+		model.addAttribute("msg", result > 0 ? "리뷰가 수정되었습니다" : "리뷰를 수정하지 못했습니다. 다시 시도해주세요");
+		model.addAttribute("loc", result > 0 ? "/food/foodView?foodSeq="+foodSeq : "/food/updateFoodComment/start?foodCommentSeq=" + foodCommentSeq);
+		
+		return "/common/msg";
+		
+	}
 	
-//	@RequestMapping("food/updateFoodComment/start")
-//	public String updateFoodCommentStart(String foodCommentSeq, Model model) {
-//		
-//		FoodComment fc = service.selectFoodComment(foodCommentSeq);
-//		
-//		model.addAttribute("fc", fc);
-//		
-//		return "/food/foodReview";
-//		
-//	}
 	
 }

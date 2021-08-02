@@ -8,7 +8,7 @@
 	<script>
 		const moveFn=(moviePersonName)=>{
 			$.ajax({
-				url:"<%=request.getContextPath()%>/movie/moviePerson",
+				url:"${path}/movie/moviePerson",
 				data:{"moviePersonName":moviePersonName},
 				success:data=>{
 					let date = data["moviePersonBirth"];
@@ -307,6 +307,11 @@
 
 
 <style>
+     #root{
+	    border:1px red solid;
+	    /* min-height:500px; */
+	    font-family:'Noto Sans KR';
+	}
      #trailercontainer{
      	display:none;
      }

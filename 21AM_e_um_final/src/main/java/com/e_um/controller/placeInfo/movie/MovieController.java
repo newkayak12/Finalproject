@@ -18,8 +18,10 @@ import com.e_um.model.sevice.placeInfo.movie.MovieServiceInterface;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
 import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
+import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
+import com.e_um.model.vo.placeinfo.movie.seat.Seat;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ public class MovieController {
 	@Autowired
 	MovieServiceInterface service;
 	
-	
+   //영화 메인페이지	
 	@RequestMapping("/movie/movieInfo")
 	public String movieInfo(Model m) {
 		List<Movie> list = service.movieList();
@@ -40,23 +42,23 @@ public class MovieController {
 		return "movie";
 	}
 	
+	//modal화면에 띄울 정보
 	@RequestMapping("/movie/moviePoster")
 	@ResponseBody
 	public Movie moviePoster(@RequestParam(value="movieSeq")String movieSeq){
 		
 		Movie m = service.moviePoster(movieSeq);
-		
-		
 		return  m;
-		
 	}
 	
+	//예매율 1등 영화 정보
 	@RequestMapping("/movie/movieVideo")
 	@ResponseBody
 	public Movie movieVideo() {
 		return service.movieVideo();
 	}
 	
+	//영화 상세화면 정보
 	@RequestMapping("/movie/movieDetail")
 	public String movieDetail(@RequestParam(value="movieSeq")String movieSeq, Model model) {
 		Movie movie = service.movieDetail(movieSeq);
@@ -64,6 +66,7 @@ public class MovieController {
 		return "movie/movieDetail";
 	}
 	
+	//검색 영화 정보
 	@RequestMapping("/movie/searchMovie")
 	public String movieSearch(@RequestParam(value="search")String search,Model model) {
 		List<Movie> list = service.movieSearch(search);	
@@ -71,12 +74,14 @@ public class MovieController {
 		return "movie/movieSearch";
 	}
 	
+	//영화속 인물에 대한 정보 가져오기
 	@RequestMapping("/movie/moviePerson")
 	@ResponseBody
 	public MoviePersonInfo moviePerson(@RequestParam(value="moviePersonName")String person) {			
 		return service.moviePerson(person);
 	}
 	
+	//영화상세페이지 예고편
 	@RequestMapping("/movie/selectMovieVideo")
 	@ResponseBody
 	public Movie selectMovieVideo(@RequestParam(value="movieSeq")String movieSeq) {
@@ -84,21 +89,24 @@ public class MovieController {
 		return m;
 	}
 	
+	
+	//영화상세페이지 리뷰 가져오기
 	@RequestMapping("/movie/movieReview")
 	@ResponseBody
 	public List<MovieReview> movieReview(@RequestParam(value="movieSeq")String movieSeq) {
-		System.out.println(movieSeq);
 		List<MovieReview> list = service.movieReview(movieSeq);
 		
 		return list;
 	}
 	
+	//영화상세페이지 리뷰작성페이지 전환
 	@RequestMapping("/movie/movieWriteStart")
 	public String movieWritePage(@RequestParam(value="movieSeq")String movieSeq, Model m) {
 		m.addAttribute("movieSeq",movieSeq);
 		return "movie/reviewWrite";
 	}
 	
+	//영화상세페이지 리뷰작성 저장
 	@RequestMapping("/movie/movieWriteEnd")
 	public String movieWriteEnd(@RequestParam Map param, HttpServletRequest hsr, Model m) {
 		
@@ -111,7 +119,6 @@ public class MovieController {
 		int acting = Integer.parseInt((String)param.get("acting"));
 		int ost = Integer.parseInt((String)param.get("ost"));
 		double total = (direct+visual+story+acting+ost)/5.0;
-		System.out.println(total);
 		String movieSeq = (String)param.get("movieSeq");
 		String content = (String)param.get("content");
 		//System.out.println(userId);
@@ -125,7 +132,6 @@ public class MovieController {
 		param.put("acting", acting);
 		param.put("ost", ost);
 		param.put("total", total);
-		System.out.println(param);
 		int movieReview = service.movieWrite(param);
 		
 		List<MovieReview> list = service.movieReviewList(param);
@@ -156,6 +162,7 @@ public class MovieController {
 		return "/common/msg";
 	}
 	
+	//리뷰에 대한 정보(평균평점,오각형그래프)
 	@RequestMapping("/movie/movieReviewData")
 	@ResponseBody
 	public Map movieReviewData(@RequestParam(value="movieSeq")String movieSeq) {
@@ -197,15 +204,14 @@ public class MovieController {
 		return param;
 	}
 	
-	
+	//영화 예약페이지 이동
 	@RequestMapping("/movie/movieReserve")
 	public String movieReserve() {
 		
 		return "movie/movieReserve";
 	}
 	
-	
-	
+	//영화 예약페이지 영화정보
 	@RequestMapping("/movie/movieList")
 	@ResponseBody
 	public List<Movie> movieList(){
@@ -213,23 +219,100 @@ public class MovieController {
 	}
 	
 	
-	  @RequestMapping("/movie/movieBox")
-	  @ResponseBody public List<MovieSeatStatus>movieBox(@RequestParam(value="movieSeq")String movieSeq){
-		  List<MovieSeatStatus> list = service.movieBox(movieSeq);
-		  	
-		  return list;
-	  }
+	@RequestMapping("/movie/movieBox")
+	@ResponseBody public List<MovieSeatStatus>movieBox(@RequestParam(value="movieSeq")String movieSeq){
+	 List<MovieSeatStatus> list = service.movieBox(movieSeq);
+	 	
+	 return list;
+	}
 	 
-	  @RequestMapping("/movie/movieTime")
+	@RequestMapping("/movie/movieTime")
+	@ResponseBody
+	public List<MovieTime> movieTime(){
+		List<MovieTime> list = service.movieTime();
+	 return list;
+	}
+	
+	@RequestMapping("/movie/seatStart")
+	public String seatStart(@RequestParam Map param,Model model) {
+	  model.addAttribute("param",param);
+	  return "movie/movieSeat";
+	}
+	  
+	  @RequestMapping("/movie/movieReserveEnd")
+	  public String movieReserveEnd(@RequestParam Map param,Model model) {
+		  Movie movieName = service.movieName(param);
+		  String movieTitle = movieName.getMovieTitleKr();
+		  param.put("movieTitle", movieTitle);
+		  model.addAttribute("param",param);
+		  
+		  return "movie/moviePay";
+	  }
+	  
+	  @RequestMapping("/movie/movieSeat")
 	  @ResponseBody
-	  public List<MovieTime> movieTime(){
-		  List<MovieTime> list = service.movieTime();
-		  System.out.println(list);
-		  return list;
+	  public MovieBox getMovieSeat(String movieSeq, String movieLocation, String movieBox ) {
+		  
+		  Map param = new HashMap();
+		  param.put("movieSeq", movieSeq);
+		  param.put("movieBox", movieBox);
+		  param.put("movieLocation", movieLocation);
+		  MovieBox mb = service.getMovieSeat(param);
+		  
+		  return mb; 
+	  }
+	  
+	  
+	  @RequestMapping("/movie/payEnd")
+	  @ResponseBody
+	  public String payEnd(@RequestParam Map param,HttpServletRequest hsr,Model model) {
+		  User user = (User)hsr.getSession().getAttribute("userSession");
+		  String userId=user.getUserId();
+		  String movieSeq = (String)param.get("movieSeq");
+		  String movieLocation = (String)param.get("movieLocation");
+		  String movieBox = (String)param.get("movieBox");
+		  String movieDate = (String)param.get("movieDate");
+		  String movieTime = (String)param.get("movieTime");
+		  String moviePrice = (String)param.get("moviePrice");
+		  String movieTitle = (String)param.get("movieTitle");
+		  String movieSeats = (String)param.get("movieSeats");
+		  System.out.println(param);
+		  
+		  param.clear();
+		  param.put("userId", userId);
+		  param.put("movieSeq", movieSeq);
+		  param.put("movieLocation", movieLocation);
+		  param.put("movieBox", movieBox);
+		  param.put("movieDate", movieDate);
+		  param.put("movieTime", movieTime);
+		  param.put("moviePrice", moviePrice);
+		  param.put("movieTitle", movieTitle);
+		  param.put("movieSeat1", null);
+		  param.put("movieSeat2", null);
+		  param.put("movieSeat3", null);
+		  param.put("movieSeat4", null);
+		  
+		  String[] seats = movieSeats.split(",");
+		  for(int i=1;i<=seats.length; i++) {
+			  if(seats.length==0) break;
+			  param.put("movieSeat"+i,seats[i]);
+		  }
+		  System.out.println(param);
+		 int result = service.payEnd(param); 
+		  
+		  model.addAttribute("param",param);
+		  
+			
+		  return "movie";
 	  }
 	  
 	  
 	  
 	  
+	  
+	  
+	  
+	  
+		  
 	  
 }

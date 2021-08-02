@@ -10,11 +10,6 @@
     
 	<!-- jQuery library -->
 	 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script> 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
-<%-- 	<script src="${pageContext.request.contextPath}/resources/js/parallax.js-1.5.0/parallax.js"></script> --%> 
-	
-	
-	
 	<%-- <script   src="https://code.jquery.com/jquery-3.6.0.slim.js"   integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="   crossorigin="anonymous"></script> --%>
 	<!-- <script src="${path }/resources/js/jquery-3.6.0.min.js"></script> -->
 	<!-- Popper JS -->
@@ -22,7 +17,6 @@
 	<!-- Latest compiled JavaScript -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <!-- all -->
 <!-- <link rel="stylesheet" href="../webapp/resources/css/main.css"> -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/sanghyun.css">
