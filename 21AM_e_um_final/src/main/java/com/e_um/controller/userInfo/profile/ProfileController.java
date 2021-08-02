@@ -155,6 +155,7 @@ public class ProfileController {
 	public String insertFeed(HttpServletRequest rq, Model m,
 			@RequestParam(value="feedImage", required=false) MultipartFile[] feedImage
 			) {
+		//미완
 		User user=(User)rq.getSession().getAttribute("userSession");
 		log.info("파일명: "+feedImage[0].getOriginalFilename());
 		log.info("파일 크기: {}",feedImage[0].getSize());
