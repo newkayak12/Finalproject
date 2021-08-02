@@ -5,19 +5,22 @@
 <style>
 	/*  foodView  */
 	.foodView-info-container { margin : 10px; }
-	.foodView-info-container table tr th { color : #2AC1BC; font-family: twayair; width:15%; min-width:100px;}
-	.foodView-info-container table tr td { color : black; width:85%; }
+	.foodView-info-container table tr th { padding-bottom:5px; color : #2AC1BC; font-family: twayair; width:15%; min-width:100px; font-size:17px;}
+	.foodView-info-container table tr td { padding-bottom:5px; color : black; width:85%; font-weight:900; font-size : 16px;}
 	
 	.foodView-image-container{ height : 200px; }
-	.foodView-menu-container { margin : 10px; padding : 10px; }
+	.foodView-menu-container { margin-top:20px; background-color : #f2f2f2; border-radius : 10px; }
+	.foodView-menu-container p { padding-top: 10px !important; margin : 0 !important; }
+	.foodView-menu-container span { font-family : twayair; }
 	.foodView-inner-sideMenu { width : 100px; float : right; }
 	
 	.foodView-icons { display: flex; justify-content: flex-end; }
 	.foodView-icons-inner { margin : 10px; align-self:center; text-decoration: none; color : lightgray ;}
 	.foodView-icons-inner:hover {  font-weight: 500 !important; color : #2AC1BC !important; cursor: pointer;}
-	
 	.foodView-icons-inner a { text-decoration: none; color : lightgray !important; }
 	.foodView-icons-inner a:hover { color : #2AC1BC !important; font-weight: 500 !important; }
+	
+	#foodView-review-container { margin : 10px; }
 	
 	#like:hover { color : #2AC1BC !important; }
 	
@@ -83,7 +86,7 @@
 						<span class="tway " style="font-size:40px;"><c:out value="${ food.foodName }"/></span>&nbsp;
 						<span class="mainColor" style="font-size:40px; font-weight:900;"><c:out value="${ food.foodStar }"/></span>
 						<br>
-						<span class="lightgray"><i class="fas fa-eye lightgray"></i>&nbsp;<c:out value="${ food.foodLikeCount }"/></span>&nbsp;&nbsp;
+						<%-- <span class="lightgray"><i class="fas fa-eye lightgray"></i>&nbsp;<c:out value="${ food.foodLikeCount }"/></span>&nbsp;&nbsp; --%>
 						<span class="lightgray"><i class="fas fa-pencil-alt lightgray"></i>&nbsp;<c:out value="${ foodCommentCount }"/></span>&nbsp;&nbsp;
 						<span class="lightgray"><i class="fas fa-heart lightgray"></i>&nbsp;<c:out value="${ food.foodLikeCount }"/></span>
 					</div>
@@ -94,7 +97,6 @@
 						
 						<!-- 로그인한 회원이 이 맛집을 좋아요했다면 로드할때 채워진 하트로 보이도록 --> 
 						<c:if test="${ likecheck ne null }">
-						<!-- style="color : #2AC1BC !important; -->
 							<div id="likeicon" class="foodView-icons-inner mr-3" " onclick="fn_FoodLike(event);">
 								<div class="foodView-icon-style">
 									<i class="fas fa-heart" id = "like" style="color : #2AC1BC !important;"></i>
@@ -104,7 +106,6 @@
 						</c:if>
 						
 						<c:if test="${ likecheck eq null }">
-						<!-- style="color : lightgray !important;" -->
 							<div id="likeicon" class="foodView-icons-inner mr-3"  onclick="fn_FoodLike(event);">
 								<div class="foodView-icon-style">
 									<i class="far fa-heart" id = "like" style="color : rgb(201,201,201);"></i>
@@ -188,15 +189,16 @@
 				</div>
 				
 				<!-- 메뉴 영역 -->
-				<div class="foodView-menu-container">
-					<p class="mainColor tway">대표 메뉴</p>
-					<div class="row" style="border-top:1px solid #2AC1BC;">
+				<div class="foodView-menu-container" >
+					<p class="mainColor tway" style="font-size:17px;">&nbsp;&nbsp;대표 메뉴</p>
+					<div class="row p-3">
 						<c:forEach var="menu" items="${ food.menus }">
-							<div class="col-6 col-md-4 item">
-								<img style="border-radius: 10px;" width="100px" height="100px" src="${ path }/resources/upload/food/${ menu.menuPhoto}">
-								<div style="display : inline;">
-									<span class=""><c:out value="${ menu.menuName }"/></span>
-									<span class=""><c:out value="${ menu.menuPrice }"/></span>
+							<div class="col-6 col-md-4 item" style="padding:5px;">
+								<img class="mr-3 ml-3" style="border-radius: 10px;" width="100px" height="100px" src="${ path }/resources/upload/food/${ menu.menuPhoto}">
+								<div class="ml-3" style="display : inline-block;">
+									<span><c:out value="${ menu.menuName }"/></span>
+									<br>
+									<span><c:out value="${ menu.menuPrice }"/>원</span>
 								</div>
 							</div>
 						</c:forEach>
@@ -208,7 +210,9 @@
 				</div>
 				
 				<!-- 리뷰 영역 -->
+				<br>
 				<div id="foodView-review-container">
+					
 				</div>
 				
 			</div>
@@ -256,17 +260,35 @@
 		
 		// 리뷰 불러오기 
 		$.ajax({
-			url : "${path}/food/selectFoodCommentList",
+			url : "${path}/food/selectFoodCommentList?cPage=1",
 			data : {
 				"foodSeq" : "${food.foodSeq}"
 			},
 			success : data => {
+				$("#foodView-review-container").append("<p class='mainColor tway' style='font-size:17px;'>&nbsp;리뷰  (<c:out value='${ foodCommentCount }'/>)</p>");
 				$("#foodView-review-container").append(data);
 			}
 		});
 		
-		
 	});
+	
+	
+	// 리뷰 더보기
+	let cPage = 1;
+	const moreList = (e) => {
+		
+		$.ajax({
+			url : "${path}/food/selectFoodCommentList?cPage=" + (++cPage),
+			data : {
+				"foodSeq" : "${food.foodSeq}"
+			},
+			success : data => {
+				// 사용자가 누른 더보기버튼은 사라지게끔 
+				$(e.target).parent().css("display", "none");
+				$("#foodView-review-container").append(data);
+			}
+		});
+	}
 	
 	// 좋아요(가고싶다)
 	const fn_FoodLike = (e) => {
@@ -328,11 +350,77 @@
 	
 	
 	
-	/* $("#likeicon").click( (e) => {
-        $(e.target).toggleClass("fas"); 
-        
-     }); */
+	
      
+    // 여기부터 foodCommentList.jsp 에 있던 script -------------------------------------------
+
+	// 리뷰 호버시 회색배경으로 바뀜 
+	const fn_in = (e) => {
+		$(e.target).css({
+			"background-color" : "#f5f5f5"
+		});
+	}
+	
+	const fn_out = (e) => {
+		$(e.target).css({
+			"background-color" : ""
+		});
+	}
+	
+	
+	// 리뷰 삭제 
+	const fn_delFoodComment = (foodCommentSeq) => {
+		
+		console.log(foodCommentSeq);
+		
+		if(confirm("리뷰를 정말 삭제하시겠습니까?")) {
+			$.ajax({
+				url : "${path}/food/deleteFoodComment",
+				data : {
+					"foodCommentSeq" : foodCommentSeq
+				},
+				success : data => {
+					console.log(data);
+					alert("리뷰가 삭제되었습니다.");
+					window.location.reload();
+				}
+			});
+		}
+		
+		
+	}
+	
+	// 리뷰 신고 
+	const fn_repFoodComment = () => {
+		
+		console.log($("#reportContent").val());
+		
+		let reportContent = $("#reportContent").val();
+		
+		
+		$.ajax({
+			url : "${path}/food/FCReport",
+			data : {
+				"foodSeq" : $("#hiddenFoodSeq").val(),
+				"foodCommentSeq" : $("#hiddenFoodCommentSeq").val(),
+				"userId" : $("#hiddenUserId").val(),
+				"targetId" : $("#hiddenTargetId").val(), 
+				"reportContent" : reportContent
+			},
+			success : data => {
+				console.log(data);
+				if(data > 0) {
+					alert("신고되었습니다.");
+					$("#fcreportModal").modal("hide");
+				}
+			}
+		}); 
+		
+	}
+	
+	
+	
+
      
 </script>
 
