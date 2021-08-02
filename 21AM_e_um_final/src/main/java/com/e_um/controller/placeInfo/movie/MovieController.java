@@ -243,8 +243,11 @@ public class MovieController {
 	  public String movieReserveEnd(@RequestParam Map param,Model model) {
 		  Movie movieName = service.movieName(param);
 		  String movieTitle = movieName.getMovieTitleKr();
-		  param.put("movieTitle", movieTitle);
-		  model.addAttribute("param",param);
+		  
+		  Map newParam = param;
+		  newParam.put("movieTitle", movieTitle);
+
+		  model.addAttribute("newParam" , newParam);
 		  
 		  return "movie/moviePay";
 	  }
@@ -266,6 +269,7 @@ public class MovieController {
 	  @RequestMapping("/movie/payEnd")
 	  @ResponseBody
 	  public String payEnd(@RequestParam Map param,HttpServletRequest hsr,Model model) {
+		  System.out.println(param);
 		  User user = (User)hsr.getSession().getAttribute("userSession");
 		  String userId=user.getUserId();
 		  String movieSeq = (String)param.get("movieSeq");

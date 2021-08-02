@@ -6,16 +6,17 @@
 </head>
 <body>
 
+${fuckingparam }
 
 
-	<input type="hidden" id="movieSeq" name="movieSeq" value="${param.movieSeq }">
-	<input type="hidden" id="movieLocation" name="movieLocation" value="${param.movieLocation }">
-	<input type="hidden" id="movieBox" name="movieBox" value="${param.movieBox }">
-	<input type="hidden" id="movieDate" name="movieDate" value="${param.movieDate }">
-	<input type="hidden" id="movieTime" name="movieTime" value="${param.movieTime }">
-	<input type="hidden" id="movieSeats" name="movieSeats" value="${param.selectedSeat }">
-	<input type="hidden" id="moviePrice" name="moviePrice" value="${param.moviePrice }">
-	<input type="hidden" id="movieTitle" name="movieTitle" value="${param.movieTitle }">
+	<input type="hidden" id="movieSeq" name="movieSeq" value="${newParam.movieSeq }">
+	<input type="hidden" id="movieLocation" name="movieLocation" value="${newParam.movieLocation }">
+	<input type="hidden" id="movieBox" name="movieBox" value="${newParam.movieBox }">
+	<input type="hidden" id="movieDate" name="movieDate" value="${newParam.movieDate }">
+	<input type="hidden" id="movieTime" name="movieTime" value="${newParam.movieTime }">
+	<input type="hidden" id="movieSeats" name="movieSeats" value="${newParam.selectedSeat }">
+	<input type="hidden" id="moviePrice" name="moviePrice" value="${newParam.moviePrice }">
+	<input type="hidden" id="movieTitle" name="movieTitle" value="${newParam.movieTitle }">
 	
 	 <script>
 		 $(function () {
@@ -35,7 +36,7 @@
 		        		console.log(data);
 		        	}
 		        })
-		 });	 
+		 });
 			 	/* var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
