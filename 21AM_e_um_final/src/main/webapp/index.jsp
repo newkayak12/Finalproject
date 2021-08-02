@@ -86,7 +86,7 @@
 	}
 	function findmyidajaxstart(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/user/findmyid/start",
+			url:"${pageContext.request.contextPath}/21AM_e_um_final/user/findmyid/start",
 			success:data=>{
 				$("#minimodalRoot").html(data)
 			}

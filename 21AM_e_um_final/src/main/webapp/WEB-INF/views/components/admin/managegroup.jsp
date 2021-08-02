@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="d-flex flex-column justify-content-between align-itmes-center">
+
+<%-- ${list } --%>
 	<div style="height: 550px">
-		<table class="table table-striped table-hover tway">
+		<table class="table table-striped table-hover tway" >
 			<tr>
 				<th class="bgColorMainColorSub whiteText">
 					이름
@@ -55,12 +57,12 @@
 					<td style="overflow: hidden">${i.groupComment }</td>
 					<td>${i.groupCountToday }</td>
 					<td>${i.groupCountTotal }</td>
-					<td><fmt:formatDate value="${i.groupDate }" pattern="yy-mm-dd" /></td>
+					<td><fmt:formatDate value="${i.groupDate }" pattern="yy-MM-dd" /></td>
 					
 					
 					
-					<td id="block${i.groupSeq }">
 					<input type="hidden" id="B${i.groupSeq}" value="${i.groupDestroyFlag }">
+					<td id="block${i.groupSeq }" class="small">
 						<c:choose>
 							<c:when test="${i.groupDestroyFlag=='exist' }">
 								활성화
@@ -73,10 +75,10 @@
 					<td class="text-center" >
 					<c:choose>
 							<c:when test="${i.groupDestroyFlag=='exist' }">
-								<input type="button" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="폐쇄">
+								<input type="button" class="small" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="폐쇄">
 							</c:when>
 							<c:otherwise>
-								<input type="button" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="활성화">
+								<input type="button" class="small" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="활성화">
 							</c:otherwise>
 						</c:choose>
 						
@@ -93,29 +95,30 @@
 <script>
 
 	function blockThisId(seq){
-		
-		if($("#B"+userId).val()=='unblock'){
+		if($("#B"+seq).val()=='exist'){
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/admin/blindgroup",
 				data:{"groupSeq":seq},
 				success:data=>{
 					if(data>0){
-						$("#block"+seq).html("계정 정지")
+						$("#block"+seq).html("폐쇄")
+						$("#B"+seq).val("blind")
 						$("#btn"+seq).val("활성화")
 					}	
 				}
 			})
 			
 			
-		} else {
+		} else if($("#B"+seq).val()=='blind'){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/admin/unblindgroup",
 				data:{"groupSeq":seq},
 				success:data=>{
 					if(data>0){
-						$("#block"+seq).html("계정 활성화")
-						$("#btn"+seq).val("계정 정지")
+						$("#block"+seq).html("활성화")
+						$("#B"+seq).val("exist")
+						$("#btn"+seq).val("폐쇄")
 					}
 				}
 				
@@ -123,7 +126,6 @@
 			
 			
 		}
-		
-		
+		/* manageGroup('1') */
 	}
 </script>

@@ -41,10 +41,10 @@
 					<td>${i.userNick }</td>
 					<td>${i.userEmail }</td>
 					<td>${i.userGender }</td>
-					<td>${i.userDate }</td>
+					<td><fmt:formatDate value="${i.userDate }" pattern="yy-MM-dd" /></td>
 					<td>${i.userReportCount }</td>
-					<td id="block${i.userId }">
 					<input type="hidden" id="B${i.userId }" value="${i.userBlock }">
+					<td id="block${i.userId }">
 						<c:choose>
 							<c:when test="${i.userBlock=='unblock' }">
 								계정 활성화
@@ -86,6 +86,7 @@
 				success:data=>{
 					if(data>0){
 						$("#block"+userId).html("계정 정지")
+						$("#B"+userId).val("blind")
 						$("#btn"+userId).val("활성화")
 					}	
 				}
@@ -99,6 +100,7 @@
 				success:data=>{
 					if(data>0){
 						$("#block"+userId).html("계정 활성화")
+						$("#B"+userId).val("unblock")
 						$("#btn"+userId).val("계정 정지")
 					}
 				}

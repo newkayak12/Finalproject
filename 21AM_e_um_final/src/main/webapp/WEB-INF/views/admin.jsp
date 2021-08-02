@@ -95,7 +95,7 @@
 		
 	}
 		
-	function manageFood(){
+	function manageFood(cPage){
 		$.ajax({
 			url:'${pageContext.request.contextPath}/admin/managefood',
 			data:{"cPage":cPage},

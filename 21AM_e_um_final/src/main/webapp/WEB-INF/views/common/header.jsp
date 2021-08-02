@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<c:set var="path" value="<%=request.getContextPath()%>"
+<c:set var="path" value="${pageContext.request.contextPath }"
 	scope="application" />
 <c:set var="session" value="${userSession }" scope="session" />
 <style>
@@ -22,14 +22,14 @@
 	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
 	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
 	crossorigin="anonymous">
-<link href="<c:url value="${path }/resources/css/main.css" />"
+
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath } /resources/js/jquery-ui-1.12.1/jquery-ui.css" 	rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/js/jquery-ui-1.12.1/jquery-ui.css" 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script src="${path }/resources/js/jquery-3.6.0.min.js"></script>
-<script src="${path }/resources/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jquery-ui-1.12.1/jquery-ui.js"></script>
 <!-- Popper JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -45,7 +45,7 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/main.css">
+	href="${pageContext.request.contextPath }/resources/css/main.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
@@ -62,6 +62,7 @@
 
 </head>
 <body>
+
 	<header>
 		<nav
 			class="navbar navbar-expand-sm fixed-top bgColorMainColor whiteText navbar-light justify-content-between d-flex">
@@ -74,7 +75,7 @@
 				</a>
 			</div>
 			<%-- <div style="margin:0px;"><a href="${pagecontex.request.contextPath }/user/gotomain" class="navbar_brand ml-2 text-body"><img width="75px" height="37px" src="${ path }/resources/images/main/eum_title.png"></a></div> --%>
-
+	
 			<!--메뉴-->
 			<div id="head_menu" class="col-6 p-0 ">
 				<ul
@@ -213,7 +214,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:600px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none;">
+	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:600px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none; background-color: white">
 		<div class="col-12 border d-flex justify-content-between" style="height:10%; max-height:50px position:fixed; top:0px;">
 			<span id="headerchatidBox">제목</span>
 			<span onclick ="headerchatclean()">X</span>

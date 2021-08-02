@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.groupinfo.group.Group;
+import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.user.User;
 
 
@@ -33,4 +34,6 @@ public interface AdminDaoInterface {
 	public int groupTotalData(SqlSessionTemplate session);
 	public int blindGroup(String groupSeq, SqlSessionTemplate session);
 	public int unblindGroup(String groupSeq, SqlSessionTemplate session);
+	
+	public List<Food> manageFood(int cPage, int numPerPage,  SqlSessionTemplate session);
 }
