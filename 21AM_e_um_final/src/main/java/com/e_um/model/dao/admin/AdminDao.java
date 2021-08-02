@@ -155,4 +155,34 @@ public class AdminDao implements AdminDaoInterface{
 		return session.selectList("admin.manageFood","",new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 
+	@Override
+	public int getMenCount(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.getMenCount");
+	}
+
+	@Override
+	public int getWomenCount(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.getWomenCount");
+	}
+
+	@Override
+	public List<User> statisticsUser(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.managUser");
+	}
+
+	@Override
+	public List<Group> statisticsGroup(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.manageGroup");
+	}
+
+	@Override
+	public int foodTotalData(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.foodTotalData");
+	}
+
 }

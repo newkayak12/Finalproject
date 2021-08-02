@@ -33,34 +33,33 @@
 			</tr>
 			<c:forEach items="${list }" var="i">
 				<tr>
-					<td>${i.groupTitle }</td>
-					<td>${i.groupTheme }</td>
-					<td>${i.groupMaster }</td>
-					<td>${i.groupLimit }</td>
-					<td>${i.groupGender }</td>
-					
-					<td><fmt:formatDate value="${i.groupDate }" pattern="yy-mm-dd" /></td>
-					
+					<td>${i.foodCategoryMain }</td>
+					<td>${i.foodCategorySub }</td>
+					<td>${i.foodName }</td>
+					<td>${i.foodAddr }</td>
+					<td>${i.foodStar }</td>
+					<td>${i.foodStar }</td>
 					
 					
-					<td id="block${i.groupSeq }">
-					<input type="hidden" id="B${i.groupSeq}" value="${i.groupDestroyFlag }">
+					
+					<td id="block${i.foodSeq }">
+					<input type="hidden" id="B${i.foodSeq}" value="${i.foodStatus }">
 						<c:choose>
-							<c:when test="${i.groupDestroyFlag=='exist' }">
-								활성화
+							<c:when test="${i.foodStatus=='unblock' }">
+								게시
 							</c:when>
 							<c:otherwise>
-								폐쇄
+								내림
 							</c:otherwise>
 						</c:choose>
 					</td>
 					<td class="text-center" >
 					<c:choose>
-							<c:when test="${i.groupDestroyFlag=='exist' }">
-								<input type="button" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="폐쇄">
+							<c:when test="${i.foodStatus=='unblock' }">
+								<input type="button" onclick="blockThisId('${i.foodSeq}')" id="btn${i.foodSeq}" value="폐쇄">
 							</c:when>
 							<c:otherwise>
-								<input type="button" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="활성화">
+								<input type="button" onclick="blockThisId('${i.foodSeq}')" id="btn${i.foodSeq}" value="활성화">
 							</c:otherwise>
 						</c:choose>
 						
@@ -81,12 +80,12 @@
 		if($("#B"+userId).val()=='unblock'){
 			
 			$.ajax({
-				url:"${pageContext.request.contextPath}/admin/blockuser",
-				data:{"groupSeq":seq},
+				url:"${pageContext.request.contextPath}/admin/blockfood",
+				data:{"foodSeq":seq},
 				success:data=>{
 					if(data>0){
-						$("#block"+seq).html("계정 정지")
-						$("#btn"+seq).val("활성화")
+						$("#block"+seq).html("정지")
+						$("#btn"+seq).val("게시")
 					}	
 				}
 			})
@@ -94,12 +93,12 @@
 			
 		} else {
 			$.ajax({
-				url:"${pageContext.request.contextPath}/admin/unblockuser",
-				data:{"groupSeq":seq},
+				url:"${pageContext.request.contextPath}/admin/unblockfood",
+				data:{"foodSeq":seq},
 				success:data=>{
 					if(data>0){
-						$("#block"+seq).html("계정 활성화")
-						$("#btn"+seq).val("계정 정지")
+						$("#block"+seq).html("게시")
+						$("#btn"+seq).val("정지")
 					}
 				}
 				

@@ -83,5 +83,30 @@ public class AdminService implements AdminServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.manageFood(cPage, numPerPage, session);
 	}
+	@Override
+	public int getMenCount() {
+		// TODO Auto-generated method stub
+		return dao.getMenCount(session);
+	}
+	@Override
+	public int getWomenCount() {
+		// TODO Auto-generated method stub
+		return dao.getWomenCount(session);
+	}
+	@Override
+	public List<User> statisticsUser() {
+		// TODO Auto-generated method stub
+		return dao.statisticsUser(session);
+	}
+	@Override
+	public List<Group> statisticsGroup() {
+		// TODO Auto-generated method stub
+		return dao.statisticsGroup(session);
+	}
+	@Override
+	public int foodTotalData() {
+		// TODO Auto-generated method stub
+		return dao.foodTotalData(session);
+	}
 
 }

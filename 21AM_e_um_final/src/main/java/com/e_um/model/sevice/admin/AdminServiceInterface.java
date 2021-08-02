@@ -11,9 +11,16 @@ public interface AdminServiceInterface {
 	public int userTotalData();
 	public int blockUser(String userId);
 	public int unblockUser(String userId);
+	public int getMenCount();
+	public int getWomenCount();
+	public List<User> statisticsUser();
+	public List<Group>statisticsGroup();
+	
 	public List<Group> manageGroup(int cPage, int numPerPage);
 	public int groupTotalData();
 	public int blindGroup(String groupSeq);
 	public int unblindGroup(String groupSeq);
+	
 	public List<Food> manageFood(int cPage, int numPerPage);
+	public int foodTotalData();
 }
