@@ -13,8 +13,12 @@ public interface MypageServiceInterface {
 	
 	int changeAddr(User u);
 	
+	int changeEmail(User u);
+	
 	Interest selectInterest(String userId);
 	
 	int changeInterest(Map param);
+	
+	
 
 }

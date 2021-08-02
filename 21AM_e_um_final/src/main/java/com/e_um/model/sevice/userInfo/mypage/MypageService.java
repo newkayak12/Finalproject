@@ -39,6 +39,12 @@ public class MypageService implements MypageServiceInterface {
 	public int changeAddr(User u) {
 		return dao.changeAddr(session, u);
 	}
+	
+	
+	@Override
+	public int changeEmail(User u) {
+		return dao.changeEmail(session, u);
+	}
 
 
 	@Override

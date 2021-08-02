@@ -31,6 +31,12 @@ public class MypageDao implements MypageDaoInterface {
 	public int changeAddr(SqlSessionTemplate session, User u) {
 		return session.update("mypage.changeAddr",u);
 	}
+	
+	
+	@Override
+	public int changeEmail(SqlSessionTemplate session, User u) {
+		return session.update("mypage.changeEmail",u);
+	}
 
 
 	@Override

@@ -15,6 +15,8 @@ public interface MypageDaoInterface {
 	
 	int changeAddr(SqlSessionTemplate session, User u);
 	
+	int changeEmail(SqlSessionTemplate session, User u);
+	
 	Interest selectInterest(SqlSessionTemplate session, String userId);
 	
 	int changeInterest(SqlSessionTemplate session, Map param);
