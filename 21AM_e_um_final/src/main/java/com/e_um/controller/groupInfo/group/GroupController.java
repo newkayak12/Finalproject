@@ -206,6 +206,8 @@ public class GroupController {
 		  List<Board> notice = new ArrayList();
 		  List<Board> best = serviceb.selectBoardListBest(groupSeq);
 		  
+		  log.error("bestbestbest{}",best);
+		  
 		  log.warn("mastmastmastbefore{}",boardlist);
 		  log.error("groupgruop{}",group);
 		  for(Board b : boardlist) {
