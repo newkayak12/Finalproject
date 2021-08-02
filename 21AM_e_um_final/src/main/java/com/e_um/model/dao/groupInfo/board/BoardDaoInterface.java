@@ -27,4 +27,6 @@ public interface BoardDaoInterface {
 
 	LikeBoard checkBoardLike(SqlSessionTemplate session, Map<String, String> param);
 
+	List<Board> selectBoardListBest(SqlSessionTemplate session, String groupSeq);
+
 }

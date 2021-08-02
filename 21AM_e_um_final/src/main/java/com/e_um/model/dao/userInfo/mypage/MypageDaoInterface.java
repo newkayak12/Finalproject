@@ -1,5 +1,7 @@
 package com.e_um.model.dao.userInfo.mypage;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.userInfo.interest.Interest;
@@ -14,5 +16,7 @@ public interface MypageDaoInterface {
 	int changeAddr(SqlSessionTemplate session, User u);
 	
 	Interest selectInterest(SqlSessionTemplate session, String userId);
+	
+	int changeInterest(SqlSessionTemplate session, Map param);
 
 }

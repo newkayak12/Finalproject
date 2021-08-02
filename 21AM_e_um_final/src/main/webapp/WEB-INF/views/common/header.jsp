@@ -23,8 +23,9 @@
 	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
 	crossorigin="anonymous">
 
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath }/resources/js/jquery-ui-1.12.1/jquery-ui.css" 	rel="stylesheet">
+
+<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/js/jquery-ui-1.12.1/jquery-ui.css" 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -81,10 +82,10 @@
 				<ul
 					class="navbar-nav p-0 col-12 d-flex  flex-row justify-content-around">
 					<li class="nav-item col-4 col-sm-4  col-md-3  p-0"><a
-						class="nav-link text-center" href="${path }/friend/main"
+						class="nav-link text-center" href="${pageContext.request.contextPath }/friend/main"
 						style="color: white !important;">친구 찾기</a></li>
 					<li class="nav-item col-3  col-sm-3 col-md-3 p-0"><a
-						class="nav-link text-center" href="${path }/group/groupMain.do"
+						class="nav-link text-center" href="${pageContext.request.contextPath }/group/groupMain.do"
 						style="color: white !important;">소모임</a></li>
 					<li class="nav-item dropdown col-4  col-md-3 p-0"><a
 						class="nav-link dropdown-toggle col-12 text-center whiteText"
@@ -92,9 +93,9 @@
 						style="color: white !important;">플레이스</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item text-center"
-								href="${path }/food/foodMain" style="color: #2AC1BC !important;">맛집</a>
+								href="${pageContext.request.contextPath }/food/foodMain" style="color: #2AC1BC !important;">맛집</a>
 							<a class="dropdown-item text-center"
-								href="${path }/movie/movieInfo"
+								href="${pageContext.request.contextPath }/movie/movieInfo"
 								style="color: #2AC1BC !important;">영화</a>
 						</div></li>
 				</ul>
@@ -150,19 +151,19 @@
 
 			<ul class="hamnav mt-2 mb-2 navbar-nav col-5 p-0">
 				<li class="nav-item"><a class="nav-link text-center"
-					href="${path }/friend/main">친구 찾기</a></li>
+					href="${pageContext.request.contextPath }/friend/main">친구 찾기</a></li>
 				<li class="nav-item"><a class="nav-link text-center"
-					href="${path }/group/groupMain.do">소모임</a></li>
+					href="${pageContext.request.contextPath }/group/groupMain.do">소모임</a></li>
 				<li class="nav-item"><a
 					class="nav-link dropdown-toggle col-12 text-center"
 					onclick="sumbmenucontroller()" href="#">플레이스</a></li>
 			</ul>
 			<div id="submenu" class="mt-1 col-5 p-0">
 				<div class="text-center ">
-					<a class="nav-link" href="${path }/food/foodMain">맛집</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/food/foodMain">맛집</a>
 				</div>
 				<div class="text-center ">
-					<a class="nav-link" href="${path }/movie/movieInfo">영화</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/movie/movieInfo">영화</a>
 				</div>
 			</div>
 
@@ -506,27 +507,27 @@ function kakaoLogout(){
 		$("#menubox").html("")
 		/*  프로필 / 마이페이지 / 로그아웃 / 고객센터*/
 		let mypagelink = $("<div>").append($("<a>").html("마이페이지").attr({
-			"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
+			"href":"${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
 			"class" : "tway blackText"
 		}).css("text-decoration","none"))
-		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
-		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pagecontext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
-		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
+		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
+		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
+		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink).attr({"class":"text-center pt-4","id":"menubox"}))
 		
 		
 		console.log('${userSession.userRole}')
 		if('${userSession.userRole}' =='admin'){
-			$("#menubox").append($("<div>").html($("<a>").html("관리자").attr({"href":"${pagecontext.request.contextPath}/admin/enter", "class" : "tway blackText"}).css("text-decoration","none")))
+			$("#menubox").append($("<div>").html($("<a>").html("관리자").attr({"href":"${pageContext.request.contextPath}/admin/enter", "class" : "tway blackText"}).css("text-decoration","none")))
 		}
 		
 		
 		
-		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr({"href":"${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}","class" : "tway blackText" }).css("text-decoration","none"))
-		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pagecontext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
-		let supportlinkf = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pagecontext.request.contextPath}/#", "class" : "tway blackText"}).css("text-decoration","none"))
-		let logoutlinkf = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pagecontext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
+		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr({"href":"${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}","class" : "tway blackText" }).css("text-decoration","none"))
+		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
+		let supportlinkf = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#", "class" : "tway blackText"}).css("text-decoration","none"))
+		let logoutlinkf = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		$("#footerinnerContainer").html($("<div>").append(mypagelinkf).append(profilelinkf).append(supportlinkf).append(logoutlinkf)).attr("class","text-center pt-4")
 				
 		/* 문제점 2 */
@@ -1407,7 +1408,7 @@ function kakaoLogout(){
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId)
 							break;
 						case "accept_friend_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friendmain")
+							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friend")
 							break;
 						case "feed_alarm":
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId+'?feedSeq='+ref);

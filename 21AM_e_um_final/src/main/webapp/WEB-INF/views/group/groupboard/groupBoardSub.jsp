@@ -90,12 +90,13 @@
       		</c:forEach>
       
       		<tr class="table-warning">
-		        <td></td>
+		        <td><c:out value="${b.groupBoardSeq }"/></td>
 		        <td>베스트게시글</td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		        <td><a href="javascript:moveFn('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
+		        <td><c:out value="${b.groupBoardUser.userId}"/></td>
+		        <td><c:out value="${b.groupBoardDate }"/></td>
       		</tr>
+      		
       		<c:forEach var="b" items="${boardlist }">
      		<tr class="table-light">
 		        <td><c:out value="${b.groupBoardSeq }"/></td>
