@@ -49,23 +49,14 @@
     font-family: 'Noto Sans KR';
     font-weight: bold;
 }
-
-
-
 *{
 	/* border:	1px black solid; */
 }
-
- 
-
-
-
 </style>
 	
 <script>
 	
 	
-
 	function loginAjax(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/login/start",
@@ -86,7 +77,7 @@
 	}
 	function findmyidajaxstart(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/user/findmyid/start",
+			url:"${pageContext.request.contextPath}/21AM_e_um_final/user/findmyid/start",
 			success:data=>{
 				$("#minimodalRoot").html(data)
 			}
@@ -313,44 +304,33 @@
 	$(function(){
 		board()
 		
-
 		
 		
-		 $('section').scroll(function(){
-			 let scroll  = $(this).scrollTop();
+		 $(window).scroll(function(){
+			 let scroll  = $(this).scrollTop() +620;
 			console.log(scroll)
 			
 			if(scroll> parseInt($("#sc00").offset().top)){
 				$("#scCont00").addClass("showsc")
-				console.log("sc00시작")
-				console.log("**"+$("#sc00").offset().top)
 			} else {
 				$("#scCont00").removeClass("showsc")
 			}
 			if(scroll> parseInt($("#sc01").offset().top)){
-				console.log("sc01시작")
-				$("#sc01").offset().top
 				$("#scCont01").addClass("showsc")
 			} else {
 				$("#scCont01").removeClass("showsc")
 			}
-			if(parseInt($("#sc02").offset().top)==0){
-				console.log("sc02시작")
-				$("#sc02").offset().top
+			if(scroll> parseInt($("#sc02").offset().top)){
 				$("#scCont02").addClass("showsc")
 			} else {
 				$("#scCont02").removeClass("showsc")
 			}
 			if(scroll> parseInt($("#sc03").offset().top)){
-				console.log("sc03시작")
-				$("#sc03").offset().top
 				$("#scCont03").addClass("showsc")
 			} else {
 				$("#scCont03").removeClass("showsc")
 			}
 			if(scroll> parseInt($("#sc04").offset().top)){
-				console.log("sc04시작")
-				$("#sc04").offset().top
 				$("#scCont04").addClass("showsc")
 			} else {
 				$("#scCont04").removeClass("showsc")
@@ -363,46 +343,15 @@
 		
 		
 		
-
 	})
 	
 	
 	
 	
 	
-
 	
 	
 </script>
-<style>
-*{
-	border : 1px black solid;
-}
-	#container {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  /* ADD THIS TO THE PARENT */  
-  scroll-snap-type: y mandatory;
-}
-.item {
-  /* ADD THIS TO THE CHILD */
-  scroll-snap-align: center;
-  display: inline-block;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  content:'';
-  height:780px;
-}
-
-.hl{
-	height:634px;
-	margin-top:50px;
-
-}
-</style>
-
 
 </head >
 <body >
@@ -419,98 +368,114 @@
 				</span>
 			</div>
 		</header>
-			<section id="container">
-				<div class="item">
-					<div class="typo text-center d-flex justify-content-center align-items-center">
-					</div>
-				</div>
-				<div class="item" id="sc00">
-					<div class="p-3 m-5 scitems hl d-flex align-items-center" id="scCont00" >
-									
-						<div class="d-flex align-items-center typoscreen" style="height:200px">
-							새로운 친구를 찾는 방법
-						</div>
-						<img src="${pageContext.request.contextPath }/resources/images/index/main1.png" width="300px" height="600px">
-
-					</div>
-				</div>
-				<div class="item" id="sc01">
-					<div class="p-3 m-5 scitems hl" id="scCont01">
-								
-						<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="300px" height="600px">
-						<div class="d-flex align-items-center typoscreen">
-							친구와 함께 보낸 하루를
-							<br>&nbsp;&nbsp; 돌아볼 수 있는 방법
-						</div>
-					</div>
-				</div>
-				<div class="item" id="sc02">
-					<div class="p-3 m-5 scitems hl" id="scCont02" style="flex-direction: column !important; align-content: middle">
-						<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="600px" height="300px">	
-						<br>
-							<div class="d-flex  align-items-center typoscreen">
-								친해진 친구와 함께,<br>
-								&nbsp;&nbsp;시간을 공유할 수 있는 방법
-							</div>
-							
-							
-
-						</div>
-				</div>
-				<div class="item" id="sc03">
-					<div class="p-3 m-5 scitems hl" id="scCont03">
-						<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="300px" height="600px">
-						<div class="d-flex align-items-center typoscreen">
-							좋아하는 음식을 
-								<br>&nbsp;함께 먹을 수 있는 방법
-						</div>
-					</div>
-				</div>
-				<div class="item" id="sc04">
-					<div class="p-3 m-5 scitems hl" id="scCont04" >
-						<div class="d-flex align-items-center typoscreen">
-							새로운 친구와 
-							<br>함께할 수 있는 방법
-						</div>
-						<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="300px" height="600px">
-
-					</div>
-				</div>
-				<div class="item" style="display:block;">
-					<div class="screen00 p-3 d-flex flex-column justify-content-center align-items-center"  id="sc05" style="background-size: cover ; background-image: url('${pageContext.request.contextPath }/resources/images/index/main6.png'); width:100%; height:600px;">
-						
-						<div>
-							<h1 class="text-center tway" style="color:white; font-size:96px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">E_um</h1>
-							<h5 class="text-center tway" style="color:white; font-size:32px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"  > 친구를 만나는 가장 쉬운 방법</h5>
-						</div>
-						<div class="mt-2">
-							<a><img src="${pageContext.request.contextPath }/resources/images/index/google.png" width="200px"></a>
-							<a><img src="${pageContext.request.contextPath }/resources/images/index/apple.png" width="200px"></a>
-						</div>
-						
-					</div>
-						<footer class=" fluid-container footer-basic p-1 " style="bottom:0px; ">
-						<ul class="list-inline m-1">
-							<li class="list-inline-item "><a href="#">Home</a></li>
-							<li class="list-inline-item "><a href="#">Services</a></li>
-							<li class="list-inline-item "><a href="#">About</a></li>
-							<li class="list-inline-item "><a href="#">Terms</a></li>
-							<li class="list-inline-item "><a href="#">Privacy Policy</a></li>
-						</ul> 
-						<p class="copyright m-1">
-							(주)이음 | 주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 |이메일 : eum@eum.com <br>
-							
-						</p>
-						<p class="copyright m-1">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
-						<p class="copyright m-1">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
-					</footer> 
+	
+	
+		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-5 p-0 pt-2 col-12 img-holder" style="height: 5600px; container:''; background-color: #EAEAEA;">
+			
+			<div class="typo text-center d-flex justify-content-center align-items-center">
+			</div>
+			
+			
+			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc00" style="display:none;">
+				<div class="p-3 m-5 scitems" id="scCont00">
 					
+					<div class="d-flex align-items-center typoscreen">
+						새로운 친구를 찾는 방법
+					</div>
+					<img src="${pageContext.request.contextPath }/resources/images/index/main1.png" width="300px" height="600px">
+
 				</div>
 				
-			<section>
-	
-		
- 		
+				
+			</div>
+			
+			
+				
+			</div>
+			
+			<div class="screen00 p-3 d-flex justify-content-start align-items-center" id="sc01" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont01">
+				
+					<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="300px" height="600px">
+					<div class="d-flex align-items-center typoscreen">
+						친구와 함께 보낸 하루를
+						<br>&nbsp;&nbsp; 돌아볼 수 있는 방법
+					</div>
+				</div>
+			</div>
+
+			<div class="screen00 p-3 d-flex  justify-content-end align-items-center" id="sc02" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont02" style="flex-direction: column !important; align-content: middle">
+				<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="600px" height="300px">	
+				<br>
+					<div class="d-flex  align-items-center typoscreen">
+						친해진 친구와 함께,<br>
+						 &nbsp;&nbsp;시간을 공유할 수 있는 방법
+					</div>
+					
+					
+
+				</div>
+			</div>
+
+			<div class="screen00 p-3 d-flex justify-content-start align-items-center"  id="sc03" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont03">
+					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="300px" height="600px">
+					<div class="d-flex align-items-center typoscreen">
+						좋아하는 음식을 
+							<br>&nbsp;함께 먹을 수 있는 방법
+					</div>
+				</div>
+			</div>
+			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc04" style="display:none;">
+				
+				<div class="p-3 m-5 scitems" id="scCont04">
+					<div class="d-flex align-items-center typoscreen">
+						새로운 친구와 
+						<br>함께할 수 있는 방법
+					</div>
+					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="300px" height="600px">
+
+				</div>
+			</div>
+			
+			<!-- #2AC1BC -->
+			<div class="screen00 p-3 d-flex flex-column justify-content-center align-items-center"  id="sc05" style="background-size: cover ; background-image: url('${pageContext.request.contextPath }/resources/images/index/main6.png');">
+				<%-- <img src="${pageContext.request.contextPath }/resources/images/index/main6.png" width="300px" height="600px"> --%>
+				<div>
+					<h1 class="text-center tway" style="color:white; font-size:96px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">E_um</h1>
+					<h5 class="text-center tway" style="color:white; font-size:32px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"  > 친구를 만나는 가장 쉬운 방법</h5>
+				</div>
+				<div class="mt-2">
+					<a><img src="${pageContext.request.contextPath }/resources/images/index/google.png" width="200px"></a>
+					<a><img src="${pageContext.request.contextPath }/resources/images/index/apple.png" width="200px"></a>
+				</div>
+				
+			</div>
+			
+			
+ 
+
+			
+		</section> 
+ 		<footer class=" fluid-container footer-basic p-1 position-relative">
+	        <ul class="list-inline m-1">
+	            <li class="list-inline-item "><a href="#">Home</a></li>
+	            <li class="list-inline-item "><a href="#">Services</a></li>
+	            <li class="list-inline-item "><a href="#">About</a></li>
+	            <li class="list-inline-item "><a href="#">Terms</a></li>
+	            <li class="list-inline-item "><a href="#">Privacy Policy</a></li>
+	        </ul> 
+	        <p class="copyright m-1">
+	            (주)이음 | 주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 |이메일 : eum@eum.com <br>
+	            
+	        </p>
+	        <p class="copyright m-1">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
+	        <p class="copyright m-1">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
+	    </footer> 
 	   
 
 
@@ -572,5 +537,3 @@
 </div> <!-- root end -->
 </body>
 </html>
-   
-  
