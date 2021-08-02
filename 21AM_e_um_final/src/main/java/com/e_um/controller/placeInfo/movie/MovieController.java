@@ -270,7 +270,7 @@ public class MovieController {
 	  @RequestMapping("/movie/payEnd")
 	  @ResponseBody
 	  public Map payEnd(@RequestParam Map param,HttpServletRequest hsr,Model model) {
-		  
+		  MovieTicketing mt = new MovieTicketing();
 		  User user = (User)hsr.getSession().getAttribute("userSession");
 		  String userId=user.getUserId();
 		  String movieSeq = (String)param.get("movieSeq");
@@ -278,7 +278,7 @@ public class MovieController {
 		  String movieBox = (String)param.get("movieBox");
 		  String movieDate = (String)param.get("movieDate");
 		  String movieTime = (String)param.get("movieTime");
-		  String moviePrice = (String)param.get("moviePrice");
+		  int moviePrice = Integer.parseInt((String)param.get("moviePrice"));
 		  String movieTitle = (String)param.get("movieTitle");
 		  String movieSeats = (String)param.get("movieSeats");
 		  System.out.println(param);
@@ -307,8 +307,8 @@ public class MovieController {
 		  System.out.println(param);
 		 int result = service.payEnd(param); 
 		 
-			/* param.put("movieReserveNum", MovieTicketing.); */
 		 
+		
 		 model.addAttribute("param",param);
 		  
 		

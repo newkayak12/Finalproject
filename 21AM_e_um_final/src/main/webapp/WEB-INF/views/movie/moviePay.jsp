@@ -18,7 +18,7 @@
 	
 	 <script>
 		 $(function () {
-			  $.ajax({
+			   $.ajax({
 		        	url:"${path}/movie/payEnd",
 		        	data:{
 		        		"movieSeq":$("#movieSeq").val(),
@@ -32,10 +32,26 @@
 		        	},
 		        	success:data=>{
 		        		console.log(data);
+		        		let result = "";
+		        		for(var i=1; i<5;i++){
+		        			console.log(data["movieSeat"+i]);
+		        			if((data["movieSeat"+i]) !== null){
+				  				result += (data["movieSeat"+i])+" ";
+			  				}
+		        		}
 		        		
+		        		$("#movieTitle1").html("영화제목 : "+data['movieTitle'])
+		        		$("#movieReserveNum1").html("예매번호 : "+data['movieReservNum'])
+		        		$("#movieLocation1").html("지역 :"+data['movieLocation'])
+		        		$("#movieBox1").html("영화관 :"+data["movieBox"])
+		        		$("#userId1").html("아이디 :"+data["userId"])
+		        		$("#movieSeat1").html("좌석 :"+result)
+		        		$("#movieTime1").html("시간 :"+data["movieTime"])
+		        		$("#movieDate1").html("날짜 :" + data["movieDate"])
+		        		$("#content").css("display","block");
 		        	}
 		        })
-		        /* var IMP = window.IMP; // 생략가능
+		       /*  var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
 			    IMP.request_pay({
@@ -43,7 +59,7 @@
 				    pay_method: 'card',
 				    merchant_uid: 'merchant_' + new Date().getTime(),
 				    name: $("#movieTitle").val(),
-				    amount: 100,
+				    amount: $("#moviePrice").val(),
 				   
 			   
 			    }, function (rsp) {
@@ -56,6 +72,7 @@
 				        $.ajax({
 				        	url:"${path}/movie/payEnd",
 				        	data:{
+				        		
 				        		"movieSeq":$("#movieSeq").val(),
 				        		"movieLocation":$("#movieLocation").val(),
 				        		"movieBox":$("#movieBox").val(),
@@ -66,7 +83,25 @@
 				        		"movieTitle":$("#movieTitle").val()
 				        	},
 				        	success:data=>{
+				        		
 				        		console.log(data);
+				        		let result = "";
+				        		for(var i=1; i<5;i++){
+				        			console.log(data["movieSeat"+i]);
+				        			if((data["movieSeat"+i]) !== null){
+						  				result += (data["movieSeat"+i])+" ";
+					  				}
+				        		}
+				        		
+				        		$("#movieTitle1").html("영화제목 : "+data['movieTitle'])
+				        		$("#movieReserveNum1").html("예매번호 : "+data['movieReservNum'])
+				        		$("#movieLocation1").html("지역 :"+data['movieLocation'])
+				        		$("#movieBox1").html("영화관 :"+data["movieBox"])
+				        		$("#userId1").html("아이디 :"+data["userId"])
+				        		$("#movieSeat1").html("좌석 :"+result)
+				        		$("#movieTime1").html("시간 :"+data["movieTime"])
+				        		$("#movieDate1").html("날짜 :" + data["movieDate"])
+				        		$("#content").css("display","block");
 				        	}
 				        })
 				    } else {
@@ -80,18 +115,21 @@
 		 	
 	</script>
 	
-	<section class="mt-5 pt-5">
+	<section class="mt-5 pt-5" >
 		<div id="root" class="container mt-5">
-			<div class="col-12" style="border: 1px solid black;">
-				    <div style="width: 400px; height: 400px; border: 1px solid black; text-align: center;">
-			        <div><h2 id="movieTitle">영화제목:</h2></div>
-			        <div><h3 id="movie">예매번호:</h3></div>
-			        <div><h4>영화지역 :</h4></div>
-			        <div><h4>영화관:</h4></div>       
-			        <div><p>예매아이디:</p></div>
-			        <div><p>좌석:</p></div>
-			        <div><p>시간 : </p></div>
-			        <button>영화메인</button><button>홈으로</button>
+			<div id="content" class="col-12 d-flex justify-content-around" style="border: 1px solid black; display: none;">
+				    <div style="width: 400px; height: 400px; border: 1px solid black;">
+			        <div><h2 id="movieTitle1">영화관 :</h2></div>
+			        <div><h3 id="movieReserveNum1">예매번호 : </h3></div>
+			        <div><h4 id="movieLocation1">지역 :</h4></div>
+			        <div><h4 id="movieBox1">영화관 :</h4></div>       
+			        <div><h5 id="userId1">아이디 :</h5></div>
+			        <div><h5 id="movieSeat1">좌석 :</h5></div>
+			        <div><h5 id="movieTime1">시간 :</h5></div>
+			        <div><h5 id="movieDate1">날짜 :</h5></div>
+			        <div style="margin: 0 auto;">
+			        	<button>영화메인</button><button>홈으로</button>
+			    	</div>
 			    </div>
 			</div>
 		</div>
