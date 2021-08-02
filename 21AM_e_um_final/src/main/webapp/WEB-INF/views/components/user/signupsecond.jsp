@@ -38,12 +38,12 @@
                             <div class="col-12 p-3 overflow-auto">
                                 
                                 <div>
-                                    <p>관심사</p>
+                                    <p class="pointFont">관심사</p>
                                     <div id="interestboard" class="col-12 p-2 d-flex flex-wrap">
 
                                     </div>
 
-                                    <p onclick="fn_athletic()" class="pl-2">운동</p>
+                                    <p onclick="fn_athletic()" class="pl-2 pointFont">운동</p>
                                     <div id="athletic" class="p-1 " style="display: none;">
                                         <div class="d-flex justify-content-around">
                                             <span class="col-3 m-2 text-center" onclick="addInterest(event)">축구</span>
@@ -61,7 +61,7 @@
                                             <span class="col-3 m-2 text-center" onclick="addInterest(event)">요가</span>
                                         </div>
                                     </div>
-                                    <p onclick="fn_mbti()" class="pl-2">MBTI</p>
+                                    <p onclick="fn_mbti()" class="pl-2 pointFont">MBTI</p>
                                     <div id="mbti" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
                                             <span class="col-3 m-2 text-center" onclick="addInterest(event)">ISTJ</span>
@@ -92,7 +92,7 @@
                                             <span class="col-3 m-2 text-center" onclick="addInterest(event)">ENTJ</span>
                                         </div>
                                     </div>
-                                    <p onclick="fn_hobby1()" class="pl-2">hobby1</p>
+                                    <p onclick="fn_hobby1()" class="pl-2 pointFont">hobby1</p>
                                     <div id="hobby1" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
                                             <span class="col-4 m-2 text-center" onclick="addInterest(event)">근교드라이브</span>
@@ -112,7 +112,7 @@
 
                                         
                                     </div>
-                                    <p onclick="fn_hobby2()" class="pl-2">hobby2</p>
+                                    <p onclick="fn_hobby2()" class="pl-2 pointFont">hobby2</p>
                                     <div id="hobby2" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
                                             <span class="col-3 m-2 text-center" onclick="addInterest(event)">강아지</span>
@@ -131,7 +131,7 @@
                                         </div>
                                         
                                     </div>
-                                    <p onclick="fn_hobby3()" class="pl-2">hobby3</p>
+                                    <p onclick="fn_hobby3()" class="pl-2 pointFont">hobby3</p>
                                     <div id="hobby3" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
                                             <span class="col-4 m-2 text-center" onclick="addInterest(event)">솔직한 대화</span>
@@ -163,8 +163,8 @@
                     </div>
             
                     <div class="d-flex justify-content-center col-8 pr-4 pl-4">
-                        <input type="button" value="이전으로" class="col-3 m-2 mr-4 eumbtn-1" onclick="signupfirst()" >
-                        <input type="button" value="다음으로" class="col-3 m-2 ml-4 eumbtn-2" onclick="signupthird()">
+                        <input type="button" value="이전으로" style="background-color: white!important;" class="col-3 m-2 mr-4 cancelBtn" onclick="signupfirst()" >
+                        <input type="button" value="다음으로" class="col-3 m-2 ml-4 checkBtn" onclick="signupthird()">
                     </div>
             
                     
