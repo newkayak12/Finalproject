@@ -3,7 +3,87 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="d-flex flex-column justify-content-between align-itmes-center">
-	<div style="height: 550px">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	$(function(){
+		chart()
+		
+	})
+	
+     function chart(){
+    	 google.charts.load('current', {'packages':['corechart']});
+         google.charts.setOnLoadCallback(drawChart1);
+         google.charts.setOnLoadCallback(drawChart2);
+
+         function drawChart1() {
+
+           var data = google.visualization.arrayToDataTable([
+             ['성별', '사이트 내 성별 분포'],
+             ['남',     ${men}],
+             ['여',      ${women}]
+           ]);
+
+           var options = {
+             title: '사이트 내 성별 분포',
+	          is3D: true,
+           };
+
+           var chart = new google.visualization.PieChart(document.getElementById('genderRatio'));
+
+           chart.draw(data, options);
+         }
+         
+         
+         function drawChart2() {
+ 	        var data = google.visualization.arrayToDataTable([
+ 	          ['지역', '지역별 분포도'],
+ 	          ['서울',    parseInt(${seoul})],
+ 	          ['부산',	 parseInt(${pusan})],
+ 	          ['대구',   parseInt( ${daegu})],
+ 	          ['인천', 	 parseInt(${incheon})],
+ 	          ['광주',    parseInt(${gwangju})],
+ 	          ['대전',    parseInt(${daejeon})],
+ 	          ['울산',   parseInt( ${ulsan})],
+ 	          ['경기',    parseInt(${gyeongi})],
+ 	          ['강원',   parseInt( ${gangwon})],
+ 	          ['충북',   parseInt( ${chungbuk})],
+ 	          ['충남',   parseInt( ${chungnam})],
+ 	          ['전북',   parseInt( ${jeonbuk})],
+ 	          ['전남',   parseInt( ${jeonnam})],
+ 	          ['경북',   parseInt( ${gyeongbuk})],
+ 	          ['경남',    parseInt(${gyeongnam})],
+ 	          ['제주',   parseInt( ${jeju})]
+ 	        ]);
+
+ 	        var options = {
+ 	          title: '지역별 분포도',
+ 	          is3D: true,
+ 	        };
+
+ 	        var chart = new google.visualization.PieChart(document.getElementById('locationRatio'));
+ 	        chart.draw(data, options);
+ 	      }
+     }
+	
+	
+	
+	
+	
+    </script>
+
+
+
+	<div style="height: 650px" class="mt-3 d-flex flex-column justify-content-around align-items-center">
+	
+		<div class="m-3 d-flex justify-content-around mt-5">
+			<span id="genderRatio">
+			
+			</span>
+			<span id="locationRatio">
+			
+			</span>
+		</div> 
+	
 		<table class="table table-striped table-hover tway">
 			<tr>
 				<th class="bgColorMainColorSub whiteText">
@@ -69,10 +149,10 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<div>${pageBar }</div>
 	</div>
 
-	<div>${pageBar }</div>
-</div>
+
 
 <script>
 

@@ -3,7 +3,63 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="d-flex flex-column justify-content-between align-itmes-center">
-	<div style="height: 550px">
+	<div style="height: 650px" class="d-flex flex-column justify-content-around align-items-center">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      /* google.charts.load('current', {'packages':['corechart']}); */
+      
+			$(function(){
+				
+				 chart() 
+			})      
+      
+      
+	     function chart(){
+    	  let data = '${price_star}';
+    	  let content = JSON.parse(data)
+    	  console.log(content)
+	    	  
+	     /* 
+	      google.charts.setOnLoadCallback(drawChart1);
+		
+		      function drawChart1() {
+		        var data = google.visualization.arrayToDataTable([
+		          ['Age', 'Weight'],
+		          [ 8,      12],
+		          [ 4,      5.5],
+		          [ 11,     14],
+		          [ 4,      5],
+		          [ 3,      3.5],
+		          [ 6.5,    7]
+		        ]);
+		
+		        var options = {
+		          title: 'Age vs. Weight comparison',
+		          hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+		          vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+		          legend: 'none'
+		        };
+	
+	        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+	
+	        chart.draw(data, options);
+	      }
+		      */
+      } 
+    </script>
+	
+		<div>
+			<span>
+			</span>
+			<span>
+			</span>
+			<span>
+			</span>
+			<span>
+			</span>
+		
+		</div>
+	
 		<table class="table table-striped table-hover tway">
 			<tr>
 				<th class="bgColorMainColorSub whiteText">
@@ -33,34 +89,33 @@
 			</tr>
 			<c:forEach items="${list }" var="i">
 				<tr>
-					<td>${i.groupTitle }</td>
-					<td>${i.groupTheme }</td>
-					<td>${i.groupMaster }</td>
-					<td>${i.groupLimit }</td>
-					<td>${i.groupGender }</td>
-					
-					<td><fmt:formatDate value="${i.groupDate }" pattern="yy-mm-dd" /></td>
-					
+					<td>${i.foodCategoryMain }</td>
+					<td>${i.foodCategorySub }</td>
+					<td>${i.foodName }</td>
+					<td>${i.foodAddr }</td>
+					<td>${i.foodStar }</td>
+					<td>${i.foodStar }</td>
 					
 					
-					<td id="block${i.groupSeq }">
-					<input type="hidden" id="B${i.groupSeq}" value="${i.groupDestroyFlag }">
+					
+					<td id="block${i.foodSeq }">
+					<input type="hidden" id="B${i.foodSeq}" value="${i.foodStatus }">
 						<c:choose>
-							<c:when test="${i.groupDestroyFlag=='exist' }">
-								활성화
+							<c:when test="${i.foodStatus=='unblock' }">
+								게시
 							</c:when>
 							<c:otherwise>
-								폐쇄
+								내림
 							</c:otherwise>
 						</c:choose>
 					</td>
 					<td class="text-center" >
 					<c:choose>
-							<c:when test="${i.groupDestroyFlag=='exist' }">
-								<input type="button" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="폐쇄">
+							<c:when test="${i.foodStatus=='unblock' }">
+								<input type="button" onclick="blockThisId('${i.foodSeq}')" id="btn${i.foodSeq}" value="폐쇄">
 							</c:when>
 							<c:otherwise>
-								<input type="button" onclick="blockThisId('${i.groupSeq}')" id="btn${i.groupSeq}" value="활성화">
+								<input type="button" onclick="blockThisId('${i.foodSeq}')" id="btn${i.foodSeq}" value="활성화">
 							</c:otherwise>
 						</c:choose>
 						
@@ -78,15 +133,15 @@
 
 	function blockThisId(seq){
 		
-		if($("#B"+userId).val()=='unblock'){
+		if($("#B"+seq).val()=='unblock'){
 			
 			$.ajax({
-				url:"${pageContext.request.contextPath}/admin/blockuser",
-				data:{"groupSeq":seq},
+				url:"${pageContext.request.contextPath}/admin/blockfood",
+				data:{"foodSeq":seq},
 				success:data=>{
 					if(data>0){
-						$("#block"+seq).html("계정 정지")
-						$("#btn"+seq).val("활성화")
+						$("#block"+seq).html("정지")
+						$("#btn"+seq).val("게시")
 					}	
 				}
 			})
@@ -94,12 +149,12 @@
 			
 		} else {
 			$.ajax({
-				url:"${pageContext.request.contextPath}/admin/unblockuser",
-				data:{"groupSeq":seq},
+				url:"${pageContext.request.contextPath}/admin/unblockfood",
+				data:{"foodSeq":seq},
 				success:data=>{
 					if(data>0){
-						$("#block"+seq).html("계정 활성화")
-						$("#btn"+seq).val("계정 정지")
+						$("#block"+seq).html("게시")
+						$("#btn"+seq).val("정지")
 					}
 				}
 				

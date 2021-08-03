@@ -1,6 +1,7 @@
 package com.e_um.model.vo.placeinfo.food.food;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -28,10 +29,18 @@ public class Food {
 	private int  foodPrice;
 	private String foodTimeFirst, foodTimeLast;
 	private int foodHead;
-	
-	private List<FoodMenu> menus = new ArrayList();
-	
 	private String foodUrl;
 	private int foodLikeCount;
+	
+	// 추가된 컬럼
+	private Date foodInsertDate;
+	private int foodViewCount;
+	private String foodStatus;
+	
+	// hasa관계로 설정 
+	private List<FoodMenu> menus = new ArrayList();
+	
+	
+	
 
 }

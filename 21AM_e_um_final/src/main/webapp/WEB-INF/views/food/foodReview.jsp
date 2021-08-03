@@ -79,6 +79,10 @@
 	// 파일 업로드 미리보기 
 	$(".foodReviewFileUpload").change( (e) => {
 		
+		// 추가된 부분 
+		// 새로 업로드를 시작했다면 방금 업로드한 파일들은 사라지므로 미리보기에서 삭제해야함 
+		$(".prevLi").css("display", "none");
+		
 		// 업로드한 파일들 확인
 		// console.log($(e.target).get(0).files);
 				
