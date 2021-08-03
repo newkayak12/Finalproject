@@ -107,7 +107,7 @@
 			success:data=>{
 				$("#myPageModal .modal-title").html(modalTitle);
 				$("#myPageModal .modal-body").html(data);
-				$("#myPageModal .modal-body ul#infoTab a").each((i,data)=>{
+				$("#myPageModal .modal-body ul a").each((i,data)=>{
 					if(data.innerText==tab) {
 						$(data).trigger("click");
 					}
