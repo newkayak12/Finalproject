@@ -17,6 +17,8 @@ import com.e_um.model.vo.placeinfo.movie.seat.Seat;
 public interface MovieDaoInterface {
 	List<Movie> movieList(SqlSessionTemplate session);
 	
+	List<Movie> movieList2(SqlSessionTemplate session);
+	
 	Movie moviePoster(String movieSeq, SqlSessionTemplate session);
 	
 	Movie movieVideo(SqlSessionTemplate session);

@@ -186,7 +186,12 @@
         }
 
         selectSeatList(selectSeatListNormal);
-		
+		/* function selectedSeat(){
+			$.ajax({
+				url : "${path}/movie/reserveMovie",
+				data : {}
+			})
+		} */
         function seatMaker(){
 			let seats = [];
 			$.ajax({
@@ -224,9 +229,11 @@
 			            //좌석이 2나 9로 끝나는얘들은 왼쪽이나 오른쪽으로 띄워주기위한 class추가
 			            if (data.value.substring(1, data.value.length) === '3') {
 			                data.classList.add('left-margin');
-			            } else if (data.value.substring(1, data.value.length) === '6') {
+			            } else if (data.value.substring(1, data.value.length) === '5') {
 			                data.classList.add('right-margin');
-			            }
+			            } else if (data.value.substring(1, data.value.length) === '8') {
+			                data.classList.add('right-margin');
+			            } 
 			            //앞자리가 E로끝나는 좌석들에 class 추가
 			            if (
 			                data.value.substring(0, data.value.length - 1) === 'E' ||
@@ -234,6 +241,12 @@
 			            ) {
 			                data.classList.add('top-margin');
 			            }
+			            if (
+				             data.value.substring(0, data.value.length - 1) === 'I' ||
+				             data.value.substring(0, data.value.length - 2) === 'I'
+				        ) {
+				             data.classList.add('top-margin');
+				        }
 			        });
 				}
 			})

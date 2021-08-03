@@ -14,7 +14,9 @@ import com.e_um.model.vo.placeinfo.movie.seat.Seat;
 
 public interface MovieServiceInterface {
 	List<Movie> movieList();
-
+	
+	List<Movie> movieList2();
+	
 	Movie moviePoster(String movieSeq);
 
 	Movie movieVideo();
