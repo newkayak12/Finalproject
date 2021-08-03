@@ -4,6 +4,7 @@ import static com.e_um.common.pagebar.PageBar.getPageBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.e_um.model.sevice.admin.AdminServiceInterface;
-import com.e_um.model.sevice.placeInfo.food.FoodService;
 import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.user.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -340,6 +341,16 @@ public class AdminController {
 	@RequestMapping("/admin/managemovie")
 	public String manageMovie(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		return "components/admin/managemovie";
+	}
+	
+	@RequestMapping("/admin/managefeed")
+	public String manageFeed(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("pageBar",getPageBar(service.feedTotalData(), Integer.parseInt(cPage), numPerPage, "manageReport"));
+		List<ReportFeed> list = service.manageFeed(Integer.parseInt(cPage), numPerPage);
+		log.error("listlsitlsitsltistslislit{}",list);
+		model.addAttribute("list",list);
+		return "components/admin/adminfeed";
 	}
 	
 }

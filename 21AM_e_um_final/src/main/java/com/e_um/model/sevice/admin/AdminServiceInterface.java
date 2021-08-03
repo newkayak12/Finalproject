@@ -1,9 +1,11 @@
 package com.e_um.model.sevice.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.user.User;
 
 public interface AdminServiceInterface {
@@ -27,4 +29,7 @@ public interface AdminServiceInterface {
 	public int unblockFood(String foodSeq);
 	public List<Food> statisticsFood();
 	public int likeMaxiumCount ();
+	
+	public List<ReportFeed> manageFeed(int cPage, int numPerPage);
+	public int feedTotalData();
 }

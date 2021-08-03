@@ -1,6 +1,7 @@
 package com.e_um.model.sevice.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.e_um.model.dao.admin.AdminDaoInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Service
@@ -127,6 +129,16 @@ public class AdminService implements AdminServiceInterface {
 	public int likeMaxiumCount() {
 		// TODO Auto-generated method stub
 		return dao.likeMaxiumCount(session);
+	}
+	@Override
+	public List<ReportFeed> manageFeed(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.manageFeed(cPage, numPerPage, session);
+	}
+	@Override
+	public int feedTotalData() {
+		// TODO Auto-generated method stub
+		return dao.feedTotalData(session);
 	}
 
 }

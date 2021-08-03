@@ -45,7 +45,7 @@
 			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px">고객센터관리</span>
 			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick="reportsub()">신고관리</span>
 			<span id="reportsub" class="text-center cursor " style="display:none;">
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 피드 </div>
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageReport()"> 피드 </div>
 				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 피드 댓글 </div>			
 				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 리뷰</div>			
 				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 맛집 리뷰 </div>
@@ -154,13 +154,13 @@
 	
 	
 	/* 피드 */
-	function manageReport(){
+	function manageReport(cPage){
 		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/managereport',
+			url:'${pageContext.request.contextPath}/admin/managefeed',
 			data:{"cPage":cPage},
 			success:list=>{
 				$("#prev").css("visibility","visible")
-				$("#title").html("회원 관리")
+				$("#title").html("피드 관리")
 				$("#root").html(list)
 			}
 		})
