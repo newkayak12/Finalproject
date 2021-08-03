@@ -15,6 +15,7 @@ import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
 import com.e_um.model.vo.placeinfo.movie.seat.Seat;
+import com.e_um.model.vo.userInfo.report.Report;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -92,6 +93,18 @@ public class MovieDao implements MovieDaoInterface {
 		// TODO Auto-generated method stub
 		return session.selectList("movie.movieReviewList",param);
 	}
+	
+	@Override
+	public int maleCount(SqlSessionTemplate session, String movieSeq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.maleCount",movieSeq);
+	}
+
+	@Override
+	public int femaleCount(SqlSessionTemplate session, String movieSeq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.femaleCount",movieSeq);
+	}
 
 	@Override
 	public int movieReviewCount2(SqlSessionTemplate session, Map param) {
@@ -139,6 +152,24 @@ public class MovieDao implements MovieDaoInterface {
 	public MovieTicketing movieTicket(SqlSessionTemplate session, Map param) {
 		// TODO Auto-generated method stub
 		return session.selectOne("movie.movieTicket",param);
+	}
+
+	@Override
+	public MovieReview movieReviewOne(SqlSessionTemplate session, String movieReviewSeq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.movieReviewOne",movieReviewSeq);
+	}
+
+	@Override
+	public int insertReport(SqlSessionTemplate session, Report report) {
+		// TODO Auto-generated method stub
+		return session.insert("report.insertReport", report);
+	}
+
+	@Override
+	public int reportCountUpdate(SqlSessionTemplate session, Report report) {
+		// TODO Auto-generated method stub
+		return session.update("report.reportCountUpdate",report);
 	}
 	
 	

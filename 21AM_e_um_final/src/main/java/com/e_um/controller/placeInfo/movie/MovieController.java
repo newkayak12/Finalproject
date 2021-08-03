@@ -22,7 +22,7 @@ import com.e_um.model.vo.placeinfo.movie.review.MovieReview;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
-import com.e_um.model.vo.placeinfo.movie.seat.Seat;
+import com.e_um.model.vo.userInfo.report.Report;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -100,10 +100,84 @@ public class MovieController {
 	//영화상세페이지 리뷰 가져오기
 	@RequestMapping("/movie/movieReview")
 	@ResponseBody
-	public List<MovieReview> movieReview(@RequestParam(value="movieSeq")String movieSeq) {
+	public List<MovieReview> movieReview(
+			@RequestParam(value="movieSeq")String movieSeq) {
 		List<MovieReview> list = service.movieReview(movieSeq);
 		
 		return list;
+	}
+	
+	@RequestMapping("/movie/genderRate")
+	@ResponseBody
+	public String genderRate(String movieSeq) {
+		System.out.println(movieSeq);
+		int male = service.maleCount(movieSeq);
+		/*
+		 * int male = service.maleCount(movieSeq); int female =
+		 * service.femaleCount(movieSeq);
+		 */
+		System.out.println(male);
+		/* System.out.println(female); */
+		return "";
+	}
+	
+	@RequestMapping("/movie/pageBar")
+	@ResponseBody
+	public Map movieReview(
+			@RequestParam(value="movieSeq")String movieSeq ,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage
+			)
+	{	
+		Map param = new HashMap();
+		String url = "${path}/movie/movieDetail";
+		int totalData = service.movieReviewCount(movieSeq);
+		String pageBar="";
+		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+		int pageBarSize=5;
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		pageBar+="<ul class='pagination justify-content-center pagination-sm'>";
+		
+		if(pageNo==1) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#'>이전</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
+			pageBar+="</li>";
+		}
+		
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(pageNo==cPage) {
+				pageBar+="<li class='page-item active'>";
+				pageBar+="<a class='page-link' href='#'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}
+			pageNo++;
+		}
+		if(pageNo>totalPage) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#'>다음</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+")'>다음</a>";
+			pageBar+="</li>";
+		}
+		pageBar+="</ul>";
+		pageBar+="<script>";
+		pageBar+="function fn_paging(cPage){";
+		pageBar+="location.assign('"+url+"?cPage='+cPage);";
+		pageBar+="}";
+		pageBar+="</script>";
+		param.put("pageBar", pageBar);
+		return param;
 	}
 	
 	//영화상세페이지 리뷰작성페이지 전환
@@ -322,9 +396,46 @@ public class MovieController {
 	  }
 	  
 	  
+	  @RequestMapping("/movie/movieReviewOne")
+	  @ResponseBody
+	  public Map reviewOne(String movieReviewSeq,HttpServletRequest hsr) {
+		  User user = (User)hsr.getSession().getAttribute("userSession");
+		  String userId=user.getUserId();
+		  MovieReview mr = service.movieReviewOne(movieReviewSeq);
+		  Map param = new HashMap();
+		  param.put("mr", mr);
+		  param.put("userId", userId);
+		  return param;
+	  }
 	  
-	  
-	  
+	  @RequestMapping("/movie/movieReport")
+	  @ResponseBody
+	  public int insertReport (Report report) {
+		  switch (report.getReportContents()) {
+			case "advertisement":
+				report.setReportContents("광고성 게시글");
+				break;
+			case "language":
+				report.setReportContents("부적절한 언어 사용");
+				break;
+			case "imposter":
+				report.setReportContents("타인을 사칭합니다.");
+				break;
+			case "profilePhoto":
+				report.setReportContents("부적절한 프로필 사진");
+				break;
+			case "feed":
+				report.setReportContents("부적절한 게시글 사진 및 내용");
+				
+				break;
+
+			default:
+				break;
+			}
+		 int result = service.insertReport(report); 
+		  System.out.println(result);
+		  return result;
+	  }
 	  
 	  
 	  
