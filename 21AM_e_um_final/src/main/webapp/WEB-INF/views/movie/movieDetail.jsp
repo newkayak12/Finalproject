@@ -85,7 +85,11 @@
     			data:{"movieSeq":movieSeq},
     			success:data=>{
     				console.log(data);
-    				$("#totalPoint").html("★"+data['total']).css("font-size","30px");
+    				if(data['total'] !=='NaN'){
+    					$("#totalPoint").html("★"+data['total']).css("font-size","30px");
+    				}else{
+    					$("#totalPoint").html("★0").css("font-size","30px");
+    				}
     				new Chart($("#radar-chart"), {
     				    type: 'radar',
     				    data: {
@@ -243,6 +247,9 @@
 							    
 						    </tbody>
 						  </table>
+						  <div id="pageBar">
+						  
+						  </div>
 					</div>
 					
 					<div id="graphcontainer">

@@ -17,7 +17,7 @@
 		</span>
 		<span class="col-1"></span>
 	</div>
-   	<div id="root" class="container md-mt-5 mt-0 ">
+   	<div id="root" class="container md-mt-5 mt-0 p-3" style="height: 750px">
 
 
 
@@ -101,7 +101,7 @@
 			data:{"cPage":cPage},
 			success:list=>{
 				$("#prev").css("visibility","visible")
-				$("#title").html("회원 관리")
+				$("#title").html("음식점 관리")
 				$("#root").html(list)
 			}
 		})

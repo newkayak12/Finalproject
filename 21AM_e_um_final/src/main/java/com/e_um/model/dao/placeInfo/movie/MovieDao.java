@@ -26,6 +26,12 @@ public class MovieDao implements MovieDaoInterface {
 		// TODO Auto-generated method stub
 		return session.selectList("movie.movieList");
 	}
+	
+	@Override
+	public List<Movie> movieList2(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("movie.movieList2");
+	}
 
 	@Override
 	public Movie moviePoster(String movieSeq, SqlSessionTemplate session) {
