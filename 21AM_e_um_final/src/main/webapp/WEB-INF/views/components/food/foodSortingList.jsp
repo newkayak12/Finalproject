@@ -11,7 +11,7 @@
 			
 				<div class="container">
 				
-					<h4 class="mainColor tway">평점이 높은 맛집</h4>
+					<!-- <h4 class="mainColor tway">평점이 높은 맛집</h4> -->
 					
 					<div id="" class="row justify-content-center features">
 					
