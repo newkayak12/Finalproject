@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e_um.model.dao.userInfo.mypage.MypageDaoInterface;
+import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
@@ -76,6 +77,24 @@ public class MypageService implements MypageServiceInterface {
 	@Override
 	public int cancelMovie(MovieTicketing mt) {
 		return dao.cancelMovie(session, mt);
+	}
+
+
+	@Override
+	public List<Map> selectFriendList(String userId) {
+		return dao.selectFriendList(session, userId);
+	}
+
+
+	@Override
+	public int blockFriend(Friend f) {
+		return dao.blockFriend(session, f);
+	}
+
+
+	@Override
+	public List<Map> selectApplyFriendList(String userId) {
+		return dao.selectApplyFriendList(session, userId);
 	}
 
 }

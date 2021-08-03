@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.userInfo.mypage.MypageServiceInterface;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
+import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
@@ -62,9 +63,14 @@ public class MypageController {
 		switch(modalName) {
 			case "movieModal":
 				m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage));
-				log.error("movieInfo: {}",m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage)));
+				//log.error("movieInfo: {}",m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage)));
 				totalData=service.selectMovieTicketingCount(user.getUserId());
 				pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
+				break;
+				
+			case "friendModal":
+				m.addAttribute("friendList",service.selectFriendList(user.getUserId()));
+				m.addAttribute("applyFriendList",service.selectApplyFriendList(user.getUserId()));
 				break;
 		}
 		m.addAttribute("pageBar",pageBar);
@@ -191,6 +197,15 @@ public class MypageController {
 		User user=(User)rq.getSession().getAttribute("userSession");
 		MovieTicketing mt=MovieTicketing.builder().userId(user.getUserId()).movieReservNum(movieReservNum).build();
 		return service.cancelMovie(mt);
+	}
+	
+	
+	@RequestMapping("/user/mypage/blockFriend")
+	@ResponseBody
+	public int blockFriend(HttpServletRequest rq, @RequestParam(value="friendId", required=false) String friendId) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		Friend f=Friend.builder().myId(user.getUserId()).friendId(friendId).build();
+		return service.blockFriend(f);
 	}
 	
 }

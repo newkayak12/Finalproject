@@ -8,8 +8,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/hyelin.css" rel="stylesheet">
     
     
-<section class="mt-5 pt-5">
-	<div id="root" class="container mt-5">
+<section class="my-5 py-5">
+	<div id="root" class="container my-5">
 		<div class="d-flex justify-content-center mt-3 mb-5">
 	        <span style="font-family: twayair;"><h1>MY PAGE</h1></span>
 	    </div>

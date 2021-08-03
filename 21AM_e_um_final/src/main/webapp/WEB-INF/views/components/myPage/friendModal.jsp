@@ -5,12 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!-- Nav tabs -->
-<ul id="infoTab" class="nav nav-tabs nav-fill tway"  role="tablist">
+<ul id="friendTab" class="nav nav-tabs nav-fill tway"  role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#nickname">내 친구 목록</a>
+        <a class="nav-link active" data-toggle="tab" href="#myFriendList">내 친구 목록</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#password">친구 신청 목록</a>
+        <a class="nav-link" data-toggle="tab" href="#applyFriendList">친구 신청 목록</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#address">차단 친구 목록</a>
@@ -19,101 +19,167 @@
 
 <!-- Tab panes -->
 <div class="tab-content my-5">
-    <div class="tab-pane container active" id="nickname">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <table class="table table-borderless col-xl-6 col bgColor fakeborder">
-            	<colgroup>
-            		<col class="col-5">
-            		<col class="col-7">
-            	</colgroup>
-                <tbody>
-                    <tr>
-                        <td class="colend"><b>현재 닉네임</b></td>
-                        <td>${userSession.userNick }</td>
-                    </tr>
-                    <tr>
-                        <td class="colend"><b>변경할 닉네임</b></td>
-                        <td><input type="text" id="newNick" name="newNick" onkeyup="fn_checkNick()" required></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td id="NickSign"><small></small></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button id="NickChangeBtn" class="btn changeBtn mt-4" onclick="fn_changeNick()">변경하기</button>
-        </div>
+    <div class="tab-pane container active" id="myFriendList">
+    	<div>총 <b>${fn:length(friendList) }</b>명</div>
+    	<input class="form-control" id="myFriendListInput" type="text" placeholder="내 친구 검색">
+    	<div class="scrollDiv2">
+	        <table class="table table-hover">
+			    <colgroup>
+			    	<col class="col-2">
+			    	<col class="col-3">
+			    	<col class="col-5">
+			    	<col class="col-2">
+			    </colgroup>
+			    <tbody id="myFriendListTable">
+			    	<c:if test="${!empty friendList }">
+			    		<c:forEach var="f" items="${friendList }">
+			    			<tr class="infobold">
+						   		<td class="colcenter pointer align-middle" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
+						   			<img src="${path }/resources/upload/profile/${f['PROFILE_IMAGE_FILE'] }" alt="프로필 사진" class="commImg">
+						   		</td>
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
+									${f['USER_NICK'] }
+								</td>
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
+									${f['PROFILE_STATUS'] }
+								</td>
+								<td class="colcenter align-middle"><button class="cancelBtn btn" onclick="fn_blockFriend('${f['USER_ID'] }','${f['USER_NICK'] }');">차단</button></td>
+					  		</tr>
+				 		</c:forEach>
+			    	</c:if>
+			    	<c:if test="${empty friendList }">
+			    		<tr>
+			    			<td colspan="4">아직 친구가 없어요. 마음 맞는 새 친구를 찾아보세요!</td>
+			    		</tr>
+			    	</c:if>
+			    </tbody>
+			</table>
+    	</div>
     </div>
 
-    <div class="tab-pane container fade" id="password">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <table class="table table-borderless col-xl-6 col bgColor fakeborder">
-            	<colgroup>
-            		<col class="col-5">
-            		<col class="col-7">
-            	</colgroup>
-                <tbody>
-                    <tr>
-                        <td class="colend"><b>기존 비밀번호</b></td>
-                        <td><input type="password" id="oldpw" name="oldpw" onkeyup="fn_sameOldPw()" required></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td id="oldpwSign"><small></small></td>
-                    </tr>
-                    <tr>
-                        <td class="colend"><b>신규 비밀번호</b></td>
-                        <td><input type="password" id="newpw" name="newpw" required onkeyup="fn_pw_normaliztion()"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td id="newpwSign"><small></small></td>
-                    </tr>
-                    <tr>
-                        <td class="colend"><b>비밀번호 확인</b></td>
-                        <td><input type="password" id="pwck" name="pwck" required onkeyup="fn_pwCheck()"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td id="pwckSign"><small></small></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button id="pwChangeBtn" class="btn changeBtn mt-4" onclick="fn_changePw()">변경하기</button>
-        </div>
+    <div class="tab-pane container fade" id="applyFriendList">
+    	<div>친구 신청 <b>${fn:length(applyFriendList) }</b>개</div>
+        <div class="scrollDiv2">
+	        <table class="table table-hover">
+			    <colgroup>
+			    	<col class="col-2">
+			    	<col class="col-3">
+			    	<col class="col-5">
+			    	<col class="col-2">
+			    </colgroup>
+			    <tbody>
+			    	<c:if test="${!empty applyFriendList }">
+			    		<c:forEach var="af" items="${applyFriendList }">
+			    			<tr class="infobold">
+						   		<td class="colcenter pointer align-middle" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${af['USER_ID'] }')">
+						   			<img src="${path }/resources/upload/profile/${af['PROFILE_IMAGE_FILE'] }" alt="프로필 사진" class="commImg">
+						   		</td>
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${af['USER_ID'] }')">
+									${af['USER_NICK'] }
+								</td>
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${af['USER_ID'] }')">
+									${af['PROFILE_STATUS'] }
+								</td>
+								<td class="colcenter align-middle"><button class="cancelBtn btn" onclick="fn_appendFriend('${af['USER_ID'] }','${af['USER_NICK'] }');">수락</button></td>
+					  		</tr>
+				 		</c:forEach>
+			    	</c:if>
+			    	<c:if test="${empty applyFriendList }">
+			    		<tr>
+			    			<td colspan="4">친구 신청이 없습니다.</td>
+			    		</tr>
+			    	</c:if>
+			    </tbody>
+			</table>
+    	</div>
     </div>
 
     <div class="tab-pane container fade" id="address">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <table class="table table-borderless col-xl-6 col bgColor fakeborder">
-            	<colgroup>
-            		<col class="col-4">
-            		<col class="col-8">
-            	</colgroup>
-                <tbody>
-                    <tr>
-                        <td colspan="2" class="colcenter">
-                            <b>기존 주소</b><br>
-                            <small>${userSession.userAddrZip } ${userSession.userAddrBasic } ${userSession.userAddrDetails }</small><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="colend"><b>우편번호</b></td>
-                        <td>
-                            <input type="text" name="zonecode" id="sample6_postcode" readonly>
-                         <input type="button" id="btnPostcode" class="btn_post_search pointer" value="우편번호 찾기" onclick="sample6_execDaumPostcode()">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="colend"><b>주소</b></td>
-                        <td>
-                            <input type="text" name="address" id="sample6_address" placeholder="주소" readonly style="width:300px;"><br>
-                            <input type="text" name="addressSub" id="sample6_detailAddress" placeholder="상세주소" required style="width:300px">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button id="addrChangeBtn" class="btn changeBtn mt-4" onclick="fn_changeAddr()">변경하기</button>
-        </div>
+    	<div>차단 친구 <b>${fn:length(applyFriendList) }</b>명</div>
+        <div class="scrollDiv2">
+	        <table class="table table-hover">
+			    <colgroup>
+			    	<col class="col-2">
+			    	<col class="col-3">
+			    	<col class="col-5">
+			    	<col class="col-2">
+			    </colgroup>
+			    <tbody id="myFriendListTable">
+			    	<c:if test="${!empty friendList }">
+			    		<c:forEach var="f" items="${friendList }">
+			    			<tr class="infobold">
+						   		<td class="colcenter pointer align-middle" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
+						   			<img src="${path }/resources/upload/profile/${f['PROFILE_IMAGE_FILE'] }" alt="프로필 사진" class="commImg">
+						   		</td>
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
+									${f['USER_NICK'] }
+								</td>
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
+									${f['PROFILE_STATUS'] }
+								</td>
+								<td class="colcenter align-middle"><button class="cancelBtn btn" onclick="fn_blockFriend('${f['USER_ID'] }');">차단</button></td>
+					  		</tr>
+				 		</c:forEach>
+			    	</c:if>
+			    	<c:if test="${empty friendList }">
+			    		<tr>
+			    			<td colspan="4">아직 친구가 없어요. 마음 맞는 새 친구를 찾아보세요!</td>
+			    		</tr>
+			    	</c:if>
+			    </tbody>
+			</table>
+    	</div>
     </div>
 </div>
+
+<script>
+	$(document).ready(function(){
+	  $("#myFriendListInput").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#myFriendListTable tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+	});
+	
+	function fn_blockFriend(friendId, friendNick){
+		if(confirm(friendNick+"님을 차단하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/user/mypage/blockFriend",
+				data:{"friendId":friendId},
+				success:data=>{
+					if(data>0){
+						alert("차단되었습니다.");
+						$("#myPageModal").modal("hide");
+						fn_openMPModal("friend");
+					}else{
+						alert("차단되지 않았습니다.");
+					}
+				}
+			})
+		}
+	}
+	
+	function fn_appendFriend(friendId, friendNick){
+		if(confirm(friendNick+"님의 친구 신청을 수락하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/friend/applyfriend/start",
+				data:{
+					"friendId":friendId,
+					"flag":"accept"
+				},
+				success:data=>{
+					if(data>0){
+						alert("서로 친구가 되었습니다!");
+						$("#myPageModal").modal("hide");
+						fn_openMPModal("friend","친구 신청 목록");
+					}else{
+						alert("친구 신청 수락을 실패했습니다.");
+					}
+				}
+			})
+		}
+	}
+</script>

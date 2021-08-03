@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
@@ -28,5 +29,11 @@ public interface MypageDaoInterface {
 	int selectMovieTicketingCount(SqlSessionTemplate session, String userId);
 	
 	int cancelMovie(SqlSessionTemplate session, MovieTicketing mt);
+	
+	List<Map> selectFriendList(SqlSessionTemplate session, String userId);
+	
+	int blockFriend(SqlSessionTemplate session, Friend f);
+	
+	List<Map> selectApplyFriendList(SqlSessionTemplate session, String userId);
 
 }

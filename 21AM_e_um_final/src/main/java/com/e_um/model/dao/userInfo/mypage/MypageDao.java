@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.dao.communicateInfo.friend.FriendDao;
+import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
@@ -70,6 +71,24 @@ public class MypageDao implements MypageDaoInterface {
 	@Override
 	public int cancelMovie(SqlSessionTemplate session, MovieTicketing mt) {
 		return session.update("mypage.cancelMovie",mt);
+	}
+
+
+	@Override
+	public List<Map> selectFriendList(SqlSessionTemplate session, String userId) {
+		return session.selectList("mypage.selectFriendList",userId);
+	}
+
+
+	@Override
+	public int blockFriend(SqlSessionTemplate session, Friend f) {
+		return session.update("mypage.blockFriend",f);
+	}
+
+
+	@Override
+	public List<Map> selectApplyFriendList(SqlSessionTemplate session, String userId) {
+		return session.selectList("mypage.selectApplyFriendList",userId);
 	}
 
 }
