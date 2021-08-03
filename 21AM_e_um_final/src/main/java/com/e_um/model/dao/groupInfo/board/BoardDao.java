@@ -37,6 +37,8 @@ public class BoardDao implements BoardDaoInterface {
 	@Override
 	public List<Comment> selectGroupBoardComment(SqlSessionTemplate session, String groupBoardSeq) {
 		// TODO Auto-generated method stub
+		
+		log.warn("daodaodaodao{}",groupBoardSeq);
 		return session.selectList("group.selectGroupBoardComment",groupBoardSeq);
 	}
 
@@ -69,6 +71,18 @@ public class BoardDao implements BoardDaoInterface {
 	public List<Board> selectBoardListBest(SqlSessionTemplate session, String groupSeq) {
 		
 		return session.selectList("group.selectBoardListBest",groupSeq);
+	}
+
+	@Override
+	public List<Board> selectBoardSearchList(SqlSessionTemplate session, Map param) {
+		
+		return session.selectList("group.selectBoardSearchList",param);
+	}
+
+	@Override
+	public int groupboardinsertmaster(SqlSessionTemplate session, Board board) {
+		// TODO Auto-generated method stub
+		return session.insert("group.groupboardinsertmaster",board);
 	}
 	
 	

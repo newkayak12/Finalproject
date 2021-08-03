@@ -77,12 +77,27 @@
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 <script>
+	$(function(){
+		let flag ='${flag}';
+		let tab='${tab}';
+		
+		if(flag!='none'){
+			fn_openMPModal(flag,tab);
+		}
+	})
+	
 	function fn_openMPModal(flag,tab){
 		let modalName="";
 		let modalTitle="";
+//		console.log(flag);
 		
 		switch(flag){
 			case "info": modalName="infoModal"; modalTitle="회원정보 수정"; break;
+			case "friend": modalName="friendModal"; modalTitle="내 친구 관리"; break;
+			case "movie": modalName="movieModal"; modalTitle="영화 예매 정보"; break;
+			case "food": modalName="foodModal"; modalTitle="맛집 예매 정보"; break;
+			case "calendar": modalName="calendarModal"; modalTitle="내 일정 관리"; break;
+			case "support": modalName="supportModal"; modalTitle="내 문의사항"; break;
 		}
 		
 		$.ajax({
@@ -144,4 +159,6 @@
     		return false;
     	}
     }
+	
+	
 </script>
