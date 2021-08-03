@@ -5,7 +5,93 @@
 <div class="d-flex flex-column justify-content-between align-itmes-center">
 
 <%-- ${list } --%>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+$(function(){
+	chart()
+})
+      function chart(){
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart1);
+      google.charts.setOnLoadCallback(drawChart2);
+      google.charts.setOnLoadCallback(drawChart3);
+      
+      function drawChart1() {
+
+	          var data = google.visualization.arrayToDataTable([
+	            ['연령', '소모임 연령 제한 분포'],
+	            ['전연령',     ${ageList[0]}],
+	            ['20대',      ${ageList[1]}],
+	            ['30대',      ${ageList[2]}],
+	            ['40대',      ${ageList[3]}]
+	          ]);
+	
+	          var options = {
+	            title: '소모임 연령 제한 분포',
+		          is3D: true,
+		          
+	          };
+	
+	          var chart = new google.visualization.PieChart(document.getElementById('ageList'));
+	
+	          chart.draw(data, options);
+	        }
+	      function drawChart2() {
+	
+	          var data = google.visualization.arrayToDataTable([
+	            ['성별', '소모임 성별 제한 분포'],
+	            ['제한 없음',     ${genderList[0]}],
+	            ['남성만',      ${genderList[1]}],
+	            ['여성만',      ${genderList[2]}]
+	          ]);
+	
+	          var options = {
+	            title: '소모임 성별 제한 분포',
+		          is3D: true,
+	          };
+	
+	          var chart = new google.visualization.PieChart(document.getElementById('genderList'));
+	
+	          chart.draw(data, options);
+	        }
+	      function drawChart3() {
+	
+	          var data = google.visualization.arrayToDataTable([
+	            ['주제', '소모임 주제 분포'],
+	            ['게임',     ${themeList[0]}],
+	            ['운동',      ${themeList[1]}],
+	            ['요리',      ${themeList[2]}],
+	            ['영화',      ${themeList[3]}],
+	            ['맛집',      ${themeList[4]}],
+	            ['독서',      ${themeList[5]}],
+	            ['쇼핑',      ${themeList[6]}],
+	            ['코딩',      ${themeList[7]}]
+	          ]);
+	
+	          var options = {
+	            title: '소모임 주제 분포',
+		          is3D: true,
+	          };
+	
+	          var chart = new google.visualization.PieChart(document.getElementById('themeList'));
+	
+	          chart.draw(data, options);
+	        }
+	      }
+</script>
 	<div style="height: 550px">
+		<div class="d-flex justify-content-around">
+			<span id="ageList">
+			</span>
+			<span id="genderList">
+			</span>
+			<span id="themeList">
+			</span>
+		
+		</div>
 		<table class="table table-striped table-hover tway" >
 			<tr>
 				<th class="bgColorMainColorSub whiteText">

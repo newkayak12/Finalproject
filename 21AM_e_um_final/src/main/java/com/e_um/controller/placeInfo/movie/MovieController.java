@@ -40,7 +40,13 @@ public class MovieController {
 	public String movieInfo(Model m) {
 		List<Movie> list = service.movieList();
 		m.addAttribute("list",list);
+		
+		List<Movie> list2 = service.movieList2();
+		m.addAttribute("list2",list2);
 		return "movie";
+	
+	
+	
 	}
 	
 	//modal화면에 띄울 정보

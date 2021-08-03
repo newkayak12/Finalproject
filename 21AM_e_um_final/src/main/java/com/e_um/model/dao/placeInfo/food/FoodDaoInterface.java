@@ -59,6 +59,8 @@ public interface FoodDaoInterface {
 
 	int updateFoodComment(SqlSessionTemplate session, Map<String, Object> map);
 
+	int updateFoodStar(SqlSessionTemplate session, Map<String, Object> map);
+
 	
 
 }

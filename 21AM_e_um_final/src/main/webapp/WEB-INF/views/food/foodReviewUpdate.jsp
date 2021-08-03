@@ -92,52 +92,7 @@ ${fc.foodCommentContents}
 		// i는 자바스크립트 변수이기 때문에 이렇게 쓰는게 맞는 것 같다. 
 	}
 
-	/* function getFiles() {
-		let files = new Array();
-		// 사용자가 리뷰등록할때 업로드한 파일 개수만큼 
-		if("${fc.foodPhoto1}" != "") { files.push("${fc.foodPhoto1}"); } 
-		if("${fc.foodPhoto2}" != "") { files.push("${fc.foodPhoto2}"); } 
-		if("${fc.foodPhoto3}" != "") { files.push("${fc.foodPhoto3}"); } 
-		if("${fc.foodPhoto4}" != "") { files.push("${fc.foodPhoto4}"); } 
-		if("${fc.foodPhoto5}" != "") { files.push("${fc.foodPhoto5}"); } 
-		
-		console.log(files);
-		
-		$("#input-file").files(files);
-		
-		console.log( $("#input-file").files() );
-		
-		for(let i=0; i < files.length; i++) {
-			let li = $("<li class='prevLi' onmouseenter='fn_showDelBtn(event);' onmouseleave='fn_hideDelBtn(event);'>");
-			
-			let outterDiv = $("<div>").attr({
-				"class" : "outterDiv"
-			}).css({
-				"background-image" : "url( ${path}/resources/upload/foodComment/" + files[i] + ")",
-				"width" : "100px",
-				"height" : "100px", 
-				"background-size" : "contain", 
-				"border-radius" : "10px"
-			}); 
-			
-			let innerDiv = $("<div>").attr({
-				"class" : "innerDiv"
-			}).css({
-				"display" : "none", 
-				"width" : "100%", 
-				"height" : "100%", 
-				"background-color" : "rgba(0, 0, 0, 0.5)",
-				"border-radius" : "10px"
-			}).append( $("<button>").attr({"onclick":"fn_delImg(event);", "type":"button"}).css({"border": "0px","background-color": "transparent", "color":"white", "padding":"35px", "outline":"0"}).html("<i class='fas fa-times' style='font-size:30px;'></i>")  );
-			
-			outterDiv.append(innerDiv);
-			li.append(outterDiv);
-			
-			$("#foodReviewFilePreview").append(li);
-		}
-		
-	} */
-
+	
 
 
 
@@ -145,6 +100,10 @@ ${fc.foodCommentContents}
 
 	// 파일 업로드 미리보기 
 	$(".foodReviewFileUpload").change( (e) => {
+		
+		// 추가된 부분 
+		// 새로 업로드를 시작했다면 방금 업로드한 파일들은 사라지므로 미리보기에서 삭제해야함 
+		$(".prevLi").css("display", "none");
 		
 		// 업로드한 파일들 확인
 		// console.log($(e.target).get(0).files);

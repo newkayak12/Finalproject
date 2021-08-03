@@ -3,22 +3,27 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <style>
-/* 조건펼치기 버튼 */
-#showFoodSearchCondition { border : 1px solid #70b3d9; }
 /* 보였다안보였다하는 검색 조건 div  */
-#foodSearch-condition { display: none; background-color : #eaf7fe; width: 90%; margin-left : 5%; margin-right : 5%; margin-top : 10px; margin-bottom : 10px; }
+#foodSearch-condition { display: none; border-radius:10px; background-color : #f2f2f2; width: 90%; margin-left : 5%; margin-right : 5%; margin-top : 10px; margin-bottom : 10px; }
 /* 검색조건 이름 */
 #foodSearchCategoryTitle { display: block; font-weight: 900; margin: 10px 10px 5px 10px; }
 /* 조건검색 라디오버튼 */
 #foodSearch-condition input[type=radio] { display: none; }
-#foodSearch-condition input[type=radio]:hover+label { background-color: #70b3d9; font-weight: 900; cursor : pointer; }
-#foodSearch-condition input[type=radio]:checked+label { background-color: #70b3d9; font-weight: 900; }
-#foodSearch-condition input[type=radio]+label{ border: 1px solid #70b3d9; border-radius: 20px; padding: 5px 12px; margin: 5px; background-color: white; }
+#foodSearch-condition input[type=radio]:hover+label { color: #2AC1BC; border : 2px solid #2AC1BC; font-weight: 900; cursor : pointer; }
+#foodSearch-condition input[type=radio]:checked+label {  border : 2px solid #2AC1BC; font-weight: 900; }
+#foodSearch-condition input[type=radio]+label{ border: 2px solid lightgray; border-radius: 20px; padding: 5px 12px; margin: 5px; background-color: white; }
 /* 선택된 검색조건 */
-.selected { background-color: #70b3d9; font-weight: 900; }
+.selected {  border : 2px solid #2AC1BC; font-weight: 900;  }
 /* 필터초기화 버튼 */
-#clearFoodSearchCondition { border: 1px solid #70b3d9; float: right; margin: 10px; background-color: white; }
-#clearFoodSearchCondition:hover { background-color: #70b3d9; }
+#clearFoodSearchCondition { border: 1px solid #2AC1BC; float: right; margin: 10px; background-color: white; }
+#clearFoodSearchCondition:hover { background-color: #2AC1BC; }
+.mainPageImages { width : 250px; height:150px; border-radius: 10px; object-fit:cover;}
+.mainPageFoodName { color : #3a3a3a; font-size : 20px; font-weight:900; }
+.mainPageFoodStar { color : #2AC1BC; font-size : 20px; font-weight:900;}
+.mainPageFoodAddrCate { color : gray; font-size : 15px; font-weight:900; }
+a { text-decoration:none !important } 
+a:hover { text-decoration:none !important }
+
 </style>
 
 <section class="mt-5 pt-5">
@@ -33,8 +38,8 @@
 					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
 					<div style="text-align:center;">
 						<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" required>
-						<button class="btn" type="button" id="foodSearchButton" style="background-color: #70b3d9;">검색</button>
-						<button class="btn" type="button" id="showFoodSearchCondition">필터 ☟</button>
+						<button class="btn checkBtn mb-1" type="button" id="foodSearchButton" >검색</button>
+						<button class="btn cancelBtn mb-1" type="button" id="showFoodSearchCondition">필터 ☟</button>
 					</div>
 					<!-- 보였다안보였다하는 검색 조건 div -->
 					<div id="foodSearch-condition" class="p-1">
@@ -113,24 +118,24 @@
 			
 				<div class="container">
 				
-					<h3 class="">평점이 높은 맛집</h3>
+					<h4 class="mainColor tway">평점이 높은 맛집</h4>
 					
 					<div id="" class="row justify-content-center features">
 					
 						<c:forEach items="${ list }" var="f">
 						
-							<div class="col-6 col-md-3 item">
+							<div class="col-6 col-md-3 item" style="text-align:center;">
 							
 								<div class="box">
 								
-									<a class="open_food_modal" href="#" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#myModal" data-toggle="modal">
+									<a class="open_food_modal" href="javascript:void(0)" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#foodModal" data-toggle="modal">
 										
 										<div>
-											<img width="200px" height="200px" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
-											<div class="info">
-												<span class="title"><c:out value="${ f.foodName }"/></span>
-												<strong class="search_point "><c:out value="${ f.foodStar }"/></strong>
-												<p class="etc"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;-&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
+											<img class="mainPageImages" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
+											<div class="info mt-1 ml-4" style="text-align:left;">
+												<span class="mainPageFoodName"><c:out value="${ f.foodName }"/></span>&nbsp;
+												<strong class="mainPageFoodStar"><fmt:formatNumber type="number" pattern="0.0" value="${ f.foodStar }"/></strong>
+												<p class="mainPageFoodAddrCate"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;-&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
 											</div>
 										</div>
 									</a>
@@ -149,9 +154,19 @@
 		</div> <!-- features-boxed -->
 			
 
-		<!-- 모달창 -->
-		<div class="modal" id="myModal">
-			<div class="modal-dialog">
+		
+
+
+	</div> <!-- root -->
+	
+	<div>
+		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
+	</div>
+</section>
+
+<!-- 모달창 -->
+		<div class="modal" id="foodModal">
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 			
 					<div class="modal-header">
@@ -193,16 +208,6 @@
 			</div>
 		</div> <!-- 모달 div -->
 
-
-	</div> <!-- root -->
-	
-	<div>
-		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
-	</div>
-</section>
-
-
-
 <script>
 
 	// 모달열기 함수 
@@ -211,25 +216,25 @@
 			url : "${ path }/food/foodModal",
 			data : {"foodSeq":seq},
 			success : data => {
-				// console.log(data);
+				
 				$("#modal-content").find("img").attr("src", "${ path }/resources/upload/food/" + data.menus[0].menuPhoto).css({"border-radius":"10px"});
 			 	
 				let cateMain;
 				switch(data.foodCategoryMain) {
-					case '한국' : cateMain = '🇰🇷한식'; break;
-					case '미국' : cateMain = '🇺🇸아메리칸'; break;
-					case '중국' : cateMain = '🇨🇳중식'; break;
-					case '일본' : cateMain = '🇯🇵일식'; break;
-					case '이탈리아' : cateMain = '🇮🇹이탈리안'; break;
+					case '한식' : cateMain = '🇰🇷한식'; break;
+					case '아메리칸' : cateMain = '🇺🇸아메리칸'; break;
+					case '중식' : cateMain = '🇨🇳중식'; break;
+					case '일식' : cateMain = '🇯🇵일식'; break;
+					case '이탈리안' : cateMain = '🇮🇹이탈리안'; break;
 					case '기타' : cateMain = '기타'; break;
-					case '술집' : cateMain = '🍺주점'; break;
+					case '주점' : cateMain = '🍺주점'; break;
 					case '카페/디저트' : cateMain = '🍰카페/디저트'; break;
 					
 				}
 				
 				$("#modal-content").find("span").first().text(cateMain);
 				$("#modal-content").find("span").eq(1).text(data.foodName);
-				$("#modal-content").find("span").eq(2).text(data.foodStar);
+				$("#modal-content").find("span").eq(2).text( String(data.foodStar).length == 1 ?  parseInt(data.foodStar).toFixed(1) : data.foodStar );
 				
 				$("#modal-content").find("span").eq(4).text(data.foodAddr);
 				$("#modal-content").find("span").eq(6).text(data.foodCall);
@@ -257,7 +262,6 @@
 	const fn_foodView = () => {
 		// 맛집 시퀀스 가져오기 
 		let foodSeq = $("#modal-content").find("input").val();
-		// console.log(foodSeq);
 		location.assign("${path}/food/foodView?foodSeq=" + foodSeq);
 	}
 	
@@ -332,7 +336,6 @@
 	// 검색 
 	$("#foodSearchButton").click( (e) => {
 		
-		
 		// 조건 div 감춤 
 		$("#foodSearch-condition").hide();
 		
@@ -362,72 +365,101 @@
 					"starCon" : foodStarCon
 				},
 				success : data => {
+					
 					console.log(data);
-					console.log(data[0].menus[0].menuPhoto);
+					console.log(data.length);
 					
-					$(".features-boxed .container").css({
-						"display" : "none"
-					});
-					
-			
-					let div = $("<div id='foodSearchResultItem' class='row' style='display:flex;'></div>");
-					
-					// 바로 이전에 검색한 결과 없애기
-					$("#foodSearchResultItem").html("")
-					
-					for(let i=0; i < data.length; i++) {
+					// 검색결과가 있으면 
+					if(data.length != 0) {
 						
-						let a = $("<a>").attr({
-							"class" : "open_food_modal",
-							"onclick" : "fn_foodmodal(" + data[i].foodSeq + ")",
-							"data-target" : "#myModal",
-							"data-toggle" : "modal"
-						}).css({
-							"display" : "contents",
-							"cursor" : "pointer",
-							"text-decoration" : "none",
-							"color" : "black"
+						$(".features-boxed .container").css({
+							"display" : "none"
 						});
 						
-						// a태그에 display: contents;  cursor: pointer;
+				
+						let div = $("<div class='row foodSearchResultItem' style='display:flex;'></div>");
 						
-						let foodImage = $("<img>").css({"width":"200px","height":"200px"}).attr("src","${ path }/resources/upload/food/"+ data[i].menus[0].menuPhoto);
-						let br = $("<br>");
+						// 바로 이전에 검색한 결과 없애기
+						$(".foodSearchResultItem").css("display", "none");
+						$("#noResultPtag").css("display", "none");
 						
-						let foodName = $("<span>").css({
-							"color" : "#353535",
-							"font-size" : "17px",
-							"font-weight" : "900"
-						}).text(data[i].foodName);
 						
-						let foodStar = $("<span>").css({
-							"color" : "#70b3d9",
-							"font-size" : "17px",
-							"font-weight" : "900"
-						}).text(data[i].foodStar + " ");
+						for(let i=0; i < data.length; i++) {
 							
-						let foodAddrfoodCateMain = $("<p>").css({
-							"color" : "gray",
-							"font-size" : "13px",
-							"font-weight" : "900"
-						}).text(data[i].foodAddr.substring(4,6) + " - " + data[i].foodCategoryMain);
+							let a = $("<a>").attr({
+								"class" : "open_food_modal",
+								"href" : "javascript:void(0)",
+								"onclick" : "fn_foodmodal('" + data[i].foodSeq + "')",
+								"data-target" : "#foodModal",
+								"data-toggle" : "modal"
+							}).css({
+								"display" : "contents",
+								"cursor" : "pointer",
+								"text-decoration" : "none",
+								"color" : "black"
+							});
+							
+							// a태그에 display: contents;  cursor: pointer;
+							
+							let foodImage = $("<img>").attr({
+								"src":"${ path }/resources/upload/food/"+ data[i].menus[0].menuPhoto,
+								"class" : "mainPageImages"
+								});
+							let br = $("<br>");
+							
+							let foodName = $("<span>").attr({
+								"class" : "mainPageFoodName"
+							}).css({
+								"color" : "#353535",
+								"font-size" : "17px",
+								"font-weight" : "900"
+							}).text(data[i].foodName);
+							
+							let foodStar = $("<span>").attr({
+								"class" : "mainPageFoodStar"
+							}).css({
+								"color" : "#70b3d9",
+								"font-size" : "17px",
+								"font-weight" : "900"
+							}).text("  " + parseInt(data[i].foodStar).toFixed(1) + " ");
+								
+							let foodAddrfoodCateMain = $("<p>").attr({
+								"class":"mainPageFoodAddrCate"
+							}).css({
+								"color" : "gray",
+								"font-size" : "13px",
+								"font-weight" : "900"
+							}).text(data[i].foodAddr.substring(0,11) + " - " + data[i].foodCategoryMain);
+							
+							let infoDiv = $("<div class='info col-6 col-md-3' style='text-align:center;'></div>");
+							
+							infoDiv.append(foodImage);
+							infoDiv.append(br);
+							infoDiv.append(foodName);
+							infoDiv.append(foodStar);
+							infoDiv.append(foodAddrfoodCateMain);
+							
+							a.append(infoDiv);
+							
+							div.append(a);
+							
+							$("#root").append(div);
+						}
 						
-						let infoDiv = $("<div class='info col-6 col-md-3' style='text-align:center;'></div>");
+					// 검색결과가 없으면 
+					} else {
 						
-						infoDiv.append(foodImage);
-						infoDiv.append(br);
-						infoDiv.append(foodName);
-						infoDiv.append(foodStar);
-						infoDiv.append(foodAddrfoodCateMain);
+						$(".features-boxed .container").css({
+							"display" : "none"
+						});
 						
-						a.append(infoDiv);
+						// 바로 이전에 검색한 결과 없애기
+						$(".foodSearchResultItem").css("display", "none");
+						$("#noResultPtag").css("display", "none");
 						
-						div.append(a);
-						
-						$("#root").append(div);
+						let result = $("<p>").attr({"id":"noResultPtag", "class":"mt-5"}).css({"text-align":"center", "font-size" : "20px;"}).text("🤭 검색결과가 없네요 🤭");
+						$("#root").append(result);
 					}
-					
-					
 					
 					
 				}

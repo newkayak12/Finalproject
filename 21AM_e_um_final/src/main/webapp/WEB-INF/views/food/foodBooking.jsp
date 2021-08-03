@@ -3,127 +3,34 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <style>
 /* 캘린더 */
-.foodBookingCalendar {
-	width : 400px;
-	height : 550px;
-}
-.calendar {
-    width: 400px;
-    padding-bottom: 50px;
-}
-
-.calendar-header {
-	margin-top: 20px;
-    display: inline-block; 
-}
-
-.ym-wrapper {
-    font-size: 15px;
-    text-align: center;
-}
-
-.calendar-nav {
-    display: flex;
-    flex-grow: 0;
-    flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid gray;
-}
-
-.nav-btn {
-    width: 28px;
-    height: 30px;
-    border: none;
-    font-size: 16px;
-    line-height: 34px;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.go-today {
-    width: 80%;
-    border-left: 1px solid gray;
-    border-right: 1px solid gray;
-}
-
-.calendar-main{
-    border-collapse: collapse;
-    width: 400px;
-}
-
-.days {
-    display: flex;
-    margin: 25px 0 10px;
-}
-
-.day {
-    width: 100px;
-    text-align: center;
-    transition: all .3s;
-    font-weight: bolder;
-}
-
-.dates {
-    display: flex;
-    flex-flow: row wrap;
-    border: 1px solid gray;
-    
-}
-
-.date {
-    cursor: pointer;
-    width: 56.85px;
-    padding: 5% 2%;
-    text-align: center;
-    border: 1px solid gray;
-    transition: all .3s;
-}
-
-.day:nth-child(7n + 1),
-.date:nth-child(7n + 1) {
-    color: #D13E3E;
-}
-
-.day:nth-child(7n),
-.date:nth-child(7n) {
-    color: #396EE2;
-}
-
-.other {
-    color: rgba(88, 88, 88, 0.315) !important;
-    pointer-events : none;
-}
-
-.today {
-    position: relative;
-    background-color: #b8dbee;
-}
-
-.selected{
-    background-color: black;
-    color: #ffffff !important;
-}
-.year, .month {
-	
-}
+.foodBookingCalendar { width : 400px; height : 550px; }
+.calendar { width: 400px; padding-bottom: 50px; }
+.calendar-header { margin-top: 20px; display: inline-block; }
+.ym-wrapper { font-size: 15px; text-align: center; }
+.calendar-nav { display: flex; flex-grow: 0; flex-shrink: 0; justify-content: center; align-items: center; border: 1px solid gray; }
+.nav-btn { width: 28px; height: 30px; border: none; font-size: 16px; line-height: 34px; background-color: transparent; cursor: pointer; }
+.go-today { width: 80%; border-left: 1px solid gray; border-right: 1px solid gray; }
+.calendar-main{ border-collapse: collapse; width: 400px;}
+.days { display: flex; margin: 25px 0 10px; }
+.day {width: 100px;text-align: center;transition: all .3s;font-weight: bolder;}
+.dates {display: flex;flex-flow: row wrap;border: 1px solid gray;}
+.date {cursor: pointer; width: 56.85px;padding: 5% 2%;text-align: center;border: 1px solid gray;transition: all .3s;}
+.day:nth-child(7n + 1), .date:nth-child(7n + 1) {color: #D13E3E;}
+.day:nth-child(7n), .date:nth-child(7n) {color: #396EE2;}
+.other {color: rgba(88, 88, 88, 0.315) !important;pointer-events : none;}
+.today {position: relative; background-color: #b8dbee;}
+.selected{ background-color: black;color: #ffffff !important;}
+.year, .month {	}
 /* 정보 영역 */
-.bookingFoodTitle {
-	font-size: 40px;
-	font-weight: 900;
-}
-.foodBookingTitle {
-	font-weight: 900;
-	color: #70b3d9;
-}
+.foodBookingTitle { font-family : twayAir; color : #2AC1BC; }
 </style>
 
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
-	
+		<p class="tway mainColor" style="font-size:35px; text-align:center;">맛집 예약하기</p>
 		<!-- 정보 영역 -->
 		<div class="info ml-5 mr-5 mt-5 mb-3" style="display:inline-block;">
-				<div class="bookingFoodTitle" style="float:left;">&nbsp;&nbsp;<c:out value="${ food.foodName }"/></div>
+				<div class="tway blackText" style="float:left; font-size:45px;">&nbsp;&nbsp;<c:out value="${ food.foodName }"/></div>
 				<div class="ml-5" style="float:right;">
 					<span class="etc"><c:out value="😋 ${ food.foodAddr }"/></span>
 					<br>
@@ -209,9 +116,9 @@
 				
 				<div class="mb-5">
 					<br>
-					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="fn_bookingRestart();" style="border:1px solid #70b3d9;">선택 초기화</button>
-					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="location.assign('${path}/food/foodView?foodSeq=${ food.foodSeq}');" style="border:1px solid #70b3d9;">돌아가기</button>
-					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum m-1" style="background-color: #70b3d9;">
+					<button type="button" class="btn cancelBtn m-1" onclick="fn_bookingRestart();">선택 초기화</button>
+					<button type="button" class="btn cancelBtn m-1" onclick="location.assign('${path}/food/foodView?foodSeq=${ food.foodSeq}');">돌아가기</button>
+					<input type="submit" value="예약하기" class="btn checkBtn m-1">
 				</div>
 			</div>	
 			

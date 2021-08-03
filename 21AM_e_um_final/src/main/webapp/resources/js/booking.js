@@ -99,8 +99,8 @@ const fn_selectDate = (viewYear, viewMonth, date, event) => {
 			// 이번달일때
 			if(viewMonth+1 === today.getMonth()+1) {
 			
-					// 선택한 날짜의 일이 오늘날짜의 일보다 작으면
-					if(date < today.getDate()) {
+					// 선택한 날짜의 일이 오늘이거나 지난날이
+					if(date <= today.getDate()) {
 						
 		    				alert("오늘 이후의 날짜를 선택해주세요");	
 		    			
