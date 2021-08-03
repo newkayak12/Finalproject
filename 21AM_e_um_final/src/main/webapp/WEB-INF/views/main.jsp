@@ -97,6 +97,7 @@
 		            url:"${pageContext.request.contextPath}/feed/feedList",
 		            data:{"cPage":e, "userId": userId},
 		            success:data=>{
+		            	console.log(data)
 		                $("#feed-container").append(data)
 		                $(".repl").css("display","block")
 		                if(data.length>10){

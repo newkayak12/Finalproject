@@ -29,4 +29,8 @@ public interface BoardDaoInterface {
 
 	List<Board> selectBoardListBest(SqlSessionTemplate session, String groupSeq);
 
+	List<Board> selectBoardSearchList(SqlSessionTemplate session, Map param);
+
+	int groupboardinsertmaster(SqlSessionTemplate session, Board board);
+
 }

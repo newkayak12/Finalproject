@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +41,9 @@ public class GroupController {
 	
 	@Autowired
 	BoardServiceInterface serviceb;
+	
+	@Autowired
+	SqlSessionTemplate t;
 
 	@RequestMapping("/group/groupCreate.do")
 	public String groupCreate() {
@@ -127,14 +131,13 @@ public class GroupController {
 	  
 	
 	@RequestMapping("/group/groupBoardInsert.do")
-	public String groupBoardInsert(Board board ,String groupSeq, Model model, MultipartFile[] file, HttpServletRequest rq) {
+	public String groupBoardInsert(Group groupmaster,Board board ,String groupSeq, Model model, MultipartFile[] file, HttpServletRequest rq) {
 		User user=(User) rq.getSession().getAttribute("userSession");
 		String userId= user.getUserId();
 		
-		
-		
-		Group groupmaster = new Group();
-		groupmaster.getGroupMaster();
+		 
+		/* groupmaster.setGroupMaster(); */
+		 
 		
 		board.setGroupBoardUser(user);
 		
@@ -147,10 +150,18 @@ public class GroupController {
 		log.warn("{}",user);
 		log.warn("{}",board);
 		log.warn("{}",file);
+		log.warn("groupgroup{}",groupmaster);
+		log.warn("usersuser{}",userId);
 		
-		/*
-		 * if(groupmaster=userId)
-		 */
+		
+		int result =0;
+		 if(groupmaster.equals(userId)) {
+			 result = serviceb.groupboardinsertmaster(board);
+		 }
+		 else {
+			 result = serviceb.groupboardinsert(board);
+		 }
+		 
 			
 		int i = 1;
 		
@@ -165,7 +176,7 @@ public class GroupController {
 				i++;
 			}
 		}
-		int result = serviceb.groupboardinsert(board);
+		
 		log.error("{}",board.getGroupBoardSeq());
 		
 		
@@ -262,6 +273,27 @@ public class GroupController {
 		return "group/groupboard/groupBoardContents";
 	}
 	
+	
+	@RequestMapping("/group/groupBoardContentsNotice.do")
+	public String groupBoardContentsNotice(String groupBoardSeq,Model model) {
+		log.warn("qqqq{}",groupBoardSeq);
+		Board board = serviceb.selectGroupBoard(groupBoardSeq);
+		List<Comment> commentlist = serviceb.selectGroupBoardComment(groupBoardSeq);
+		log.warn("qwrqwer{}",board);
+		log.warn("qwrqwer2{}",commentlist);		
+		log.warn("TTTTTTTTTTTTTTTTTTTTTTTTest {}", (Board)t.selectOne("group.selectGroupBoard",groupBoardSeq));
+		model.addAttribute("board",board);
+
+		
+		model.addAttribute("comment",commentlist);
+		
+		
+		return "group/groupboard/groupBoardContentNotice";
+	}
+
+	
+	
+	
 	@RequestMapping("/group/addBoardLike")
 	@ResponseBody
 	public String addBoardLike(String groupSeq,String groupBoardSeq, HttpServletRequest rq) {
@@ -325,6 +357,21 @@ public class GroupController {
 		return glike;
 		
 		
+	}
+	
+	@RequestMapping("/group/gorupBoardSearch")
+	@ResponseBody
+	public List<Board> groupBoardSearch(String inputSearch,String groupSeq,Model model) {
+		Map param = new HashMap();
+		param.put("inputSearch", inputSearch);
+		param.put("groupSeq", groupSeq);
+		
+		List<Board> boardlist=serviceb.selectBoardSearchList(param);
+		log.warn("swswsswswsw{}",groupSeq);
+		log.warn("swswsswswsw2{}",inputSearch);
+		
+		
+		return boardlist;
 	}
 
 }
