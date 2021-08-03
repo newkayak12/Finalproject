@@ -11,7 +11,7 @@
 	.foodView-image-container{ height : 200px; }
 	.foodView-menu-container { margin-top:20px; background-color : #f2f2f2; border-radius : 10px; }
 	.foodView-menu-container p { padding-top: 10px !important; margin : 0 !important; }
-	.foodView-menu-container span { font-family : twayair; }
+	.foodView-menu-container span { font-family : twayair; color : #4a4a4a;}
 	.foodView-inner-sideMenu { width : 100px; float : right; }
 	
 	.foodView-icons { display: flex; justify-content: flex-end; }
@@ -29,7 +29,7 @@
 	.lightgray { color : lightgray;}
 	.atag { text-decoration: none; color : black !important; font-weight : 900;}
 	.foodView-icon-style { font-size:35px; text-align: center; }
-	
+
 	
 	/* 토스트 메시지 */
 	.toast-wrap {
@@ -195,7 +195,7 @@
 					<div class="row p-3">
 						<c:forEach var="menu" items="${ food.menus }">
 							<div class="col-6 col-md-4 item" style="padding:5px;">
-								<img class="mr-3 ml-3" style="border-radius: 10px;" width="100px" height="100px" src="${ path }/resources/upload/food/${ menu.menuPhoto}">
+								<img onclick="fn_largeImg(event);" class="mr-3 ml-3 cursor" style="border-radius: 10px;" width="100px" height="100px" src="${ path }/resources/upload/food/${ menu.menuPhoto}">
 								<div class="ml-3" style="display : inline-block;">
 									<span><c:out value="${ menu.menuName }"/></span>
 									<br>
@@ -227,6 +227,19 @@
 <div id="toast" class="toast-wrap" style="display:none;">
     <div class="toast"></div>
 </div>
+
+
+
+<!-- 모달 -->
+  <div class="modal" id="fv-imgModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <img src="">
+      </div>
+    </div>
+  </div>
+
+
 
 <script>
 
@@ -419,7 +432,16 @@
 		
 	}
 	
-	
+	// 메뉴 사진 클릭시 팝업
+	const fn_largeImg = (e) => {
+		
+		console.log($(e.target).attr("src"));
+		
+		let src = $(e.target).attr("src");
+		
+		$("#fv-imgModal").find("img").attr("src", "${ path }" + src);
+		$("#fv-imgModal").modal("show"); 
+	}
 	
 
      
