@@ -197,14 +197,16 @@ public class MypageController {
 	}
 	
 	
-	@RequestMapping("/user/mypage/cancelMovie")
-	@ResponseBody
-	public int cancelMovie(HttpServletRequest rq,
-			@RequestParam(value="movieReservNum", required=false) String movieReservNum) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		MovieTicketing mt=MovieTicketing.builder().userId(user.getUserId()).movieReservNum(movieReservNum).build();
-		return service.cancelMovie(mt);
-	}
+	/*
+	 * @RequestMapping("/user/mypage/cancelMovie")
+	 * 
+	 * @ResponseBody public int cancelMovie(HttpServletRequest rq,
+	 * 
+	 * @RequestParam(value="movieReservNum", required=false) String movieReservNum)
+	 * { User user=(User)rq.getSession().getAttribute("userSession"); MovieTicketing
+	 * mt=MovieTicketing.builder().userId(user.getUserId()).movieReservNum(
+	 * movieReservNum).build(); return service.cancelMovie(mt); }
+	 */
 	
 	
 	@RequestMapping("/user/mypage/blockFriend")

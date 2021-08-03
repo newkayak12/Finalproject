@@ -11,6 +11,7 @@ import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
 import com.e_um.model.vo.placeinfo.movie.seat.Seat;
+import com.e_um.model.vo.userInfo.report.Report;
 
 public interface MovieServiceInterface {
 	List<Movie> movieList();
@@ -28,6 +29,10 @@ public interface MovieServiceInterface {
 	MoviePersonInfo moviePerson(String person);
 	
 	List<MovieReview> movieReview(String movieSeq);
+	
+	int maleCount(String movieSeq);
+	
+	int femaleCount(String movieSeq);
 	
 	int movieWrite(Map param); 
 	
@@ -53,8 +58,8 @@ public interface MovieServiceInterface {
 	
 	MovieTicketing movieTicket(Map param);
 	
+	MovieReview movieReviewOne(String movieReviewSeq);
 	
-	
-	
+	int insertReport(Report report);
 	
 }

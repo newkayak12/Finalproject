@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.placeInfo.movie.MovieDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
@@ -17,6 +18,7 @@ import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
 import com.e_um.model.vo.placeinfo.movie.seat.Seat;
+import com.e_um.model.vo.userInfo.report.Report;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -90,6 +92,19 @@ public class MovieService implements MovieServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.movieReviewList(session,param);
 	}
+	
+	@Override
+	public int maleCount(String movieSeq) {
+		// TODO Auto-generated method stub
+		return dao.maleCount(session,movieSeq);
+	}
+
+	@Override
+	public int femaleCount(String movieSeq) {
+		// TODO Auto-generated method stub
+		return dao.femaleCount(session,movieSeq);
+	}
+
 	@Override
 	public int movieReviewCount2(Map param) {
 		// TODO Auto-generated method stub
@@ -130,6 +145,23 @@ public class MovieService implements MovieServiceInterface {
 	public MovieTicketing movieTicket(Map param) {
 		// TODO Auto-generated method stub
 		return dao.movieTicket(session,param);
+	}
+
+	@Override
+	public MovieReview movieReviewOne(String movieReviewSeq) {
+		// TODO Auto-generated method stub
+		return dao.movieReviewOne(session,movieReviewSeq);
+	}
+	
+	@Override
+	public int insertReport(Report report) {
+		// TODO Auto-generated method stub
+		int result = dao.insertReport(session,report);
+		if(result>0) {
+			dao.reportCountUpdate(session,report);
+		}
+		
+		return result;
 	}
 	
 	
