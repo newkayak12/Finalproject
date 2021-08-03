@@ -54,6 +54,7 @@ public class ReportController {
 	@RequestMapping("/report/reportprifile")
 	@ResponseBody
 	public int ReportProfile(Report report) {
+		report.setReportTargetContent("user");
 		return service.insertReport(report);
 	}
 }

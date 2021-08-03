@@ -101,6 +101,11 @@
 									        <span class="ml-1 mr-2 p-0" id="commenterId">
 									        	${comment.commenterNick }
 									        </span>
+									        <span>
+									        	<c:if test="${comment.commenter != userSession.userId}">
+									        	<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" onclick="fn_report('${comment.feedCommentSeq }', '${comment.commenter }','${userSession.userId }')" data-toggle="modal" data-target="#ReportModal">
+									        	</c:if>
+									        </span>
 								        </div>
 								        <c:if test="${comment.commenterNick == userSession.userNick }">
 									        <div class="col-1" onclick="fn_commentdel('${comment.feedCommentSeq}')">
@@ -122,6 +127,11 @@
 									           <img src="${pageContext.request.contextPath}/resources/upload/profile/${comment.commenterProfile}" alt="프사" width="25px" height="25px" style="border-radius: 100%;"  id="commentPhoto">
 									        <span class="ml-1 mr-2 p-0" id="commenterId">
 									        	${comment.commenterNick }
+									        </span>
+									       <span>
+									        		<c:if test="${comment.commenter != userSession.userId}">
+									        	<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" onclick="fn_report('${comment.feedCommentSeq }', '${comment.commenter }','${userSession.userId }')" data-toggle="modal" data-target="#ReportModal">
+									        	</c:if>
 									        </span>
 								        </div>
 								        <c:if test="${comment.commenterNick == userSession.userNick }">

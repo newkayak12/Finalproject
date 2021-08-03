@@ -244,19 +244,10 @@
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user/mypage/selectInterest",
 			success:data=>{
-/* 				console.log(data);
-				console.log(data['profileInterestName1']);
-				console.log($(".interBtn")[0]);
-				console.log($(".interBtn").length); */
-				//console.log($(".interBtn")[0].innerHTML);
  				for(let i=1;i<=5;i++){
 					for(let j=0;j<$(".interBtn").length;j++){
-//						console.log(data['profileInterestName'+i]);
-//						console.log(data['profileInterestName'+i]==$(".interBtn")[j].innerHTML);
 						if(data['profileInterestName'+i]==$(".interBtn")[j].innerHTML){
-//							console.log($(".interBtn")[j]);
 							$($(".interBtn")[j]).addClass("choCon"); 
-							//console.log($(".interBtn")[j].hasClass("choCon"));
 						}
 					}
 				}

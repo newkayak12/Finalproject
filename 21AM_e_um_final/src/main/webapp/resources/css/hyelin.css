@@ -206,3 +206,18 @@
     font-family: 'Noto Sans KR';
     font-weight: bold;
 }
+
+
+
+/*friendModal*/
+.scrollDiv{
+	height:500px;
+	overflow:auto;
+}
+.scrollDiv2{
+	height:400px;
+	overflow:auto;
+}
+.infobold:hover{
+	font-weight:bold;
+}

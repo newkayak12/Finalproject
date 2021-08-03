@@ -6,7 +6,6 @@
 	<div style="height: 650px" class="d-flex flex-column justify-content-around align-items-center">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      /* google.charts.load('current', {'packages':['corechart']}); */
       
 			$(function(){
 				
@@ -15,47 +14,89 @@
       
       
 	     function chart(){
-    	  let data = '${price_star}';
-    	  let content = JSON.parse(data)
+    	  let dat = '${price_star}';
+    	  let content = JSON.parse(dat)
+    	  console.log("table")
     	  console.log(content)
-	    	  
-	     /* 
+    	  let string = [];
+    	  string.push(['price','star'])
+    	  
+	         content.forEach((v,i)=>{
+	        	 console.log(v)
+	 	 				string.push(v)
+	         })
+	         
+	         
+         let ldat = '${like_star}'
+         let lcontent = JSON.parse(ldat)
+         let string2 = [];
+         string2.push(['like','star']);
+         
+         lcontent.forEach((v,i)=>{
+        	 string2.push(v)
+         })
+	     
+	       console.log(string2)
+	      google.charts.load('current', {'packages':['corechart']});
 	      google.charts.setOnLoadCallback(drawChart1);
+	      google.charts.setOnLoadCallback(drawChart2);
 		
 		      function drawChart1() {
-		        var data = google.visualization.arrayToDataTable([
-		          ['Age', 'Weight'],
-		          [ 8,      12],
-		          [ 4,      5.5],
-		          [ 11,     14],
-		          [ 4,      5],
-		          [ 3,      3.5],
-		          [ 6.5,    7]
-		        ]);
-		
+		        var data = google.visualization.arrayToDataTable(string
+		         );
+		        
+		        
+				
+		         console.log(data)
 		        var options = {
-		          title: 'Age vs. Weight comparison',
-		          hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-		          vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
-		          legend: 'none'
+		          title: 'price-star graph',
+		          hAxis: {title: 'price', minValue: 0, maxValue: 60000},
+		          vAxis: {title: 'star', minValue: 0, maxValue: 5.0},
+		          legend: 'none',
+		          pointShape: 'star',
+		          pointSize: 10,
+		          animation: {
+		            duration: 300,
+		            easing: 'inAndOut',
+		          }
 		        };
 	
-	        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+	        var chart = new google.visualization.ScatterChart(document.getElementById('price_star'));
 	
 	        chart.draw(data, options);
 	      }
-		      */
+		      function drawChart2() {
+			        var data = google.visualization.arrayToDataTable(string2
+			         );
+			        
+			        
+					
+			         console.log(data)
+			        var options = {
+			          title: 'like-star graph',
+			          hAxis: {title: 'like', minValue: 0, maxValue: ${likeMaximum}},
+			          vAxis: {title: 'star', minValue: 0, maxValue: 5.0},
+			          legend: 'none',
+			          pointShape: 'star',
+			          pointSize: 10,
+			          animation: {
+			            duration: 300,
+			            easing: 'inAndOut',
+			          }
+			        };
+		
+		        var chart = new google.visualization.ScatterChart(document.getElementById('like_star'));
+		
+		        chart.draw(data, options);
+		      }
+		     
       } 
     </script>
 	
-		<div>
-			<span>
+		<div class="d-flex justify-content-around">
+			<span id="price_star">
 			</span>
-			<span>
-			</span>
-			<span>
-			</span>
-			<span>
+			<span id="like_star">
 			</span>
 		
 		</div>
@@ -126,7 +167,8 @@
 		</table>
 	</div>
 
-	<div>${pageBar }</div>
+	
+	<div class="mt-5">${pageBar }</div>
 </div>
 
 <script>

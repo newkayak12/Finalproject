@@ -4,6 +4,7 @@ import static com.e_um.common.pagebar.PageBar.getPageBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.e_um.model.sevice.admin.AdminServiceInterface;
+import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.user.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminController {
 	@Autowired
 	AdminServiceInterface service;
+	
+	@Autowired
+	FoodServiceInterface fservice;
+	
 	@Autowired
 	ObjectMapper obj;
 	
@@ -275,27 +282,29 @@ public class AdminController {
 		int numPerPage =10;
 		List<Food> statistics=service.statisticsFood();
 		
-		int intalian = 0;
-		int kroean = 0;
-		int etc = 0;
-		int american = 0;
-		int japanese = 0;
-		int caffe = 0;
+		List<double[]> like_star = new ArrayList();
 		List<double[]> price_star = new ArrayList();
 		
 		for(Food f : statistics) {
 			double[] temp = {f.getFoodPrice(), f.getFoodStar()};
 			price_star.add(temp);
+			
+			double[] temp2 = {f.getFoodLikeCount(), f.getFoodStar()};
+			like_star.add(temp2);
 		}
 		
 		String parsed = "";
+		String paresed2 = "";
 		
 		try {
 			parsed = obj.writeValueAsString(price_star);
+			paresed2 = obj.writeValueAsString(like_star);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		model.addAttribute("likeMaximum",service.likeMaxiumCount());
+		model.addAttribute("like_star",paresed2);
 		model.addAttribute("price_star",parsed);
 		model.addAttribute("list",service.manageFood(Integer.parseInt(cPage), numPerPage));
 		model.addAttribute("pageBar",getPageBar(service.foodTotalData(), Integer.parseInt(cPage), numPerPage, "manageFood"));
@@ -312,6 +321,18 @@ public class AdminController {
 		return service.unblockFood(foodSeq);
 	}
 	
+	@RequestMapping("/admin/writefood")
+	public String writeFood(Model model) {
+		// 카테고리 대분류, 중분류 데이터 가져오기 
+				List<String> CategoryMainList = fservice.selectFoodCategoryMain();
+				List<String> CategorySubList = fservice.selectFoodCategorySub();
+						
+				model.addAttribute("CategoryMainList", CategoryMainList);
+				model.addAttribute("CategorySubList", CategorySubList);
+				
+		return "components/admin/foodForm";
+	}
+	
 	
 	@RequestMapping("/admin/manageservice")
 	public String manageService(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
@@ -321,5 +342,49 @@ public class AdminController {
 	public String manageMovie(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		return "components/admin/managemovie";
 	}
+	
+	@RequestMapping("/admin/managefeed")
+	public String manageFeed(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("pageBar",getPageBar(service.feedTotalData(), Integer.parseInt(cPage), numPerPage, "manageReport"));
+		List<ReportFeed> list = service.manageFeed(Integer.parseInt(cPage), numPerPage);
+		log.error("listlsitlsitsltistslislit{}",list);
+		model.addAttribute("list",list);
+		return "components/admin/adminfeed";
+	}
+	
+	@RequestMapping("/admin/feedblock")
+	@ResponseBody
+	public int feedBlock(String seq) {
+		return service.feedBlock(seq);
+	}
+	@RequestMapping("/admin/feedunblock")
+	@ResponseBody
+	public int feedUnBlock(String seq) {
+		return service.feedUnBlock(seq);
+	}
+	
+	
+	@RequestMapping("/admin/managefeedComment")
+	public String manageFeedComment(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("pageBar", getPageBar(service.feedCommentTotalData(), Integer.parseInt(cPage), numPerPage, "manageFeedComment"));
+		model.addAttribute("list", service.manageFeedComment(Integer.parseInt(cPage), numPerPage));
+		
+		return "components/admin/adminfeedComment";
+	}
+	
+	@RequestMapping("/admin/feedCommentblock")
+	@ResponseBody
+	public int feedCommentBlock(String seq) {
+		
+		return service.feedCommentBlock(seq);
+	}
+	@RequestMapping("/admin/feedCommentunblock")
+	@ResponseBody
+	public int feedCommentUnBlock(String seq) {
+		return service.feedCommentUnBlock(seq);
+	}
+	
 	
 }

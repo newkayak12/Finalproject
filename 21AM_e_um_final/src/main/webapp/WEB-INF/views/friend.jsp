@@ -159,17 +159,19 @@
 		
 		      <!-- Modal Header -->
 		      <div class="modal-header">
-		        <h4 class="modal-title">검색 결과</h4>
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title pointFont mainColor">검색 결과</h4>
+		        <button type="button" class="close mainColor" data-dismiss="modal">&times;</button>
 		      </div>
 		
 		      <!-- Modal body -->
-		      <div id="searchResultModal-body" class="modal-body row mt-5" >
+		      <div class="modal-body" >
+		      	<div id="searchResultModal-body" class="row scrollDiv">
+		      	</div>
 		      </div>
 		
 		      <!-- Modal footer -->
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn cancelBtn" data-dismiss="modal">Close</button>
 		      </div>
 		
 		    </div>

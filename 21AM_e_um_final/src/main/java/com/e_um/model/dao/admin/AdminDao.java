@@ -1,6 +1,7 @@
 package com.e_um.model.dao.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.userInfo.report.ReportFeed;
+import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Repository
@@ -201,6 +204,60 @@ public class AdminDao implements AdminDaoInterface{
 	public List<Food> statisticsFood(SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
 		return session.selectList("admin.manageFood");
+	}
+
+	@Override
+	public int likeMaxiumCount(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.likeMaximumCount");
+	}
+
+	@Override
+	public List<ReportFeed> manageFeed(int cPage, int numPerPage, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.manageFeed","",new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int feedTotalData(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.feedTotalData");
+	}
+
+	@Override
+	public int feedBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedBlock", seq);
+	}
+
+	@Override
+	public int feedUnBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedUnBlock", seq);
+	}
+
+	@Override
+	public List<ReportFeedComment> manageFeedComment(int cPage, int numPerPage, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.manageFeedComment", "", new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int feedCommentTotalData(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.feedCommentTotalData");
+	}
+
+	@Override
+	public int feedCommentBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedCommentBlock",seq);
+	}
+
+	@Override
+	public int feedCommentUnBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedCommentUnBlock",seq);
 	}
 
 }
