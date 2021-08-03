@@ -26,5 +26,11 @@ public interface BoardServiceInterface {
 	LikeBoard checkBoardLike(Map<String, String> param);
 
 	List<Board> selectBoardListBest(String groupSeq);
+
+	List<Board> selectBoardSearchList(Map param);
+
+	int groupboardinsertmaster(Board board);
+	
+	
 	
 }

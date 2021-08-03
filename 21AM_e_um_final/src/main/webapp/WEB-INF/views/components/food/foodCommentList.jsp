@@ -82,19 +82,19 @@
 							<p class="fcl-content"><c:out value="${ fc.foodCommentContents }"/></p>
 							
 							<c:if test="${ fc.foodPhoto1 ne null }">
-									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto1 }">
+									<img onclick="fn_largeImg(event);" class="fcImage cursor" src="${path }/resources/upload/foodComment/${fc.foodPhoto1 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto2 ne null }">
-									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto2 }">
+									<img onclick="fn_largeImg(event);" class="fcImage cursor" src="${path }/resources/upload/foodComment/${fc.foodPhoto2 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto3 ne null }">
-									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto3 }">
+									<img onclick="fn_largeImg(event);" class="fcImage cursor" src="${path }/resources/upload/foodComment/${fc.foodPhoto3 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto4 ne null }">
-									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto4 }">
+									<img onclick="fn_largeImg(event);" class="fcImage cursor" src="${path }/resources/upload/foodComment/${fc.foodPhoto4 }">
 							</c:if>
 							<c:if test="${ fc.foodPhoto5 ne null }">
-									<img class="fcImage" src="${path }/resources/upload/foodComment/${fc.foodPhoto5 }">
+									<img onclick="fn_largeImg(event);" class="fcImage cursor" src="${path }/resources/upload/foodComment/${fc.foodPhoto5 }">
 							</c:if>
 						</div>
 					</div>
@@ -124,8 +124,11 @@
 	<%-- <c:if test="${  foodCommentList eq null or fn:length(foodCommentList) eq 0 }"> --%>
 	<c:if test="${  totalFoodComment eq 0 }">
 		<div>
-			<p style="font-weight:900;">아직 등록된 리뷰가 없네요.</p>
-			<p style="font-weight:900;"><c:out value="${ session.userNick }"/>님, 첫 리뷰를 작성해주시겠어요? &nbsp; :)</p>
+			<p style="font-weight:900;">
+				아직 등록된 리뷰가 없네요.<br>
+				<span class="tway" style="color:#4a4a4a;"><c:out value="${ session.userNick }"/></span>님, 첫 리뷰를 작성해주시겠어요? &nbsp; :)
+			</p>
+			
 		</div>
 		
 	</c:if>

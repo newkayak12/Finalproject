@@ -22,16 +22,15 @@
 .selected{ background-color: black;color: #ffffff !important;}
 .year, .month {	}
 /* 정보 영역 */
-.bookingFoodTitle {font-size: 40px;font-weight: 900;}
-.foodBookingTitle {font-weight: 900;color: #70b3d9;}
+.foodBookingTitle { font-family : twayAir; color : #2AC1BC; }
 </style>
 
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
-	
+		<p class="tway mainColor" style="font-size:35px; text-align:center;">맛집 예약하기</p>
 		<!-- 정보 영역 -->
 		<div class="info ml-5 mr-5 mt-5 mb-3" style="display:inline-block;">
-				<div class="bookingFoodTitle" style="float:left;">&nbsp;&nbsp;<c:out value="${ food.foodName }"/></div>
+				<div class="tway blackText" style="float:left; font-size:45px;">&nbsp;&nbsp;<c:out value="${ food.foodName }"/></div>
 				<div class="ml-5" style="float:right;">
 					<span class="etc"><c:out value="😋 ${ food.foodAddr }"/></span>
 					<br>
@@ -117,9 +116,9 @@
 				
 				<div class="mb-5">
 					<br>
-					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="fn_bookingRestart();" style="border:1px solid #70b3d9;">선택 초기화</button>
-					<button type="button" class="btn btn-eum border-eum textcolor-eum m-1" onclick="location.assign('${path}/food/foodView?foodSeq=${ food.foodSeq}');" style="border:1px solid #70b3d9;">돌아가기</button>
-					<input type="submit" value="예약하기" class="btn btn-eum bgcolor-eum m-1" style="background-color: #70b3d9;">
+					<button type="button" class="btn cancelBtn m-1" onclick="fn_bookingRestart();">선택 초기화</button>
+					<button type="button" class="btn cancelBtn m-1" onclick="location.assign('${path}/food/foodView?foodSeq=${ food.foodSeq}');">돌아가기</button>
+					<input type="submit" value="예약하기" class="btn checkBtn m-1">
 				</div>
 			</div>	
 			

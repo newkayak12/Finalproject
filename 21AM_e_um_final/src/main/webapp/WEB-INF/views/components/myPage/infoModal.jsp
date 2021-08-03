@@ -140,7 +140,7 @@
                     </tr>
                     <tr>
                         <td class="colend"><b>변경할 이메일</b></td>
-                        <td><input type="text" id="newEmail" name="newEmail"></td>
+                        <td><input type="email" id="newEmail" name="newEmail" required></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -148,7 +148,7 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="btn changeBtn mt-4">변경하기</button>
+            <button id="changeEmailBtn" class="btn changeBtn mt-4" onclick="fn_changeEmail();">변경하기</button>
         </div>
     </div>
 
@@ -231,7 +231,10 @@
                     </tr>
                 </tbody>
             </table>
-            <button id="changeInterBtn" class="btn changeBtn mt-4" onclick="fn_changeInter()">변경하기</button>
+            <div>
+	            <button id="resetInterBtn" class="btn cancelBtn mt-4 mr-5" onclick="fn_resetInter()">초기화</button>
+	            <button id="changeInterBtn" class="btn changeBtn mt-4" onclick="fn_changeInter()">변경하기</button>
+            </div>
         </div>
     </div>
 </div>
@@ -419,6 +422,23 @@
 		})
 	}
 	
+	function fn_changeEmail(){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/user/mypage/changeEmail",
+			data:{"newEmail":$("#newEmail").val()},
+			success:data=>{
+				if(data>0){
+					alert("이메일이 변경되었습니다.");
+					$("#myPageModal").modal("hide");
+					fn_openMPModal("info","이메일");
+				}else{
+					alert("이메일 변경에 실패했습니다.");
+				}
+			}
+		})
+	}
+	
 	$(".choice-5").click(e=>{
   		/* console.log($(".choCon").filter(".interBtn").html()); */
     	let inter_su=$(".choice-5").find(".choCon").length;
@@ -457,4 +477,8 @@
 			}
 		});
     }
+	
+	function fn_resetInter(){
+		$(".choCon").removeClass("choCon");
+	}
 </script>

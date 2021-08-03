@@ -6,12 +6,12 @@
 	/*  foodView  */
 	.foodView-info-container { margin : 10px; }
 	.foodView-info-container table tr th { padding-bottom:5px; color : #2AC1BC; font-family: twayair; width:15%; min-width:100px; font-size:17px;}
-	.foodView-info-container table tr td { padding-bottom:5px; color : black; width:85%; font-weight:900; font-size : 16px;}
+	.foodView-info-container table tr td { padding-bottom:5px; color : #4a4a4a; width:85%; font-weight:900; font-size : 16px;}
 	
 	.foodView-image-container{ height : 200px; }
 	.foodView-menu-container { margin-top:20px; background-color : #f2f2f2; border-radius : 10px; }
 	.foodView-menu-container p { padding-top: 10px !important; margin : 0 !important; }
-	.foodView-menu-container span { font-family : twayair; }
+	.foodView-menu-container span { font-family : twayair; color : #4a4a4a;}
 	.foodView-inner-sideMenu { width : 100px; float : right; }
 	
 	.foodView-icons { display: flex; justify-content: flex-end; }
@@ -27,9 +27,9 @@
 	.font-twayair { font-family: twayair; }
 	.foodView-main a { text-decoration: none; color: black;}
 	.lightgray { color : lightgray;}
-	.atag { text-decoration: none; color : black !important; font-weight : 900;}
+	.atag { text-decoration: none; color : #4a4a4a !important; font-weight : 900;}
 	.foodView-icon-style { font-size:35px; text-align: center; }
-	
+
 	
 	/* 토스트 메시지 */
 	.toast-wrap {
@@ -84,10 +84,9 @@
 				
 					<div class="foodView-info-container">
 						<span class="tway " style="font-size:40px;"><c:out value="${ food.foodName }"/></span>&nbsp;
-						<%-- <span class="mainColor" style="font-size:40px; font-weight:900;"><c:out value="${ food.foodStar }"/></span> --%>
 						<span class="mainColor" style="font-size:40px; font-weight:900;"><fmt:formatNumber type="number" pattern="0.0" value="${ food.foodStar }"/></span>
 						<br>
-						
+						<span class="lightgray"><i class="far fa-eye lightgray"></i>&nbsp;<c:out value="${ food.foodViewCount }"/></span>&nbsp;&nbsp;
 						<span class="lightgray"><i class="fas fa-pencil-alt lightgray"></i>&nbsp;<c:out value="${ foodCommentCount }"/></span>&nbsp;&nbsp;
 						<span class="lightgray"><i class="fas fa-heart lightgray"></i>&nbsp;<c:out value="${ food.foodLikeCount }"/></span>
 					</div>
@@ -195,7 +194,7 @@
 					<div class="row p-3">
 						<c:forEach var="menu" items="${ food.menus }">
 							<div class="col-6 col-md-4 item" style="padding:5px;">
-								<img class="mr-3 ml-3" style="border-radius: 10px;" width="100px" height="100px" src="${ path }/resources/upload/food/${ menu.menuPhoto}">
+								<img onclick="fn_largeImg(event);" class="mr-3 ml-3 cursor" style="border-radius: 10px;" width="100px" height="100px" src="${ path }/resources/upload/food/${ menu.menuPhoto}">
 								<div class="ml-3" style="display : inline-block;">
 									<span><c:out value="${ menu.menuName }"/></span>
 									<br>
@@ -228,6 +227,19 @@
     <div class="toast"></div>
 </div>
 
+
+
+<!-- 모달 -->
+  <div class="modal" id="fv-imgModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <img src="">
+      </div>
+    </div>
+  </div>
+
+
+
 <script>
 
 	// 토스트 메시지
@@ -258,6 +270,17 @@
      
 	
 	$(function() {
+		
+		// 페이지가 로드되면 조회수 카운트 올리기
+		$.ajax({
+			url : "${path}/food/foodViewCountUp",
+			data : {
+				"foodSeq" : "${food.foodSeq}"
+			},
+			success : data => {
+				console.log("조회수 1 증가요~");
+			}
+		});
 		
 		// 리뷰 불러오기 
 		$.ajax({
@@ -419,7 +442,16 @@
 		
 	}
 	
-	
+	// 메뉴 사진 클릭시 팝업
+	const fn_largeImg = (e) => {
+		
+		console.log($(e.target).attr("src"));
+		
+		let src = $(e.target).attr("src");
+		
+		$("#fv-imgModal").find("img").attr("src", "${ path }" + src);
+		$("#fv-imgModal").modal("show"); 
+	}
 	
 
      

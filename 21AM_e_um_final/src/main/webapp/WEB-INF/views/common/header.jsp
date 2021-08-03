@@ -1402,13 +1402,13 @@ function kakaoLogout(){
 					
 						 switch (key) {
 						case "friend_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"requestfriend")
+							location.assign('${pageContext.request.contextPath}/user/mypage/start?userId='+userId+"&flag="+"friend"+"&tab="+"친구 신청 목록")
 							break;
 						case "guestbook_alarm":
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId)
 							break;
 						case "accept_friend_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"friend")
+							location.assign('${pageContext.request.contextPath}/user/mypage/start?userId='+userId+"&flag="+"friend")
 							break;
 						case "feed_alarm":
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId+'?feedSeq='+ref);
@@ -1417,16 +1417,16 @@ function kakaoLogout(){
 							location.assign('${pageContext.request.contextPath}/profile/open/'+userId+'?feedSeq='+ref);
 							break;
 						case "calendar_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"calendar")
+							location.assign('${pageContext.request.contextPath}/user/mypage/start?userId='+userId+"&flag="+"calendar")
 							break;
 						case "movie_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"movie")
+							location.assign('${pageContext.request.contextPath}/user/mypage/start?userId='+userId+"&flag="+"movie")
 							break;
 						case "support_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"support")
+							location.assign('${pageContext.request.contextPath}/user/mypage/start?userId='+userId+"&flag="+"support")
 							break;
 						case "food_alarm":
-							location.assign('${pageContext.request.contextPath}/user/mypage?userId='+userId+"&flag="+"food")
+							location.assign('${pageContext.request.contextPath}/user/mypage/start?userId='+userId+"&flag="+"food")
 							break;
 						default:
 							break;
