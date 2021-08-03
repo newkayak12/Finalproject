@@ -208,5 +208,11 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public int foodViewCountUp(String foodSeq) {
+		return dao.foodViewCountUp(session, foodSeq);
+	}
+
+
 
 }

@@ -61,6 +61,8 @@ public interface FoodDaoInterface {
 
 	int updateFoodStar(SqlSessionTemplate session, Map<String, Object> map);
 
+	int foodViewCountUp(SqlSessionTemplate session, String foodSeq);
+
 	
 
 }

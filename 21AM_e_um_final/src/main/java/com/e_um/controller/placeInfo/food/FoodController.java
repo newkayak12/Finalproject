@@ -652,5 +652,21 @@ public class FoodController {
 		
 	}
 	
+	// 조회수 증가
+	@RequestMapping("/food/foodViewCountUp")
+	@ResponseBody
+	public int foodViewCountUp(String foodSeq) {
+		
+		return service.foodViewCountUp(foodSeq);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
