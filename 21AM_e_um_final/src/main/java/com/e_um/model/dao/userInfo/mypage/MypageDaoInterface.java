@@ -23,6 +23,10 @@ public interface MypageDaoInterface {
 	
 	int changeInterest(SqlSessionTemplate session, Map param);
 	
-	List<MovieTicketing> selectMovieTicketingInfo(SqlSessionTemplate session, String userId);
+	List<MovieTicketing> selectMovieTicketingInfo(SqlSessionTemplate session, String userId, int cPage, int numPerPage);
+	
+	int selectMovieTicketingCount(SqlSessionTemplate session, String userId);
+	
+	int cancelMovie(SqlSessionTemplate session, MovieTicketing mt);
 
 }

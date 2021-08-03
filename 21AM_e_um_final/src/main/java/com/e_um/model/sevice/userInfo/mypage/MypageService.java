@@ -62,8 +62,20 @@ public class MypageService implements MypageServiceInterface {
 
 
 	@Override
-	public List<MovieTicketing> selectMovieTicketingInfo(String userId) {
-		return dao.selectMovieTicketingInfo(session, userId);
+	public List<MovieTicketing> selectMovieTicketingInfo(String userId, int cPage, int numPerPage) {
+		return dao.selectMovieTicketingInfo(session, userId, cPage, numPerPage);
+	}
+
+
+	@Override
+	public int selectMovieTicketingCount(String userId) {
+		return dao.selectMovieTicketingCount(session, userId);
+	}
+
+
+	@Override
+	public int cancelMovie(MovieTicketing mt) {
+		return dao.cancelMovie(session, mt);
 	}
 
 }

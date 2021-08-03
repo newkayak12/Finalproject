@@ -21,6 +21,10 @@ public interface MypageServiceInterface {
 	
 	int changeInterest(Map param);
 	
-	List<MovieTicketing> selectMovieTicketingInfo(String userId);
+	List<MovieTicketing> selectMovieTicketingInfo(String userId, int cPage, int numPerPage);
+	
+	int selectMovieTicketingCount(String userId);
+	
+	int cancelMovie(MovieTicketing mt);
 
 }

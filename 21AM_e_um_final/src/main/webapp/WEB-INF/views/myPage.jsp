@@ -89,6 +89,7 @@
 	function fn_openMPModal(flag,tab){
 		let modalName="";
 		let modalTitle="";
+//		console.log(flag);
 		
 		switch(flag){
 			case "info": modalName="infoModal"; modalTitle="회원정보 수정"; break;
@@ -158,4 +159,6 @@
     		return false;
     	}
     }
+	
+	
 </script>

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.userInfo.mypage.MypageServiceInterface;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -35,7 +37,7 @@ public class MypageController {
 	BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder(); 
 	
 
-	@RequestMapping("user/mypage/start")
+	@RequestMapping("/user/mypage/start")
 	public String gotoMypage(String userId, @RequestParam(value="flag", defaultValue="none", required=false) String flag,
 			Model m, @RequestParam(value="tab", defaultValue="none", required=false) String tab) {
 		m.addAttribute("flag", flag);
@@ -46,13 +48,26 @@ public class MypageController {
 	}
 	
 	
-	@RequestMapping("user/mypage/openModal")
+	@RequestMapping("/user/mypage/openModal")
 	public String openMPModal(@RequestParam(value="modalName", required=false) String modalName,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
 			HttpServletRequest rq, Model m) {
 		User user=(User)rq.getSession().getAttribute("userSession");
+//		log.error("modalName: {}", modalName);
+//		log.error("userId: {}", user.getUserId());
+		
+		int totalData=0;
+		String pageBar="";
 		switch(modalName) {
-			case "movieName": m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId())); break;
+			case "movieModal":
+				m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage));
+				log.error("movieInfo: {}",m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage)));
+				totalData=service.selectMovieTicketingCount(user.getUserId());
+				pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
+				break;
 		}
+		m.addAttribute("pageBar",pageBar);
 		return "components/myPage/"+modalName;
 	}
 	
@@ -166,6 +181,16 @@ public class MypageController {
 		}else {
 			return 0;
 		}
+	}
+	
+	
+	@RequestMapping("/user/mypage/cancelMovie")
+	@ResponseBody
+	public int cancelMovie(HttpServletRequest rq,
+			@RequestParam(value="movieReservNum", required=false) String movieReservNum) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		MovieTicketing mt=MovieTicketing.builder().userId(user.getUserId()).movieReservNum(movieReservNum).build();
+		return service.cancelMovie(mt);
 	}
 	
 }
