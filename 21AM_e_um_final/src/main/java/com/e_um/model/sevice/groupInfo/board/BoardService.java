@@ -52,6 +52,7 @@ public class BoardService implements BoardServiceInterface {
 	@Override
 	public List<Comment> selectGroupBoardComment(String groupBoardSeq) {
 		// TODO Auto-generated method stub
+		log.warn("sevievievievie{}",groupBoardSeq);
 		return dao.selectGroupBoardComment(session, groupBoardSeq);
 	}
 
@@ -92,6 +93,22 @@ public class BoardService implements BoardServiceInterface {
 	@Override
 	public List<Board> selectBoardListBest(String groupSeq) {
 		return dao.selectBoardListBest(session, groupSeq);
+	}
+
+
+
+	@Override
+	public List<Board> selectBoardSearchList(Map param) {
+		
+		return dao.selectBoardSearchList(session,param);
+	}
+
+
+
+	@Override
+	public int groupboardinsertmaster(Board board) {
+		
+		return dao.groupboardinsertmaster(session, board);
 	}
 	
 	 

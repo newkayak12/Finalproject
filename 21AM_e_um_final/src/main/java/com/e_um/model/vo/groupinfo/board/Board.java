@@ -31,7 +31,7 @@ public class Board {
 	
 	private Photo groupBoardPhoto;
 	
-	
+	private int groupBest;
 	
 	
 //	private List<LikeBoard> likeBoard = new ArrayList<>();

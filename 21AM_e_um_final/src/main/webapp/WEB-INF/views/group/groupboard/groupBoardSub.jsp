@@ -23,6 +23,28 @@
 	const moveFn=(groupBoardSeq)=>{
 		location.assign("<%=request.getContextPath()%>/group/groupBoardContents.do?groupBoardSeq="+groupBoardSeq);
 	}
+	const moveFnNo=(groupBoardSeq)=>{
+		console.log(groupBoardSeq);
+		location.assign("<%=request.getContextPath()%>/group/groupBoardContentsNotice.do?groupBoardSeq="+groupBoardSeq);
+	}
+	
+	 const boardSearch=()=>{
+		$.ajax({
+			url : "${path}/group/gorupBoardSearch",
+			data : {"inputSearch":$("#inputSearch").val(), "groupSeq":$("#groupSeq").val()},
+			success:data=>{
+				console.log(data);
+				$(".seq").html("");
+				$(".title").html("");
+				$(".userId").html("");
+				$(".date").html("");
+				$(".status").html("");
+				for(var i=0; i<data.legnth;i++){
+					$(".table-light").append($("<td>").html(data[i]['groupBoardSeq']))
+				}
+			}		
+		})
+	} 
 </script>
 <!--본인 css 파일 포함시켜주세요-->
     
@@ -52,12 +74,15 @@
       
       <br><hr><br>
       
+
       <div class="input-group mb-3">
-      	<input type="text" class="form-control" placeholder="검색">
+      	<input type="text" class="form-control" id="inputSearch" name="inputSearch" placeholder="검색">
+      	<input type="hidden" value="${group.groupSeq }" id="groupSeq" name="groupSeq"/>
       	<div class="input-group-append">
-      		<button class="btn btn-success" type="submit">찾기</button>
+      		<button class="btn btn-success" id="boardSearchButton" onclick="boardSearch();">찾기</button>
       	</div>
       </div>
+      
       
       <br><br>
       
@@ -68,7 +93,8 @@
       	</button>
       </div>
       
-      <table class="table">
+      <div class="board-contents">
+      <table class="table" id="table">
       	<thead>
       	<tr>
       		<th>번호</th>
@@ -82,13 +108,13 @@
       		<c:forEach var="b" items="${notice }">
       		<tr class="table-primary">
         		<td><c:out value="${b.groupBoardSeq }"/></td>
-		        <td>공지</td>
-		        <td><a href="javascript:moveFn('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
+		        <td><c:out value="${b.groupLevel }"/></td>
+		        <td><a href="javascript:moveFnNo('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
 		        <td><c:out value="${b.groupBoardUser.userId}"/></td>
 		        <td><c:out value="${b.groupBoardDate }"/></td>
       		</tr>
       		</c:forEach>
-      
+      		<c:forEach var="b" items="${best }" begin="0" end="2" >
       		<tr class="table-warning">
 		        <td><c:out value="${b.groupBoardSeq }"/></td>
 		        <td>베스트게시글</td>
@@ -96,18 +122,21 @@
 		        <td><c:out value="${b.groupBoardUser.userId}"/></td>
 		        <td><c:out value="${b.groupBoardDate }"/></td>
       		</tr>
+      		</c:forEach>
       		
       		<c:forEach var="b" items="${boardlist }">
      		<tr class="table-light">
-		        <td><c:out value="${b.groupBoardSeq }"/></td>
-		        <td>일반</td>
-		        <td><a href="javascript:moveFn('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
-		        <td><c:out value="${b.groupBoardUser.userId}"/></td>
-		        <td><c:out value="${b.groupBoardDate }"/></td>
+		        <td class="seq"><c:out value="${b.groupBoardSeq }"/></td>
+		        <td class="status">일반</td>
+		        <td class="title"><a href="javascript:moveFn('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
+		        <td class="userId"><c:out value="${b.groupBoardUser.userId}"/></td>
+		        <td class="date"><c:out value="${b.groupBoardDate }"/></td>
       		</tr>
       		</c:forEach>
       	</tbody>
       </table>
+      </div>
+      
    </div>
    
    

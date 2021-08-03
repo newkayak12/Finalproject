@@ -97,6 +97,7 @@
 		            url:"${pageContext.request.contextPath}/feed/feedList",
 		            data:{"cPage":e, "userId": userId},
 		            success:data=>{
+		            	console.log(data)
 		                $("#feed-container").append(data)
 		                $(".repl").css("display","block")
 		                if(data.length>10){
@@ -494,7 +495,7 @@
       <div class="modal-content">
 
     <div class="modal-header">
-          <h4 class="modal-title bgColorMainColor">신고하기</h4>
+          <h4 class="modal-title mainColor">신고하기</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
