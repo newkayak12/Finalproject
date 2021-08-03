@@ -42,11 +42,11 @@ public class UserController {
 	
 	@Autowired
 	VerifyCodeMaker maker;
-	@RequestMapping("/")
-	public RedirectView gotoIndex(HttpServletRequest rq) {
-		
-		return new RedirectView(rq.getContextPath()+"/index.jsp");
-	}
+//	@RequestMapping("/")
+//	public RedirectView gotoIndex(HttpServletRequest rq) {
+//		
+//		return new RedirectView(rq.getContextPath()+"/index.jsp");
+//	}
 	
 	
 	@RequestMapping(value="/user/login/start")

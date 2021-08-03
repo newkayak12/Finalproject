@@ -33,14 +33,6 @@
     		});
     	}
     	
-    	$(function(){
-    		$.ajax({
-    			url:"${path}/movie/movieList2",
-    			success:data=>{
-    				
-    			}
-    		})
-    	})
     	
     	/* 예매율 1등 비디오 가져오기  */
     	$(function(){
@@ -194,7 +186,7 @@
 		                        <c:forEach var="l" items="${list }" begin="0" end="3">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#myModal" data-toggle="modal">
+		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size col-12"
@@ -444,7 +436,7 @@
              </div>
             </section>
             <section>
-                <div class="modal" id="myModal">
+                <div class="modal" id="movieModal">
                  <div class="modal-dialog modal-dialog-centered">
                    <div class="modal-content">
              
