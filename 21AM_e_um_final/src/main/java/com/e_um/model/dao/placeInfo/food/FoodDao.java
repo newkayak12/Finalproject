@@ -156,6 +156,12 @@ public class FoodDao implements FoodDaoInterface {
 		return session.insert("food.insertFoodAlarm", param);
 	}
 
+	@Override
+	public List<Food> selectAllFoodSorting(SqlSessionTemplate session, String con, String cPage) {
+		int numPerPage = 12;
+		return session.selectList("food.selectAllFoodSorting", con, new RowBounds((Integer.parseInt(cPage)-1)*numPerPage, numPerPage));
+	}
+
 	
 
 
