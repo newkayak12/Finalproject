@@ -48,4 +48,6 @@ public interface FoodServiceInterface {
 
 	int foodViewCountUp(String foodSeq);
 
+	int insertFoodAlarm(Map<String, String> param);
+
 }

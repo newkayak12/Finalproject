@@ -151,6 +151,11 @@ public class FoodDao implements FoodDaoInterface {
 		return session.update("food.foodViewCountUp", foodSeq);
 	}
 
+	@Override
+	public int insertFoodAlarm(SqlSessionTemplate session, Map<String, String> param) {
+		return session.insert("food.insertFoodAlarm", param);
+	}
+
 	
 
 

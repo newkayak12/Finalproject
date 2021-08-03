@@ -63,6 +63,8 @@ public interface FoodDaoInterface {
 
 	int foodViewCountUp(SqlSessionTemplate session, String foodSeq);
 
+	int insertFoodAlarm(SqlSessionTemplate session, Map<String, String> param);
+
 	
 
 }
