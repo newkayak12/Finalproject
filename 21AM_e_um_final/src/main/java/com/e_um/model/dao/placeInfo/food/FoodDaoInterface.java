@@ -65,6 +65,8 @@ public interface FoodDaoInterface {
 
 	int insertFoodAlarm(SqlSessionTemplate session, Map<String, String> param);
 
+	List<Food> selectAllFoodSorting(SqlSessionTemplate session, String con, String cPage);
+
 	
 
 }

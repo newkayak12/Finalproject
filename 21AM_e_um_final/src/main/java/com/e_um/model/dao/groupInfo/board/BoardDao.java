@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 
 import lombok.extern.slf4j.Slf4j;
@@ -83,6 +84,24 @@ public class BoardDao implements BoardDaoInterface {
 	public int groupboardinsertmaster(SqlSessionTemplate session, Board board) {
 		// TODO Auto-generated method stub
 		return session.insert("group.groupboardinsertmaster",board);
+	}
+
+	@Override
+	public Group selectGroupMaster(SqlSessionTemplate session, String groupSeq) {
+	
+		return session.selectOne("group.selectGroupMaster",groupSeq);
+	}
+
+	@Override
+	public List<Board> selectBoardListNotice(SqlSessionTemplate session, String groupSeq) {
+	
+		return session.selectList("group.selectBoardListNotice",groupSeq);
+	}
+
+	@Override
+	public int groupCountToday(SqlSessionTemplate session, String groupSeq) {
+		
+		return session.update("group.groupCountToday",groupSeq);
 	}
 	
 	

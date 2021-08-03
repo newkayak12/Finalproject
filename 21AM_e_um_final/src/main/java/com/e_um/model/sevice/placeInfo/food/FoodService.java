@@ -222,5 +222,11 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public List<Food> selectAllFoodSorting(String con, String cPage) {
+		return dao.selectAllFoodSorting(session, con, cPage);
+	}
+
+
 
 }

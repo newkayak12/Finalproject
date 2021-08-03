@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 
 public interface BoardServiceInterface {
@@ -30,6 +31,12 @@ public interface BoardServiceInterface {
 	List<Board> selectBoardSearchList(Map param);
 
 	int groupboardinsertmaster(Board board);
+
+	Group selectGroupMaster(String groupSeq);
+
+	List<Board> selectBoardListNotice(String groupSeq);
+
+	int groupCountToday(String groupSeq);
 	
 	
 	

@@ -151,6 +151,7 @@
 
     			        chart.draw(data, options);
     			      }
+
     			}
     			
     		})
@@ -352,7 +353,11 @@
 							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>평균 별점</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+
 									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: #6543b1; vertical-align:20px; text-align: center;">
+
+									
+
 										<span id="totalPoint"></span>
 									</div>
 								</div>
@@ -369,6 +374,7 @@
 								<h5>예매성비</h5>
 								<div class="mt-5 col-12" style="border: 1px solid black;  height: 200px;" id="piechart">
 									
+
 								</div>
 							</div>
 						</div>

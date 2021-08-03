@@ -25,10 +25,15 @@
       	<span class="float-left">
       		<h2><c:out value="${group.groupTitle }"/></h2>
       	</span>
+      	<br><br><br><br>
       	<span class="float-right">
-      		<h2>오늘방문자</h2>
+      		<p>누적방문자</p>
+      		<p><c:out value="${group.groupCountTotal }"/></p>
+      		<br>
+      		
       	</span>
-      	<h2>누적방문자</h2>
+      	<p>오늘방문자</p>
+      	<p><c:out value="${group.groupCountToday }"/></p>
       	<br><br>
       	<button type="button" class="btn btn-primary" disabled>정보</button>
    		<button type="button" class="btn btn-outline-primary"

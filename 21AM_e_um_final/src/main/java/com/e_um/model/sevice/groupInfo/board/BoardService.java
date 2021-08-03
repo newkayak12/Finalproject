@@ -11,6 +11,7 @@ import com.e_um.model.dao.groupInfo.board.BoardDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 
 import lombok.extern.slf4j.Slf4j;
@@ -109,6 +110,30 @@ public class BoardService implements BoardServiceInterface {
 	public int groupboardinsertmaster(Board board) {
 		
 		return dao.groupboardinsertmaster(session, board);
+	}
+
+
+
+	@Override
+	public Group selectGroupMaster(String groupSeq) {
+		
+		return dao.selectGroupMaster(session, groupSeq);
+	}
+
+
+
+	@Override
+	public List<Board> selectBoardListNotice(String groupSeq) {
+	
+		return dao.selectBoardListNotice(session, groupSeq);
+	}
+
+
+
+	@Override
+	public int groupCountToday(String groupSeq) {
+		log.warn("servicecece{}",groupSeq);
+		return dao.groupCountToday(session, groupSeq);
 	}
 	
 	 
