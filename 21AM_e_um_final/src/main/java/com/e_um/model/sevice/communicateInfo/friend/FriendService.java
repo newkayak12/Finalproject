@@ -35,6 +35,8 @@ public class FriendService implements FriendServiceInterface {
 		
 		Friend friend = Friend.builder().myId((String) param.get("myId")).friendId( (String)param.get("friendId")).build();
 		int result = dao.insertFriend(session, friend);
+		log.warn("result: {}", result);
+		log.warn("friend.getFriendSeq(): {}", friend.getFriendSeq());
 		
 		log.warn("{}", friend);
 //		
