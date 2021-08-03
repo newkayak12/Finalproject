@@ -50,4 +50,6 @@ public interface FoodServiceInterface {
 
 	int insertFoodAlarm(Map<String, String> param);
 
+	List<Food> selectAllFoodSorting(String con, String cPage);
+
 }

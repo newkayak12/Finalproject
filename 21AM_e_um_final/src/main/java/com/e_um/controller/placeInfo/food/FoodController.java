@@ -699,13 +699,17 @@ public class FoodController {
 		return "food/allFood";
 	}
 	
-//	@RequestMapping("/food/allFoodNameAsc")
-//	public String allFoodNameAsc(Model model) {
-//		
-//		
-//		
-//		return "";
-//	}
+	@RequestMapping("/food/allFoodSorting")
+	public String allFoodNameAsc(String con, @RequestParam(value="cPage", defaultValue = "1") String cPage, Model model) {
+		
+		log.error("{}", con);
+		
+		List<Food> list = service.selectAllFoodSorting(con, cPage);
+		
+		model.addAttribute("list", list);
+		
+		return "components/food/foodSortingList";
+	}
 	
 	
 	
