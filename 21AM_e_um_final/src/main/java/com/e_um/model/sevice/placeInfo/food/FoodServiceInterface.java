@@ -46,4 +46,8 @@ public interface FoodServiceInterface {
 
 	int updateFoodComment(Map<String, Object> map);
 
+	int foodViewCountUp(String foodSeq);
+
+	int insertFoodAlarm(Map<String, String> param);
+
 }

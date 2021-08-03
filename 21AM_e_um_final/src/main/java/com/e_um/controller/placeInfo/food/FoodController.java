@@ -302,16 +302,43 @@ public class FoodController {
 									String foodSeq, String bookingHead, String bookingContents, Model model) {
 
 		FoodBooking booking = new FoodBooking();
-		booking.setFood(Food.builder().foodSeq(foodSeq).build());
+		
+		// booking.setFood(Food.builder().foodSeq(foodSeq).build());
+		booking.setFood(service.selectFood(foodSeq));
+		
 		booking.setUser(User.builder().userId(userId).build());
 		booking.setBookingContents(bookingContents);
 		booking.setBookingDateDay(bookingDateDay);
 		booking.setBookingDateTime(bookingDateTime);
 		booking.setBookingHead(Integer.parseInt(bookingHead));
 		
-				System.out.println("예약정보 확인 : " + booking);
+				log.error("예약정보 확인{}", booking);
 		
 		int result = service.foodBooking(booking);
+		
+		
+		// 알림테이블에 넣기위한 작업 
+		SimpleDateFormat sdf1 = new SimpleDateFormat("MM월 dd일");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH시 mm분");
+		
+		String day = sdf1.format(bookingDateDay);
+		String time = sdf2.format(bookingDateTime);
+		
+				log.error("예약날짜{}", day); // 예약날짜08월 08일
+				log.error("예약시간{}", time); // 예약시간17시 00분
+				
+		Map<String, String> param = new HashMap<>();
+		
+		param.put("userId", userId);
+		param.put("day", day);
+		param.put("time", time);
+		param.put("foodSeq", foodSeq);
+		param.put("foodName", service.selectFood(foodSeq).getFoodName());
+		
+		
+		if(result > 0) {
+			result = service.insertFoodAlarm(param);
+		}
 		
 		model.addAttribute("msg", result > 0 ? "예약이 완료되었습니다." : "예약에 실패했습니다. 다시 시도해주세요.");
 		model.addAttribute("loc", "/food/foodBooking/start?foodSeq=" + foodSeq);
@@ -651,6 +678,36 @@ public class FoodController {
 		return "/common/msg";
 		
 	}
+	
+	// 조회수 증가
+	@RequestMapping("/food/foodViewCountUp")
+	@ResponseBody
+	public int foodViewCountUp(String foodSeq) {
+		
+		return service.foodViewCountUp(foodSeq);
+	}
+	
+	
+	// 맛집 전체보기 페이지로 이동 
+	@RequestMapping("/food/allFood")
+	public String allFood(Model model) {
+		
+		List<Food> list = service.selectAllFood();
+		
+		model.addAttribute("list", list);
+		
+		return "food/allFood";
+	}
+	
+//	@RequestMapping("/food/allFoodNameAsc")
+//	public String allFoodNameAsc(Model model) {
+//		
+//		
+//		
+//		return "";
+//	}
+	
+	
 	
 	
 }

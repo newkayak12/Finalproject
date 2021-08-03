@@ -98,6 +98,7 @@ public class FriendController {
 			@RequestParam(value="flag", required=false, defaultValue="apply") String flag) {
 		User user=(User)rq.getSession().getAttribute("userSession");
 		Map param=new HashMap();
+		param.put("myId", user.getUserId());
 		param.put("myNick", user.getUserNick());
 		param.put("friendId", friendId);
 		param.put("flag", flag);

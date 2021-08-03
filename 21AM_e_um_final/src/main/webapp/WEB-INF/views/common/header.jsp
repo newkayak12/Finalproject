@@ -215,7 +215,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:600px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none; background-color: white">
+	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:500px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none; background-color: white">
 		<div class="col-12 border d-flex justify-content-between" style="height:10%; max-height:50px position:fixed; top:0px;">
 			<span id="headerchatidBox">제목</span>
 			<span onclick ="headerchatclean()">X</span>
@@ -971,63 +971,69 @@ function kakaoLogout(){
 				}
 
 		} else if(data["flag"]=='running'){
-			/* console.log('들어오냐? ') */
-			let chatRootBottom = $("#chatRootBottom");
-			let chatRoottop = $("#chatRoottop");
-			/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
-			if(data["my"]=='${userSession.userId}'){
+			
+			if($("#chatRoomTophidden1").val()==data["room"]||$("#chatRoomBottomhidden1").val()==data["room"]){
+			
+				/* console.log('들어오냐? ') */
+				let chatRootBottom = $("#chatRootBottom");
+				let chatRoottop = $("#chatRoottop");
+				/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
+				if(data["my"]=='${userSession.userId}'){
+					
+					
+		 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
+		 			let outter = $("<div>").attr("class","col-6")
+		 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
+		 			let content = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
+		 			let timeline = $("<span>").attr("class","small").html(data["time"]);
+		 			
+		 			
+			 			if($(".iconboxfooter").css("display")=="none"){
+			 				/* console.log('헤더') */
+				 			chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
+			 			} else {
+			 				/* console.log('푸터') */					
+				 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
+			 			}
+		 			
+		 			
+		 		} else {
+		 			/* console.log('들어오냐? 타인') */
+		 			let chatRootBottom = $("#chatRootBottom");
+		 			let chatRoottop = $("#chatRoottop");
+	
+		 			/* console.log(nickname)
+		 			console.log(photos)
+		 			console.log(data)
+		 			console.log(data["msg"])
+		 			 */
+		 			let bCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
+		 			let bphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+photos}))
+		 			let boutter = $("<div>").attr("class","col-6 my-auto")
+		 			let bnickandtime = $("<div>").append($("<span>").html(nickname)).append($("<span>").attr("class","ml-2 small").css("color","gray").html(data["time"]))
+		 			let bcontent = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
+		 			
+		 			
+			 			if($(".iconboxfooter").css("display")=="none"){
+			 				/* console.log('헤더') */
+			 				chatRoottop.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))	
+			 			} else {
+			 				/* console.log('푸터') */					
+				 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
+			 			}
+		 			
+		 		}
 				
 				
-	 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
-	 			let outter = $("<div>").attr("class","col-6")
-	 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
-	 			let content = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
-	 			let timeline = $("<span>").attr("class","small").html(data["time"]);
-	 			
-	 			
-		 			if($(".iconboxfooter").css("display")=="none"){
-		 				/* console.log('헤더') */
-			 			chatRoottop.append(cover.append(outter.append(inner.append(content).append(timeline))))
-		 			} else {
-		 				/* console.log('푸터') */					
-			 			chatRootBottom.append(cover.append(outter.append(inner.append(content).append(timeline))))
-		 			}
-	 			
-	 			
-	 		} else {
-	 			/* console.log('들어오냐? 타인') */
-	 			let chatRootBottom = $("#chatRootBottom");
-	 			let chatRoottop = $("#chatRoottop");
-
-	 			/* console.log(nickname)
-	 			console.log(photos)
-	 			console.log(data)
-	 			console.log(data["msg"])
-	 			 */
-	 			let bCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
-	 			let bphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+photos}))
-	 			let boutter = $("<div>").attr("class","col-6 my-auto")
-	 			let bnickandtime = $("<div>").append($("<span>").html(nickname)).append($("<span>").attr("class","ml-2 small").css("color","gray").html(data["time"]))
-	 			let bcontent = $("<div>").html(data["msg"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
-	 			
-	 			
-		 			if($(".iconboxfooter").css("display")=="none"){
-		 				/* console.log('헤더') */
-		 				chatRoottop.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))	
-		 			} else {
-		 				/* console.log('푸터') */					
-			 			chatRootBottom.append(bCover.append(bphoto).append(boutter.append(bnickandtime).append(bcontent)))
-		 			}
-	 			
-	 		}
+				if($(".iconboxfooter").css("display")=="none"){
+					/* console.log('헤더') */
+					$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
+				} else {
+					/* console.log('푸터') */					
+					$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
+				}
 			
 			
-			if($(".iconboxfooter").css("display")=="none"){
-				/* console.log('헤더') */
-				$("#chatRoottop").scrollTop($("#chatRoottop")[0].scrollHeight)
-			} else {
-				/* console.log('푸터') */					
-				$("#chatRootBottom").scrollTop($("#chatRootBottom")[0].scrollHeight)
 			}
 			
 		}

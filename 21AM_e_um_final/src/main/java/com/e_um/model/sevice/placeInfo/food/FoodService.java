@@ -82,7 +82,9 @@ public class FoodService implements FoodServiceInterface {
 
 	@Override
 	public int foodBooking(FoodBooking booking) {	
+		
 		return dao.foodBooking(session, booking);
+
 	}
 
 
@@ -205,6 +207,18 @@ public class FoodService implements FoodServiceInterface {
 			return 0;
 		}
 		
+	}
+
+
+	@Override
+	public int foodViewCountUp(String foodSeq) {
+		return dao.foodViewCountUp(session, foodSeq);
+	}
+
+
+	@Override
+	public int insertFoodAlarm(Map<String, String> param) {
+		return dao.insertFoodAlarm(session, param);
 	}
 
 

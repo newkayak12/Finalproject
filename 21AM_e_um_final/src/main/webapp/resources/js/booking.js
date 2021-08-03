@@ -108,7 +108,7 @@ const fn_selectDate = (viewYear, viewMonth, date, event) => {
 		   			
 			   				 // 선택한 날짜의 칸 색을 붉은색으로
 			   				 $(event.target).css({
-			        				"background-color" : "#ff1c1c96",
+			        				"background-color" : "#ff9898",
 			        				"font-weight" : "900",
 			        				"color" : "black"
 			   				 });
@@ -125,7 +125,7 @@ const fn_selectDate = (viewYear, viewMonth, date, event) => {
 			} else {
 					// 선택한 날짜의 칸 색을 붉은색으로
 	   				 $(event.target).css({
-	        				"background-color" : "#ff1c1c96",
+	        				"background-color" : "#ff9898",
 	        				"font-weight" : "900",
 	        				"color" : "black"
 	   				 });
@@ -149,7 +149,7 @@ const fn_selectTime = (time, event) => {
 	console.log(event.target);
 	
 	$(event.target).css({
-		"background-color" : "#ff1c1c96",
+		"background-color" : "#ff9898",
 	    "font-weight" : "900",
 	    "color" : "black"
 	});

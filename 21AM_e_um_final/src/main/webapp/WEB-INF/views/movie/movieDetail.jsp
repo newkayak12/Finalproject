@@ -58,7 +58,6 @@
 				url:"<%=request.getContextPath()%>/movie/movieReview",
 				data:{"movieSeq":movieSeq},
 				success:data=>{
-					
 					data.forEach((v,i)=>{
 						console.log(v["movieReviewWriteDate"]);
 						let date = (v["movieReviewWriteDate"]);
@@ -69,14 +68,24 @@
 								.append($("<td>").html("★"+v["movieEvaluationAvg"]))
 								.append($("<td>").html(v["movieReviewContent"]))
 								.append($("<td>").html(result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일"))
+								.append($('<td>').append($('<button onclick="movieModal(event);" data-target="#movieReport" data-toggle="modal">')
+										.css("background-color","lightgreen").attr("value",v["movieReviewSeq"]).html("신고")))
+						
 						)
 					})
 					
 						
 				}
-				
-				
+
 			})
+			/* $.ajax({
+					url:"${path}/movie/pageBar",
+					data:{"movieSeq":movieSeq},
+					success:data=>{
+						console.log(data);
+						$("#pageBar").append(data['pageBar']);
+					}
+				}) */
 			
 		}
 		const graphShow=(movieSeq)=>{
@@ -84,7 +93,6 @@
     			url:"<%=request.getContextPath()%>/movie/movieReviewData",
     			data:{"movieSeq":movieSeq},
     			success:data=>{
-    				console.log(data);
     				if(data['total'] !=='NaN'){
     					$("#totalPoint").html("★"+data['total']).css("font-size","30px");
     				}else{
@@ -116,7 +124,14 @@
     					
     			}
     		})
-    		
+    		$.ajax({
+    			url:"${path}/movie/genderRate",
+    			data: {"movieSeq":movieSeq},
+    			success:data=>{
+    				console.log(data);
+    			}
+    			
+    		})
     		
 					
 			
@@ -133,6 +148,62 @@
 		
 		const movieReserve=()=>{
 			location.assign("<%=request.getContextPath()%>/movie/movieReserve");
+		}
+		
+		const movieModal=(e)=>{
+			$.ajax({
+				url : "${path}/movie/movieReviewOne",
+				data : {"movieReviewSeq":e.target.value},
+				success:data=>{
+					console.log(data);
+					$("#counterpartid").html(data['mr']['userId']['userId']);
+					$("#myid").html(data['userId']);
+					$("#reportSeq").html(data['mr']['movieReviewSeq'])
+					$("#reportSeq").attr("value",data['mr']['movieReviewSeq']);
+					$(".reportbtn").change((e)=>{
+				    	
+						$("#reportcategory").val($(e.target).val())
+			    		  
+			  	        if($(e.target).val()=='etc'){
+			  	            $(".etc").show(240)
+			  	        } else{
+			  	            $(".etc").hide(240)
+			  	        }
+		  	    	}) 
+				}
+			})
+		}
+		
+		const reportthis=()=>{
+	  		  let content = $("#reportcategory").val()
+	  		  
+	  		  if(content=='etc'){
+	  			content = $("#etcContent").val()  
+	  		  }
+	  		  console.log($("#myid").html());
+	  		  console.log($("#counterpartid").html());
+	  		  console.log($("#reportSeq").val());
+	  		  console.log(content);
+	  		  $.ajax({
+	  			  url:"${path}/movie/movieReport",
+	  			  data:{
+	  				  "userIdShooter" : $("#myid").html() ,
+	  				  "userIdTarget" : $("#counterpartid").html(),
+	  				  "reportContents" : $("#reportSeq").val(),
+	  				  "reportTargetContent" : content
+	  				  
+	  			  	},
+	  			    success:data=>{
+		  				$("#counterpartid").html("")
+		  		    	$("#myid").html("")
+		  		    	$("#etcContent").val("")
+		  				$(".reportbtn").prop("checked", false)
+		  				
+		  				if(data>0){
+		  					alert('신고가 완료되었습니다.')
+		  				}
+	  				}
+	  		  });
 		}
 	
 	</script>
@@ -240,7 +311,8 @@
 						        <th class="col-2">작성자</th>
 						        <th class="col-2">평점</th>
 						        <th class="col-5 justify-content-center">리뷰</th>
-						        <th class="col-3">작성일</th>
+						        <th class="col-2">작성일</th>
+						        <th class="col-1">신고</th>
 						      </tr >
 						    </thead>
 						    <tbody id="reviewBody">
@@ -258,7 +330,7 @@
 							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>평균 별점</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 200px; height: 200px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
+									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
 										<span id="totalPoint"></span>
 									</div>
 								</div>
@@ -268,6 +340,14 @@
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
 									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
 										<canvas id="radar-chart" width="250" height="250"></canvas>
+									</div>
+								</div>
+							</div>
+							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>예매성비</h5>
+								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
+										
 									</div>
 								</div>
 							</div>
@@ -305,6 +385,100 @@
 				            </div>
 				          </div>
 				        </div>
+				      </div>
+				    </div>
+				  </div>
+			   </section>
+			  
+			   <section>
+			   		<div class="modal" id="movieReport">
+				    <div class="modal-dialog ">
+				      <div class="modal-content">
+				
+				    <div class="modal-header">
+				          <h4 class="modal-title bgColorMainColor">신고하기</h4>
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        </div>
+				
+				        <div class="modal-body">
+				          
+				          <table class="table-striped table table-bordered table-sm col-12">
+				          	  <input type="hidden" id= "reportSeq">
+				          	  <input type="hidden" id= "reportcategory">
+				              <tr >
+				                  <th style="width:30%" class="text-center p-0" >신고할 아이디</th>
+				                  <td colspan="3" class="p-0 text-center"id="counterpartid"></td>
+				              </tr>
+				              <tr>
+				                  <th style="width:30%" class="text-center p-0" >신고하는 아이디</th>
+				                  <td colspan="3" class="p-0 text-center" id="myid"></td>
+				              </tr>
+				              
+				              <!-- <tr > -->
+				                <th style="width:30%; vertical-align:middle;" rowspan="6" class="text-center p-0">
+				                    신고 항목
+				                </th>
+				                  <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+				                      <label class="small">
+				                          <input type="radio" name="report" value="language"  class="reportbtn" > 부적절한 언어 사용
+				                      </label>
+				                  </td>
+				                </tr>
+				                <tr>
+				                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+				                        <label class="small">
+				                            <input type="radio" name="report" value="advertisement" class="reportbtn"> 광고성 게시글
+				                        </label>
+				                    </td>
+				                </tr>
+				                <tr>
+				                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+				                        <label class="small">
+				                            <input type="radio" name="report" value="imposter" class="reportbtn"> 타인을 사칭합니다.
+				                        </label>
+				                    </td>
+				                </tr>
+				                <tr>
+				                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+				                        <label class="small">
+				                            <input type="radio" name="report" value="profilePhoto" class="reportbtn"> 부적절한 프로필 사진 
+				                        </label>
+				                    </td>
+				                </tr>
+				                <tr>
+				                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+				                        <label class="small">
+				                            <input type="radio" name="report" value="feed" class="reportbtn"> 부적절한 게시글 사진 및 내용
+				                        </label>
+				                    </td>
+				                </tr>
+				                <tr>
+				                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+				                        <label class="small">
+				                            <input type="radio" name="report" value="etc" class="reportbtn"> 기타
+				                        </label>
+				                    </td>
+				                </tr>
+				                   
+				
+				              <tr class="etc" style="display: none;">
+				                  <th colspan="4" class="pl-4">기타 내용</th>
+				              </tr>
+				              <tr class="etc" style="display: none;">
+				                <td colspan="4" class="text-center p-0">
+								<textarea cols="45" rows="3" id="etcContent"></textarea>
+				                </td>
+				              </tr>
+				          
+				          
+				          </table>
+				        </div>
+				
+				        <div class="modal-footer">
+				          <button type="button" class="cancelBtn" data-dismiss="modal">닫기</button>
+				          <button type="button" class="checkBtn" data-dismiss="modal" onclick="reportthis();">신고하기</button>
+				        </div>
+				  
 				      </div>
 				    </div>
 				  </div>

@@ -24,6 +24,15 @@
 a { text-decoration:none !important } 
 a:hover { text-decoration:none !important }
 
+
+
+@media(min-width:775px){
+.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
+}
+@media(max-width:1200px){
+.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
+}
+
 </style>
 
 <section class="mt-5 pt-5">
@@ -109,8 +118,8 @@ a:hover { text-decoration:none !important }
 				</form>
 			</div>
 			
-			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button>
-			<button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodBookingView?userId=${session.userId }'">내예약내역</button>
+			<%-- <button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button> --%>
+			<button class="btn" style="float:right;" onclick="location.assign('${path}/food/allFood');">맛집 전체보기</button>
 		
 		</div> <!-- 검색 div -->
 		
@@ -339,7 +348,7 @@ a:hover { text-decoration:none !important }
 		// 조건 div 감춤 
 		$("#foodSearch-condition").hide();
 		
-		// 이전 검색결과 div 감춤?
+		// 이전 검색결과 div 감춤
 		$("#foodSearchResultDiv").css("display", "none");
 		
 		// 검색어

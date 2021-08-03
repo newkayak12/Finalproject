@@ -13,6 +13,7 @@ import com.e_um.model.vo.placeinfo.movie.screen.MovieBox;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieSeatStatus;
 import com.e_um.model.vo.placeinfo.movie.screen.MovieTime;
 import com.e_um.model.vo.placeinfo.movie.seat.Seat;
+import com.e_um.model.vo.userInfo.report.Report;
 
 public interface MovieDaoInterface {
 	List<Movie> movieList(SqlSessionTemplate session);
@@ -31,6 +32,10 @@ public interface MovieDaoInterface {
 	
 	List<MovieReview> movieReview(String movieSeq,SqlSessionTemplate session);
 
+	int maleCount(SqlSessionTemplate session, String movieSeq);
+	
+	int femaleCount(SqlSessionTemplate session, String movieSeq);
+	
 	int movieWrite(Map param, SqlSessionTemplate session);
 	
 	int movieReviewCount(SqlSessionTemplate session,String movieSeq);
@@ -55,8 +60,9 @@ public interface MovieDaoInterface {
 	
 	MovieTicketing movieTicket(SqlSessionTemplate session, Map param);
 	
+	MovieReview movieReviewOne(SqlSessionTemplate session, String movieReviewSeq);
 	
+	int insertReport(SqlSessionTemplate session, Report report);
 	
-	
-	
+	int reportCountUpdate(SqlSessionTemplate session, Report report);
 }

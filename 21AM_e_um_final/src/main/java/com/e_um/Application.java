@@ -19,6 +19,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class Application {
 	
 	public static void main(String[] args) {
+		System.setProperty("server.servlet.context-path","/21AM_e_um_final");
 		SpringApplication.run(Application.class, args);
 	}
 

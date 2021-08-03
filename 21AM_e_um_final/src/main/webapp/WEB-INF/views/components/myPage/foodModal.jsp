@@ -7,60 +7,50 @@
 <table class="table">
     <colgroup>
     	<col class="col-1">
+    	<col class="col-2">
     	<col class="col-3">
-    	<col class="col-3">
+    	<col class="col-2">
         <col class="col-1">
-        <col class="col-3">
-        <col class="col-1">
+        <col class="col-2">
+        <col class="col-2">
     </colgroup>
     <thead class="thead-light">
       <tr>
         <th class="colcenter">예약번호</th>
         <th class="colcenter">식당명</th>
         <th class="colcenter">주소</th>
-        <th class="colcenter">인원 수</th>
+        <th class="colcenter">전화번호</th>
+        <th class="colcenter">인원</th>
         <th class="colcenter">날짜/시간</th>
         <th class="colcenter">예약 취소</th>
       </tr>
     </thead>
     <tbody>
-    	<c:if test="${!empty movieInfo }">
-    		<c:forEach var="m" items="${movieInfo }">
+    	<c:if test="${!empty foodInfo }">
+    		<c:forEach var="f" items="${foodInfo }">
 			   	<tr>
-			   		<td class="colcenter align-middle">${m.movieReservNum }</td>
-					<td class="colcenter align-middle">${m.movieTitle }</td>
-					<td class="colcenter align-middle">${m.movieLocation } ${m.movieBox }</td>
+			   		<td class="colcenter align-middle">${fn:substring(f['FOOD_BOOKING_SEQ'],3,6) }</td>
+					<td class="colcenter align-middle">${f['FOOD_NAME'] }</td>
+					<td class="colcenter align-middle">${f['FOOD_ADDR'] }</td>
+					<td class="colcenter align-middle">${f['FOOD_CALL'] }</td>
+					<td class="colcenter align-middle">${f['BOOKING_HEAD'] }</td>
 					<td class="colcenter align-middle">
-						<fmt:formatDate value="${m.movieReservDate }" var="movieReservDate" pattern="yyyy/MM/dd"/><c:out value="${movieReservDate }"/> ${m.movieTime } ${m.seats1 }
-						<c:set var="su" value="1"/>
-						<c:if test="${m.seat2!=null }">
-							, ${m.seat2 }
-							<c:set var="su" value="2"/>
-						</c:if>
-						<c:if test="${m.seat3!=null }">
-							, ${m.seat3 }
-							<c:set var="su" value="3"/>
-						</c:if>
-						<c:if test="${m.seat4!=null }">
-							, ${m.seat4 }
-							<c:set var="su" value="4"/>
-						</c:if>
-						(총 <c:out value="${su }"/>인)
+						<fmt:formatDate value="${f['BOOKING_DATE_DAY'] }" pattern="yyyy.MM.dd"/> / <fmt:formatDate value="${f['BOOKING_DATE_TIME'] }" pattern="hh:mm"/>
 					</td>
 					<td class="colcenter pointer align-middle">
-						<c:if test="${m.dateMinus!=0 }">
-							<button class="cancelBtn btn" onclick="fn_cancelMovie('${m.movieReservNum }');">취소</button>
+						<c:if test="${f['DATE_MINUS']!=0 }">
+							<button class="cancelBtn btn" onclick="fn_cancelFood('${f['FOOD_BOOKING_SEQ'] }');">취소</button>
 						</c:if>
-						<c:if test="${m.dateMinus==0 }">
+						<c:if test="${f['DATE_MINUS']==0 }">
 							<button class="disabledBtn btn" disabled>취소</button>
 						</c:if>
 					</td>
 		  		</tr>
 	 		</c:forEach>
     	</c:if>
-    	<c:if test="${empty movieInfo }">
+    	<c:if test="${empty foodInfo }">
     		<tr>
-    			<td colspan="5">예매 정보가 없습니다.</td>
+    			<td colspan="7" class="colcenter">예약 정보가 없습니다.</td>
     		</tr>
     	</c:if>
     </tbody>
@@ -71,18 +61,18 @@
 </nav>
 
 <script>
-	function fn_cancelMovie(movieReservNum){
+	function fn_cancelFood(foodBookingSeq){
 		$.ajax({
 			type:"post",
-			url:"${pageContext.request.contextPath}/user/mypage/cancelMovie",
-			data:{"movieReservNum":movieReservNum},
+			url:"${pageContext.request.contextPath}/user/mypage/cancelFood",
+			data:{"foodBookingSeq":foodBookingSeq},
 			success:data=>{
 				if(data>0){
-					alert("예매가 취소되었습니다.");
+					alert("예약이 취소되었습니다.");
 					$("#myPageModal").modal("hide");
-					fn_openMPModal("movie");
+					fn_openMPModal("food");
 				}else{
-					alert("예매 취소에 실패했습니다.");
+					alert("예약 취소에 실패했습니다.");
 				}
 			}
 		})

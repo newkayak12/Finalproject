@@ -58,7 +58,7 @@
     	</c:if>
     	<c:if test="${empty movieInfo }">
     		<tr>
-    			<td colspan="5">예매 정보가 없습니다.</td>
+    			<td colspan="5" class="colcenter">예매 정보가 없습니다.</td>
     		</tr>
     	</c:if>
     </tbody>
