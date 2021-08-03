@@ -33,5 +33,15 @@ public interface MypageServiceInterface {
 	int blockFriend(Friend f);
 	
 	List<Map> selectApplyFriendList(String userId);
+	
+	List<Map> selectblockFriendList(String userId);
+	
+	int blockCancel(Friend f);
+	
+	List<Map> selectFoodBookingInfo(String userId, int cPage, int numPerPage);
+	
+	int selectFoodBookingCount(String userId);
+	
+	int cancelFood(String foodBookingSeq);
 
 }

@@ -13,7 +13,7 @@
         <a class="nav-link" data-toggle="tab" href="#applyFriendList">친구 신청 목록</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#address">차단 친구 목록</a>
+        <a class="nav-link" data-toggle="tab" href="#blockFriendList">차단 친구 목록</a>
     </li>
 </ul>
 
@@ -49,7 +49,7 @@
 			    	</c:if>
 			    	<c:if test="${empty friendList }">
 			    		<tr>
-			    			<td colspan="4">아직 친구가 없어요. 마음 맞는 새 친구를 찾아보세요!</td>
+			    			<td colspan="4" class="colcenter">아직 친구가 없어요. 마음 맞는 새 친구를 찾아보세요!</td>
 			    		</tr>
 			    	</c:if>
 			    </tbody>
@@ -86,7 +86,7 @@
 			    	</c:if>
 			    	<c:if test="${empty applyFriendList }">
 			    		<tr>
-			    			<td colspan="4">친구 신청이 없습니다.</td>
+			    			<td colspan="4" class="colcenter">친구 신청이 없습니다.</td>
 			    		</tr>
 			    	</c:if>
 			    </tbody>
@@ -94,8 +94,8 @@
     	</div>
     </div>
 
-    <div class="tab-pane container fade" id="address">
-    	<div>차단 친구 <b>${fn:length(applyFriendList) }</b>명</div>
+    <div class="tab-pane container fade" id="blockFriendList">
+    	<div>차단 친구 <b>${fn:length(blockFriendList) }</b>명</div>
         <div class="scrollDiv2">
 	        <table class="table table-hover">
 			    <colgroup>
@@ -104,26 +104,26 @@
 			    	<col class="col-5">
 			    	<col class="col-2">
 			    </colgroup>
-			    <tbody id="myFriendListTable">
-			    	<c:if test="${!empty friendList }">
-			    		<c:forEach var="f" items="${friendList }">
+			    <tbody>
+			    	<c:if test="${!empty blockFriendList }">
+			    		<c:forEach var="bf" items="${blockFriendList }">
 			    			<tr class="infobold">
-						   		<td class="colcenter pointer align-middle" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
-						   			<img src="${path }/resources/upload/profile/${f['PROFILE_IMAGE_FILE'] }" alt="프로필 사진" class="commImg">
+						   		<td class="colcenter pointer align-middle" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${bf['USER_ID'] }')">
+						   			<img src="${path }/resources/upload/profile/${bf['PROFILE_IMAGE_FILE'] }" alt="프로필 사진" class="commImg">
 						   		</td>
-								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
-									${f['USER_NICK'] }
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${bf['USER_ID'] }')">
+									${bf['USER_NICK'] }
 								</td>
-								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${f['USER_ID'] }')">
-									${f['PROFILE_STATUS'] }
+								<td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/profile/open/${bf['USER_ID'] }')">
+									${bf['PROFILE_STATUS'] }
 								</td>
-								<td class="colcenter align-middle"><button class="cancelBtn btn" onclick="fn_blockFriend('${f['USER_ID'] }');">차단</button></td>
+								<td class="colcenter align-middle"><button class="cancelBtn btn" onclick="fn_blockCancel('${bf['USER_ID'] }','${bf['USER_NICK'] }');">차단 해제</button></td>
 					  		</tr>
 				 		</c:forEach>
 			    	</c:if>
-			    	<c:if test="${empty friendList }">
+			    	<c:if test="${empty blockFriendList }">
 			    		<tr>
-			    			<td colspan="4">아직 친구가 없어요. 마음 맞는 새 친구를 찾아보세요!</td>
+			    			<td colspan="4" class="colcenter">차단한 친구가 없습니다.</td>
 			    		</tr>
 			    	</c:if>
 			    </tbody>
@@ -177,6 +177,25 @@
 						fn_openMPModal("friend","친구 신청 목록");
 					}else{
 						alert("친구 신청 수락을 실패했습니다.");
+					}
+				}
+			})
+		}
+	}
+	
+	function fn_blockCancel(friendId, friendNick){
+		if(confirm(friendNick+"님의 차단을 해제하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/user/mypage/blockCancel",
+				data:{"friendId":friendId},
+				success:data=>{
+					if(data>0){
+						alert("차단이 해제되었습니다.");
+						$("#myPageModal").modal("hide");
+						fn_openMPModal("friend","차단 친구 목록");
+					}else{
+						alert("차단 해제에 실패했습니다.");
 					}
 				}
 			})

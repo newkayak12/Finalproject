@@ -91,4 +91,35 @@ public class MypageDao implements MypageDaoInterface {
 		return session.selectList("mypage.selectApplyFriendList",userId);
 	}
 
+
+	@Override
+	public List<Map> selectblockFriendList(SqlSessionTemplate session, String userId) {
+		return session.selectList("mypage.selectblockFriendList",userId);
+	}
+
+
+	@Override
+	public int blockCancel(SqlSessionTemplate session, Friend f) {
+		return session.update("mypage.blockCancel",f);
+	}
+
+
+	@Override
+	public List<Map> selectFoodBookingInfo(SqlSessionTemplate session, String userId, int cPage, int numPerPage) {
+		RowBounds row=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("mypage.selectFoodBookingInfo",userId,row);
+	}
+
+
+	@Override
+	public int selectFoodBookingCount(SqlSessionTemplate session, String userId) {
+		return session.selectOne("mypage.selectFoodBookingCount",userId);
+	}
+
+
+	@Override
+	public int cancelFood(SqlSessionTemplate session, String foodBookingSeq) {
+		return session.update("mypage.cancelFood",foodBookingSeq);
+	}
+
 }

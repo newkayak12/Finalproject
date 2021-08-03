@@ -35,5 +35,15 @@ public interface MypageDaoInterface {
 	int blockFriend(SqlSessionTemplate session, Friend f);
 	
 	List<Map> selectApplyFriendList(SqlSessionTemplate session, String userId);
+	
+	List<Map> selectblockFriendList(SqlSessionTemplate session, String userId);
+	
+	int blockCancel(SqlSessionTemplate session, Friend f);
+	
+	List<Map> selectFoodBookingInfo(SqlSessionTemplate session, String userId, int cPage, int numPerPage);
+	
+	int selectFoodBookingCount(SqlSessionTemplate session, String userId);
+	
+	int cancelFood(SqlSessionTemplate session, String foodBookingSeq);
 
 }
