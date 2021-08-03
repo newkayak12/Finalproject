@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <link href="${pageContext.request.contextPath}/resources/css/woosik.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
 	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
@@ -26,11 +27,25 @@
 	
 	
 	const moveFn=(groupSeq)=>{
-		console.log(groupSeq);
-		location.assign("<%=request.getContextPath()%>/group/groupJoin.do?groupSeq="+groupSeq);
+		
+		$.ajax({
+			url : "${path}/group/groupCountToday",
+			data : {
+				
+				"groupSeq" : groupSeq
+			},
+			success : data => {
+				console.log(data);
+				location.assign("<%=request.getContextPath()%>/group/groupJoin.do?groupSeq="+data['groupSeq']);		
+			}
+		})
 	}
 	
 	const fn_searchbox=()=>{$("#hide").slideToggle();}
+	
+	$(function(){
+		
+	})
 	
 	
 </script>
@@ -41,7 +56,8 @@
 
 		<!-- 소모임,찾기 버튼 -->
 		<div class="clearfix">
-			<span class="float-left">소모임</span> <span class="float-right">
+			<p style="text-align: center; font-size:35px;" class="pointFont mainColor tway" >소모임</p>
+			<span class="float-right">
 				<button onclick="fn_searchbox()">
 					<i class="fas fa-search" id="search"></i>
 				</button>

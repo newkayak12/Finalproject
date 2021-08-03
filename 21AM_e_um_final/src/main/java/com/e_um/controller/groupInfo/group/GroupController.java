@@ -70,7 +70,9 @@ public class GroupController {
 		m.addAttribute("list", list);
 		return "group/groupList";
 	}
-
+	
+	
+	/* 그룹 만들기 */
 	@RequestMapping("/group/Gomain.do")
 	public String groupInsert(@RequestParam Map param, Model model, HttpServletRequest rq, MultipartFile file) {
 
@@ -83,7 +85,7 @@ public class GroupController {
 	}
 	
 	
-
+	/* 그룹 가입하기 */
 	@RequestMapping("/group/groupJoinForm.do")
 	public String groupJoin(@RequestParam Map param, HttpServletRequest rq, Model model) {
 		User user = (User) rq.getSession().getAttribute("userSession");
@@ -95,6 +97,7 @@ public class GroupController {
 	}
 
 	
+	/* 그룹 가입이 되어있지 않으면 그룹가입으로 아니면 입장 */
 	@RequestMapping("/group/groupJoin.do") 
 	  public String groupJoinForm(HttpServletRequest rq, @RequestParam(value="groupSeq")String groupSeq ,Model model) { 
 		  User user=(User) rq.getSession().getAttribute("userSession"); 
@@ -117,6 +120,7 @@ public class GroupController {
 		}
 
 	
+	/* 게시판 글작성폼으로 */
 	@RequestMapping("/group/groupBoardWrite.do")
 	public String groupBoardWrite(HttpSession session, String groupSeq, Model model) {
 		model.addAttribute("groupSeq",groupSeq);
@@ -129,14 +133,14 @@ public class GroupController {
 	  
 
 	  
-	
+	/* 게시판 만들기 */
 	@RequestMapping("/group/groupBoardInsert.do")
 	public String groupBoardInsert(Group groupmaster,Board board ,String groupSeq, Model model, MultipartFile[] file, HttpServletRequest rq) {
 		User user=(User) rq.getSession().getAttribute("userSession");
 		String userId= user.getUserId();
 		
-		 
-		/* groupmaster.setGroupMaster(); */
+		groupmaster = serviceb.selectGroupMaster(groupSeq);
+		String gm = groupmaster.getGroupMaster();
 		 
 		
 		board.setGroupBoardUser(user);
@@ -150,12 +154,12 @@ public class GroupController {
 		log.warn("{}",user);
 		log.warn("{}",board);
 		log.warn("{}",file);
-		log.warn("groupgroup{}",groupmaster);
+		log.warn("groupgroup{}",gm);
 		log.warn("usersuser{}",userId);
 		
 		
 		int result =0;
-		 if(groupmaster.equals(userId)) {
+		 if(gm.equals(userId)) {
 			 result = serviceb.groupboardinsertmaster(board);
 		 }
 		 else {
@@ -193,7 +197,7 @@ public class GroupController {
 	
 	
 	
-	
+	/* 그룹 의 메인으로 */
 	@RequestMapping("/group/groupSigned.do")
 	public String groupSigned(HttpSession session,Group group,Model model) {
 		log.warn("signed{}",group);
@@ -203,7 +207,8 @@ public class GroupController {
 		model.addAttribute("group",list);
 		return "group/groupboard/groupBoardMain";
 	}
-
+	
+	/* 그룹 의 게시판탭으로 */
 	@RequestMapping("/group/groupBoard.do")
 	public String groupBoard(HttpSession session,Group group,String groupSeq,Model model) {
 		log.warn("Board{}",group);
@@ -214,24 +219,25 @@ public class GroupController {
 		
 		
 		  List<Board> boardlist=serviceb.selectBoardList(groupSeq);
-		  List<Board> notice = new ArrayList();
+			/* List<Board> notice = new ArrayList(); */
+		  List<Board> notice = serviceb.selectBoardListNotice(groupSeq);
 		  List<Board> best = serviceb.selectBoardListBest(groupSeq);
 		  
 		  log.error("bestbestbest{}",best);
 		  
 		  log.warn("mastmastmastbefore{}",boardlist);
 		  log.error("groupgruop{}",group);
-		  for(Board b : boardlist) {
-			  log.error("testtsttasdasdasdasdasd{}",b.getGroupBoardUser().getUserId().equals(list.getGroupMaster()));
-			  if(b.getGroupBoardUser().getUserId().equals(list.getGroupMaster())) {
-				  notice.add(b);
-				 
-			  }
-		  }
-		  
-		  for(Board b: notice) {
-			  boardlist.remove(b);
-		  }
+			/*
+			 * for(Board b : boardlist) {
+			 * log.error("testtsttasdasdasdasdasd{}",b.getGroupBoardUser().getUserId().
+			 * equals(list.getGroupMaster()));
+			 * if(b.getGroupBoardUser().getUserId().equals(list.getGroupMaster())) {
+			 * notice.add(b);
+			 * 
+			 * } }
+			 * 
+			 * for(Board b: notice) { boardlist.remove(b); }
+			 */
 		  log.warn("mastmastmast{}",notice);
 		  log.warn("mastmastmast{}",boardlist);
 		  
@@ -242,7 +248,8 @@ public class GroupController {
 		
 		return "group/groupboard/groupBoardSub";
 	}
-
+	
+	/* 스케쥴러로 */
 	@RequestMapping("/group/groupScheduler.do")
 	public String groupScheduler(String groupSeq,Model model) {
 		Group list=service.selectGroupUseridCheck(groupSeq);
@@ -251,6 +258,8 @@ public class GroupController {
 		return "group/groupboard/groupBoardSchedule";
 	}
 	
+	
+	/* 파일업로드 되니? */
 	@RequestMapping(value = "/group/filesupload", method = RequestMethod.POST)
 	@ResponseBody
 	public String fileUpload(HttpServletRequest rq, MultipartHttpServletRequest files) {
@@ -258,6 +267,8 @@ public class GroupController {
 		return null;
 	}
 	
+	
+	/* 게시판 글 내부 내용 표시 */
 	@RequestMapping("/group/groupBoardContents.do")
 	public String groupBoardContents(String groupBoardSeq,Model model) {
 		Board board = serviceb.selectGroupBoard(groupBoardSeq);
@@ -273,7 +284,7 @@ public class GroupController {
 		return "group/groupboard/groupBoardContents";
 	}
 	
-	
+	/* 베스트게시글 뽑아오기 */
 	@RequestMapping("/group/groupBoardContentsNotice.do")
 	public String groupBoardContentsNotice(String groupBoardSeq,Model model) {
 		log.warn("qqqq{}",groupBoardSeq);
@@ -293,7 +304,7 @@ public class GroupController {
 
 	
 	
-	
+	/* 좋아요버튼 누르기 */
 	@RequestMapping("/group/addBoardLike")
 	@ResponseBody
 	public String addBoardLike(String groupSeq,String groupBoardSeq, HttpServletRequest rq) {
@@ -313,6 +324,7 @@ public class GroupController {
 		return "success";
 	}
 	
+	/* 좋아요버튼 해제 */
 	@RequestMapping("/group/delBoardLike")
 	@ResponseBody
 	public String delBoardLike(String groupSeq, String groupBoardSeq, HttpServletRequest rq) {
@@ -335,6 +347,8 @@ public class GroupController {
 		return "success";
 	}
 	
+	
+	/* 로그인시 좋아요가 되어있니? */
 	@RequestMapping("/group/checkLikeBoard")
 	@ResponseBody
 	public String checkLikeBoard(String groupSeq, String groupBoardSeq, String userId, Model model) {
@@ -359,9 +373,10 @@ public class GroupController {
 		
 	}
 	
+	
+	/* 게시판 검색 */
 	@RequestMapping("/group/gorupBoardSearch")
-	@ResponseBody
-	public List<Board> groupBoardSearch(String inputSearch,String groupSeq,Model model) {
+	public String groupBoardSearch(String inputSearch,String groupSeq,Model model) {
 		Map param = new HashMap();
 		param.put("inputSearch", inputSearch);
 		param.put("groupSeq", groupSeq);
@@ -370,8 +385,31 @@ public class GroupController {
 		log.warn("swswsswswsw{}",groupSeq);
 		log.warn("swswsswswsw2{}",inputSearch);
 		
-		
-		return boardlist;
+		model.addAttribute("boardlist",boardlist);
+		return "components/group/group";
 	}
-
+	
+	
+	/* 일반게시글 뽑아오기 */
+	@RequestMapping("/board/boardlist")
+	public String groupList(@RequestParam(value="groupSeq")String groupSeq, Model model) {
+		System.out.println("그룹번호 : "+groupSeq);
+		List<Board> boardlist=serviceb.selectBoardList(groupSeq);
+		System.out.println(boardlist);
+		model.addAttribute("boardlist",boardlist);
+		
+		return "components/group/group";
+	}
+	
+	@RequestMapping("/group/groupCountToday")
+	@ResponseBody
+	public Map groupCountToday(String groupSeq) {
+		log.warn("countcount{}",groupSeq);
+		int result = serviceb.groupCountToday(groupSeq);
+ 		log.error("resultresultresult{}",result);
+		Map param = new HashMap();
+		param.put("groupSeq", groupSeq);
+		return param;
+	}
+	
 }

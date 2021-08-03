@@ -12,9 +12,10 @@
    <form method="post" action="${path }/group/groupBoardInsert.do" enctype="multipart/form-data">
    	  <div>
    	  	<input type="hidden" name="groupSeq" value="${groupSeq }">
-   	  
+   	  	<input type="hidden" name="groupMaster" value="${groupMaster }">
    	  	
    	  </div>
+   	  ${groupSeq },${groupMaster }
       <div>
       	제목 : 
       		<input name="groupBoardTitle" id="title" size="80" placeholder="제목을입력하세요">

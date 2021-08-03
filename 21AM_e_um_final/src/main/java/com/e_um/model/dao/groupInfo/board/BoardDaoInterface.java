@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 
 public interface BoardDaoInterface {
@@ -32,5 +33,11 @@ public interface BoardDaoInterface {
 	List<Board> selectBoardSearchList(SqlSessionTemplate session, Map param);
 
 	int groupboardinsertmaster(SqlSessionTemplate session, Board board);
+
+	Group selectGroupMaster(SqlSessionTemplate session, String groupSeq);
+
+	List<Board> selectBoardListNotice(SqlSessionTemplate session, String groupSeq);
+
+	int groupCountToday(SqlSessionTemplate session, String groupSeq);
 
 }
