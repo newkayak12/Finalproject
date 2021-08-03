@@ -440,6 +440,7 @@ public class FoodController {
 		
 		model.addAttribute("foodCommentList", foodCommentList);
 		model.addAttribute("totalFoodComment", totalFoodComment);
+		model.addAttribute("cPage", cPage);
 		
 		return "components/food/foodCommentList";
 		
@@ -603,9 +604,14 @@ public class FoodController {
 		// 리뷰 수정
 		User loginUser = (User) req.getSession().getAttribute("userSession");
 		String userId = loginUser.getUserId();
-
+		
+		User user = User.builder().userId(userId).build();
+		Food food = Food.builder().foodSeq(foodSeq).build();
+		
 		FoodComment comment = new FoodComment();
 		
+		comment.setUser(user);
+		comment.setFood(food);
 		comment.setFoodCommentSeq(foodCommentSeq);
 		comment.setFoodCommentContents(foodCommentContents);
 		comment.setFoodCommentStar(Double.parseDouble(rating));

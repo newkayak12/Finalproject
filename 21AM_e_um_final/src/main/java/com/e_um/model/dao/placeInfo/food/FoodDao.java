@@ -141,6 +141,11 @@ public class FoodDao implements FoodDaoInterface {
 		return session.update("food.updateFoodComment", map);
 	}
 
+	@Override
+	public int updateFoodStar(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.update("food.updateFoodStar", map);
+	}
+
 	
 
 

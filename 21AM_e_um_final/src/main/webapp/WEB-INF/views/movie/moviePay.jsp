@@ -18,7 +18,7 @@
 	
 	 <script>
 		 $(function () {
-			   $.ajax({
+			   /* $.ajax({
 		        	url:"${path}/movie/payEnd",
 		        	data:{
 		        		"movieSeq":$("#movieSeq").val(),
@@ -50,8 +50,8 @@
 		        		$("#movieDate1").html("날짜 :" + data["movieDate"])
 		        		$("#content").css("display","block");
 		        	}
-		        })
-		       /*  var IMP = window.IMP; // 생략가능
+		        }) */
+		        var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
 			    IMP.request_pay({
@@ -59,8 +59,8 @@
 				    pay_method: 'card',
 				    merchant_uid: 'merchant_' + new Date().getTime(),
 				    name: $("#movieTitle").val(),
-				    amount: $("#moviePrice").val(),
-				   
+				    amount: $("#moviePrice").val(), 
+				   	
 			   
 			    }, function (rsp) {
 				    if (rsp.success) {
@@ -110,15 +110,22 @@
 				        location.assign("${path}/movie/movieInfo");
 				    }
 				    alert(msg);
-			    });   */
+			    }); 
 		});
-		 	
+		
+		 const fn_movieMain=()=>{
+			 location.assign("${path}/movie/movieInfo");
+		 }
+		 const fn_Main=()=>{
+			 location.assign("${path}/user/gotomain");
+		 }
+		 
 	</script>
 	
 	<section class="mt-5 pt-5" >
 		<div id="root" class="container mt-5">
 			<div id="content" class="col-12 d-flex justify-content-around" style="border: 1px solid black; display: none;">
-				    <div style="width: 400px; height: 400px; border: 1px solid black;">
+				    <div style="width: 600px; height: 400px; border: 1px solid black; background-color: #2AC1BC;">
 			        <div><h2 id="movieTitle1">영화관 :</h2></div>
 			        <div><h3 id="movieReserveNum1">예매번호 : </h3></div>
 			        <div><h4 id="movieLocation1">지역 :</h4></div>
@@ -127,8 +134,9 @@
 			        <div><h5 id="movieSeat1">좌석 :</h5></div>
 			        <div><h5 id="movieTime1">시간 :</h5></div>
 			        <div><h5 id="movieDate1">날짜 :</h5></div>
-			        <div style="margin: 0 auto;">
-			        	<button>영화메인</button><button>홈으로</button>
+			        <div class="mt-5" style="text-align: center;">
+			        	<button class="btn btn-primary mr-4" onclick="fn_movieMain();">영화메인</button>
+			        	<button class="btn btn-success ml-4" onclick="fn_Main();">홈으로</button>
 			    	</div>
 			    </div>
 			</div>

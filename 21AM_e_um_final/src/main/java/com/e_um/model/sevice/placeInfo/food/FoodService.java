@@ -100,7 +100,17 @@ public class FoodService implements FoodServiceInterface {
 
 	@Override
 	public int insertFoodComment(Map<String, Object> map) {
-		return dao.insertFoodComment(session, map);
+		
+		// return dao.insertFoodComment(session, map);
+		
+		int result = dao.insertFoodComment(session, map);
+		
+		if(result > 0) {
+			return dao.updateFoodStar(session, map);
+		} else {
+			return 0;
+		}
+		
 	}
 
 
@@ -184,7 +194,17 @@ public class FoodService implements FoodServiceInterface {
 
 	@Override
 	public int updateFoodComment(Map<String, Object> map) {
-		return dao.updateFoodComment(session, map);
+		
+		// return dao.updateFoodComment(session, map);
+	
+		int result = dao.updateFoodComment(session, map);
+		
+		if(result > 0) {
+			return dao.updateFoodStar(session, map);
+		} else {
+			return 0;
+		}
+		
 	}
 
 

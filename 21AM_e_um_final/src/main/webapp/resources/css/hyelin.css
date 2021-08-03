@@ -193,3 +193,16 @@
     font-weight: bold;
     width:107px;
 }
+
+
+/*movieModal*/
+.vercenter{
+	vertical-align:middle;
+}
+.disabledBtn{
+    border : 2px solid #212529;
+    color:#212529;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
