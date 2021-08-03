@@ -26,4 +26,5 @@ public interface AdminServiceInterface {
 	public int blockFood(String foodSeq);
 	public int unblockFood(String foodSeq);
 	public List<Food> statisticsFood();
+	public int likeMaxiumCount ();
 }

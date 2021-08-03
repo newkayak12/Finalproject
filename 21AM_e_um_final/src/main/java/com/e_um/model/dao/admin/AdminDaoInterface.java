@@ -45,4 +45,5 @@ public interface AdminDaoInterface {
 	public int blockFood(String foodSeq,  SqlSessionTemplate session);
 	public int unblockFood(String foodSeq,  SqlSessionTemplate session);
 	public List<Food> statisticsFood( SqlSessionTemplate session);
+	public int likeMaxiumCount (SqlSessionTemplate session);
 }

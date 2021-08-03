@@ -7,21 +7,60 @@
 <style>
 	/* *{border:1px black solid} */
 </style>
-<section class="mt-5 pt-5">   
-	<div class="d-flex justify-content-around pl-5 pr-5 mb-3">
-		<span  class="col-1 pt-1 text-center" >
+<section class="mt-5 ">   
+	<div class="d-flex justify-content-around pl-5 pr-5 bgColorMainColorSub blackText">
+		<%-- <span  class="col-1 pt-1 text-center" >
 			<img src="${pageContext.request.contextPath }/resources/images/user/previous.png" width="25px" height="25px" onclick="managerMain()" id="prev" style="visibility:hidden">
-		</span>
-		<span id="title" class="col-8 text-center tway" style="font-size:20px;" >
+		</span> --%>
+		<span id="title" class="col-8 text-center tway mt-4" style="font-size:20px;" >
 			타이틀
 		</span>
-		<span class="col-1"></span>
+		<!-- <span class="col-1"></span> -->
 	</div>
-   	<div id="root" class="container md-mt-5 mt-0 p-3" style="height: 750px">
-
-
-
-
+	<div class="d-flex flex-row">
+		<div class="bgColorMainColorSub blackText   mr-2 d-flex flex-column p-1" style="width: 150px">
+			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick ="manageUser()">회원관리</span>
+			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick ="groupsub()">소모임관리</span>
+			<span id="groupsub" class="text-center cursor " style="display:none;">
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageGroup()"> 소모임 조회 </div>
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 소모임 승인 </div>			
+						
+			</span>
+			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick ="moviesub()">영화관리</span>
+			<span id="moviesub" class="text-center cursor " style="display:none;">
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 조회 </div>
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 등록 </div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 수정</div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 인물 조회 </div>
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 인물 등록 </div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 인물 수정</div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 예매 조회 </div>
+			</span>
+			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick="foodSub()">맛집관리</span>
+			<span id="foodsub" class="text-center cursor " style="display:none;">
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"  onclick ="manageFood()"> 조회 </div>
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="writeFood()"> 등록 </div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 수정</div>			
+			</span>
+			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px">고객센터관리</span>
+			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick="reportsub()">신고관리</span>
+			<span id="reportsub" class="text-center cursor " style="display:none;">
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 피드 </div>
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 피드 댓글 </div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 리뷰</div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 맛집 리뷰 </div>
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 소모임 게시글 </div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 소모임 댓글</div>			
+			</span>
+			
+		</div>
+	
+	   	<div id="root" class="container md-mt-5 mt-3 p-3" style="height: 800px">
+	
+	
+	
+	
+		</div>
 	</div>
 </section>
 
@@ -29,10 +68,10 @@
 
 <script>
 	$(function(){
-		managerMain();
+		manageUser();
 	})
 	
-	function managerMain(){
+	/* function managerMain(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/admin/menu",
 			success: data=>{
@@ -41,7 +80,7 @@
 				$("#root").html(data)
 			}
 		})
-	}
+	} */
 	
 	function manageUser(cPage){
 		$.ajax({
@@ -68,6 +107,36 @@
 		})
 		
 	}
+	
+	/* 소모임 승인 자리 > groupApprove */
+	
+	function manageFood(cPage){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/managefood',
+			data:{"cPage":cPage},
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("음식점 조회")
+				$("#root").html(list)
+			}
+		})
+		
+	}
+	function writeFood(){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/writefood',
+			
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("음식점 입력")
+				$("#root").html(list)
+			}
+		})
+	}
+	
+	/* 음식 수정 자리 amendFood  */
+	
+	
 	function manageService(){
 		$.ajax({
 			url:'${pageContext.request.contextPath}/admin/manageservice',
@@ -81,6 +150,32 @@
 	
 	}
 	
+	/* 댓글 다는 부분 만들어주기 supportRepl */
+	
+	
+	/* 피드 */
+	function manageReport(){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/managereport',
+			data:{"cPage":cPage},
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("회원 관리")
+				$("#root").html(list)
+			}
+		})
+		
+	}
+	
+	/*  피드 댓글  manageFeedComment */
+	/*  영화 리뷰  manageMovie */
+	/*  맛집 리뷰  manageFood */
+	/*  소모임 게시글  manageGroupBoard */
+	/*  소모임 댓글  manageGroupBoardComment */
+	
+	
+	
+	/* 영화 조회  */
 	function manageMovie(){
 		
 		$.ajax({
@@ -94,31 +189,52 @@
 		})
 		
 	}
-		
-	function manageFood(cPage){
-		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/managefood',
-			data:{"cPage":cPage},
-			success:list=>{
-				$("#prev").css("visibility","visible")
-				$("#title").html("음식점 관리")
-				$("#root").html(list)
-			}
-		})
-		
+	
+	/* 영화 등록 registMovie  */
+	/* 영화 수정 amendMovie */
+	/* 인물 조회 managePerson */
+	/* 인물 등록 registPerson */
+	/* 인물 수정 amendPerson */
+	/* 예매 조회 ShowTicketingList */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	function foodSub(){
+		$("#foodsub").slideToggle(240)
+		$("#moviesub").hide(240)
+		$("#groupsub").hide(240)
+		$("#reportsub").hide(240)
+	} 
+	function moviesub(){
+		$("#moviesub").slideToggle(240)
+		$("#foodsub").hide(240)
+		$("#groupsub").hide(240)
+		$("#reportsub").hide(240)
 	}
-	function manageReport(){
-		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/managereport',
-			data:{"cPage":cPage},
-			success:list=>{
-				$("#prev").css("visibility","visible")
-				$("#title").html("회원 관리")
-				$("#root").html(list)
-			}
-		})
-		
+	function groupsub(){
+		$("#groupsub").slideToggle(240)
+		$("#moviesub").hide(240)
+		$("#foodsub").hide(240)
+		$("#reportsub").hide(240)
 	}
+	function reportsub(){
+		$("#reportsub").slideToggle(240)
+		$("#moviesub").hide(240)
+		$("#groupsub").hide(240)
+		$("#foodsub").hide(240)
+	}
+	
+	
+	
 	
 	
 </script>

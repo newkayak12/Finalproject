@@ -25,10 +25,21 @@
 	        	 console.log(v)
 	 	 				string.push(v)
 	         })
+	         
+	         
+         let ldat = '${like_star}'
+         let lcontent = JSON.parse(ldat)
+         let string2 = [];
+         string2.push(['like','star']);
+         
+         lcontent.forEach((v,i)=>{
+        	 string2.push(v)
+         })
 	     
-	       console.log(string)
+	       console.log(string2)
 	      google.charts.load('current', {'packages':['corechart']});
 	      google.charts.setOnLoadCallback(drawChart1);
+	      google.charts.setOnLoadCallback(drawChart2);
 		
 		      function drawChart1() {
 		        var data = google.visualization.arrayToDataTable(string
@@ -38,9 +49,9 @@
 				
 		         console.log(data)
 		        var options = {
-		          title: 'Age vs. Weight comparison',
+		          title: 'price-star graph',
 		          hAxis: {title: 'price', minValue: 0, maxValue: 60000},
-		          vAxis: {title: 'star', minValue: 0, maxValue: 5},
+		          vAxis: {title: 'star', minValue: 0, maxValue: 5.0},
 		          legend: 'none',
 		          pointShape: 'star',
 		          pointSize: 10,
@@ -54,18 +65,38 @@
 	
 	        chart.draw(data, options);
 	      }
+		      function drawChart2() {
+			        var data = google.visualization.arrayToDataTable(string2
+			         );
+			        
+			        
+					
+			         console.log(data)
+			        var options = {
+			          title: 'like-star graph',
+			          hAxis: {title: 'like', minValue: 0, maxValue: ${likeMaximum}},
+			          vAxis: {title: 'star', minValue: 0, maxValue: 5.0},
+			          legend: 'none',
+			          pointShape: 'star',
+			          pointSize: 10,
+			          animation: {
+			            duration: 300,
+			            easing: 'inAndOut',
+			          }
+			        };
+		
+		        var chart = new google.visualization.ScatterChart(document.getElementById('like_star'));
+		
+		        chart.draw(data, options);
+		      }
 		     
       } 
     </script>
 	
-		<div>
+		<div class="d-flex justify-content-around">
 			<span id="price_star">
 			</span>
-			<span>
-			</span>
-			<span>
-			</span>
-			<span>
+			<span id="like_star">
 			</span>
 		
 		</div>
@@ -136,7 +167,8 @@
 		</table>
 	</div>
 
-	<div>${pageBar }</div>
+	
+	<div class="mt-5">${pageBar }</div>
 </div>
 
 <script>

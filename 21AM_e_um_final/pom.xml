@@ -8,6 +8,12 @@
 		<version>2.5.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<repositories>
+       <repository>
+           <id>ojdbc</id>
+           <url>http://nexus.talanlabs.com/content/repositories/releases/</url>
+       </repository>
+   </repositories>
 	<groupId>com.21AM_e_um_final</groupId>
 	<artifactId>21AM_e_um_final</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -111,6 +117,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+		<dependency>
+          <groupId>com.oracle</groupId>
+          <artifactId>ojdbc</artifactId>
+          <version>6</version>
+        </dependency>
+        <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>jstl</artifactId>
+         <version>1.2</version>
+        </dependency>
 	</dependencies>
 
 	<build>

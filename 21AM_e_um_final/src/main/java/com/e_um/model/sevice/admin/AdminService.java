@@ -123,5 +123,10 @@ public class AdminService implements AdminServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.statisticsFood(session);
 	}
+	@Override
+	public int likeMaxiumCount() {
+		// TODO Auto-generated method stub
+		return dao.likeMaxiumCount(session);
+	}
 
 }

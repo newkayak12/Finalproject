@@ -203,4 +203,10 @@ public class AdminDao implements AdminDaoInterface{
 		return session.selectList("admin.manageFood");
 	}
 
+	@Override
+	public int likeMaxiumCount(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.likeMaximumCount");
+	}
+
 }
