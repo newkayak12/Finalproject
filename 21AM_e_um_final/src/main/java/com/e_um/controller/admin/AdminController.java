@@ -353,4 +353,38 @@ public class AdminController {
 		return "components/admin/adminfeed";
 	}
 	
+	@RequestMapping("/admin/feedblock")
+	@ResponseBody
+	public int feedBlock(String seq) {
+		return service.feedBlock(seq);
+	}
+	@RequestMapping("/admin/feedunblock")
+	@ResponseBody
+	public int feedUnBlock(String seq) {
+		return service.feedUnBlock(seq);
+	}
+	
+	
+	@RequestMapping("/admin/managefeedComment")
+	public String manageFeedComment(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("pageBar", getPageBar(service.feedCommentTotalData(), Integer.parseInt(cPage), numPerPage, "manageFeedComment"));
+		model.addAttribute("list", service.manageFeedComment(Integer.parseInt(cPage), numPerPage));
+		
+		return "components/admin/adminfeedComment";
+	}
+	
+	@RequestMapping("/admin/feedCommentblock")
+	@ResponseBody
+	public int feedCommentBlock(String seq) {
+		
+		return service.feedCommentBlock(seq);
+	}
+	@RequestMapping("/admin/feedCommentunblock")
+	@ResponseBody
+	public int feedCommentUnBlock(String seq) {
+		return service.feedCommentUnBlock(seq);
+	}
+	
+	
 }

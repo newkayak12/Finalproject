@@ -14,15 +14,6 @@
 				내용
 			</th>
 			<th>
-				사진1
-			</th>
-			<th>
-				사진2
-			</th>
-			<th>
-				사진3	
-			</th>
-			<th>
 				사유
 			</th>
 			<th>
@@ -45,44 +36,14 @@
 					${i.userIdTarget }
 				</td>
 				<td>
-					${i.feedContents }
-				</td>
-				<td style="width: 50px; height: 50px;" class="p-0">
-					<c:choose>
-						<c:when test="${i.feedImage1 != null}">
-							<img src ="${pageContext.request.contextPath }/resources/upload/feed/${i.feedImage1}" width="50px" height="50px" onclick="zoomPhoto('${i.feedImage1}')" data-toggle="modal" data-target="#zoom" class="m-1">
-						</c:when>
-						<c:otherwise>
-							
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td style="width: 50px; height: 50px;" class="p-0">
-					<c:choose>
-						<c:when test="${i.feedImage2 != null}">
-							<img src ="${pageContext.request.contextPath }/resources/upload/feed/${i.feedImage2}" width="50px" height="50px" onclick="zoomPhoto('${i.feedImage2}')"  data-toggle="modal" data-target="#zoom" class="m-1">
-						</c:when>
-						<c:otherwise>
-							
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td style="width: 50px; height: 50px;" class="p-0">
-					<c:choose>
-						<c:when test="${i.feedImage3 != null}">
-							<img src ="${pageContext.request.contextPath }/resources/upload/feed/${i.feedImage3}" width="50px" height="50px" onclick="zoomPhoto('${i.feedImage3}')"  data-toggle="modal" data-target="#zoom" class="m-1">
-						</c:when>
-						<c:otherwise>
-							
-						</c:otherwise>
-					</c:choose>
+					${i.feedCommentContents }
 				</td>
 				<td>
 					${i.reportContent }
 				</td>
 				<td id="status${i.reportTargetContent }">
 					<c:choose>
-						<c:when test="${i.feedBlock =='unblock' }">
+						<c:when test="${i.feedCommentBlock =='unblock' }">
 							게시
 						</c:when>
 						<c:otherwise>
@@ -95,7 +56,7 @@
 				</td>
 				<td>
 					<c:choose>
-						<c:when test="${i.feedBlock =='unblock' }">
+						<c:when test="${i.feedCommentBlock =='unblock' }">
 							<input type="button" id="btn${i.reportTargetContent}" value="숨김" onclick = "feedBlocker('${i.reportTargetContent}')">
 						</c:when>
 						<c:otherwise>
@@ -115,16 +76,6 @@
 	
 	
 	
-	<div class="modal" id="zoom">
-  		<div class="modal-dialog modal-dialog-centered modal-fade">
-    		<div class="modal-content d-flex justify-content-center align-itmes-center">
-		      <div class="modal-body" >
-		      	<div onclick="madalX()" class="d-flex justify-content-end">X</div>
-		        <img id="zoom-body" style="width: 450px; height: 450px;">
-		      </div>
-   			</div>
-  		</div>
-	</div>
 	
 	<script type="text/javascript">
 	
@@ -133,7 +84,7 @@
 			if($("#status"+seq).html() == '게시'){
 				/* 숨김 */
 				$.ajax({
-					url:"${pageContext.request.contextPath}/admin/feedblock",
+					url:"${pageContext.request.contextPath}/admin/feedCommentblock",
 					data:{"seq":seq},
 					success:data=>{
 						if(data>0){
@@ -150,7 +101,7 @@
 				/*  보임 */
 				
 				$.ajax({
-					url:"${pageContext.request.contextPath}/admin/feedunblock",
+					url:"${pageContext.request.contextPath}/admin/feedCommentunblock",
 					data:{"seq":seq},
 					success:data=>{
 						if(data>0){

@@ -12,6 +12,7 @@ import com.e_um.model.dao.admin.AdminDaoInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
+import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Service
@@ -139,6 +140,36 @@ public class AdminService implements AdminServiceInterface {
 	public int feedTotalData() {
 		// TODO Auto-generated method stub
 		return dao.feedTotalData(session);
+	}
+	@Override
+	public int feedBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.feedBlock(seq, session);
+	}
+	@Override
+	public int feedUnBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.feedUnBlock(seq, session);
+	}
+	@Override
+	public List<ReportFeedComment> manageFeedComment(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.manageFeedComment(cPage, numPerPage, session);
+	}
+	@Override
+	public int feedCommentTotalData() {
+		// TODO Auto-generated method stub
+		return dao.feedCommentTotalData(session);
+	}
+	@Override
+	public int feedCommentBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.feedCommentBlock(seq, session);
+	}
+	@Override
+	public int feedCommentUnBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.feedCommentUnBlock(seq, session);
 	}
 
 }

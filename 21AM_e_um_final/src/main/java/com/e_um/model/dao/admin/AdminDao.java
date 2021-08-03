@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
+import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Repository
@@ -221,6 +222,42 @@ public class AdminDao implements AdminDaoInterface{
 	public int feedTotalData(SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
 		return session.selectOne("admin.feedTotalData");
+	}
+
+	@Override
+	public int feedBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedBlock", seq);
+	}
+
+	@Override
+	public int feedUnBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedUnBlock", seq);
+	}
+
+	@Override
+	public List<ReportFeedComment> manageFeedComment(int cPage, int numPerPage, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.manageFeedComment", "", new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int feedCommentTotalData(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.feedCommentTotalData");
+	}
+
+	@Override
+	public int feedCommentBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedCommentBlock",seq);
+	}
+
+	@Override
+	public int feedCommentUnBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.feedCommentUnBlock",seq);
 	}
 
 }

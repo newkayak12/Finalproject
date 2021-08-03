@@ -46,7 +46,7 @@
 			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick="reportsub()">신고관리</span>
 			<span id="reportsub" class="text-center cursor " style="display:none;">
 				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageReport()"> 피드 </div>
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 피드 댓글 </div>			
+				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageFeedComment()"> 피드 댓글 </div>			
 				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 리뷰</div>			
 				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 맛집 리뷰 </div>
 				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 소모임 게시글 </div>			
@@ -168,6 +168,20 @@
 	}
 	
 	/*  피드 댓글  manageFeedComment */
+	function manageFeedComment(cPage){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/managefeedComment',
+			data:{"cPage":cPage},
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("피드 댓글 관리")
+				$("#root").html(list)
+			}
+		})
+		
+		
+	}
+	
 	/*  영화 리뷰  manageMovie */
 	/*  맛집 리뷰  manageFood */
 	/*  소모임 게시글  manageGroupBoard */

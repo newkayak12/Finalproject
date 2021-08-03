@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
+import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 
@@ -52,4 +53,14 @@ public interface AdminDaoInterface {
 	
 	public List<ReportFeed> manageFeed(int cPage, int numPerPage, SqlSessionTemplate session);
 	public int feedTotalData(SqlSessionTemplate session);
+	
+	public int feedBlock(String seq, SqlSessionTemplate session);
+	public int feedUnBlock(String seq, SqlSessionTemplate session);
+	
+	
+	public List<ReportFeedComment> manageFeedComment(int cPage, int numPerPage, SqlSessionTemplate session);
+	public int feedCommentTotalData( SqlSessionTemplate session);
+	
+	public int feedCommentBlock(String seq, SqlSessionTemplate session);
+	public int feedCommentUnBlock(String seq, SqlSessionTemplate session); 
 }
