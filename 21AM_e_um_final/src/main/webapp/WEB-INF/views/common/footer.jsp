@@ -84,7 +84,7 @@ $(function() {
 });
 function response(){
 	if($("#iconboxfooter").css('display')!='none'){
-		$("section").css('margin-bottom',"20px")
+		$("section").css('margin-bottom',"40px")
 	}else {
 		$("section").css('margin-bottom',"0px")
 	}
