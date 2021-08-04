@@ -336,8 +336,7 @@
 	    
 	   
     </script>
-    
- <section class="mt-5 pt-5">   
+ <section class="mt-5 pt-5 container">   
    	<div id="root" class="container md-mt-5 mt-0 ">
    		<!-- 
         <div class="container d-flex justify-content-around align-items-center col-12 col-md-8  mt-4 border">

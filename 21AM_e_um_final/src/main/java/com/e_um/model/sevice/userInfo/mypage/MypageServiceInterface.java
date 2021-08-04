@@ -43,5 +43,7 @@ public interface MypageServiceInterface {
 	int selectFoodBookingCount(String userId);
 	
 	int cancelFood(String foodBookingSeq);
+	
+	int changeProfilePhoto(User u);
 
 }

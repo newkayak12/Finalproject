@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<table class="table">
+<table class="table table-hover">
     <colgroup>
     	<col class="col-1">
     	<col class="col-2">
@@ -29,12 +29,14 @@
     	<c:if test="${!empty foodInfo }">
     		<c:forEach var="f" items="${foodInfo }">
 			   	<tr>
-			   		<td class="colcenter align-middle">${fn:substring(f['FOOD_BOOKING_SEQ'],3,6) }</td>
-					<td class="colcenter align-middle">${f['FOOD_NAME'] }</td>
-					<td class="colcenter align-middle">${f['FOOD_ADDR'] }</td>
-					<td class="colcenter align-middle">${f['FOOD_CALL'] }</td>
-					<td class="colcenter align-middle">${f['BOOKING_HEAD'] }</td>
-					<td class="colcenter align-middle">
+			   		<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f['FOOD_SEQ'] }')">
+			   			${fn:substring(f['FOOD_BOOKING_SEQ'],3,6) }
+			   		</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f['FOOD_SEQ'] }')">${f['FOOD_NAME'] }</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f['FOOD_SEQ'] }')">${f['FOOD_ADDR'] }</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f['FOOD_SEQ'] }')">${f['FOOD_CALL'] }</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f['FOOD_SEQ'] }')">${f['BOOKING_HEAD'] }</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f['FOOD_SEQ'] }')">
 						<fmt:formatDate value="${f['BOOKING_DATE_DAY'] }" pattern="yyyy.MM.dd"/> / <fmt:formatDate value="${f['BOOKING_DATE_TIME'] }" pattern="hh:mm"/>
 					</td>
 					<td class="colcenter pointer align-middle">

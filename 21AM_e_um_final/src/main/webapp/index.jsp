@@ -360,11 +360,11 @@
 		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
 				<span class="mr-3 right">
-					<button class="btn cancelBtn"  data-toggle="modal" data-target="#signup" >회원가입</button>
+					<button class="btn cancelBtn pointFont"  data-toggle="modal" data-target="#signup" >회원가입</button>
 					<!-- onclick="fn_signupzero()" -->
 				</span>
 				<span class=" justify-content-end mr-3">
-					<button class="btn checkBtn" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
+					<button class="btn checkBtn pointFont" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
 				</span>
 			</div>
 		</header>
@@ -377,12 +377,12 @@
 			
 			
 			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc00" style="display:none;">
-				<div class="p-3 m-5 scitems" id="scCont00">
+				<div class="p-1 m-5 scitems" id="scCont00">
 					
-					<div class="d-flex align-items-center typoscreen">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
 						새로운 친구를 찾는 방법
 					</div>
-					<img src="${pageContext.request.contextPath }/resources/images/index/main1.png" width="300px" height="600px">
+					<img src="${pageContext.request.contextPath }/resources/images/index/main1.png" width="40%">
 
 				</div>
 				
@@ -395,24 +395,24 @@
 			
 			<div class="screen00 p-3 d-flex justify-content-start align-items-center" id="sc01" style="display:none;">
 				
-				<div class="p-3 m-5 scitems" id="scCont01">
+				<div class="p-1 m-5 scitems" id="scCont01">
 				
-					<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="300px" height="600px">
-					<div class="d-flex align-items-center typoscreen">
+					<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="40%" >
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
 						친구와 함께 보낸 하루를
-						<br>&nbsp;&nbsp; 돌아볼 수 있는 방법
+						<br>&nbsp;&nbsp;&nbsp;  돌아볼 수 있는 방법
 					</div>
 				</div>
 			</div>
 
-			<div class="screen00 p-3 d-flex  justify-content-end align-items-center" id="sc02" style="display:none;">
+			<div class="screen00 p-3 d-flex  justify-content-center align-items-center" id="sc02" style="display:none;">
 				
-				<div class="p-3 m-5 scitems" id="scCont02" style="flex-direction: column !important; align-content: middle">
-				<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="600px" height="300px">	
+				<div class="p-1 m-5 scitems d-flex  justify-content-center align-items-center" id="scCont02" style="flex-direction: column !important; align-content: middle">
+				<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="80%" >	
 				<br>
-					<div class="d-flex  align-items-center typoscreen">
-						친해진 친구와 함께,<br>
-						 &nbsp;&nbsp;시간을 공유할 수 있는 방법
+					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
+						친해진 친구와 함께,
+						<br>&nbsp;&nbsp;&nbsp;  시간을 공유할 수 있는 방법
 					</div>
 					
 					
@@ -422,36 +422,36 @@
 
 			<div class="screen00 p-3 d-flex justify-content-start align-items-center"  id="sc03" style="display:none;">
 				
-				<div class="p-3 m-5 scitems" id="scCont03">
-					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="300px" height="600px">
-					<div class="d-flex align-items-center typoscreen">
+				<div class="p-1 m-5 scitems" id="scCont03">
+					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="40%">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.7vw">
 						좋아하는 음식을 
-							<br>&nbsp;함께 먹을 수 있는 방법
+							<br>&nbsp;&nbsp;&nbsp; 함께 먹을 수 있는 방법
 					</div>
 				</div>
 			</div>
-			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc04" style="display:none;">
+			<div class="screen00 p-3 d-flex justify-content-center align-items-center" id="sc04" style="display:none;">
 				
-				<div class="p-3 m-5 scitems" id="scCont04">
-					<div class="d-flex align-items-center typoscreen">
+				<div class="p-1 m-5 scitems d-flex flex-column justify-content-center align-items-center" id="scCont04">
+					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="80%">
+					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
 						새로운 친구와 
-						<br>함께할 수 있는 방법
+						<br>&nbsp;&nbsp;&nbsp; 함께할 수 있는 방법
 					</div>
-					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="300px" height="600px">
 
 				</div>
 			</div>
 			
 			<!-- #2AC1BC -->
-			<div class="screen00 p-3 d-flex flex-column justify-content-center align-items-center"  id="sc05" style="background-size: cover ; background-image: url('${pageContext.request.contextPath }/resources/images/index/main6.png');">
+			<div class="screen00 p-3 d-flex flex-column justify-content-center align-items-center"  id="sc05" style="background-size: cover ; background-image: url('${pageContext.request.contextPath }/resources/images/index/main6.png'); width:100% !important;">
 				<%-- <img src="${pageContext.request.contextPath }/resources/images/index/main6.png" width="300px" height="600px"> --%>
 				<div>
 					<h1 class="text-center tway" style="color:white; font-size:96px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">E_um</h1>
 					<h5 class="text-center tway" style="color:white; font-size:32px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"  > 친구를 만나는 가장 쉬운 방법</h5>
 				</div>
-				<div class="mt-2">
-					<a><img src="${pageContext.request.contextPath }/resources/images/index/google.png" width="200px"></a>
-					<a><img src="${pageContext.request.contextPath }/resources/images/index/apple.png" width="200px"></a>
+				<div class="mt-2 text-center">
+					<a><img src="${pageContext.request.contextPath }/resources/images/index/google.png" width="40%"></a>
+					<a><img src="${pageContext.request.contextPath }/resources/images/index/apple.png" width="40%"></a>
 				</div>
 				
 			</div>
@@ -463,11 +463,11 @@
 		</section> 
  		<footer class=" fluid-container footer-basic p-1 position-relative">
 	        <ul class="list-inline m-1">
-	            <li class="list-inline-item "><a href="#">Home</a></li>
-	            <li class="list-inline-item "><a href="#">Services</a></li>
-	            <li class="list-inline-item "><a href="#">About</a></li>
-	            <li class="list-inline-item "><a href="#">Terms</a></li>
-	            <li class="list-inline-item "><a href="#">Privacy Policy</a></li>
+	            <li class="list-inline-item ml-1 mr-1 "><a href="#">Home</a></li>
+	            <li class="list-inline-item ml-1 mr-1"><a href="#">Services</a></li>
+	            <li class="list-inline-item ml-1 mr-1"><a href="#">About</a></li>
+	            <li class="list-inline-item ml-1 mr-1"><a href="#">Terms</a></li>
+	            <li class="list-inline-item ml-1 mr-1"><a href="#">Privacy Policy</a></li>
 	        </ul> 
 	        <p class="copyright m-1">
 	            (주)이음 | 주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 |이메일 : eum@eum.com <br>

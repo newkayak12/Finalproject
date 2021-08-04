@@ -13,7 +13,7 @@
 	        <div class="input-group mb-3">
 	            <input type="text" class="form-control" id="search_friend" name="searchFri" placeholder="닉네임, 지역으로 검색해보세요!">
 	            <div class="input-group-append">
-	                <button id="searchFriBtn" class="btn btn-success" type="button">검색</button>
+	                <button id="searchFriBtn" class="btn btn-success searchBtn" type="button">검색</button>
 	            </div>
 	        </div>
 	

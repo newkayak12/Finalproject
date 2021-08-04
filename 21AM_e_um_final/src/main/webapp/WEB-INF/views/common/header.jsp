@@ -292,7 +292,7 @@ $(function(){
     	onlinesend()
     	/* $('.toast').toast('show'); */
     	
-    },20000)
+    }/*, 1000 */ ,200000)
 })
 
 
@@ -510,8 +510,9 @@ function kakaoLogout(){
 			"href":"${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
 			"class" : "tway blackText"
 		}).css("text-decoration","none"))
+
 		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
-		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
+		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/faq/open","class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink).attr({"class":"text-center pt-4","id":"menubox"}))
@@ -848,11 +849,11 @@ function kakaoLogout(){
 		$("body").css("overflow","hidden")
 		$("#footerinnerContainer").html("")
 		
-		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
+		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"20px","margin-top":"10px"}))
 		
-		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"800px"}).css({"overflow-y":"auto"})
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"70%"}).css({"overflow-y":"auto"})
 		
-		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
+		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"100px","background-color":"white"})
 		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})
 		let chatRoomBottomhidden1 = $("<input>").attr({"id":"chatRoomBottomhidden1", "type":"hidden"})
 		let chatRoomBottomhidden2 = $("<input>").attr({"id":"chatRoomBottomhidden2", "type":"hidden"})

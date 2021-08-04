@@ -122,4 +122,10 @@ public class MypageDao implements MypageDaoInterface {
 		return session.update("mypage.cancelFood",foodBookingSeq);
 	}
 
+
+	@Override
+	public int changeProfilePhoto(SqlSessionTemplate session, User u) {
+		return session.update("mypage.changeProfilePhoto",u);
+	}
+
 }
