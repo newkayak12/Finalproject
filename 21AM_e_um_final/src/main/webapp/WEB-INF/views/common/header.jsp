@@ -150,20 +150,20 @@
 			</div>
 
 			<ul class="hamnav mt-2 mb-2 navbar-nav col-5 p-0">
-				<li class="nav-item"><a class="nav-link text-center"
+				<li class="nav-item"><a class="nav-link text-center tway"
 					href="${pageContext.request.contextPath }/friend/main">친구 찾기</a></li>
-				<li class="nav-item"><a class="nav-link text-center"
+				<li class="nav-item"><a class="nav-link text-center tway"
 					href="${pageContext.request.contextPath }/group/groupMain.do">소모임</a></li>
 				<li class="nav-item"><a
-					class="nav-link dropdown-toggle col-12 text-center"
+					class="nav-link dropdown-toggle tway col-12 text-center"
 					onclick="sumbmenucontroller()" href="#">플레이스</a></li>
 			</ul>
 			<div id="submenu" class="mt-1 col-5 p-0">
 				<div class="text-center ">
-					<a class="nav-link" href="${pageContext.request.contextPath }/food/foodMain">맛집</a>
+					<a class="nav-link tway" href="${pageContext.request.contextPath }/food/foodMain">맛집</a>
 				</div>
 				<div class="text-center ">
-					<a class="nav-link" href="${pageContext.request.contextPath }/movie/movieInfo">영화</a>
+					<a class="nav-link tway" href="${pageContext.request.contextPath }/movie/movieInfo">영화</a>
 				</div>
 			</div>
 
@@ -465,7 +465,7 @@ function kakaoLogout(){
 
 /* **************** 햄버거 ********************************************** */
 	const ham=()=>{
-		
+		$("#footerContainer").hide(240)
 		if($(".hamdown").css("display")=='none'){
 			$('.hamback').show();
 			$('.hamdown').show(250);
@@ -541,6 +541,8 @@ function kakaoLogout(){
 	const fn_showprofilebot=()=>{
 		$("#controlpanelfooter").html("")
 		showmypage()
+		
+		unham()
 		/* $("#footerContainer").css("overflow","visible") */
 		
 			if($("#footerContainer").css("display")=='none'){
@@ -625,7 +627,7 @@ function kakaoLogout(){
 	
 	/* 푸터 친구 목록 */
 	function friendListbot(){
-		
+		unham()
 		$("#controlpanelfooter").html("친구목록")
 		$("#footerinnerContainer").html("")
 		/* fn_friendList(); */
@@ -1244,6 +1246,7 @@ function kakaoLogout(){
 	
 	/* 푸터 채팅 리스트 */
 	function showchatListf(){
+		unham()
 		if($("#footerContainer").css("display")=='none'){
 			fn_chatList()
 			$("#footerContainer").show(240)	
@@ -1358,7 +1361,7 @@ function kakaoLogout(){
 	const fn_showalarmbot=()=>{
 		$("#controlpanelfooter").html("알람")
 		alarmlist();
-		
+		unham()
 		$("#footerContainer").toggle(240)
 		/* $("#footerContainer").css("overflow","scroll") */
 			 if($("#footerContainer").css("display")=='block'){
