@@ -154,7 +154,7 @@ a:hover { text-decoration:none !important }
 			
 
 		
-	<button class="btn cancelBtn" style="float:right;" onclick="location.assign('${path}/food/allFood');">맛집 전체보기</button>
+	<button class="btn cancelBtn"  onclick="location.assign('${path}/food/allFood');">맛집 전체보기</button>
 
 	</div> <!-- root -->
 	
