@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
 	
@@ -127,8 +128,30 @@
     		$.ajax({
     			url:"${path}/movie/genderRate",
     			data: {"movieSeq":movieSeq},
-    			success:data=>{
-    				console.log(data);
+    			success:rate=>{
+    				console.log(rate);
+    				 console.log(rate['female'])
+    				 google.charts.load('current', {'packages':['corechart']});
+    			     google.charts.setOnLoadCallback(drawChart);
+
+    			      function drawChart() {
+
+    			        var data = google.visualization.arrayToDataTable([
+    			          ['Task', 'Hours per Day'],
+    			          ['남',    rate['male']],
+    			          ['여',    rate['female']],
+    			          
+    			        ]);
+
+    			        var options = {
+    			          
+    			        };
+
+    			        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    			        chart.draw(data, options);
+    			      }
+
     			}
     			
     		})
@@ -324,31 +347,34 @@
 						  </div>
 					</div>
 					
-					<div id="graphcontainer">
-						<h3>예매분포</h3>
+					<div id="graphcontainer" class="justify-content-center">
+						<h3 class="ml-3">예매분포</h3>
 						<div class="col-12" style="height: 300px; display: flex;">
-							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>평균 별점</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
+
+									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: #6543b1; vertical-align:20px; text-align: center;">
+
+									
+
 										<span id="totalPoint"></span>
 									</div>
 								</div>
 							</div>
-							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>관람포인트</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
-										<canvas id="radar-chart" width="250" height="250"></canvas>
+									<div class="view_point col-12" style="margin: 0 auto;  height: 200px; text-align: center;">
+										<canvas  id="radar-chart" width=250 height=165></canvas>
 									</div>
 								</div>
 							</div>
-							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>예매성비</h5>
-								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
-										
-									</div>
+								<div class="mt-5 col-12" style="border: 1px solid black;  height: 200px;" id="piechart">
+									
+
 								</div>
 							</div>
 						</div>

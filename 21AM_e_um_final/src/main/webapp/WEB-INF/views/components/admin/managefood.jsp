@@ -128,6 +128,7 @@
 					폐쇄
 				</th>
 			</tr>
+			<c:if test="${list.size()>0}">
 			<c:forEach items="${list }" var="i">
 				<tr>
 					<td>${i.foodCategoryMain }</td>
@@ -164,11 +165,21 @@
 					
 				</tr>
 			</c:forEach>
+			</c:if>
+			<c:if test="${list.size()==0}">
+				<tr>
+					<td colspan="8" class="text-center">
+						내용이 없습니다.
+					</td>
+				</tr>
+			</c:if>
 		</table>
 	</div>
 
 	
+	<c:if test="${list.size()>0}">
 	<div class="mt-5">${pageBar }</div>
+	</c:if>
 </div>
 
 <script>

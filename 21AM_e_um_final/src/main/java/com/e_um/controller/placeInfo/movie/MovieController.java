@@ -109,16 +109,16 @@ public class MovieController {
 	
 	@RequestMapping("/movie/genderRate")
 	@ResponseBody
-	public String genderRate(String movieSeq) {
+
+	public Map genderRate(String movieSeq) {
 		System.out.println(movieSeq);
 		int male = service.maleCount(movieSeq);
-		/*
-		 * int male = service.maleCount(movieSeq); int female =
-		 * service.femaleCount(movieSeq);
-		 */
-		System.out.println(male);
-		/* System.out.println(female); */
-		return "";
+		int female = service.femaleCount(movieSeq);
+		Map param = new HashMap();
+		param.put("male", male);
+		param.put("female", female);
+		return param;
+		
 	}
 	
 	@RequestMapping("/movie/pageBar")
