@@ -252,7 +252,7 @@
 			                </div>
 			                <div class="score">
 			                    <span>예매율 &nbsp;
-			                        <strong>${movie.movieReserveRate }</strong>
+			                        <strong>${movie.movieReserveRate }%</strong>
 			                    </span><br>
 			                    <span>영화평점 &nbsp;
 			                        <strong>★${movie.movieTotalEvalution }</strong>
