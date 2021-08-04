@@ -710,6 +710,7 @@ public class FoodController {
 		// 맛집 총 개수 
 		int totalFoodCount = service.totalFoodCount();
 		model.addAttribute("totalFoodCount" ,totalFoodCount);
+		model.addAttribute("cPage", cPage);
 		
 		return "components/food/foodSortingList";
 	}

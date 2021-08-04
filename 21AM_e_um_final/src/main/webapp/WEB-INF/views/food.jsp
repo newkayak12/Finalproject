@@ -110,7 +110,6 @@ a:hover { text-decoration:none !important }
 			</div>
 			
 			<%-- <button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button> --%>
-			<button class="btn" style="float:right;" onclick="location.assign('${path}/food/allFood');">맛집 전체보기</button>
 		
 		</div> <!-- 검색 div -->
 		
@@ -155,13 +154,13 @@ a:hover { text-decoration:none !important }
 			
 
 		
-
+	<button class="btn cancelBtn" style="float:right;" onclick="location.assign('${path}/food/allFood');">맛집 전체보기</button>
 
 	</div> <!-- root -->
 	
-	<div>
+<!-- 	<div>
 		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
-	</div>
+	</div> -->
 </section>
 
 <!-- 모달창 -->
@@ -276,7 +275,7 @@ a:hover { text-decoration:none !important }
 	
 	
 	// top버튼 
-	$(function() {
+/* 	$(function() {
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 500) {
 				$('#MOVE_TOP_BTN').fadeIn();
@@ -290,7 +289,7 @@ a:hover { text-decoration:none !important }
 				}, 400);
 			return false;
 		});
-	});
+	}); */
 	
 	
 	// 검색조건 열기 

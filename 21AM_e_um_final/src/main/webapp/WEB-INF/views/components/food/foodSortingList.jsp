@@ -17,7 +17,7 @@
 a { text-decoration:none !important; } 
 a:hover { text-decoration:none !important; }
 .lightgray { color : lightgray; font-size:13px; }
-.fcMore { text-align:center;  border-top : 1px solid gray;}
+.fcMore { text-align:center;  border-top : 1px solid lightgray;}
 .fcMore a { text-decoration: none; color : black; font-size : 17px;}
 </style>
 
@@ -35,9 +35,9 @@ a:hover { text-decoration:none !important; }
 							
 								<div class="box" style="margin-bottom: 20px;">
 								
-									<a class="open_food_modal" href="javascript:void(0)" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#foodModal" data-toggle="modal">
+									<a href="${ pageContext.request.contextPath }/food/foodView?foodSeq=${f.foodSeq}">
 										
-										<div>
+										
 											<img class="mainPageImages" src="${ pageContext.request.contextPath }/resources/upload/food/${f.menus[0]}">
 											<div class="info mt-1 ml-4" style="text-align:left;">
 											
@@ -51,7 +51,7 @@ a:hover { text-decoration:none !important; }
 												<span class="lightgray"><i class="fas fa-heart"></i>&nbsp;<c:out value="${ f.foodLikeCount }"/></span>
 											
 											</div>
-										</div>
+										
 									</a>
 									
 								</div> <!-- box -->
