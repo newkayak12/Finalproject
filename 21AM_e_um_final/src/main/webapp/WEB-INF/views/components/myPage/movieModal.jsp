@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<table class="table table-borderless">
+<table class="table table-hover">
     <colgroup>
     	<col class="col-1">
     	<col class="col-3">
@@ -25,10 +25,10 @@
     	<c:if test="${!empty movieInfo }">
     		<c:forEach var="m" items="${movieInfo }">
 			   	<tr>
-			   		<td class="colcenter align-middle">${m.movieReservNum }</td>
-					<td class="colcenter align-middle">${m.movieTitle }</td>
-					<td class="colcenter align-middle">${m.movieLocation } ${m.movieBox }</td>
-					<td class="colcenter align-middle">
+			   		<td class="colcenter align-middle pointer" onclick="location.assign('${path}/movie/movieDetail?movieSeq=${m.movieSeq }')">${m.movieReservNum }</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/movie/movieDetail?movieSeq=${m.movieSeq }')">${m.movieTitle }</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/movie/movieDetail?movieSeq=${m.movieSeq }')">${m.movieLocation } ${m.movieBox }</td>
+					<td class="colcenter align-middle pointer" onclick="location.assign('${path}/movie/movieDetail?movieSeq=${m.movieSeq }')">
 						<fmt:formatDate value="${m.movieReservDate }" var="movieReservDate" pattern="yyyy/MM/dd"/><c:out value="${movieReservDate }"/> ${m.movieTime } ${m.seats1 }
 						<c:set var="su" value="1"/>
 						<c:if test="${m.seat2!=null }">

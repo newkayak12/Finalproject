@@ -127,4 +127,10 @@ public class MypageService implements MypageServiceInterface {
 		return dao.cancelFood(session, foodBookingSeq);
 	}
 
+
+	@Override
+	public int changeProfilePhoto(User u) {
+		return dao.changeProfilePhoto(session, u);
+	}
+
 }

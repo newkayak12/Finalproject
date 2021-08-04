@@ -24,6 +24,9 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#interest">관심사</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#photo">프로필 사진</a>
+    </li>
 </ul>
 
 <!-- Tab panes -->
@@ -235,6 +238,20 @@
 	            <button id="resetInterBtn" class="btn cancelBtn mt-4 mr-5" onclick="fn_resetInter()">초기화</button>
 	            <button id="changeInterBtn" class="btn changeBtn mt-4" onclick="fn_changeInter()">변경하기</button>
             </div>
+        </div>
+    </div>
+    
+    <div class="tab-pane container fade" id="photo">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+        	<img src="${path }/resources/upload/profile/${userSession.profileImageFile}" id="profilePreview">
+        	<div class="d-flex justify-content-around mt-2">
+        		<button type="button" class="btn btn-sm mx-5" onclick="fn_photo()"><i class="fas fa-camera" style="font-size:25px;"></i></button>
+				<button type="button" class="btn btn-sm mx-5" onclick="fn_photoDel()"><i class="fas fa-times" style="font-size:25px;"></i></button>
+        	</div>
+        	<form action="${path }/user/mypage/changeProfilePhoto" method="post" enctype="multipart/form-data">
+				<input type="file" id="profilePhoto" name="profileImageFile" value="default.jpg" accept='image/png,image/jpeg,image/jpg' style="display: none;">
+				<button id="photoChangeBtn" type="submit" class="btn changeBtn mt-4">변경하기</button>
+			</form>
         </div>
     </div>
 </div>
@@ -471,5 +488,36 @@
 	
 	function fn_resetInter(){
 		$(".choCon").removeClass("choCon");
+	}
+	
+	const deImg='${path }/resources/images/feed/default.jpg';
+	
+	const reader = new FileReader();
+	
+ 	function fn_photo(){
+	    $("#profilePhoto").trigger("click");
+	    
+	    reader.onload=(readerEvent)=>{
+		    $("#profilePreview").attr("src",readerEvent.target.result);
+		}
+		
+	 	$("#profilePhoto").change((changeEvent)=>{
+		    let imgFile = changeEvent.target.files[0];
+		    reader.readAsDataURL(imgFile);
+		})
+	}
+	
+	function fn_photoDel(){
+	    $("#profilePhoto").val("");
+	    $("#profilePreview").attr("src",deImg);
+	    
+	    reader.onload=(readerEvent)=>{
+		    $("#profilePreview").attr("src",readerEvent.target.result);
+		}
+		
+	 	$("#profilePhoto").change((changeEvent)=>{
+		    let imgFile = changeEvent.target.files[0];
+		    reader.readAsDataURL(imgFile);
+		})
 	}
 </script>

@@ -3,12 +3,12 @@
  
 
 		<div id="footerContainer" style="">
-			<div class="d-flex justify-content-between  border col-12">
-				<span id="controlpanelprev"></span>
-				<span id="controlpanelfooter"></span>
+			<div class="d-flex justify-content-between align-itmes-center border col-12" style="height: 40px!important;" id="panel">
+				<span id="controlpanelprev" class="d-flex justify-content-center align-itmes-center"></span>
+				<span id="controlpanelfooter" class="d-flex flex-column justify-content-center align-itmes-center"></span>
 				<span id="controlpanelnext"></span>
 			</div>
-			<div id="footerinnerContainer" style="height:570px !important" class="mb-5 p-0" >
+			<div id="footerinnerContainer" style="height:100% !important" class="mb-5 p-0" >
 				
 			</div>
 				

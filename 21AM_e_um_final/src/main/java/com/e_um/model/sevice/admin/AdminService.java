@@ -14,6 +14,8 @@ import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
+import com.e_um.model.vo.userInfo.report.ReportGroupBoard;
+import com.e_um.model.vo.userInfo.report.ReportGroupBoardComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Service
@@ -191,6 +193,46 @@ public class AdminService implements AdminServiceInterface {
 	public int foodCommentUnBlock(String seq) {
 		// TODO Auto-generated method stub
 		return dao.foodCommentUnBlock(seq, session);
+	}
+	@Override
+	public List<ReportGroupBoard> manageGroupBoard(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.manageGroupBoard(cPage, numPerPage, session);
+	}
+	@Override
+	public int groupBoardTotalData() {
+		// TODO Auto-generated method stub
+		return dao.groupBoardTotalData(session);
+	}
+	@Override
+	public int groupBoardBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.groupBoardBlock(seq, session);
+	}
+	@Override
+	public int groupBoardUnBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.groupBoardUnBlock(seq, session);
+	}
+	@Override
+	public List<ReportGroupBoardComment> manageReportGroupBoardComment(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.manageReportGroupBoardComment(cPage, numPerPage, session);
+	}
+	@Override
+	public int reportGroupBoardCommentTotalData() {
+		// TODO Auto-generated method stub
+		return dao.reportGroupBoardCommentTotalData(session);
+	}
+	@Override
+	public int reportGroupBoardCommentBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.reportGroupBoardCommentBlock(seq,session);
+	}
+	@Override
+	public int reportGroupBoardCommentUnBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.reportGroupBoardCommentUnBlock(seq, session);
 	}
 
 }
