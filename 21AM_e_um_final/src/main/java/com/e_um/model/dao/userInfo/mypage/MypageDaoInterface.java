@@ -45,5 +45,7 @@ public interface MypageDaoInterface {
 	int selectFoodBookingCount(SqlSessionTemplate session, String userId);
 	
 	int cancelFood(SqlSessionTemplate session, String foodBookingSeq);
+	
+	int changeProfilePhoto(SqlSessionTemplate session, User u);
 
 }

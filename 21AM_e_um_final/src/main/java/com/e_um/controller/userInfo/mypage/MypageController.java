@@ -2,6 +2,8 @@ package com.e_um.controller.userInfo.mypage;
 
 
 
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.userInfo.mypage.MypageServiceInterface;
@@ -231,6 +234,29 @@ public class MypageController {
 	public int cancelFood(HttpServletRequest rq,
 			@RequestParam(value="foodBookingSeq", required=false) String foodBookingSeq) {
 		return service.cancelFood(foodBookingSeq);
+	}
+	
+	
+	@RequestMapping("/user/mypage/changeProfilePhoto")
+	public String changeProfilePhoto(@RequestParam(value="profileImageFile", required=false) MultipartFile newProfileImageFile,
+			HttpServletRequest rq, Model m) {
+//		log.info("파일명: "+profileImageFile.getOriginalFilename());
+//		log.info("파일 크기: {}",profileImageFile.getSize());
+		User user=(User)rq.getSession().getAttribute("userSession");
+		String fileName ="default.png";
+		if(newProfileImageFile.getSize()!=0) {
+			fileName=renamepolicy(rq, newProfileImageFile, "profile");
+		}
+		User u=User.builder().userId(user.getUserId()).profileImageFile(fileName).build();
+		m.addAttribute("loc","/user/mypage/start?userId="+user.getUserId()+"&flag="+"info"+"&tab="+"프로필 사진");
+		if(service.changeProfilePhoto(u)>0) {
+			m.addAttribute("msg", "프로필 사진이 변경되었습니다.");
+			User userResult = userService.login(u);
+			rq.getSession().setAttribute("userSession", userResult);
+		}else {
+			m.addAttribute("msg", "프로필 사진 변경에 실패했습니다.");
+		}
+		return "common/msg";
 	}
 	
 }

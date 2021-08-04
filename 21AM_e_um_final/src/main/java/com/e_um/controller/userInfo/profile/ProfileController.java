@@ -1,5 +1,7 @@
 package com.e_um.controller.userInfo.profile;
 
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.userInfo.profile.ProfileServiceInterface;
+import com.e_um.model.vo.communicateinfo.feed.NoHasAFeed;
 import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
@@ -152,19 +155,23 @@ public class ProfileController {
 	
 	
 	@RequestMapping("/profile/writeFeed/end")
-	public String insertFeed(HttpServletRequest rq, Model m,
-			@RequestParam(value="feedImage", required=false) MultipartFile[] feedImage
-			) {
-		//미완
+	public String insertFeed(HttpServletRequest rq, String feedContents, Model m,
+			@RequestParam("file") MultipartFile[] files) {
 		User user=(User)rq.getSession().getAttribute("userSession");
-		log.info("파일명: "+feedImage[0].getOriginalFilename());
-		log.info("파일 크기: {}",feedImage[0].getSize());
-		log.info("파일명: {}",feedImage[1].getOriginalFilename()=="");
-		log.info("파일 크기: {}",feedImage[1].getSize());
-		log.info("파일명: {}",feedImage[2].getOriginalFilename()==null);
-		log.info("파일 크기: {}",feedImage[2].getSize());
+		//log.info("feedContents: {}",feedContents);
+		String[] newFileName={null, null, null};
+		for(int i=0;i<files.length;i++) {
+			newFileName[i]=renamepolicy(rq, files[i], "feed");
+		}
+		NoHasAFeed nhf=NoHasAFeed.builder().feederId(user.getUserId()).feedContents(feedContents).feedImage1(newFileName[0]).feedImage2(newFileName[1]).feedImage3(newFileName[2]).build();
 		
-		return "";
+		m.addAttribute("loc", "/profile/open/"+user.getUserId());
+		if(service.insertFeed(nhf)>0) {
+			m.addAttribute("msg", "피드가 등록되었습니다.");
+		}else {
+			m.addAttribute("msg", "피드 등록에 실패했습니다.");
+		}
+		return "common/msg";
 	}
 	
 	

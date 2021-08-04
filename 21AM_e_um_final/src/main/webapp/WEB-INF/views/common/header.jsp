@@ -510,8 +510,9 @@ function kakaoLogout(){
 			"href":"${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
 			"class" : "tway blackText"
 		}).css("text-decoration","none"))
-		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
-		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
+
+		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
+		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/faq/open","class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink).attr({"class":"text-center pt-4","id":"menubox"}))

@@ -129,7 +129,7 @@
       }
 
       .title {
-        font-size: 20px;
+        font-size: 18px;
         margin-bottom: 8px;
         margin-top: 0;
         color: black;
@@ -198,7 +198,7 @@
 		                                         <div class="info">
 		                                           <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
 		                                           <span class="search_point "><c:out value="${l.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
+		                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate } %"/></p>
 		                                         </div>
 		                                       </figcaption>
 		                                 </figure>
@@ -213,7 +213,7 @@
 		                        <c:forEach var="l" items="${list }" begin="4" end="7">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#myModal" data-toggle="modal">
+		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size col-12"
@@ -225,7 +225,7 @@
 		                                         <div class="info">
 		                                           <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
 		                                           <span class="search_point "><c:out value="${l.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
+		                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate } %"/></p>
 		                                         </div>
 		                                       </figcaption>
 		                                 </figure>
@@ -235,39 +235,13 @@
 		                        </c:forEach>
 		                    </div>
 	                    </div>
-	                    <div class="carousel-item">
-		                    <div class="d-flex justify-content-around pl-5 pr-5">
-		                        <c:forEach var="l" items="${list }" begin="4" end="7">
-		                             <div class="col-6 col-md-3 item active">
-		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#myModal" data-toggle="modal">
-		                                     <figure class="movie_list">
-		                                       <div class="thumb">
-		                                         <img class="thumb-size col-12"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
-		                                              data-original=""
-		                                              data-error=""/>
-		                                       </div>
-		                                       <figcaption>
-		                                         <div class="info">
-		                                           <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
-		                                           <span class="search_point "><c:out value="${l.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
-		                                         </div>
-		                                       </figcaption>
-		                                 </figure>
-		                               </div>
-		                             </div>
-		                            </div>
-		                        </c:forEach>
-		                    </div>
-	                    </div>
+	                   
 	                    <div class="carousel-item">
 		                    <div class="d-flex justify-content-around pl-5 pr-5">
 		                        <c:forEach var="l" items="${list }" begin="8" end="11">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#myModal" data-toggle="modal">
+		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size col-12"
@@ -279,7 +253,7 @@
 		                                         <div class="info">
 		                                           <strong class="title"><c:out value="${l.movieTitleKr }"/></strong><br>
 		                                           <span class="search_point "><c:out value="${l.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate }"/></p>
+		                                           <p class="etc"><c:out value="예매율 ${l.movieReserveRate } %"/></p>
 		                                         </div>
 		                                       </figcaption>
 		                                 </figure>
@@ -308,7 +282,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="0" end="3">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#myModal" data-toggle="modal">
+		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size col-12"
@@ -320,7 +294,7 @@
 		                                         <div class="info">
 		                                           <strong class="title"><c:out value="${l2.movieTitleKr }"/></strong><br>
 		                                           <span class="search_point "><c:out value="${l2.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l2.movieReserveRate }"/></p>
+		                                           <p class="etc"><c:out value="예매율 ${l2.movieReserveRate } %"/></p>
 		                                         </div>
 		                                       </figcaption>
 		                                 </figure>
@@ -335,7 +309,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="4" end="7">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#myModal" data-toggle="modal">
+		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size col-12"
@@ -347,7 +321,7 @@
 		                                         <div class="info">
 		                                           <strong class="title"><c:out value="${l2.movieTitleKr }"/></strong><br>
 		                                           <span class="search_point "><c:out value="${l2.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l2.movieReserveRate }"/></p>
+		                                           <p class="etc"><c:out value="예매율 ${l2.movieReserveRate }%"/></p>
 		                                         </div>
 		                                       </figcaption>
 		                                 </figure>
@@ -357,39 +331,13 @@
 		                        </c:forEach>
 		                    </div>
 	                    </div>
-	                    <div class="carousel-item">
-		                    <div class="d-flex justify-content-around pl-5 pr-5">
-		                        <c:forEach var="l2" items="${list2 }" begin="4" end="7">
-		                             <div class="col-6 col-md-3 item active">
-		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#myModal" data-toggle="modal">
-		                                     <figure class="movie_list">
-		                                       <div class="thumb">
-		                                         <img class="thumb-size col-12"
-		                                              src="${path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
-		                                              data-original=""
-		                                              data-error=""/>
-		                                       </div>
-		                                       <figcaption>
-		                                         <div class="info">
-		                                           <strong class="title"><c:out value="${l2.movieTitleKr }"/></strong><br>
-		                                           <span class="search_point "><c:out value="${l2.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l2.movieReserveRate }"/></p>
-		                                         </div>
-		                                       </figcaption>
-		                                 </figure>
-		                               </div>
-		                             </div>
-		                            </div>
-		                        </c:forEach>
-		                    </div>
-	                    </div>
+	                  
 	                    <div class="carousel-item">
 		                    <div class="d-flex justify-content-around pl-5 pr-5">
 		                        <c:forEach var="l2" items="${list2 }" begin="8" end="11">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#myModal" data-toggle="modal">
+		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size col-12"
@@ -401,7 +349,7 @@
 		                                         <div class="info">
 		                                           <strong class="title"><c:out value="${l2.movieTitleKr }"/></strong><br>
 		                                           <span class="search_point "><c:out value="${l2.movieStatus}"/></span>
-		                                           <p class="etc"><c:out value="예매율 ${l2.movieReserveRate }"/></p>
+		                                           <p class="etc"><c:out value="예매율 ${l2.movieReserveRate }%"/></p>
 		                                         </div>
 		                                       </figcaption>
 		                                 </figure>
