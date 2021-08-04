@@ -406,4 +406,41 @@ public class AdminController {
 		return service.foodCommentUnBlock(seq);
 	}
 	
+	@RequestMapping("/admin/managegroupboard")
+	public String manageGroupBoard(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+			model.addAttribute("list", service.manageGroupBoard(Integer.parseInt(cPage), numPerPage));
+			model.addAttribute("pageBar",getPageBar(service.groupBoardTotalData(), Integer.parseInt(cPage), numPerPage, "manageGroupBoard"));
+		return "components/admin/admingroupboard";
+	}
+	
+	@RequestMapping("/admin/groupboardblock")
+	@ResponseBody
+	public int groupBoardBlock(String seq) {
+		return service.groupBoardBlock(seq);
+	}
+	@RequestMapping("/admin/groupboardunblock")
+	@ResponseBody
+	public int groupBoardunBlock(String seq) {
+		return service.groupBoardUnBlock(seq);
+	}
+	@RequestMapping("/admin/managegroupboardcomment")
+	public String manageGroupBoardComment(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+		model.addAttribute("list", service.manageGroupBoard(Integer.parseInt(cPage), numPerPage));
+		model.addAttribute("pageBar",getPageBar(service.groupBoardTotalData(), Integer.parseInt(cPage), numPerPage, "manageGroupBoard"));
+		return "components/admin/admingroupboardComment";
+	}
+	
+	@RequestMapping("/admin/groupboardcommentblock")
+	@ResponseBody
+	public int groupBoardCommentBlock(String seq) {
+		return service.groupBoardBlock(seq);
+	}
+	@RequestMapping("/admin/groupboardcommentunblock")
+	@ResponseBody
+	public int groupBoardCommentunBlock(String seq) {
+		return service.groupBoardUnBlock(seq);
+	}
+	
 }

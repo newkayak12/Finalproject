@@ -10,6 +10,8 @@ import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
+import com.e_um.model.vo.userInfo.report.ReportGroupBoard;
+import com.e_um.model.vo.userInfo.report.ReportGroupBoardComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 
@@ -69,4 +71,18 @@ public interface AdminDaoInterface {
 	
 	public int foodCommentBlock(String seq, SqlSessionTemplate session);
 	public int foodCommentUnBlock(String seq, SqlSessionTemplate session); 
+	
+	
+	public List<ReportGroupBoard> manageGroupBoard(int cPage, int numPerPage, SqlSessionTemplate session);
+	public int groupBoardTotalData( SqlSessionTemplate session);
+	
+	public int groupBoardBlock(String seq, SqlSessionTemplate session);
+	public int groupBoardUnBlock(String seq, SqlSessionTemplate session);
+	
+	public List<ReportGroupBoardComment> manageReportGroupBoardComment(int cPage, int numPerPage, SqlSessionTemplate session);
+	public int reportGroupBoardCommentTotalData( SqlSessionTemplate session);
+	
+	public int reportGroupBoardCommentBlock(String seq, SqlSessionTemplate session);
+	public int reportGroupBoardCommentUnBlock(String seq, SqlSessionTemplate session); 
+	
 }
