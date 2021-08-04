@@ -35,7 +35,7 @@
 				관리
 			</th>
 		</tr>
-		
+		<c:if test="${list.size()>0}">
 		<c:forEach items="${list }" var="i">
 			<tr>
 				<td>
@@ -105,12 +105,22 @@
 				</td>
 			</tr>
 		</c:forEach>
-	
+		</c:if>
+		<c:if test="${list.size()==0}">
+			<tr>
+				<td colspan="10" class="text-center">
+					내용이 없습니다.
+				</td>
+			</tr>
+		</c:if>
 	</table>
 	
+	
+	<c:if test="${list.size()>0}">
 	<div>
 	${pageBar }
 	</div>
+	</c:if>
 </div>
 	
 	

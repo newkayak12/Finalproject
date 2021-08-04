@@ -387,4 +387,23 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("/admin/managefoodreview")
+	public String manageFoodReview(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+			model.addAttribute("list", service.manageFoodComment(Integer.parseInt(cPage), numPerPage));
+			model.addAttribute("pageBar",getPageBar(service.foodCommentTotalData(), Integer.parseInt(cPage), numPerPage, "manageFoodReview"));
+		return "components/admin/managefoodreview";
+	}
+	
+	@RequestMapping("/admin/foodblock")
+	@ResponseBody
+	public int foodBlock(String seq) {
+		return service.foodCommentBlock(seq);
+	}
+	@RequestMapping("/admin/foodunblock")
+	@ResponseBody
+	public int foodunBlock(String seq) {
+		return service.foodCommentUnBlock(seq);
+	}
+	
 }
