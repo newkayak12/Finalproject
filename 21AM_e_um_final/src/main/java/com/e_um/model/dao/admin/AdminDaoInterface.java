@@ -1,7 +1,6 @@
 package com.e_um.model.dao.admin;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,6 +9,7 @@ import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
+import com.e_um.model.vo.userInfo.report.ReportFoodComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 
@@ -63,4 +63,10 @@ public interface AdminDaoInterface {
 	
 	public int feedCommentBlock(String seq, SqlSessionTemplate session);
 	public int feedCommentUnBlock(String seq, SqlSessionTemplate session); 
+	
+	public List<ReportFoodComment> manageFoodComment(int cPage, int numPerPage, SqlSessionTemplate session);
+	public int foodCommentTotalData( SqlSessionTemplate session);
+	
+	public int foodCommentBlock(String seq, SqlSessionTemplate session);
+	public int foodCommentUnBlock(String seq, SqlSessionTemplate session); 
 }

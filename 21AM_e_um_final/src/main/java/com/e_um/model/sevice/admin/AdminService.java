@@ -13,6 +13,7 @@ import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
+import com.e_um.model.vo.userInfo.report.ReportFoodComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Service
@@ -170,6 +171,26 @@ public class AdminService implements AdminServiceInterface {
 	public int feedCommentUnBlock(String seq) {
 		// TODO Auto-generated method stub
 		return dao.feedCommentUnBlock(seq, session);
+	}
+	@Override
+	public List<ReportFoodComment> manageFoodComment(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.manageFoodComment(cPage, numPerPage, session);
+	}
+	@Override
+	public int foodCommentTotalData() {
+		// TODO Auto-generated method stub
+		return dao.foodCommentTotalData(session);
+	}
+	@Override
+	public int foodCommentBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.foodCommentBlock(seq, session);
+	}
+	@Override
+	public int foodCommentUnBlock(String seq) {
+		// TODO Auto-generated method stub
+		return dao.foodCommentUnBlock(seq, session);
 	}
 
 }

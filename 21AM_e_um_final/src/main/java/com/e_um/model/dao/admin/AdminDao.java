@@ -12,6 +12,7 @@ import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
+import com.e_um.model.vo.userInfo.report.ReportFoodComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 @Repository
@@ -258,6 +259,30 @@ public class AdminDao implements AdminDaoInterface{
 	public int feedCommentUnBlock(String seq, SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
 		return session.update("admin.feedCommentUnBlock",seq);
+	}
+
+	@Override
+	public List<ReportFoodComment> manageFoodComment(int cPage, int numPerPage, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.manageFoodComment","", new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int foodCommentTotalData(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.foodCommentTotalData");
+	}
+
+	@Override
+	public int foodCommentBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.foodCommentBlock",seq);
+	}
+
+	@Override
+	public int foodCommentUnBlock(String seq, SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("admin.foodCommentUnBlock",seq);
 	}
 
 }
