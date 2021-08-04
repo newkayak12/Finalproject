@@ -46,7 +46,9 @@
           </ul>
      </div> 
      
-
+	
+		<a id="MOVE_TOP_BTN" href="#" style="position: fixed; right:50px; bottom:110px; border-radius: 100%; display: none;" class="bgColorMainColor p-2"><i class="fas fa-arrow-up" style="color: white; font-size:32px;"></i></a>
+	
 
 	<div class="footerInfo">
 	    <ul class="list-inline pt-3">
@@ -62,7 +64,32 @@
     </div>
     
 </footer>
+<<script type="text/javascript">
+$(function() {
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 1000) {
+			$('#MOVE_TOP_BTN').fadeIn();
+		} else {
+			$('#MOVE_TOP_BTN').fadeOut();
+		}
+	});
+	$("#MOVE_TOP_BTN").click(function() {
+		$('html, body').animate({
+			scrollTop : 0
+			}, 400);
+		return false;
+	});
+	
+	
+});
+function response(){
+	if($("#iconboxfooter").css('display')!='none'){
+		$("section").css('margin-bottom',"20px")
+	}
+}
 
+
+</script>
 
 
 </body>
