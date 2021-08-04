@@ -52,4 +52,6 @@ public interface FoodServiceInterface {
 
 	List<Food> selectAllFoodSorting(String con, String cPage);
 
+	int totalFoodCount();
+
 }

@@ -450,7 +450,9 @@
 		let src = $(e.target).attr("src");
 		console.log(src.substring(17))
 		
+
 		$("#fv-imgModal").find("img").attr("src", "${ path }" + src.substring(16));
+
 		$("#fv-imgModal").modal("show"); 
 	}
 	

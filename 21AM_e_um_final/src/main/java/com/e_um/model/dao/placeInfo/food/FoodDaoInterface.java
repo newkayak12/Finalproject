@@ -67,6 +67,8 @@ public interface FoodDaoInterface {
 
 	List<Food> selectAllFoodSorting(SqlSessionTemplate session, String con, String cPage);
 
+	int totalFoodCount(SqlSessionTemplate session);
+
 	
 
 }

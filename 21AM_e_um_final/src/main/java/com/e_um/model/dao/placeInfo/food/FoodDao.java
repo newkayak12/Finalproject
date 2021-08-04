@@ -162,6 +162,11 @@ public class FoodDao implements FoodDaoInterface {
 		return session.selectList("food.selectAllFoodSorting", con, new RowBounds((Integer.parseInt(cPage)-1)*numPerPage, numPerPage));
 	}
 
+	@Override
+	public int totalFoodCount(SqlSessionTemplate session) {
+		return session.selectOne("food.totalFoodCount");
+	}
+
 	
 
 
