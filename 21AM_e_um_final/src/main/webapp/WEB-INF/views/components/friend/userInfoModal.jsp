@@ -50,7 +50,7 @@
 <!-- Modal footer -->
 <div class="modal-footer d-flex justify-content-between">
 	<a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
-        <button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;">
+        <button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;" onclick="userReport('${friend.userId}')">
         	<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" data-toggle="modal" data-target="#ReportModal">
         </button>
     </a>
@@ -125,4 +125,21 @@
 	})
 	
 	$("#reportPop").popover({ trigger: "hover" });
+	
+	function userReport(friendId){
+    	let userReportId = friendId;
+    	let userReportMyId = '${userSession.userId}';
+    	let userReportContent = "사용자 신고"
+    	let userReportTargetContent = 'profile';
+    	
+    	$.ajax({
+    		url:"${pageContext.request.contextPath}/report/reportprifile",
+    		data:{userIdShooter:userReportMyId , userIdTarget:userReportId , reportContents:userReportContent, reportTargetContent: userReportId}, 
+    		success:data=>{
+    			if(data>0){
+  					alert('신고가 완료되었습니다.')
+  				}
+    		}
+    	})
+    }
 </script>

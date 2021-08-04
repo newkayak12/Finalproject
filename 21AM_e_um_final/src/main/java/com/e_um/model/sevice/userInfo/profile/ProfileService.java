@@ -135,4 +135,10 @@ public class ProfileService implements ProfileServiceInterface {
 		return dao.writeFeedComment(session, fc, profileId, userNick);
 	}
 
+
+	@Override
+	public int insertFeed(NoHasAFeed nhf) {
+		return dao.insertFeed(session, nhf);
+	}
+
 }
