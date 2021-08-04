@@ -705,8 +705,11 @@ public class FoodController {
 		log.error("{}", con);
 		
 		List<Food> list = service.selectAllFoodSorting(con, cPage);
-		
 		model.addAttribute("list", list);
+		
+		// 맛집 총 개수 
+		int totalFoodCount = service.totalFoodCount();
+		model.addAttribute("totalFoodCount" ,totalFoodCount);
 		
 		return "components/food/foodSortingList";
 	}

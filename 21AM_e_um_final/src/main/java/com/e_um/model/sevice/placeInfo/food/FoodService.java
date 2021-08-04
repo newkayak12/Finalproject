@@ -228,5 +228,11 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public int totalFoodCount() {
+		return dao.totalFoodCount(session);
+	}
+
+
 
 }

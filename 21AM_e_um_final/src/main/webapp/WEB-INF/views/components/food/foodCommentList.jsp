@@ -6,9 +6,9 @@
 
 <style>
 .gray { color : gray; }
-.dropdown-toggle::after { display:none; }
+#foodCommentListDiv .dropdown-toggle::after { display:none; }
 #moreBtn { border : 0; outline : 0; background-color: transparent; }
-.dropdown-menu { min-width: fit-content; /* transform: translate3d(500px, 1135px, 0px) !important; */ }
+#foodCommentListDiv .dropdown-menu { min-width: fit-content; /* transform: translate3d(500px, 1135px, 0px) !important; */ }
 #fcreportModal .btn-danger { border-radius: 10px; }
 /* 리뷰목록에 출력되는 이미지들  */
 .fcImage { border-radius:10px; object-fit:cover; width:100px; height:100px; }

@@ -17,21 +17,12 @@
 /* 필터초기화 버튼 */
 #clearFoodSearchCondition { border: 1px solid #2AC1BC; float: right; margin: 10px; background-color: white; }
 #clearFoodSearchCondition:hover { background-color: #2AC1BC; }
-.mainPageImages { width : 250px; height:150px; border-radius: 10px; object-fit:cover;}
+.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
 .mainPageFoodName { color : #3a3a3a; font-size : 20px; font-weight:900; }
 .mainPageFoodStar { color : #2AC1BC; font-size : 20px; font-weight:900;}
 .mainPageFoodAddrCate { color : gray; font-size : 15px; font-weight:900; }
 a { text-decoration:none !important } 
 a:hover { text-decoration:none !important }
-
-
-
-@media(min-width:775px){
-.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
-}
-@media(max-width:1200px){
-.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
-}
 
 </style>
 
@@ -43,10 +34,10 @@ a:hover { text-decoration:none !important }
 		<div>
 		
 			<div class="search-container col-12">
-				<form action="" method="" class="col-12">
+				<form class="col-12">
 					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
-					<div style="text-align:center;">
-						<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" required>
+					<div style="text-align:center; width:100%;">
+						<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline; width:60% !important;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" required>
 						<button class="btn checkBtn mb-1" type="button" id="foodSearchButton" >검색</button>
 						<button class="btn cancelBtn mb-1" type="button" id="showFoodSearchCondition">필터 ☟</button>
 					</div>
