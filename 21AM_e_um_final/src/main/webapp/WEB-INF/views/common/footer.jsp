@@ -64,7 +64,7 @@
     </div>
     
 </footer>
-<<script type="text/javascript">
+<script type="text/javascript">
 $(function() {
 	$(window).scroll(function() {
 		if ($(this).scrollTop() > 1000) {
@@ -82,6 +82,14 @@ $(function() {
 	
 	
 });
+
+function response(){
+	if($("#iconboxfooter").css('display')!='none'){
+		$("section").css('margin-bottom',"40px")
+	}else {
+		$("section").css('margin-bottom',"0px")
+	}
+}
 
 
 </script>
