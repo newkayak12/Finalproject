@@ -5,6 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<style>
+	.tab-content tr:hover {
+		font-weight: 900;
+	}
+</style>
+
 <!-- Nav tabs -->
 <ul id="foodTab" class="nav nav-tabs nav-fill tway"  role="tablist">
     <li class="nav-item">
@@ -93,10 +99,12 @@
 	<!-- 가고싶은 맛집 목록 -->
 	<div class="tab-pane container" id="foodLikeList">
 		<div class="d-flex flex-column justify-content-center align-items-center">
+			<p>* 하트를 클릭하면 목록에서 삭제됩니다 *</p>
 			<table class="table table-borderless col-xl-6 col">
 			
 				<thead class="thead-light">
 					<tr>
+						<th class="colcenter"><i class="fas fa-heart"></i></th>
 						<th class="colcenter">식당이름</th>
 						<th class="colcenter">지역</th>
 						<th class="colcenter">음식종류</th>
@@ -108,6 +116,7 @@
 					<c:if test="${!empty myLkeFoodList }">
 						<c:forEach var="f" items="${ myLkeFoodList }">
 							<tr>
+								<td class="colcenter align-middle pointer" onclick="fn_delFoodLike('${f.foodSeq}', '${session.userId}', event);"><i class="fas fa-heart" id = "like" style="color : #2AC1BC !important;"></i></td>
 								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f.foodSeq}')">${f.foodName}</td>
 								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f.foodSeq }')"><c:out value="${fn:substring(f.foodAddr, 4, 11)}"/></td>
 								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${f.foodSeq }')">${f.foodCategoryMain}</td>
@@ -141,10 +150,10 @@
 					<c:if test="${!empty myFoodCommentList }">
 						<c:forEach var="c" items="${ myFoodCommentList }">
 							<tr>
-								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.foodSeq}')">${c.foodName}</td>
-								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.foodSeq }')"><c:out value="${fn:substring(c.foodCommentContents, 0, 10)}"/>...</td>
-								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.foodSeq }')">${c.foodCommentStar}</td>
-								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.foodSeq }')">${c.foodCommentDate }</td>
+								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq}')">${c.food.foodName}</td>
+								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq }')"><c:out value="${fn:substring(c.foodCommentContents, 0, 25)}"/>...</td>
+								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq }')">${c.foodCommentStar}</td>
+								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq }')"><fmt:formatDate value="${ c.foodCommentDate }" pattern="yyyy-MM-dd"/></td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -186,7 +195,7 @@ function fn_cancelFood(foodBookingSeq){
 }
 
 // 좋아요 삭제 
-const fn_delFoodLike = (foodSeq, userId) => {
+const fn_delFoodLike = (foodSeq, userId, e) => {
 	
 	$.ajax({
 		url : "${path}/food/delFoodLike",
@@ -198,8 +207,8 @@ const fn_delFoodLike = (foodSeq, userId) => {
 			// console.log(data);
 			if(data == 'success') {
 				
-				$("#like").removeClass("fas fa-heart");
-				$("#like").attr("class", "far fa-heart").css({ "color" : "rgb(201,201,201)" });
+				$(e.target).removeClass("fas fa-heart");
+				$(e.target).attr("class", "far fa-heart").css({ "color" : "rgb(201,201,201)" });
 				
 			}
 		}
