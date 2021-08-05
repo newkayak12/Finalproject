@@ -97,7 +97,6 @@
 		            url:"${pageContext.request.contextPath}/feed/feedList",
 		            data:{"cPage":e, "userId": userId},
 		            success:data=>{
-		            	console.log(data)
 		                $("#feed-container").append(data)
 		                $(".repl").css("display","block")
 		                if(data.length>10){
@@ -349,7 +348,7 @@
         
 		     <div class="mt-4 mb-5" >
 		     <h5 class="mt-4 mb-0 text-left pl-lg-5 pointFont mainColor">&nbsp;&nbsp;&nbsp;추천 친구</h5>
-	        <div id="recommand-container" class="carousel slide col-12 col-lg-10 mt-0 container p-2 pt-4 border" data-ride="carousel">
+	        <div id="recommand-container" class="carousel slide col-12 col-lg-10 mt-0 container p-2 pt-4 border" data-ride="carousel" data-interval="20000">
 		       
 		        <div class="carousel-inner" id="recommand-inner-conatiner">
 		            	 <div class="carousel-item active">

@@ -34,17 +34,17 @@
 
                                 <div class="carousel-inner ">
 									<c:if test="${feed.feedImage1!=null }">
-	                                    <div class="carousel-item active" >
+	                                    <div class="carousel-item active d-flex justify-content-center" >
 	                                        <img alt="사진1" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage1}"  class="feedPhoto">
 	                                    </div>
 									</c:if>
 									<c:if test="${feed.feedImage2!=null }">
-	                                    <div class="carousel-item " >
+	                                    <div class="carousel-item d-flex justify-content-center" >
 	                                        <img alt="사진2" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage2}" class="feedPhoto">
 	                                    </div>
 									</c:if>
 									<c:if test="${feed.feedImage3!=null }">
-	                                    <div class="carousel-item " >
+	                                    <div class="carousel-item d-flex justify-content-center" >
 	                                        <img alt="사진3" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage3}" class="feedPhoto">
 	                                    </div>
                                     </c:if>
