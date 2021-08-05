@@ -920,13 +920,15 @@ function kakaoLogout(){
 			 console.log(data) */
 			 if(data["data"]["chats"]!=null){
 				 data["data"]["chats"].forEach((v,i)=>{
-			 	
+			 			console.log(v)
 				 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
+				 			 let time = v["chatSendTime"].substring(10);
+			 				time = time.substring(0,6) 
 				 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
 				 			let outter = $("<div>").attr("class","col-6")
 				 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
 				 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
-				 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
+				 			let timeline = $("<span>").attr("class","small").html(time);
 				 			
 				 			
 	
@@ -939,15 +941,17 @@ function kakaoLogout(){
 		 					}
 				 			
 				 		} else {
-				 			
-				 			
+				 			 let time = v["chatSendTime"].substring(10);
+				 				time = time.substring(0,6) 
+			 				console.log("상대")
+				 			console.log(v["chatSendTime"])
 				 			nickname = v["chatSender"]["userNick"];
 				 			photos=v["chatSender"]["profileImageFile"]
 				 				
 				 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
 				 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
 				 			let aoutter = $("<div>").attr("class","col-6 my-auto")
-				 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
+				 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(time))
 				 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
 				 			
 				 			
@@ -975,9 +979,10 @@ function kakaoLogout(){
 
 		} else if(data["flag"]=='running'){
 			
+			console.log(data) 
 			if($("#chatRoomTophidden1").val()==data["room"]||$("#chatRoomBottomhidden1").val()==data["room"]){
 			
-				/* console.log('들어오냐? ') */
+				console.log(data["time"])
 				let chatRootBottom = $("#chatRootBottom");
 				let chatRoottop = $("#chatRoottop");
 				/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
@@ -1073,13 +1078,14 @@ function kakaoLogout(){
 		}
 		
 		
-		
-		/* console.log(msg) */
-		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
-		let result = JSON.stringify(data);
-		socket.send(result)
+		if(msg.length>0){
+			
+		console.log(msg)
+			let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
+			let result = JSON.stringify(data);
+			socket.send(result)
 		/* console.log(socket) */
-		
+		}
 	
 	
 
@@ -1255,6 +1261,13 @@ function kakaoLogout(){
 			$("#footerContainer").hide(240)	
 			$("body").css("overflow","")
 		}
+		
+		console.log($("#chatRoomTophidden1").val())
+		if($("#chatRoomTophidden1").val()!=null){
+			fin()
+		}
+		
+		
 		
 		/* $("#footerContainer").toggle(240)
 		$("#footerinnerContainer").html("") */
@@ -1453,6 +1466,8 @@ function kakaoLogout(){
 	const closetoolbox=()=>{
 		/* $("#toolbox").css("display","none") */
 		$("#toolbox").hide(240);
+		fin();
+		
 	}
 	
 	
