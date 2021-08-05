@@ -10,7 +10,7 @@
         <input type="text" id="userId" class="w-75 " style="height:30px" placeholder="아이디">
         &nbsp;&nbsp; 
         <label style="width: 80px !important" >
-	        <span class="small" style="width: 80px !important" >
+	        <span class="small cursor" style="width: 80px !important" >
 	         <input type="checkbox" class="" id="persistlogin" >
 	        	ID유지
         	</span>
@@ -26,10 +26,10 @@
     </span>
     <span class="m-2 d-flex justify-content-center align-content-center p-1 w-fitcontent">
         &nbsp;&nbsp; 
-        <img src ="${pageContext.request.contextPath }/resources/images/user/kakaoLogin.png" class="" style="width: 150px;" onclick="kakaoLogin()">
+        <img src ="${pageContext.request.contextPath }/resources/images/user/kakaoLogin.png" class="cursor" style="width: 150px;" onclick="kakaoLogin()">
         &nbsp;&nbsp; 
     </span>
-    <span class="d-flex flex-row w-50 justify-content-around align-content-center">
+    <span class="d-flex flex-row w-50 justify-content-around align-content-center cursor">
         <span onclick="fn_lostAndFound()">
                아이디/비밀번호 찾기
         </span>

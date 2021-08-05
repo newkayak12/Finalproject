@@ -357,7 +357,7 @@
 		            	 	<c:forEach begin="0" end="3" items="${list }" var="i" varStatus="var" >
 		            	 
 			            	 		<c:if test="${fn:length(list)>4}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around cursor" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -371,7 +371,7 @@
 					    	<c:forEach begin="4" end="7" items="${list }" var="i">
 		            	 	
 			            	 		<c:if test="${fn:length(list)>8}">
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around cursor" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -384,7 +384,7 @@
 					    	<div class="d-flex justify-content-around pl-5 pr-5">
 						      	<c:forEach begin="8" end="${fn:length(list)}" items="${list }" var="i">
 		            	 	
-								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
+								      	<span class="m-0 md-m-2 d-flex flex-column justify-content-around cursor" data-toggle="modal" data-target="#profile" onclick="profileRoot('${i.profileImageFile}','${i.userNick }', '${i.userAddrBasic }', '${i.profileStatus }','${i.userGender }', '${i.interest.profileInterestName1 }', '${i.interest.profileInterestName2 }', '${i.interest.profileInterestName3 }', '${i.interest.profileInterestName4 }', '${i.interest.profileInterestName5 }','${i.userId }')">
 						                    <img alt="사진" src="${pageContext.request.contextPath }/resources/upload/profile/${i.profileImageFile}" width="75px" height="75px"style="border-radius:100%">
 						                    <p class="text-center">${i.userNick }</p>
 						                </span>
@@ -397,11 +397,11 @@
 	        <!-- carubtn -->
 		   		
 				  <!-- Left and right controls -->
-				  <a class="carousel-control-prev carubtn" href="#recommand-container" data-slide="prev">
+				  <a class="carousel-control-prev carubtn cursor" href="#recommand-container" data-slide="prev">
 				    <!-- <span class="carousel-control-prev-icon"></span> -->
 				    <img src="${pageContext.request.contextPath }/resources/images/user/previous.png" width="50px">
 				  </a>
-				  <a class="carousel-control-next carubtn" href="#recommand-container" data-slide="next">
+				  <a class="carousel-control-next carubtn cursor" href="#recommand-container" data-slide="next">
 				    <!-- <span class="carousel-control-next-icon"></span> -->
 				    <img src="${pageContext.request.contextPath }/resources/images/user/next.png" width="50px">
 				  </a>
@@ -445,12 +445,12 @@
                     <div class="col-6 p-4 pt-2">
                         <div class="col-12 pt-2 pb-2 pl-2 pr-2" >
                             <div class="mt-2 mb-2">
-                                <span class="ml-3 mr-4">성별 : </span>
-                                <span id="modaluserGender"></span>
+                                <span class="ml-3 mr-4 small">성별 : </span>
+                                <span id="modaluserGender" class=" small"></span>
                             </div>
                             <div class="mt-2 mb-2">
-                                <span class="ml-3 mr-4">지역 : </span>
-                                <span id="modaluserAddr"></span>
+                                <span class="ml-3 mr-4 small">지역 : </span>
+                                <span id="modaluserAddr" class=" small"></span>
                             </div>
                             
                         </div>
@@ -477,9 +477,9 @@
 	<!-- ---------------------------------------------------------------------------------------------- -->
 					<input type="hidden" id="friendId">
 					<input type="hidden" id = "reportId">
-				  <button type="button" class="btn btn-warning eumbtn-2" onclick="userReport()">신고</button>
-				  <button type="button" class="btn btn-primary eumbtn-2" onclick="addFriend()">친구 요청</button>
-				  <button type="button" class="btn btn-primary eumbtn-1" >프로필로 이동</button>
+				  <button type="button" class="btn cancelBtn cursor" onclick="userReport()">신고</button>
+				  <button type="button" class="btn checkBtn cursor" onclick="addFriend()">친구 요청</button>
+				  <button type="button" class="btn checkBtn eumbtn-1 cursor" >프로필로 이동</button>
 	<!-- ---------------------------------------------------------------------------------------------- -->
 				</div>
 		  
@@ -516,42 +516,42 @@
                 </th>
                   <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
                       <label class="small">
-                          <input type="radio" name="report" value="language"  class="reportbtn" > 부적절한 언어 사용
+                          <input type="radio" name="report" value="language"  class="reportbtn cursor" > 부적절한 언어 사용
                       </label>
                   </td>
                 </tr>
                 <tr>
                     <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
                         <label class="small">
-                            <input type="radio" name="report" value="advertisement" class="reportbtn"> 광고성 게시글
+                            <input type="radio" name="report" value="advertisement" class="reportbtn cursor"> 광고성 게시글
                         </label>
                     </td>
                 </tr>
                 <tr>
                     <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
                         <label class="small">
-                            <input type="radio" name="report" value="imposter" class="reportbtn"> 타인을 사칭합니다.
+                            <input type="radio" name="report" value="imposter" class="reportbtn cursor"> 타인을 사칭합니다.
                         </label>
                     </td>
                 </tr>
                 <tr>
                     <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
                         <label class="small">
-                            <input type="radio" name="report" value="profilePhoto" class="reportbtn"> 부적절한 프로필 사진 
+                            <input type="radio" name="report" value="profilePhoto" class="reportbtn cursor"> 부적절한 프로필 사진 
                         </label>
                     </td>
                 </tr>
                 <tr>
                     <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
                         <label class="small">
-                            <input type="radio" name="report" value="feed" class="reportbtn"> 부적절한 게시글 사진 및 내용
+                            <input type="radio" name="report" value="feed" class="reportbtn cursor"> 부적절한 게시글 사진 및 내용
                         </label>
                     </td>
                 </tr>
                 <tr>
                     <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
                         <label class="small">
-                            <input type="radio" name="report" value="etc" class="reportbtn"> 기타
+                            <input type="radio" name="report" value="etc" class="reportbtn cursor"> 기타
                         </label>
                     </td>
                 </tr>
@@ -571,8 +571,8 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="cancelBtn" data-dismiss="modal">닫기</button>
-          <button type="button" class="checkBtn" data-dismiss="modal" onclick="reportthis()">신고하기</button>
+          <button type="button" class="cancelBtn cursor" data-dismiss="modal">닫기</button>
+          <button type="button" class="checkBtn cursor" data-dismiss="modal" onclick="reportthis()">신고하기</button>
         </div>
   
       </div>
