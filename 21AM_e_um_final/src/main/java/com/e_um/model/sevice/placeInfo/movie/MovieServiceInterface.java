@@ -62,4 +62,6 @@ public interface MovieServiceInterface {
 	
 	int insertReport(Report report);
 	
+	int totalCount();
+	int movieCount(Map param);
 }

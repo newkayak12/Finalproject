@@ -1,1 +1,30 @@
 @charset "UTF-8";
+
+      @media(min-width:992px){
+      	.caru992{
+      		display:block !important;
+      	}
+      	.caru991{
+      		display:none !important;
+      		
+      	} 
+      .thumb-size {
+        width: 100%;
+        /* height: 250px; */ 
+        
+      }
+      }
+      
+       @media(max-width:991px){
+      	.caru992{
+      		display:none !important;
+      	}
+      	.caru991{
+      		display:block !important;
+      		
+      	} 
+      	.thumb-size {
+        width: 100%;
+        /* height: 234px; */ 
+      } 
+      }

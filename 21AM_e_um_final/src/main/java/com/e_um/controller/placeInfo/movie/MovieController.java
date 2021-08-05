@@ -69,6 +69,7 @@ public class MovieController {
 	@RequestMapping("/movie/movieDetail")
 	public String movieDetail(@RequestParam(value="movieSeq")String movieSeq, Model model) {
 		Movie movie = service.movieDetail(movieSeq);
+		System.out.println(movie);
 		model.addAttribute(movie);
 		return "movie/movieDetail";
 	}
@@ -387,8 +388,12 @@ public class MovieController {
 		  System.out.println(param);
 		 int result = service.payEnd(param); 
 		 
-		 
-		
+		 double totalCount = service.totalCount();
+		 double movieCount = service.movieCount(param);
+		 System.out.println(totalCount);
+		 System.out.println(movieCount);
+		 double movieEvg = (movieCount/totalCount)*100.0;
+		 System.out.println(movieEvg);
 		 model.addAttribute("param",param);
 		  
 		
