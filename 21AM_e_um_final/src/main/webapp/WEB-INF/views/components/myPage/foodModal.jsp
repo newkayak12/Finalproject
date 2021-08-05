@@ -100,8 +100,8 @@
 	<div class="tab-pane container" id="foodLikeList">
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<p>* 하트를 클릭하면 목록에서 삭제됩니다 *</p>
-			<table class="table table-borderless col-xl-6 col">
-			
+			<table class="table table-hover">
+				
 				<thead class="thead-light">
 					<tr>
 						<th class="colcenter"><i class="fas fa-heart"></i></th>
@@ -135,7 +135,7 @@
 	<!-- 내가 쓴 리뷰 -->
 	<div class="tab-pane container" id="foodCommentList">
 		<div class="d-flex flex-column justify-content-center align-items-center">
-			<table class="table table-borderless col-xl-6 col">
+			<table class="table table-hover">
 			
 				<thead class="thead-light">
 					<tr>
@@ -151,7 +151,7 @@
 						<c:forEach var="c" items="${ myFoodCommentList }">
 							<tr>
 								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq}')">${c.food.foodName}</td>
-								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq }')"><c:out value="${fn:substring(c.foodCommentContents, 0, 25)}"/>...</td>
+								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq }')"><c:out value="${fn:substring(c.foodCommentContents, 0, 40)}"/>...</td>
 								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq }')">${c.foodCommentStar}</td>
 								<td class="colcenter align-middle pointer" onclick="location.assign('${path}/food/foodView?foodSeq=${c.food.foodSeq }')"><fmt:formatDate value="${ c.foodCommentDate }" pattern="yyyy-MM-dd"/></td>
 							</tr>

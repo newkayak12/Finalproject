@@ -20,8 +20,8 @@
 	}
 </style>
 
-<section class="mt-5 pt-5">
-	<div id="root" class="container mt-5">
+<section class="">
+	<div id="root" class="container">
 	
 	
 		<div class="foodForm-container">

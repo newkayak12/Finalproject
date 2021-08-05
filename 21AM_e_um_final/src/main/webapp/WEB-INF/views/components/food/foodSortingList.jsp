@@ -64,14 +64,17 @@ a:hover { text-decoration:none !important; }
 					</div>
 					
 				</div> <!--container-->
+			
+			<c:if test="${ list ne null and fn:length(list) ne 0  }">
+				
+				<c:if test="${ cPage * 12 < totalFoodCount }">
+					<div class="fcMore mainColor tway p-3">
+						<a href="javascript:void(0)" onclick="moreList(event);">▾&nbsp;&nbsp;더보기&nbsp;&nbsp;▾</a>
+					</div>
+				</c:if>
+			</c:if>
 				
 		</c:if>
-		<c:if test="${ list ne null and fn:length(list) ne 0  }">
-			<c:if test="${ cPage * 12 < totalFoodCount }">
-				<div class="fcMore mainColor tway p-3">
-					<a href="javascript:void(0)" onclick="moreList(event);">▾&nbsp;&nbsp;더보기&nbsp;&nbsp;▾</a>
-				</div>
-			</c:if>
-		</c:if>
+		
 			
 </div> <!-- features-boxed -->

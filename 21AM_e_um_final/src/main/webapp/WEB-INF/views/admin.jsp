@@ -6,9 +6,13 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <style>
 	/* *{border:1px black solid} */
+	#adminMenus * {
+		cursor: pointer;
+	}
 </style>
-<section class="mt-5 ">   
-	<div class="d-flex justify-content-around pl-5 pr-5 bgColorMainColorSub blackText">
+<section class="mt-5 ">  
+ 
+	<div class="d-flex justify-content-around pl-5 pr-5  blackText">
 		<%-- <span  class="col-1 pt-1 text-center" >
 			<img src="${pageContext.request.contextPath }/resources/images/user/previous.png" width="25px" height="25px" onclick="managerMain()" id="prev" style="visibility:hidden">
 		</span> --%>
@@ -17,40 +21,40 @@
 		</span>
 		<!-- <span class="col-1"></span> -->
 	</div>
+	
 	<div class="d-flex flex-row">
-		<div class="bgColorMainColorSub blackText   mr-2 d-flex flex-column p-1" style="width: 150px">
-			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick ="manageUser()">회원관리</span>
-			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick ="groupsub()">소모임관리</span>
+		<div id="adminMenus" class=" blackText   mr-2 d-flex flex-column p-1" style="width: 150px">
+			<span class="text-center cursor pointFont" style=" font-size:20px" onclick ="manageUser()">회원관리</span>
+			<span class="text-center cursor pointFont" style=" font-size:20px" onclick ="groupsub()">소모임관리</span>
 			<span id="groupsub" class="text-center cursor " style="display:none;">
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageGroup()"> 소모임 조회 </div>
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 소모임 승인 </div>			
+				<div class="text-center cursor pointFont" style="font-size:16px; color:#2AC1BC;" onclick ="manageGroup()"> 소모임 조회 </div>
+				<div class="text-center cursor pointFont" style="font-size:16px; color:2AC1BC;"> 소모임 승인 </div>			
 						
 			</span>
-			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick ="moviesub()">영화관리</span>
+			<span class="text-center cursor pointFont" style="font-size:20px" onclick ="moviesub()">영화관리</span>
 			<span id="moviesub" class="text-center cursor " style="display:none;">
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 조회 </div>
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 등록 </div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 수정</div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 인물 조회 </div>
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 인물 등록 </div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 인물 수정</div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 예매 조회 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 영화 조회 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 영화 등록 </div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 영화 수정</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 인물 조회 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 인물 등록 </div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 인물 수정</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 예매 조회 </div>
 			</span>
-			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick="foodSub()">맛집관리</span>
+			<span class="text-center cursor pointFont" style="font-size:20px" onclick="foodSub()">맛집관리</span>
 			<span id="foodsub" class="text-center cursor " style="display:none;">
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"  onclick ="manageFood()"> 조회 </div>
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="writeFood()"> 등록 </div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 수정</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"  onclick ="manageFood()">조회 및 정보수정</div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="writeFood()"> 맛집 등록 </div>
 			</span>
-			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px">고객센터관리</span>
-			<span class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:20px" onclick="reportsub()">신고관리</span>
+			<span class="text-center cursor pointFont" style="font-size:20px">고객센터관리</span>
+			<span class="text-center cursor pointFont" style="font-size:20px" onclick="reportsub()">신고관리</span>
 			<span id="reportsub" class="text-center cursor " style="display:none;">
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageReport()"> 피드 </div>
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageFeedComment()"> 피드 댓글 </div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px"> 영화 리뷰</div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageFoodReview()"> 맛집 리뷰 </div>
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick ="manageGroupBoard()"> 소모임 게시글 </div>			
-				<div class="text-center cursor pointFont" style="background-color: white; color:2AC1BC; font-size:16px" onclick="manageGroupBoardComment()"> 소모임 댓글</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageReport()"> 피드 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageFeedComment()"> 피드 댓글 </div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 영화 리뷰</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageFoodReview()"> 맛집 리뷰 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageGroupBoard()"> 소모임 게시글 </div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="manageGroupBoardComment()"> 소모임 댓글</div>			
 			</span>
 			
 		</div>
@@ -84,7 +88,7 @@
 	
 	function manageUser(cPage){
 		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/manageuser',
+			url:'${ pageContext.request.contextPath }/admin/manageuser',
 			data:{"cPage":cPage},
 			success:list=>{
 				$("#prev").css("visibility","visible")
@@ -126,6 +130,7 @@
 		})
 		
 	}
+	
 	function writeFood(){
 		$.ajax({
 			url:'${pageContext.request.contextPath}/admin/writefood',
@@ -139,7 +144,6 @@
 	}
 	
 	/* 음식 수정 자리 amendFood  */
-	
 	
 	function manageService(){
 		$.ajax({

@@ -246,5 +246,23 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public List<Food> fSmainFoodList() {
+		return dao.fSmainFoodList(session);
+	}
+
+
+	@Override
+	public List<Food> fCmainFoodList() {
+		return dao.fCmainFoodList(session);
+	}
+
+
+	@Override
+	public List<Food> fBmainFoodList() {
+		return dao.fBmainFoodList(session);
+	}
+
+
 
 }

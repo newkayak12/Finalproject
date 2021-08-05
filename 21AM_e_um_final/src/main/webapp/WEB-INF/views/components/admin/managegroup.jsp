@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div class="d-flex flex-column justify-content-between align-itmes-center">
 
 <%-- ${list } --%>
@@ -92,7 +93,7 @@ $(function(){
 			</span>
 		
 		</div>
-		<table class="table table-striped table-hover tway" >
+		<table class="table table-striped table-hover" >
 			<tr>
 				<th class="bgColorMainColorSub whiteText">
 					이름

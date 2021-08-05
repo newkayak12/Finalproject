@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="d-flex flex-column justify-content-around align-items-center">
-	<table class="table table-striped table-hover tway">
+	<table class="table table-striped table-hover">
 		<tr>
 			<th>
 				신고자

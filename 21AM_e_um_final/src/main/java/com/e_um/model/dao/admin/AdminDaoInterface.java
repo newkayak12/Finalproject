@@ -83,6 +83,7 @@ public interface AdminDaoInterface {
 	public int reportGroupBoardCommentTotalData( SqlSessionTemplate session);
 	
 	public int reportGroupBoardCommentBlock(String seq, SqlSessionTemplate session);
-	public int reportGroupBoardCommentUnBlock(String seq, SqlSessionTemplate session); 
+	public int reportGroupBoardCommentUnBlock(String seq, SqlSessionTemplate session);
+	public int updatefood(SqlSessionTemplate session, Food food); 
 	
 }

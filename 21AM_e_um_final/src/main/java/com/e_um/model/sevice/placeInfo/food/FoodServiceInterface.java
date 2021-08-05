@@ -58,4 +58,10 @@ public interface FoodServiceInterface {
 
 	List<FoodComment> myFoodCommentList(String userId, int cPage, int numPerPage);
 
+	List<Food> fSmainFoodList();
+
+	List<Food> fCmainFoodList();
+
+	List<Food> fBmainFoodList();
+
 }
