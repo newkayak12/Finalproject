@@ -51,5 +51,7 @@ public interface ProfileDaoInterface {
 	int writeFeedComment(SqlSessionTemplate session, FeedComment fc, String profileId, String userNick);
 	
 	int insertFeed(SqlSessionTemplate session, NoHasAFeed nhf);
+	
+	int modifyFeed(SqlSessionTemplate session, NoHasAFeed nhf);
 
 }

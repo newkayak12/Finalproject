@@ -28,7 +28,7 @@ public interface MypageDaoInterface {
 	
 	int selectMovieTicketingCount(SqlSessionTemplate session, String userId);
 	
-	int cancelMovie(SqlSessionTemplate session, MovieTicketing mt);
+	int cancelMovie(SqlSessionTemplate session, String movieReservNum);
 	
 	List<Map> selectFriendList(SqlSessionTemplate session, String userId);
 	

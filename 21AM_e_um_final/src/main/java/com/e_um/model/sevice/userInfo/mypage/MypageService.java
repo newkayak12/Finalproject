@@ -75,8 +75,8 @@ public class MypageService implements MypageServiceInterface {
 
 
 	@Override
-	public int cancelMovie(MovieTicketing mt) {
-		return dao.cancelMovie(session, mt);
+	public int cancelMovie(String movieReservNum) {
+		return dao.cancelMovie(session, movieReservNum);
 	}
 
 
