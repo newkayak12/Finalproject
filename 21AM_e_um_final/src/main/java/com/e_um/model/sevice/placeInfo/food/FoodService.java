@@ -240,5 +240,11 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public List<FoodComment> myFoodCommentList(String userId,int cPage, int numPerPage) {
+		return dao.myFoodCommentList(session, userId, cPage, numPerPage);
+	}
+
+
 
 }
