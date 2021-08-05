@@ -107,7 +107,7 @@
 	
 	<section class="mt-5 pt-5">
 		<div id="root" class="container mt-5">
-			<div><h2 class="pl-5">영화예매</h2></div>
+			<div class="col-12" style="width: 100%"><h2 class="pl-5">영화예매</h2></div>
 			<div class="reserve-container">
 		        <div class="movie-part" style="height: 498px; width: 282px;">
 		            <div class="reserve-title">영화</div>
@@ -176,9 +176,9 @@
 		        </div>
 		
 		    </div>
-		</body>
-		</html>
 		
+		</div>
+	</section>
 		<script>
 		    const date = new Date();
 		    const nextMonthDate = new Date(date.getFullYear(), date.getMonth()+1 ,1);
@@ -300,9 +300,11 @@
 		
 		
 		#root{
-		    border:1px red solid;
+		    width:100%;
 		    /* min-height:500px; */
 		    font-family:'Noto Sans KR';
+		    
+		    
 		 }
 		
 		
@@ -603,8 +605,7 @@
 				
 		
 		
-		</div>
-	</section>
+	
 	
 	
 	

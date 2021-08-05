@@ -54,7 +54,9 @@
                    
 	           	</c:if>	 
             </c:forEach>
-                    <span class="ml-2" style="color:gray;"><small>${i.chats[0].chatSendTime }</small></span> 
+          
+            
+                    <span class="ml-2" style="color:gray;"><small> ${fn:substring(i.chats[0].chatSendTime, 0,16) } </small></span> 
                 </div>
                 <div class="text-right">
                     <small>${i.chats[0].chatContent }</small>

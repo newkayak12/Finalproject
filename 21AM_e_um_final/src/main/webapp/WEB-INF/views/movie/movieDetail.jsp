@@ -4,6 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+	    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/taehui.css">
 	
 	
 	<script>
@@ -95,11 +96,35 @@
     			data:{"movieSeq":movieSeq},
     			success:data=>{
     				if(data['total'] !=='NaN'){
-    					$("#totalPoint").html("★"+data['total']).css("font-size","30px");
+    					$("#totalPoint").html("★"+data['total']).css("font-size","40px");
     				}else{
     					$("#totalPoint").html("★0").css("font-size","30px");
     				}
     				new Chart($("#radar-chart"), {
+    				    type: 'radar',
+    				    data: {
+    				      labels: ["연출", "영상미", "스토리", "연기력", "음악성"],
+    				      datasets: [
+    				        {
+    				          label: '평균 분포',
+    				          fill: true,
+    				          backgroundColor: "rgba(179,181,198,0.2)",
+    				          borderColor: "#6543b1",
+    				          pointBorderColor: "#fff",
+    				          pointBackgroundColor: "#6543b1",
+    				          /* data: [10,12,13,18,20] */
+    				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
+    				        }
+    				      ]
+    				    },
+    				    options: {
+    				      title: {
+    				        
+    				      }
+    				    }
+    				}); 
+    				
+    				new Chart($("#radar-chart2"), {
     				    type: 'radar',
     				    data: {
     				      labels: ["연출", "영상미", "스토리", "연기력", "음악성"],
@@ -232,7 +257,7 @@
 	</script>
 	
 	
-	<section class="mt-5 pt-5">
+	<section class=" pt-5">
 		<div id="root" class="container mt-5">
 			<section>
 			   <div>
@@ -241,7 +266,7 @@
 			        <div class="sect-base-movie pb-3">
 			            <div class="box-image">
 			                <span class="thumb-image justify-content-center">
-			                    <img class="thumb-size col-12" src="${path }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
+			                    <img class="thumb-size" src="${path }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
 			                </span>
 			            </div>
 			            <div class="box-contents ml-5 pt-5">
@@ -332,10 +357,10 @@
 						    <thead>
 						      <tr>
 						        <th class="col-2">작성자</th>
-						        <th class="col-2">평점</th>
-						        <th class="col-5 justify-content-center">리뷰</th>
-						        <th class="col-2">작성일</th>
-						        <th class="col-1">신고</th>
+						        <th class="col-1">평점</th>
+						        <th class="col-4 justify-content-center">리뷰</th>
+						        <th class="col-3">작성일</th>
+						        <th class="col-2">신고</th>
 						      </tr >
 						    </thead>
 						    <tbody id="reviewBody">
@@ -354,7 +379,7 @@
 								<h5>평균 별점</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
 
-									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: #6543b1; vertical-align:20px; text-align: center;">
+									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: lightgreen; vertical-align:20px; text-align: center;">
 
 									
 
@@ -362,12 +387,22 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 caru992" style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>관람포인트</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="view_point col-12" style="margin: 0 auto;  height: 200px; text-align: center;">
+									<canvas  id="radar-chart" width=250 height=150></canvas>
+									<!-- <div class="view_point col-12" style="margin: 0 auto;  height: 200px; text-align: center;">
 										<canvas  id="radar-chart" width=250 height=165></canvas>
-									</div>
+									</div> -->
+								</div>
+							</div>
+							<div class="col-4 caru991" style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>관람포인트</h5>
+								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+									<canvas  id="radar-chart2" width=250 height=230></canvas>
+									<!-- <div class="view_point col-12" style="margin: 0 auto;  height: 200px; text-align: center;">
+										<canvas  id="radar-chart" width=250 height=165></canvas>
+									</div> -->
 								</div>
 							</div>
 							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
@@ -515,7 +550,6 @@
 
 <style>
      #root{
-	    border:1px red solid;
 	    /* min-height:500px; */
 	    font-family:'Noto Sans KR';
 	}

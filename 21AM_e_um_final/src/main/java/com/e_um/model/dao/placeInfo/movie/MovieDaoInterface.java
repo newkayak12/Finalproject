@@ -65,4 +65,8 @@ public interface MovieDaoInterface {
 	int insertReport(SqlSessionTemplate session, Report report);
 	
 	int reportCountUpdate(SqlSessionTemplate session, Report report);
+
+	int totalCount(SqlSessionTemplate session);
+	int movieCount(SqlSessionTemplate session, Map param);
+
 }

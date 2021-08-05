@@ -145,7 +145,7 @@
 
 
         function fn_passwordValidate(password){
-                if(!/^[a-zA-Z0-9]{8,16}$/.test(password)){
+               /*  if(!/^[a-zA-Z0-9]{8,16}$/.test(password)){
                     $("#passwordSignfirst").html('숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.').css("color","red");
                     $("#nextStep").attr("disabled", true);
                     return false;
@@ -153,6 +153,7 @@
 
                 var checkNum = password.search(/[0-9]/g); // 숫자사용
                 var checkEng = password.search(/[a-z]/ig); // 영문사용
+                
 
                 if(checkNum <0 || checkEng <0){
                     $("#passwordSignfirst").html('숫자와 영문자를 조합하여야 합니다.').css("color","red");
@@ -160,7 +161,32 @@
                     return false;
                 }
 
-                return true;
+                return true; */
+                
+
+        	 var pw = password
+        	 var num = pw.search(/[0-9]/g);
+        	 var eng = pw.search(/[a-z]/ig);
+        	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+        	 if(pw.length < 8 || pw.length > 20){
+
+        		 $("#passwordSignfirst").html('비밀번호는 8~20글자만 가능합니다..').css("color","red");
+                 $("#nextStep").attr("disabled", true);
+        	  return false;
+        	 }else if(pw.search(/\s/) != -1){
+        		 $("#passwordSignfirst").html('비밀번호는 공백이 불가능 합니다.').css("color","red");
+                 $("#nextStep").attr("disabled", true);
+        	  return false;
+        	 }else if(num < 0 || eng < 0 || spe < 0 ){
+        	  $("#passwordSignfirst").html("영문,숫자, 특수문자를 혼합하여 입력해주세요.").css("color","red");
+              $("#nextStep").attr("disabled", true);
+        	  return false;
+        	 }else {
+        		console.log("통과"); 
+        	    return true;
+        	 }
+
             }
         const fn_id_normaliztion=()=>{
 
@@ -229,7 +255,7 @@
         const fn_emailCheck = ()=>{
             
             $.ajax({
-                url:"${pageContex.request.contextPath}/user/emailchecker",
+                url:"${pageContext.request.contextPath}/user/emailchecker",
                 data:{userEmail: $("#userEmail").val()},
                 success:data=>{
                     if(data!=0){
