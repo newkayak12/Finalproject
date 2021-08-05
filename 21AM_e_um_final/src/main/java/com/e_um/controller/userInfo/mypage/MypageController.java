@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.common.pagebar.PageBar;
+import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
 import com.e_um.model.sevice.userInfo.mypage.MypageServiceInterface;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
+import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
@@ -41,6 +43,9 @@ public class MypageController {
 	UserServiceInterface userService;
 	BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder(); 
 	
+	// yj add
+	@Autowired
+	FoodServiceInterface foodService;
 
 	@RequestMapping("/user/mypage/start")
 	public String gotoMypage(String userId, @RequestParam(value="flag", defaultValue="none", required=false) String flag,
@@ -62,6 +67,9 @@ public class MypageController {
 //		log.error("modalName: {}", modalName);
 //		log.error("userId: {}", user.getUserId());
 		
+		// yj add
+		List<LikeFood> likeFoodList = foodService.myLikeFoodList(user.getUserId(), cPage, numPerPage);
+		
 		int totalData=0;
 		String pageBar="";
 		switch(modalName) {
@@ -80,6 +88,7 @@ public class MypageController {
 				
 			case "foodModal":
 				m.addAttribute("foodInfo",service.selectFoodBookingInfo(user.getUserId(),cPage,numPerPage));
+				m.addAttribute("likeFoodList", likeFoodList);
 				totalData=service.selectFoodBookingCount(user.getUserId());
 				pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
 		}

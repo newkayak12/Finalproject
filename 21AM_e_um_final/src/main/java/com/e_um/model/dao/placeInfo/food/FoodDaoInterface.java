@@ -69,6 +69,8 @@ public interface FoodDaoInterface {
 
 	int totalFoodCount(SqlSessionTemplate session);
 
+	List<LikeFood> myLikeFoodList(SqlSessionTemplate session, String userId, int cPage, int numPerPage);
+
 	
 
 }

@@ -85,7 +85,7 @@
 	let cPage = 1;
 	const moreList = (e) => {
 		
-		let con = $("a.active").attr("id");
+		let con = $(".active").attr("id");
 		console.log(con);
 		
 		$.ajax({
