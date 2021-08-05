@@ -5,9 +5,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- chat == chatRoom i=chats j,z =sender -->
+<br>
 <c:forEach items="${chat }" var="i">
-
-	<div class="d-flex justify-content-between border mt-2 p-1" style="background-color: white" onclick="fn_startChat('${i.chatRoomSeq }','${i.chatrommId1}','${i.chatrommId2}')">
+	<c:if test="${chat.size()>0 }">
+	<div class="d-flex justify-content-between border mt-2 p-1 cursor" style="background-color: white" onclick="fn_startChat('${i.chatRoomSeq }','${i.chatrommId1}','${i.chatrommId2}')">
 	
         <div>
         	<c:set var="photo_loop" value="true"/>
@@ -63,4 +64,10 @@
                 </div>
         </div>
     </div>
+    </c:if>
  </c:forEach>
+    <c:if test="${chat.size()<=0 }">
+    	<div class="text-center">
+    		채팅 목록이 없습니다.
+    	</div>
+    </c:if>
