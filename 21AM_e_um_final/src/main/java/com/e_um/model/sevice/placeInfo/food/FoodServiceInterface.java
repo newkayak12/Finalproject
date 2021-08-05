@@ -54,4 +54,6 @@ public interface FoodServiceInterface {
 
 	int totalFoodCount();
 
+	List<LikeFood> myLikeFoodList(String userId, int cPage, int numPerPage);
+
 }

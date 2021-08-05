@@ -3,9 +3,12 @@ package com.e_um.common.webSocketHandler;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
@@ -33,7 +36,8 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	Map<String,String[]> chatRoom = Collections.synchronizedMap(new HashMap<String,String[]>());
 	Map<String,WebSocketSession> idSet = Collections.synchronizedMap(new HashMap<>());
-	
+//	List<Map<String,Object>> chats = Collections.synchronizedList(new ArrayList<Map<String,Object>>());
+	List<Map<String,Object>> chats = new ArrayList<Map<String,Object>>();
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
@@ -46,6 +50,10 @@ public class ChatHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
+//		for(Map<String,Object> piece : chats) {
+//			chatToOnlind(piece);
+//		}
+//		
 		super.afterConnectionClosed(session, status);
 	}
 	
@@ -91,6 +99,8 @@ public class ChatHandler extends TextWebSocketHandler {
 				map.put("flag", "init");
 				
 				log.warn("mapmapampampa{}",map);
+				
+				
 				String prevchat = wrapper.writeValueAsString(map);
 				
 				
@@ -135,18 +145,35 @@ public class ChatHandler extends TextWebSocketHandler {
 					
 					
 					log.warn("targettargettarget{}",idSet.get((String)(result.get("target"))));
-					idSet.get((String)result.get("my")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
-					Thread.sleep(500);
-					
-					if(idSet.get((String)result.get("target"))!=null) {
-						idSet.get((String)result.get("target")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
+					String a = (String)result.get("msg");
+					if(a.length()>0) {
+						idSet.get((String)result.get("my")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
+	//					Thread.sleep(500);
+						
+						if(idSet.get((String)result.get("target"))!=null) {
+							idSet.get((String)result.get("target")).sendMessage(new TextMessage(wrapper.writeValueAsString(result)));
+						}
+
+						Set<String> key = idSet.keySet();
+						String myId = "";
+						for(String keyPiece: key) {
+							if(idSet.get(keyPiece)==session) {
+								myId = keyPiece;
+							}
+						}
+						
+						if(result.get("my").equals(myId)) {
+							chats.add(result);
+						}
+	//					chatToOnlind(result);
 					}
-					chatToOnlind(result);
-					
 				}
 				
 			} else if(((String) result.get("flag")).equals("fin")) {
 				idSet.remove((String) result.get("my"));
+				for(Map<String,Object> piece : chats) {
+					chatToOnlind(piece);
+				}
 			}
 			
 			

@@ -226,7 +226,7 @@
 } */
 
 .feedPhoto{
-	width:100%;
+	width:90%;
 	height: 80%
 }
 @media(max-width: 850px){
