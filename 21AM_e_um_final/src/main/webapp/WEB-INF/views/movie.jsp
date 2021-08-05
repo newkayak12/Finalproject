@@ -29,6 +29,7 @@
     				$("#modalReserveRate").html("예매율 : "+data["movieReserveRate"]+"%")
     				
     				$("#btn1").attr("value",data["movieSeq"])
+    				$("#btn2").attr("value",data["movieSeq"])
     			}
     		});
     	}
@@ -63,8 +64,9 @@
     	} 
     	
     	/* 예매페이지로 이동 */ 
-    	const moveReserve=()=>{
-    		location.assign("${path}/movie/movieReserve");
+    	const moveReserve=(e)=>{
+    		let movieSeq = e.target.value;
+    		location.assign("${path}/movie/movieReserve?movieSeq="+movieSeq);
     	}
     
     	
@@ -693,7 +695,7 @@
                            </div>
                            <div class="col-12 d-flex flex-row justify-content-around">
                                <button id="btn1" class="btn checkBtn" onclick="move_movieDetail(event);" >상세보기</button>
-                               <button id="btn2" class="btn cancelBtn" onclick="moveReserve();")>예매하기</button>
+                               <button id="btn2" class="btn cancelBtn" onclick="moveReserve(event);")>예매하기</button>
                            </div>
                          </div>
                        </div>

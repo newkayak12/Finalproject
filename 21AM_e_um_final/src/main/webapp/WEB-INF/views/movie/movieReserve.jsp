@@ -6,30 +6,34 @@
 
 <script>
 	$(function(){
+		let movieSeq = $("#receiveSeq").val();
 		$.ajax({
 			url:"${path}/movie/movieList",
 			success:data=>{
+				
+				console.log(data);
 				for(var i=0; i<data.length;i++){
-					$(".movie-list-ul").append(
-							$("<li>").addClass("movieList").append($("<button>").html(data[i]["movieTitleKr"])
-							.addClass('movieName col-12')
-							.attr({"value":data[i]["movieSeq"],"onclick":"movieSeqFn(event);"})))
+					
+					if(data[i]['movieSeq']!==movieSeq){
+						$(".movie-list-ul").append(
+								$("<li>").addClass("movieList").append($("<button>").html(data[i]["movieTitleKr"])
+										.addClass('movieName col-12')
+										.attr({"value":data[i]["movieSeq"],"onclick":"movieSeqFn(event);"})))
+						$("#movieSeq2").attr("value",movieSeq);
+					}else{
+						$(".movie-list-ul").append(
+								$("<li>").addClass("movieList").append($("<button>").html(data[i]["movieTitleKr"])
+										.addClass('movieName col-12 active')
+										.attr({"value":data[i]["movieSeq"],"onclick":"movieSeqFn(event);"})))
+					}
+						
 				}
 			}
 		})
 		
-	})
-	
-	const movieSeqFn=(e)=>{
-		let seq = e.target.value;
-		$(".movieName").removeClass('active');
-		$(e.target).addClass('active');
-		$("#movieSeq2").value="";		
-		$("#movieSeq2").attr("value",e.target.value);
-		$("#movieBox3").attr("value","");
 		$.ajax({
 			url:"${path}/movie/movieBox",
-			data:{"movieSeq":seq},
+			data:{"movieSeq":movieSeq},
 			success:data=>{
 				console.log(data);
 				$("#location-1").html("")
@@ -49,6 +53,26 @@
 			}
 		})
 		
+	})
+	
+	const movieSeqFn=(e)=>{
+		let seq = e.target.value;
+		$(".movieName").removeClass('active');
+		$(e.target).addClass('active');
+		$("#movieSeq2").value="";		
+		$("#movieSeq2").attr("value",e.target.value);
+		$("#movieBox3").attr("value","");
+		
+		
+	}
+	
+	/* $(".movieName").on("click",function(){
+		$("reserve-time-button")
+	}); */
+	
+	const showDate=(e)=>{
+
+		
 		$.ajax({
 			url:"${path}/movie/movieTime",
 			success:data=>{
@@ -63,13 +87,6 @@
 				
 			}
 		})
-	}
-	
-	/* $(".movieName").on("click",function(){
-		$("reserve-time-button")
-	}); */
-	
-	const showDate=(e)=>{
 		$("#movieLocation").append().html("지역 : "+e.target.value).css("font-weight","bold");
 		$("#movieLocation2").attr("value",e.target.value);
 		$(".reserve-date").css("display","flex");
@@ -103,10 +120,11 @@
 		
 	}
 </style>
-
+	
 	
 	<section class="mt-5 pt-5">
 		<div id="root" class="container mt-5">
+			<input type="hidden" value="${movieSeq }" id="receiveSeq">
 			<div class="col-12" style="width: 100%"><h2 class="pl-5">영화예매</h2></div>
 			<div class="reserve-container">
 		        <div class="movie-part" style="height: 498px; width: 282px;">
@@ -142,6 +160,8 @@
 		        <div class="day-part" style="height: 498px;">
 		            <div class="reserve-title" >날짜</div>
 		            <div class="reserve-date" style="overflow:scroll; height: 450px; display: none">
+		            	<span class="reserve-month"></span>
+		            	<span class="reserve-nextMonth"></span>
 		            </div>
 		        </div>
 		        <div class="time-part">
@@ -149,6 +169,7 @@
 		            <div class="reserve-time col-12" style="height: 100px;">
 		                <div class="reserve-where"></div>
 		                <div class="reserve-time-wrapper" style="display: none;">
+		                	
 		                    <!-- <button class="reserve-time-button"> 
 		                        <span class="reserve-time-want">ㅎ</span>
 		                        
@@ -184,8 +205,8 @@
 		    const nextMonthDate = new Date(date.getFullYear(), date.getMonth()+1 ,1);
 		    console.log(nextMonthDate);
 		    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-		    const reserveDate = document.querySelector(".reserve-date");
-		    
+		    const reserveNextMonth = document.querySelector(".reserve-nextMonth");
+		    const reserveMonth = document.querySelector(".reserve-month");
 		    /* const nextMonthDate = new Date(date.getMonth()+2);
 	       	const nextMonthLastDate = new Date(new Date(date.getFullYear(), date.getMonth()+2,0)); */
 		    const nextMonth = date.getMonth()+2;
@@ -196,7 +217,7 @@
 		        const year = date.getFullYear();
 		        const month = date.getMonth()+1;
 		        
-		       	
+		        reserveMonth.innerHTML = month+"월";
 		        for (i = date.getDate(); i <= lastDay.getDate(); i++) {
 					
 		            const button = document.createElement("button");
@@ -225,14 +246,16 @@
 		            //날짜 넣기
 		            spanDay.innerHTML = i;
 		            button.append(spanDay);
+		            /* span.html(month+"월") */
 		            //button.append(i);
 		            button.value=[(year + "." +month + "." + i)];
-		            
-		            reserveDate.append(button);
+		           /*  reserveDate.append(span); */
+		            reserveMonth.append(button);
 					
 		            dayClickEvent(button);
 		        }
 		        console.log(nextMonthDate.getDate());
+		        reserveNextMonth.innerHTML=nextMonth+"월";
 				for (i = nextMonthDate.getDate(); i <= nextMonthLastDay.getDate(); i++) {
 					
 		            const button = document.createElement("button");
@@ -264,7 +287,7 @@
 		            //button.append(i);
 		            button.value=[(year + "." +nextMonth + "." + i)];
 		            
-		            reserveDate.append(button);
+		            reserveNextMonth.append(button);
 					
 		            dayClickEvent(button);
 		        }

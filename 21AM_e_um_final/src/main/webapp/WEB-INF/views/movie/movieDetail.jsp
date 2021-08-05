@@ -64,7 +64,7 @@
 						console.log(v["movieReviewWriteDate"]);
 						let date = (v["movieReviewWriteDate"]);
 						let result = date.split("-");
-						console.log(result);
+						
 						$("#reviewBody").append(
 								$("<tr>").append($("<td>").html(v["userId"]["userId"]))
 								.append($("<td>").html("★"+v["movieEvaluationAvg"]))
@@ -95,6 +95,7 @@
     			url:"<%=request.getContextPath()%>/movie/movieReviewData",
     			data:{"movieSeq":movieSeq},
     			success:data=>{
+    				
     				if(data['total'] !=='NaN'){
     					$("#totalPoint").html("★"+data['total']).css("font-size","40px");
     				}else{
