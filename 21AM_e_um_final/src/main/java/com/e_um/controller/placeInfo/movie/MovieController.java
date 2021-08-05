@@ -69,7 +69,7 @@ public class MovieController {
 	@RequestMapping("/movie/movieDetail")
 	public String movieDetail(@RequestParam(value="movieSeq")String movieSeq, Model model) {
 		Movie movie = service.movieDetail(movieSeq);
-		System.out.println(movie);
+		
 		model.addAttribute(movie);
 		return "movie/movieDetail";
 	}
@@ -112,7 +112,7 @@ public class MovieController {
 	@ResponseBody
 
 	public Map genderRate(String movieSeq) {
-		System.out.println(movieSeq);
+		
 		int male = service.maleCount(movieSeq);
 		int female = service.femaleCount(movieSeq);
 		Map param = new HashMap();
@@ -203,7 +203,7 @@ public class MovieController {
 		double total = (direct+visual+story+acting+ost)/5.0;
 		String movieSeq = (String)param.get("movieSeq");
 		String content = (String)param.get("content");
-		//System.out.println(userId);
+		
 		param.clear();
 		param.put("movieSeq",movieSeq);
 		param.put("userId", userId);
@@ -215,7 +215,6 @@ public class MovieController {
 		param.put("ost", ost);
 		param.put("total", total);
 		int movieReview = service.movieWrite(param);
-		
 		List<MovieReview> list = service.movieReviewList(param);
 		int count = service.movieReviewCount2(param);
 		double evgtotal = 0;
@@ -228,7 +227,6 @@ public class MovieController {
 		map.put("movieSeq", movieSeq);
 		map.put("totalEvg", totalEvg);
 		int update = service.updateTotal(map);
-		
 		String msg = "";
 		String loc = "";
 		if(movieReview>0) {
@@ -288,8 +286,9 @@ public class MovieController {
 	
 	//영화 예약페이지 이동
 	@RequestMapping("/movie/movieReserve")
-	public String movieReserve() {
-		
+	public String movieReserve(String movieSeq, Model model) {
+		System.out.println(movieSeq);
+		model.addAttribute("movieSeq",movieSeq);
 		return "movie/movieReserve";
 	}
 	
@@ -362,7 +361,7 @@ public class MovieController {
 		  int moviePrice = Integer.parseInt((String)param.get("moviePrice"));
 		  String movieTitle = (String)param.get("movieTitle");
 		  String movieSeats = (String)param.get("movieSeats");
-		  System.out.println(param);
+		  
 		  
 		  param.clear();
 		  param.put("userId", userId);
@@ -385,15 +384,23 @@ public class MovieController {
 			  param.put("movieSeat"+i,seats[i-1]);
 			  i+=1;
 		  }
-		  System.out.println(param);
+		  
 		 int result = service.payEnd(param); 
 		 
 		 double totalCount = service.totalCount();
 		 double movieCount = service.movieCount(param);
-		 System.out.println(totalCount);
-		 System.out.println(movieCount);
+		 
 		 double movieEvg = (movieCount/totalCount)*100.0;
-		 System.out.println(movieEvg);
+		 
+		 DecimalFormat dc = new DecimalFormat("##.#");
+		 movieEvg = Double.parseDouble(dc.format(movieEvg));
+		 
+		 Map map = new HashMap();
+		 map.put("movieSeq", movieSeq);
+		 map.put("movieEvg", movieEvg);
+		 int updateRate = service.updateRate(map);
+		 
+		 
 		 model.addAttribute("param",param);
 		  
 		
@@ -438,7 +445,7 @@ public class MovieController {
 				break;
 			}
 		 int result = service.insertReport(report); 
-		  System.out.println(result);
+		  
 		  return result;
 	  }
 	  

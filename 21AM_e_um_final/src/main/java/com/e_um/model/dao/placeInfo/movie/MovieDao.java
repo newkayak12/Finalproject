@@ -183,6 +183,12 @@ public class MovieDao implements MovieDaoInterface {
 		// TODO Auto-generated method stub
 		return session.selectOne("movie.movieCount",param);
 	}
+
+	@Override
+	public int updateRate(SqlSessionTemplate session, Map map) {
+		// TODO Auto-generated method stub
+		return session.update("movie.updateRate",map);
+	}
 	
 	
 	

@@ -69,4 +69,11 @@ public interface MovieDaoInterface {
 	int totalCount(SqlSessionTemplate session);
 	int movieCount(SqlSessionTemplate session, Map param);
 
+	int updateRate(SqlSessionTemplate session, Map map);
+	
+	
+	
+	
+	
+	
 }

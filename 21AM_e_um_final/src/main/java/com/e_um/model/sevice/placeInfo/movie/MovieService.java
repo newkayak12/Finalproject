@@ -175,6 +175,12 @@ public class MovieService implements MovieServiceInterface {
 		// TODO Auto-generated method stub
 		return dao.movieCount(session,param);
 	}
+
+	@Override
+	public int updateRate(Map map) {
+		// TODO Auto-generated method stub
+		return dao.updateRate(session,map);
+	}
 	
 	
 	

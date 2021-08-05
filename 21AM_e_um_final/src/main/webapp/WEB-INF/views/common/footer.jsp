@@ -47,20 +47,25 @@
      </div> 
      
 	
-		<a id="MOVE_TOP_BTN" href="#" style="position: fixed; right:50px; bottom:110px; border-radius: 100%; display: none;" class="bgColorMainColor p-2"><i class="fas fa-arrow-up" style="color: white; font-size:32px;"></i></a>
+		<a id="MOVE_TOP_BTN" href="#" style="position: fixed; right:50px; bottom:110px; border-radius: 100%; display: none;" class="gototop p-2"><i class="fas fa-arrow-up" style="color: white; font-size:32px;"></i></a>
 	
 
 	<div class="footerInfo">
 	    <ul class="list-inline pt-3">
-	        <li class="list-inline-item"><a href="#">Home</a></li>
-	        <li class="list-inline-item"><a href="#">Services</a></li>
-	        <li class="list-inline-item"><a href="#">About</a></li>
-	        <li class="list-inline-item"><a href="#">Terms</a></li>
-	        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+	        <li class="list-inline-item"><a href="${pageContext.request.contextPath }/">메인</a></li>
+	        <li class="list-inline-item border" style="height: 15px"></li>
+	        <li class="list-inline-item"><a href="${pageContext.request.contextPath }/faq/open">고객센터</a></li>
+	        <li class="list-inline-item border" style="height: 15px"></li>
+	        <li class="list-inline-item"><a href="#">개인정보 보호 정책 및 약관</a></li>
+	       <!--  <li class="list-inline-item"><a href="#">Terms</a></li>
+	        <li class="list-inline-item"><a href="#">Privacy Policy</a></li> -->
 	    </ul>
-	    <p class="copyright">E_um | address : 서울특별시 역상동 테헤란로  | email : eum@eum.com</p> 
-	    <p class="copyright">SanghyunKim YejinKim TaehuiKim WoosikLee HyerinJang</p>
-	    <p class="copyright">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
+	     <p class="copyright m-1">
+	            (주)이음 | 주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 |이메일 : eum@eum.com <br>
+	            
+	        </p>
+	        <p class="copyright m-1">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
+	        <p class="copyright m-1">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
     </div>
     
 </footer>

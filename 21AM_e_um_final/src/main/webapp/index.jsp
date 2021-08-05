@@ -357,29 +357,30 @@
 <body >
 	
 		<!-- header -->
-		<header id="header-container" class="fluid-container pt-2 pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
+		<header id="header-container" class="fluid-container  pb-2 pr-3 pl-3 m-0 fixed-top headerColor navbar-light bg-light">
 			<div class="pt-1 pb-1 d-flex justify-content-end ">
 				<span class="mr-3 right">
-					<button class="btn cancelBtn pointFont"  data-toggle="modal" data-target="#signup" >회원가입</button>
-					<!-- onclick="fn_signupzero()" -->
-				</span>
+					<button class="btn cancelBtn pointFont cursor" data-toggle="modal"
+					data-target="#signup" onclick="fn_signupzero()">회원가입</button>
+
+			</span>
 				<span class=" justify-content-end mr-3">
-					<button class="btn checkBtn pointFont" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
+					<button class="btn checkBtn pointFont cursor" onclick="fn_login()" data-toggle="modal" data-target="#signin" >로그인</button>
 				</span>
 			</div>
 		</header>
 	
 	
-		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-5 p-0 pt-2 col-12 img-holder" style="height: 5600px; container:''; background-color: #EAEAEA;">
+		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-2 p-0 pt-2 col-12 img-holder" style="height: 5600px; container:''; background-color: #EAEAEA;">
 			
-			<div class="typo text-center d-flex justify-content-center align-items-center">
+			<div class="typo text-center d-flex justify-content-center align-items-center pb-5 mb-2">
 			</div>
 			
 			
 			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc00" style="display:none;">
 				<div class="p-1 m-5 scitems" id="scCont00">
 					
-					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
 						새로운 친구를 찾는 방법
 					</div>
 					<img src="${pageContext.request.contextPath }/resources/images/index/main1.png" width="40%">
@@ -398,7 +399,7 @@
 				<div class="p-1 m-5 scitems" id="scCont01">
 				
 					<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="40%" >
-					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
 						친구와 함께 보낸 하루를
 						<br>&nbsp;&nbsp;&nbsp;  돌아볼 수 있는 방법
 					</div>
@@ -407,14 +408,14 @@
 
 			<div class="screen00 p-3 d-flex  justify-content-center align-items-center" id="sc02" style="display:none;">
 				
-				<div class="p-1 m-5 scitems d-flex  justify-content-center align-items-center" id="scCont02" style="flex-direction: column !important; align-content: middle">
-				<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="80%" >	
-				<br>
-					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
+				<div class="p-1 m-5 scitems d-flex flex-column justify-content-around align-items-center" id="scCont02" style="flex-direction: row !important; align-content: middle">
+				
+					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
 						친해진 친구와 함께,
 						<br>&nbsp;&nbsp;&nbsp;  시간을 공유할 수 있는 방법
 					</div>
 					
+					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="40%" >	
 					
 
 				</div>
@@ -424,20 +425,20 @@
 				
 				<div class="p-1 m-5 scitems" id="scCont03">
 					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="40%">
-					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.7vw">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
 						좋아하는 음식을 
-							<br>&nbsp;&nbsp;&nbsp; 함께 먹을 수 있는 방법
+							<br>&nbsp;&nbsp; 함께 먹을 수 있는 방법
 					</div>
 				</div>
 			</div>
 			<div class="screen00 p-3 d-flex justify-content-center align-items-center" id="sc04" style="display:none;">
 				
-				<div class="p-1 m-5 scitems d-flex flex-column justify-content-center align-items-center" id="scCont04">
-					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="80%">
-					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.8vw">
+				<div class="p-1 m-5 scitems d-flex flex-row justify-content-center align-items-center" id="scCont04">
+					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
 						새로운 친구와 
 						<br>&nbsp;&nbsp;&nbsp; 함께할 수 있는 방법
 					</div>
+					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="40%">
 
 				</div>
 			</div>
@@ -462,13 +463,7 @@
 			
 		</section> 
  		<footer class=" fluid-container footer-basic p-1 position-relative">
-	        <ul class="list-inline m-1">
-	            <li class="list-inline-item ml-1 mr-1 "><a href="#">Home</a></li>
-	            <li class="list-inline-item ml-1 mr-1"><a href="#">Services</a></li>
-	            <li class="list-inline-item ml-1 mr-1"><a href="#">About</a></li>
-	            <li class="list-inline-item ml-1 mr-1"><a href="#">Terms</a></li>
-	            <li class="list-inline-item ml-1 mr-1"><a href="#">Privacy Policy</a></li>
-	        </ul> 
+	        
 	        <p class="copyright m-1">
 	            (주)이음 | 주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 |이메일 : eum@eum.com <br>
 	            
