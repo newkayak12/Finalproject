@@ -273,13 +273,11 @@
 	})
 	
 	$(function(){
-		
 		let feedSeq ='${feedSeq}';
 		
 		if(feedSeq!='none'){
 			fn_openFeedModal(feedSeq);
 		}
-		
 		
 	    let index=0;
 	    let profileId="${profileInfo.userId }";
@@ -428,6 +426,25 @@
 	        }
 	    })
   }
+	
+	// 업로드한 파일에 마우스 커서가 올라가면 삭제버튼 보이게 하기 
+	const fn_showDelBtn = (e) => {
+		$(e.target).children().children().css({
+			"display" : ""
+		}); 
+	}
+
+	// 업로드한 파일에서 마우스 커서가 벗어나면 삭제버튼 가리기
+	const fn_hideDelBtn = (e) => {
+		$(e.target).children().children().css({
+			"display" : "none"
+		});
+	}
+
+	// 업로드한 파일 삭제버튼 눌렀을 때 실행되는 함수 
+	const fn_delImg = (e) => {
+		$(e.target).parent().parent().parent().parent().remove(".prevLi");
+	}
 </script>
    
 

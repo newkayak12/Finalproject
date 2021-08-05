@@ -160,4 +160,10 @@ public class ProfileDao implements ProfileDaoInterface {
 		return session.insert("profile.insertFeed",nhf);
 	}
 
+
+	@Override
+	public int modifyFeed(SqlSessionTemplate session, NoHasAFeed nhf) {
+		return session.update("profile.modifyFeed",nhf);
+	}
+
 }

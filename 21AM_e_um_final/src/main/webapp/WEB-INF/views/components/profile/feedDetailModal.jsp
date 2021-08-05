@@ -23,20 +23,20 @@
 		<div class="carousel-inner">
 			<div class="carousel-item active" style="background-color:black;">
 				<div class="carouselImgDiv m-auto">
-					<img src="${path }/resources/upload/feed/${feed.feedImage1}" alt="피드 이미지 1" class="feedImg">
+					<img src="${path }/resources/upload/feed/${feed.feedImage1}" alt="피드 이미지 1" class="feedImg2">
 				</div>
 			</div>
 			<c:if test="${feed.feedImage2!=null}">
 				<div class="carousel-item" style="background-color:black;">
 					<div class="carouselImgDiv m-auto">
-						<img src="${path }/resources/upload/feed/${feed.feedImage2}" alt="피드 이미지 2" class="feedImg">
+						<img src="${path }/resources/upload/feed/${feed.feedImage2}" alt="피드 이미지 2" class="feedImg2">
 					</div>
 				</div>
 			</c:if>
 			<c:if test="${feed.feedImage3!=null}">
 				<div class="carousel-item" style="background-color:black;">
 					<div class="carouselImgDiv m-auto">
-						<img src="${path }/resources/upload/feed/${feed.feedImage3}" alt="피드 이미지 3" class="feedImg">
+						<img src="${path }/resources/upload/feed/${feed.feedImage3}" alt="피드 이미지 3" class="feedImg2">
 					</div>
 				</div>
 			</c:if>
@@ -81,7 +81,7 @@
             </div>
             <div style="font-size:14px;">
             	<c:if test="${feed.feederId==userSession.userId}">
-		            <span class="likeLink pointer" onclick="fn_modifyFeed('${feed.feedSeq}')">수정</span>
+		            <span class="likeLink pointer" onclick="fn_modifyFeedOpen('${feed.feedSeq}')" data-dismiss="modal">수정</span>
 		            <span> | </span>
 		            <span class="likeLink pointer" onclick="fn_deleteFeed('${feed.feedSeq}')">삭제</span>
 	            </c:if>
@@ -278,8 +278,17 @@
 		}
 	}
 	
-	function fn_modifyFeed(feedSeq){
-		//피드 작성 폼에 내용 포함해서 띄우기
+	function fn_modifyFeedOpen(feedSeq){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/profile/modifyFeed/start",
+			data:{"feedSeq":feedSeq},
+			success:data=>{
+				$("#writeModal .modal-title").html("피드 수정");
+				$("#writeModal .modal-body").html(data);
+				$("#writeModal").modal("show");
+			}
+		})
 	}
 	
 	function fn_deleteFeed(feedSeq){

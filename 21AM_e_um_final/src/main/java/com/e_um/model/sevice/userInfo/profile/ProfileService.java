@@ -141,4 +141,13 @@ public class ProfileService implements ProfileServiceInterface {
 		return dao.insertFeed(session, nhf);
 	}
 
+
+	@Override
+	public int modifyFeed(NoHasAFeed nhf) {
+		return dao.modifyFeed(session, nhf);
+	}
+	
+	
+	
+
 }
