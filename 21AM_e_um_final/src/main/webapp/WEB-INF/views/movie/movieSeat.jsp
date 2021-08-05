@@ -156,8 +156,19 @@
         }
 
         function selectListUiFunction(selectSeatListUlActive) {
-            selectSeatListUlActive.forEach(li => {
-                if (li.parentNode.classList.contains('select-seat-ul-normal')) {
+        	const seatWrapper = document.querySelectorAll(".seatButtonWrapper");
+        	const reserveNumber = document.querySelector(".reserve-number");
+        	const seats = document.querySelector(".selected-seats");
+        	
+        	for(var i =0; i<seatWrapper.length;i++){
+        		seatWrapper[i].remove();
+        	}
+        	reserveNumber.innerHTML=0;
+        	seats.innerHTML=0;
+        	seatMaker();
+        	selectSeatListUlActive.forEach(li => {
+           	
+            	if (li.parentNode.classList.contains('select-seat-ul-normal')) {
                     normalNumber = Number(li.innerHTML);
                     normalMoney = 10000 * normalNumber;
                     allMoney = normalMoney;
@@ -586,7 +597,7 @@
 .seat-wrapper {
     background-color: #222222;
     width: 700px;
-    height: 600px;
+    height: 500px;
     /* padding-top: 120px; */
 }
 

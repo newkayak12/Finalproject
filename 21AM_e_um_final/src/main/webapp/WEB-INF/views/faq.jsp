@@ -53,7 +53,7 @@
 	            문의를 보내주시면 가능한 한 빨리 답변드리겠습니다.
 	        </div>
 	        <div>
-	            <button type="button" class="btn checkBtn mr-2 btnWidth" onclick="location.assign('${pageContext.request.contextPath}/qna/write/start')">문의하기</button>
+	            <button type="button" class="btn checkBtn mr-2 btnWidth" onclick="location.assign('${pageContext.request.contextPath}/qna/write/start?flag='+'main')">문의하기</button>
 	            <button type="button" class="btn checkBtn ml-2 btnWidth" onclick="location.assign('${pageContext.request.contextPath}/qna/openList')">내 문의</button>
 	        </div>
 	    </div>

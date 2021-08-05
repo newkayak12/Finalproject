@@ -183,7 +183,6 @@
               $("#nextStep").attr("disabled", true);
         	  return false;
         	 }else {
-        		console.log("통과"); 
         	    return true;
         	 }
 

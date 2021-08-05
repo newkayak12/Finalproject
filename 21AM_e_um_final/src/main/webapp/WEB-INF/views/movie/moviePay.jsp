@@ -18,7 +18,7 @@
 	
 	 <script>
 		 $(function () {
-			   $.ajax({
+			   /* $.ajax({
 		        	url:"${path}/movie/payEnd",
 		        	data:{
 		        		"movieSeq":$("#movieSeq").val(),
@@ -50,8 +50,8 @@
 		        		$("#movieDate1").html("날짜 :" + data["movieDate"])
 		        		$("#content").css("display","block");
 		        	}
-		        }) 
-		        /* var IMP = window.IMP; // 생략가능
+		        }) */ 
+		        var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
 			    IMP.request_pay({
@@ -110,7 +110,7 @@
 				        location.assign("${path}/movie/movieReserve");
 				    }
 				    alert(msg);
-			    });  */
+			    }); 
 		});
 		
 		 const fn_movieMain=()=>{

@@ -69,8 +69,8 @@ public class MypageDao implements MypageDaoInterface {
 
 
 	@Override
-	public int cancelMovie(SqlSessionTemplate session, MovieTicketing mt) {
-		return session.update("mypage.cancelMovie",mt);
+	public int cancelMovie(SqlSessionTemplate session, String movieReservNum) {
+		return session.update("mypage.cancelMovie",movieReservNum);
 	}
 
 

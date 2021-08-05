@@ -5,11 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<style>
-.input-file-button{ padding: 34px 37px; background-color: white; border-radius: 10px; color: lightgray; cursor: pointer; border : 2px dashed lightgray; };
-/* #feedImagesPreview li{ margin:0 5px 0 5px; }; */
-</style>
-
 <form action="${path }/profile/writeFeed/end" method="post" enctype="multipart/form-data">
 	<ul id="feedImagesPreview" class="p-0 d-flex justify-content-center" style="list-style:none;">
 		<li class="">
@@ -24,9 +19,9 @@
 <script>
 	//파일 업로드 미리보기 
 	$(".feedImageUpload").change( (e) => {
-		// 추가된 부분 
+/* 		// 추가된 부분 
 		// 새로 업로드를 시작했다면 방금 업로드한 파일들은 사라지므로 미리보기에서 삭제해야함 
-		$(".prevLi").css("display", "none");
+		$(".prevLi").css("display", "none"); */
 		
 		// 업로드한 파일들 확인
 		// console.log($(e.target).get(0).files);
@@ -90,25 +85,6 @@
 			alert("파일은 최대 3개까지 첨부할 수 있습니다.");
 		}
 	} );
-	
-	// 업로드한 파일에 마우스 커서가 올라가면 삭제버튼 보이게 하기 
-	const fn_showDelBtn = (e) => {
-		$(e.target).children().children().css({
-			"display" : ""
-		}); 
-	}
-
-	// 업로드한 파일에서 마우스 커서가 벗어나면 삭제버튼 가리기
-	const fn_hideDelBtn = (e) => {
-		$(e.target).children().children().css({
-			"display" : "none"
-		});
-	}
-
-	// 업로드한 파일 삭제버튼 눌렀을 때 실행되는 함수 
-	const fn_delImg = (e) => {
-		$(e.target).parent().parent().parent().parent().remove(".prevLi");
-	}
 	
 	function fn_checkByte(obj){
 	    const maxByte = 2000; //최대 2000바이트

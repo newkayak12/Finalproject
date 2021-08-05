@@ -64,4 +64,6 @@ public interface MovieServiceInterface {
 	
 	int totalCount();
 	int movieCount(Map param);
+	
+	int updateRate(Map map);
 }

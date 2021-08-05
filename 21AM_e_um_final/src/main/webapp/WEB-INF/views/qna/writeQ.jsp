@@ -12,11 +12,11 @@
 		<h2 class="mb-5 tway">고객센터</h2>
 	    <div class="d-flex align-items-center flex-column mb-5">
 	        <h4 class="tway">문의 등록</h4>
-	        <form action="" method="post" class="col-lg-8 col mt-5">
+	        <form action="${pageContext.request.contextPath}/qna/write/end" method="post" class="col-lg-8 col mt-5">
 	            <div>
 	                <div class="form-group">
 	                    <label for="category"><b>카테고리 선택</b></label>
-	                    <select class="form-control" id="category" name="qnaCategory">
+	                    <select class="form-control" id="qnaCategory" name="category">
 	                        <option>친구 찾기</option>
 	                        <option>소모임</option>
 	                        <option>플레이스</option>
@@ -25,18 +25,23 @@
 	                </div><br>
 	                <div class="form-group">
 	                    <label for="title"><b>제목</b></label>
-	                    <input type="text" class="form-control" id="title" name="qnaTitle" required placeholder="제목을 입력해주세요.">
+	                    <input type="text" class="form-control" id="qnaTitle" name="title" required placeholder="제목을 입력해주세요.">
 	                </div><br>
 	                <div class="form-group">
 	                    <label for="content"><b>내용</b></label>
-	                    <textarea class="form-control" rows="15" id="content" name="qnaContent" required placeholder="내용을 입력해주세요."></textarea>
+	                    <textarea class="form-control" rows="15" id="qnaContent" name="content" required placeholder="내용을 입력해주세요."></textarea>
 	                </div>
-	                <div>
-	                    <span class="mr-5"><b>첨부파일</b></span>
-	                    <input type="file">
+	                <div class="d-flex">
+	                    <span class="col-3"><b>첨부파일</b></span>
+	                    <input type="file" id="qnaFile" name="file" class="form-control-file col-9" accept='image/png,image/jpeg,image/jpg'>
 	                </div><br>
 	                <div class="d-flex justify-content-center mt-5">
-	                    <button type="button" class="btn cancelBtn mr-4 btnWidth">취소</button>
+	                	<c:if test="${prevPage=='main' }">
+		                    <button type="button" class="btn cancelBtn mr-4 btnWidth" onclick="location.assign('${pageContext.request.contextPath}/faq/open')">취소</button>
+	                	</c:if>
+	                	<c:if test="${prevPage=='list' }">
+		                    <button type="button" class="btn cancelBtn mr-4 btnWidth" onclick="location.assign('${pageContext.request.contextPath}/qna/openList')">취소</button>
+	                	</c:if>
 	                    <button type="submit" class="btn checkBtn ml-4 btnWidth">등록</button>
 	                </div>
 	            </div>

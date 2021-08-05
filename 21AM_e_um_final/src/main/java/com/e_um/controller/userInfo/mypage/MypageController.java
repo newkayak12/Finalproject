@@ -1,7 +1,5 @@
 package com.e_um.controller.userInfo.mypage;
 
-
-
 import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
 import java.util.HashMap;
@@ -36,38 +34,39 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class MypageController {
-	
+
 	@Autowired
 	MypageServiceInterface service;
-	
+
 	@Autowired
 	UserServiceInterface userService;
-	BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder(); 
-	
+	BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+
 	// yj add
 	@Autowired
 	FoodServiceInterface foodService;
 
+	
 	@RequestMapping("/user/mypage/start")
-	public String gotoMypage(String userId, @RequestParam(value="flag", defaultValue="none", required=false) String flag,
-			Model m, @RequestParam(value="tab", defaultValue="none", required=false) String tab) {
+	public String gotoMypage(String userId,
+			@RequestParam(value = "flag", defaultValue = "none", required = false) String flag, Model m,
+			@RequestParam(value = "tab", defaultValue = "none", required = false) String tab) {
 		m.addAttribute("flag", flag);
 		m.addAttribute("tab", tab);
 //		log.error("flag: {}",flag);
 //		log.error("tab: {}",tab);
 		return "myPage";
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/openModal")
-	public String openMPModal(@RequestParam(value="modalName", required=false) String modalName,
-			@RequestParam(value="cPage", defaultValue="1") int cPage,
-			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
-			HttpServletRequest rq, Model m) {
-		User user=(User)rq.getSession().getAttribute("userSession");
+	public String openMPModal(@RequestParam(value = "modalName", required = false) String modalName,
+			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "numPerPage", defaultValue = "10") int numPerPage, HttpServletRequest rq, Model m) {
+		User user = (User) rq.getSession().getAttribute("userSession");
 //		log.error("modalName: {}", modalName);
 //		log.error("userId: {}", user.getUserId());
-		
+
 		// yj add
 		List<LikeFood> myLkeFoodList = foodService.myLikeFoodList(user.getUserId(), cPage, numPerPage);
 		List<FoodComment> myFoodCommentList = foodService.myFoodCommentList(user.getUserId(), cPage, numPerPage);
@@ -96,180 +95,182 @@ public class MypageController {
 				totalData=service.selectFoodBookingCount(user.getUserId());
 				pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
 		}
-		m.addAttribute("pageBar",pageBar);
-		return "components/myPage/"+modalName;
+		m.addAttribute("pageBar", pageBar);
+		return "components/myPage/" + modalName;
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/changeNick")
 	@ResponseBody
-	public int changeNick(@RequestParam(value="newNick", required=false) String newNick, HttpServletRequest rq) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		User u=User.builder().userId(user.getUserId()).userNick(newNick).build();
-		if(service.changeNick(u)>0) {
+	public int changeNick(@RequestParam(value = "newNick", required = false) String newNick, HttpServletRequest rq) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		User u = User.builder().userId(user.getUserId()).userNick(newNick).build();
+		if (service.changeNick(u) > 0) {
 			User userResult = userService.login(u);
 			rq.getSession().setAttribute("userSession", userResult);
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/sameOldPw")
 	@ResponseBody
-	public int oldPwSameCheck(@RequestParam(value="oldpw", required=false) String oldpw, HttpServletRequest rq) {
-		User user=(User)rq.getSession().getAttribute("userSession");
+	public int oldPwSameCheck(@RequestParam(value = "oldpw", required = false) String oldpw, HttpServletRequest rq) {
+		User user = (User) rq.getSession().getAttribute("userSession");
 //		log.warn("oldpw: {}",oldpw);
 //		log.warn("db pw: {}",user.getUserPassword());
 //		log.warn("pwEncoder.matches(oldpw, user.getUserPassword()): {}",pwEncoder.matches(oldpw, user.getUserPassword()));
-		if(pwEncoder.matches(oldpw, user.getUserPassword())) {
+		if (pwEncoder.matches(oldpw, user.getUserPassword())) {
 			return 0;
 		} else {
 			return 1;
 		}
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/changePw")
 	@ResponseBody
-	public int changePw(@RequestParam(value="newpw", required=false) String newpw, HttpServletRequest rq) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		User u=User.builder().userId(user.getUserId()).userPassword(pwEncoder.encode(newpw)).build();
-		if(service.changePw(u)>0) {
+	public int changePw(@RequestParam(value = "newpw", required = false) String newpw, HttpServletRequest rq) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		User u = User.builder().userId(user.getUserId()).userPassword(pwEncoder.encode(newpw)).build();
+		if (service.changePw(u) > 0) {
 			User userResult = userService.login(u);
 			rq.getSession().setAttribute("userSession", userResult);
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/changeAddr")
 	@ResponseBody
-	public int changeAddr(HttpServletRequest rq, @RequestParam(value="userAddrBasic", required=false) String userAddrBasic,
-			@RequestParam(value="userAddrDetails", required=false) String userAddrDetails,
-			@RequestParam(value="userAddrZip", required=false) String userAddrZip) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		User u=User.builder().userId(user.getUserId()).userAddrBasic(userAddrBasic).userAddrDetails(userAddrDetails).userAddrZip(userAddrZip).build();
-		if(service.changeAddr(u)>0) {
+	public int changeAddr(HttpServletRequest rq,
+			@RequestParam(value = "userAddrBasic", required = false) String userAddrBasic,
+			@RequestParam(value = "userAddrDetails", required = false) String userAddrDetails,
+			@RequestParam(value = "userAddrZip", required = false) String userAddrZip) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		User u = User.builder().userId(user.getUserId()).userAddrBasic(userAddrBasic).userAddrDetails(userAddrDetails)
+				.userAddrZip(userAddrZip).build();
+		if (service.changeAddr(u) > 0) {
 			User userResult = userService.login(u);
 			rq.getSession().setAttribute("userSession", userResult);
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/changeEmail")
 	@ResponseBody
-	public int changeEmail(@RequestParam(value="newEmail", required=false) String newEmail, HttpServletRequest rq) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		User u=User.builder().userId(user.getUserId()).userEmail(newEmail).build();
-		if(service.changeEmail(u)>0) {
+	public int changeEmail(@RequestParam(value = "newEmail", required = false) String newEmail, HttpServletRequest rq) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		User u = User.builder().userId(user.getUserId()).userEmail(newEmail).build();
+		if (service.changeEmail(u) > 0) {
 			User userResult = userService.login(u);
 			rq.getSession().setAttribute("userSession", userResult);
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/selectInterest")
 	@ResponseBody
 	public Interest selectInterest(HttpServletRequest rq) {
-		User user=(User)rq.getSession().getAttribute("userSession");
+		User user = (User) rq.getSession().getAttribute("userSession");
 //		log.warn("service.selectInterest(user.getUserId(): {}",service.selectInterest(user.getUserId()));
 		return service.selectInterest(user.getUserId());
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/changeInter")
 	@ResponseBody
 	public int changeInterest(HttpServletRequest rq,
-			@RequestParam(value="interArr[]", required=false) List<String> interArr) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		Map param=new HashMap();
+			@RequestParam(value = "interArr[]", required = false) List<String> interArr) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		Map param = new HashMap();
 		param.put("userId", user.getUserId());
-		Interest inter=new Interest();
-		if(interArr!=null) {
-			inter=Interest.builder().profileInterestName1(interArr.get(0)).profileInterestName2(interArr.get(1)).profileInterestName3(interArr.get(2)).profileInterestName4(interArr.get(3)).profileInterestName5(interArr.get(4)).build();
-		}else {
-			inter=Interest.builder().profileInterestName1(null).profileInterestName2(null).profileInterestName3(null).profileInterestName4(null).profileInterestName5(null).build();
+		Interest inter = new Interest();
+		if (interArr != null) {
+			inter = Interest.builder().profileInterestName1(interArr.get(0)).profileInterestName2(interArr.get(1))
+					.profileInterestName3(interArr.get(2)).profileInterestName4(interArr.get(3))
+					.profileInterestName5(interArr.get(4)).build();
+		} else {
+			inter = Interest.builder().profileInterestName1(null).profileInterestName2(null).profileInterestName3(null)
+					.profileInterestName4(null).profileInterestName5(null).build();
 		}
 		param.put("inter", inter);
 //		log.warn("interArr: {}",interArr);
 //		log.warn("interArr: {}",interArr.get(0));
-		if(service.changeInterest(param)>0) {
+		if (service.changeInterest(param) > 0) {
 //			User userResult = userService.login(u);
 //			rq.getSession().setAttribute("userSession", userResult);
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}
-	
-	
-	/*
-	 * @RequestMapping("/user/mypage/cancelMovie")
-	 * 
-	 * @ResponseBody public int cancelMovie(HttpServletRequest rq,
-	 * 
-	 * @RequestParam(value="movieReservNum", required=false) String movieReservNum)
-	 * { User user=(User)rq.getSession().getAttribute("userSession"); MovieTicketing
-	 * mt=MovieTicketing.builder().userId(user.getUserId()).movieReservNum(
-	 * movieReservNum).build(); return service.cancelMovie(mt); }
-	 */
-	
-	
+
+
+	 @RequestMapping("/user/mypage/cancelMovie")
+	 @ResponseBody public int cancelMovie(HttpServletRequest rq, @RequestParam(value="movieReservNum", required=false) String movieReservNum) {
+		 User user=(User)rq.getSession().getAttribute("userSession");
+		 return service.cancelMovie(movieReservNum);
+	 }
+
+	 
 	@RequestMapping("/user/mypage/blockFriend")
 	@ResponseBody
-	public int blockFriend(HttpServletRequest rq, @RequestParam(value="friendId", required=false) String friendId) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		Friend f=Friend.builder().myId(user.getUserId()).friendId(friendId).build();
+	public int blockFriend(HttpServletRequest rq, @RequestParam(value = "friendId", required = false) String friendId) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		Friend f = Friend.builder().myId(user.getUserId()).friendId(friendId).build();
 		return service.blockFriend(f);
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/blockCancel")
 	@ResponseBody
-	public int blockCancel(HttpServletRequest rq, @RequestParam(value="friendId", required=false) String friendId) {
-		User user=(User)rq.getSession().getAttribute("userSession");
-		Friend f=Friend.builder().myId(user.getUserId()).friendId(friendId).build();
+	public int blockCancel(HttpServletRequest rq, @RequestParam(value = "friendId", required = false) String friendId) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		Friend f = Friend.builder().myId(user.getUserId()).friendId(friendId).build();
 		return service.blockCancel(f);
 	}
+
 	
 	@RequestMapping("/user/mypage/cancelFood")
 	@ResponseBody
 	public int cancelFood(HttpServletRequest rq,
-			@RequestParam(value="foodBookingSeq", required=false) String foodBookingSeq) {
+			@RequestParam(value = "foodBookingSeq", required = false) String foodBookingSeq) {
 		return service.cancelFood(foodBookingSeq);
 	}
-	
+
 	
 	@RequestMapping("/user/mypage/changeProfilePhoto")
-	public String changeProfilePhoto(@RequestParam(value="profileImageFile", required=false) MultipartFile newProfileImageFile,
+	public String changeProfilePhoto(
+			@RequestParam(value = "profileImageFile", required = false) MultipartFile newProfileImageFile,
 			HttpServletRequest rq, Model m) {
 //		log.info("파일명: "+profileImageFile.getOriginalFilename());
 //		log.info("파일 크기: {}",profileImageFile.getSize());
-		User user=(User)rq.getSession().getAttribute("userSession");
-		String fileName ="default.png";
-		if(newProfileImageFile.getSize()!=0) {
-			fileName=renamepolicy(rq, newProfileImageFile, "profile");
+		User user = (User) rq.getSession().getAttribute("userSession");
+		String fileName = "default.png";
+		if (newProfileImageFile.getSize() != 0) {
+			fileName = renamepolicy(rq, newProfileImageFile, "profile");
 		}
-		User u=User.builder().userId(user.getUserId()).profileImageFile(fileName).build();
-		m.addAttribute("loc","/user/mypage/start?userId="+user.getUserId()+"&flag="+"info"+"&tab="+"프로필 사진");
-		if(service.changeProfilePhoto(u)>0) {
+		User u = User.builder().userId(user.getUserId()).profileImageFile(fileName).build();
+		m.addAttribute("loc", "/user/mypage/start?userId=" + user.getUserId() + "&flag=" + "info" + "&tab=" + "프로필 사진");
+		if (service.changeProfilePhoto(u) > 0) {
 			m.addAttribute("msg", "프로필 사진이 변경되었습니다.");
 			User userResult = userService.login(u);
 			rq.getSession().setAttribute("userSession", userResult);
-		}else {
+		} else {
 			m.addAttribute("msg", "프로필 사진 변경에 실패했습니다.");
 		}
 		return "common/msg";
 	}
-	
+
 }
