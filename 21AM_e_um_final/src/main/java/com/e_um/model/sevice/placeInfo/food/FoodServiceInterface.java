@@ -56,4 +56,6 @@ public interface FoodServiceInterface {
 
 	List<LikeFood> myLikeFoodList(String userId, int cPage, int numPerPage);
 
+	List<FoodComment> myFoodCommentList(String userId, int cPage, int numPerPage);
+
 }

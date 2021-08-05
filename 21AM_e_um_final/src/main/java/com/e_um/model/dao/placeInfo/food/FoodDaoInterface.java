@@ -71,6 +71,8 @@ public interface FoodDaoInterface {
 
 	List<LikeFood> myLikeFoodList(SqlSessionTemplate session, String userId, int cPage, int numPerPage);
 
+	List<FoodComment> myFoodCommentList(SqlSessionTemplate session, String userId, int cPage, int numPerPage);
+
 	
 
 }
