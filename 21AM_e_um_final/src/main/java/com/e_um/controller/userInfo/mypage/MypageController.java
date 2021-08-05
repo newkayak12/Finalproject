@@ -26,6 +26,7 @@ import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
+import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
@@ -68,7 +69,8 @@ public class MypageController {
 //		log.error("userId: {}", user.getUserId());
 		
 		// yj add
-		List<LikeFood> likeFoodList = foodService.myLikeFoodList(user.getUserId(), cPage, numPerPage);
+		List<LikeFood> myLkeFoodList = foodService.myLikeFoodList(user.getUserId(), cPage, numPerPage);
+		List<FoodComment> myFoodCommentList = foodService.myFoodCommentList(user.getUserId(), cPage, numPerPage);
 		
 		int totalData=0;
 		String pageBar="";
@@ -88,7 +90,9 @@ public class MypageController {
 				
 			case "foodModal":
 				m.addAttribute("foodInfo",service.selectFoodBookingInfo(user.getUserId(),cPage,numPerPage));
-				m.addAttribute("likeFoodList", likeFoodList);
+				// yj add 
+				m.addAttribute("myLkeFoodList", myLkeFoodList);
+				m.addAttribute("myFoodCommentList", myFoodCommentList);
 				totalData=service.selectFoodBookingCount(user.getUserId());
 				pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
 		}

@@ -21,7 +21,7 @@
 	        </span>
 	        <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
 	           
-	            <input type="button" id="findid" class="w-20 checkBtn " value="아이디 찾기" onclick="findmyidpwmiddle()">
+	            <input type="button" id="findid" class="w-20 checkBtn cursor " value="아이디 찾기" onclick="findmyidpwmiddle()">
 	            &nbsp;&nbsp; 
 	        </span>
 	        <input type="hidden" id="findmyflag" value="${flag}">

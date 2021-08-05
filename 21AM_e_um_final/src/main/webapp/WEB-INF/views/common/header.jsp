@@ -130,7 +130,7 @@
 					<div style="position: fixed; right: 5px;" id="innerXbox"
 						class="text-center d-flex justify-content-between ">
 						<div id="controlpanel"></div>
-						<div class="pr-4" onclick="closetoolbox()">X</div>
+						<div class="pr-4 cursor" onclick="closetoolbox()">X</div>
 					</div>
 
 
@@ -224,7 +224,8 @@
 			
 		</div>
 		<div class="col-12 border mb-0 d-flex justify-content-around align-items-center" style="height:10%; max-height:100px; position:absolute; bottom:0px;">
-			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> <input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
+			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> 
+			<input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
 
 			<input type="hidden" id="chatRoomTophidden1">
 			<input type="hidden" id="chatRoomTophidden2">
@@ -292,7 +293,7 @@ $(function(){
     	onlinesend()
     	/* $('.toast').toast('show'); */
     	
-    }/*, 1000 */ ,200000)
+    }/* , 1000  */  ,200000 )
 })
 
 
@@ -411,7 +412,7 @@ function online(){
 				$("#footerinnerContainer").html("")
 				
 				data.forEach((v,i)=>{
-					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"}).css("color","black")
+					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border cursor" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"}).css("color","black")
 					let profilebox = $("<span>").attr({"class":"ml-2 mr-2 d-flex flex-row"})
 					let photo = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"25px","width":"25px", "border-radius":"100%"})
 					let	nick = $("<span>").html(v["friendId"]["userNick"]).css("color","gray")
@@ -422,7 +423,7 @@ function online(){
 					out.append(profilebox).append(statusbox)
 					$("#toolinnerbox").append(out);
 					
-					let outf = $("<div>").attr({"class":"d-flex flex-row justify-content-between mb-2 border" , "onclick":"footerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')"})
+					let outf = $("<div>").attr({"class":"d-flex flex-row justify-content-between mb-2 border cursor" , "onclick":"footerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')"})
 					let profileboxf = $("<span>").attr("class","ml-2 mr-2 d-flex flex-row")
 					let photof = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"35px","width":"35px", "border-radius":"100%"})
 					let nickf = $("<span>").html(v["friendId"]["userNick"])
@@ -526,7 +527,7 @@ function kakaoLogout(){
 		
 		
 		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr({"href":"${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}","class" : "tway blackText" }).css("text-decoration","none"))
-		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
+		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
 		let supportlinkf = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#", "class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlinkf = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		$("#footerinnerContainer").html($("<div>").append(mypagelinkf).append(profilelinkf).append(supportlinkf).append(logoutlinkf)).attr("class","text-center pt-4")
@@ -1334,13 +1335,13 @@ function kakaoLogout(){
 						data.forEach((v,i)=>{
 							/* console.log(v) */
 							if(v["alarmRead"]=='unread'){
-							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
-							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+							let friendList = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+							let friendListf = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}else {
-								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
-								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+								let friendList = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+								let friendListf = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}

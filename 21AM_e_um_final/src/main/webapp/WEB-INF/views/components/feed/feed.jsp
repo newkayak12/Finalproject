@@ -7,7 +7,7 @@
 <c:forEach var="feed" items="${list }" varStatus="i">
  <div class="col-12 mt-3 mb-3 p-0  border" id="feed-innerContainer">
 	  			<!-- 누르면 프로필로 이동 -->
-        <div class="d-flex flex-row justify-content-start col-12" style="max-height: 100px;" data-toggle="modal" data-target="#headerprofile" onclick="headerProfile('${feed.feederId}','${feed.feedProfilePhoto}','${feed.feedNick }','${feed.profileStatus }')">
+        <div class="d-flex flex-row justify-content-start col-12 cursor" style="max-height: 100px;" data-toggle="modal" data-target="#headerprofile" onclick="headerProfile('${feed.feederId}','${feed.feedProfilePhoto}','${feed.feedNick }','${feed.profileStatus }')">
             <img alt="프사" src="${pageContext.request.contextPath }/resources/upload/profile/${feed.feedProfilePhoto}"  class="m-2" style="width: 75px; height: 75px; border-radius: 100%;">
                 <div class="d-flex flex-column justify-content-center col-7" >
                     <p class="mt-1 mb-1 m-0">${feed.feedNick }</p>
@@ -32,19 +32,19 @@
                                  </c:if>
                                 </ul>
 
-                                <div class="carousel-inner ">
+                                <div class="carousel-inner d-flex ">
 									<c:if test="${feed.feedImage1!=null }">
-	                                    <div class="carousel-item active d-flex justify-content-center" >
+	                                    <div class="carousel-item active " >
 	                                        <img alt="사진1" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage1}"  class="feedPhoto">
 	                                    </div>
 									</c:if>
 									<c:if test="${feed.feedImage2!=null }">
-	                                    <div class="carousel-item d-flex justify-content-center" >
+	                                    <div class="carousel-item " >
 	                                        <img alt="사진2" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage2}" class="feedPhoto">
 	                                    </div>
 									</c:if>
 									<c:if test="${feed.feedImage3!=null }">
-	                                    <div class="carousel-item d-flex justify-content-center" >
+	                                    <div class="carousel-item " >
 	                                        <img alt="사진3" src="${pageContext.request.contextPath }/resources/upload/feed/${feed.feedImage3}" class="feedPhoto">
 	                                    </div>
                                     </c:if>
@@ -65,15 +65,15 @@
 		                            <div class="m-2 border pl-3">
 		                                <c:choose>
 		                                	<c:when test="${feed.feedLike!=null }"> 
-				                                <img alt="좋아요" class="m-2" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-solid.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'like')" id="likebtn${index.get(i.index)}" style="display:inline-block;">
-				                                <img alt="좋아요" class="m-2" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-regular.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'unlike')" id="unlikebtn${index.get(i.index)}" style="display: none">
+				                                <img alt="좋아요" class="m-2 cursor" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-solid.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'like')" id="likebtn${index.get(i.index)}" style="display:inline-block;">
+				                                <img alt="좋아요" class="m-2 cursor" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-regular.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'unlike')" id="unlikebtn${index.get(i.index)}" style="display: none">
 		                                	</c:when>
 		                                	<c:otherwise>
-		                                		<img alt="좋아요" class="m-2" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-solid.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'like')" id="likebtn${index.get(i.index)}" style="display: none">
-				                                <img alt="좋아요" class="m-2" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-regular.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'unlike')" id="unlikebtn${index.get(i.index)}" style="display: inline-block;">
+		                                		<img alt="좋아요" class="m-2 cursor" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-solid.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'like')" id="likebtn${index.get(i.index)}" style="display: none">
+				                                <img alt="좋아요" class="m-2 cursor" src="${pageContext.request.contextPath }/resources/images/user/thumbs-up-regular.svg" width="20px" onclick="fn_like('${index.get(i.index) }','${feed.feedSeq }', 'unlike')" id="unlikebtn${index.get(i.index)}" style="display: inline-block;">
 		                                	</c:otherwise>
 		                                </c:choose>
-		                                		<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" onclick="fn_report('${feed.feedSeq }', '${feed.feederId }','${userSession.userId }')" data-toggle="modal" data-target="#ReportModal">
+		                                		<img alt="신고"  class="m-2 cursor"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" onclick="fn_report('${feed.feedSeq }', '${feed.feederId }','${userSession.userId }')" data-toggle="modal" data-target="#ReportModal">
 		                            </div>
 		                            <div id="contents-box" class="m-2  text-center border" style="overflow-wrap: break-word;">
 		                            	<div class="m-2" >
@@ -81,7 +81,7 @@
 		                                </div>
 		                            	<div class="m-2">
 		                            		<input type="text" id="comment${index.get(i.index) }" class="col-9 col-md-9 col-lg-9"   onkeyup="enterrepl('${feed.feedSeq}','comment${index.get(i.index) }', 'commentbox${index.get(i.index) }')">
-		                            		<input type="button" value="입력" class="small"  onclick="repl('${feed.feedSeq}','comment${index.get(i.index) }', 'commentbox${index.get(i.index) }')">
+		                            		<input type="button" value="입력" class="small checkBtn"  onclick="repl('${feed.feedSeq}','comment${index.get(i.index) }', 'commentbox${index.get(i.index) }')">
 		                            	</div>
 		                            </div>
 		                        </div>
