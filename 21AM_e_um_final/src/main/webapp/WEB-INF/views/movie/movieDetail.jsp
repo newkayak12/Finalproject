@@ -91,6 +91,7 @@
 			
 		}
 		const graphShow=(movieSeq)=>{
+			$("#movieVideo").pause();
 			$.ajax({
     			url:"<%=request.getContextPath()%>/movie/movieReviewData",
     			data:{"movieSeq":movieSeq},
@@ -347,8 +348,8 @@
 					<div id="trailercontainer" class="p-3 pt-0 " >
 						<iframe id="movieVideo" src=""
 		                    style="width:100%; height:450px;"
-		                    frameborder="0" allow="accelermeter; clipboard-white; encrypted-media; gyroscope; picture-in-picture" allowfullscreen" >
-                        
+		                    frameborder="0" allow="accelermeter; clipboard-white; encrypted-media; gyroscope; picture-in-picture" allow-script="true" allowfullscreen="true" >
+                        	
                    		 </iframe>
 					</div>
 					<div id="reviewcontainer" class="">
@@ -368,9 +369,7 @@
 							    
 						    </tbody>
 						  </table>
-						  <div id="pageBar">
 						  
-						  </div>
 					</div>
 					
 					<div id="graphcontainer" class="justify-content-center">
