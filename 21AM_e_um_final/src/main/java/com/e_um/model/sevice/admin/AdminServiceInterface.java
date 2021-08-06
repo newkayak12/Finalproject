@@ -62,7 +62,8 @@ public interface AdminServiceInterface {
 	public int reportGroupBoardCommentTotalData();
 	
 	public int reportGroupBoardCommentBlock(String seq);
-	public int reportGroupBoardCommentUnBlock(String seq); 
+	public int reportGroupBoardCommentUnBlock(String seq);
+	public int updatefood(Food food); 
 	
 	
 }

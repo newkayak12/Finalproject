@@ -179,6 +179,21 @@ public class FoodDao implements FoodDaoInterface {
 		return session.selectList("food.myFoodCommentList", userId, row);
 	}
 
+	@Override
+	public List<Food> fSmainFoodList(SqlSessionTemplate session) {
+		return session.selectList("food.fSmainFoodList");
+	}
+
+	@Override
+	public List<Food> fCmainFoodList(SqlSessionTemplate session) {
+		return session.selectList("food.fCmainFoodList");
+	}
+
+	@Override
+	public List<Food> fBmainFoodList(SqlSessionTemplate session) {
+		return session.selectList("food.fBmainFoodList");
+	}
+
 
 
 	

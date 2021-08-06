@@ -73,6 +73,12 @@ public interface FoodDaoInterface {
 
 	List<FoodComment> myFoodCommentList(SqlSessionTemplate session, String userId, int cPage, int numPerPage);
 
+	List<Food> fSmainFoodList(SqlSessionTemplate session);
+
+	List<Food> fCmainFoodList(SqlSessionTemplate session);
+
+	List<Food> fBmainFoodList(SqlSessionTemplate session);
+
 	
 
 }
