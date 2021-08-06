@@ -37,6 +37,10 @@ public interface BoardServiceInterface {
 	List<Board> selectBoardListNotice(String groupSeq);
 
 	int groupCountToday(String groupSeq);
+
+	List<Comment> selectBoardCommentList(String groupBoardSeq);
+
+	int addComment(Map param);
 	
 	
 	

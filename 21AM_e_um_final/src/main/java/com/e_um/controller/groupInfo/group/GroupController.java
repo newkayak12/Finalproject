@@ -412,4 +412,26 @@ public class GroupController {
 		return param;
 	}
 	
+	@RequestMapping("/board/boardcommentlist")
+	public String commentList(String groupBoardSeq, String userId, String groupCommentContents, String groupCommentDate,Model model) {
+		log.warn("commentboardseq{}",groupBoardSeq);
+		List<Comment> commentlist = serviceb.selectBoardCommentList(groupBoardSeq);
+		model.addAttribute("commentlist",commentlist);
+		log.warn("commentlistlog{}",commentlist);
+		return "components/group/boardcomment";
+	}
+	
+	
+	@RequestMapping("/group/addcomment")
+	@ResponseBody 
+	public int addComment(String groupBoardSeq, String userId, String groupCommentContents) {
+		Map param = new HashMap();
+		param.put("groupBoardSeq",groupBoardSeq);
+		param.put("userId",userId);
+		param.put("groupCommentContents",groupCommentContents);
+		
+		return serviceb.addComment(param);
+	}
+	
+	
 }

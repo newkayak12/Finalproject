@@ -40,4 +40,8 @@ public interface BoardDaoInterface {
 
 	int groupCountToday(SqlSessionTemplate session, String groupSeq);
 
+	List<Comment> selectBoardCommentList(SqlSessionTemplate session, String groupBoardSeq);
+
+	int addComment(SqlSessionTemplate session, Map param);
+
 }
