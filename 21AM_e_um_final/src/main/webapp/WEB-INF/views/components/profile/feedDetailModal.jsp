@@ -109,7 +109,7 @@
 						<c:choose>
 							<c:when test="${c.feedCommentLevel>1 }">
 				                <!--답글 폼-->
-				                <div class="d-flex ml-5 mb-3">
+				                <div class="d-flex ml-5 mt-3 mb-1 align-items-center">
 				                    <img alt="프로필사진" class="commImg mr-2" src="${path }/resources/upload/profile/${c.commenterProfile}">
 				                    <div class="mr-auto">
 				                        <div>
@@ -128,7 +128,7 @@
 							</c:when>
 			                <c:otherwise>
 				                <!--일반 덧글 폼-->
-				                <div class="d-flex mb-3">
+				                <div class="commentHead d-flex mt-3 mb-1 align-items-center">
 				                    <img alt="프로필사진" class="commImg mr-2" src="${path }/resources/upload/profile/${c.commenterProfile}">
 				                    <div class="mr-auto">
 				                        <div>
@@ -137,7 +137,7 @@
 				                        <div>
 				                            <small>
 				                                <span><fmt:formatDate value="${c.feedCommentDate }" pattern="yy.MM.dd"/></span>
-				                                <span class="ml-1 mt-1 pointer likeLink"><b>답글 달기</b></span>
+				                                <span class="ml-1 mt-1 pointer likeLink writeFccBtn"><b>답글 달기</b></span>
 				                            </small>
 				                        </div>
 				                    </div>
@@ -149,6 +149,13 @@
 				                    		<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" onclick="fn_report('${c.feedCommentSeq }', '${c.commenter }','${userSession.userId }')" width="20px" data-toggle="modal" data-target="#ReportModal">
 				                    	</a>
 				                    </c:if>
+				                </div>
+				                <div class="fccbox d-flex d-none align-items-center">
+				                	<i class="fas fa-arrow-right d-none mr-2" style="font-size:20px;"></i>
+				                	<input name="fcccContents" type="text" class="form-control form-control-sm d-none">
+				                	<div class="input-group-append d-none">
+					                    <button class="btn cancelBtn btn-sm" type="submit" onclick="fn_writefeedCC('${feed.feedSeq}','${c.feedCommentSeq}','${c.commenter }');" style="width:50px;"><small>작성</small></small></button>  
+					                </div>
 				                </div>
 			                </c:otherwise>
 			        	</c:choose>
@@ -374,4 +381,33 @@
 	}
 	
 	$("#reportPop").popover({ trigger: "hover" });
+	
+	$("span.writeFccBtn").click(e=>{
+		//console.log($(e.target).parentsUntil("div.commentHead").parent().eq(0).next());
+		let fccBox=$(e.target).parentsUntil("div.commentHead").parent().eq(0).next();
+		console.log(fccBox);
+		console.log(fccBox.children());
+		fccBox.toggleClass("d-none");
+		fccBox.children().toggleClass("d-none");
+	})
+	
+	function fn_writefeedCC(feedSeq, feedCommentSeq, commenter){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/profile/writeFeed2ndComment",
+			data:{
+				"feedSeq":feedSeq,
+				"feedCommentSeq":feedCommentSeq,
+				"commenter":commenter,
+				"content":$("input[name=fcccContents]").val()
+			},
+			success:data=>{
+				if(data>0){
+					fn_openFeedModal('${feed.feedSeq}');
+					$("div.fccbox").addClass("d-none");
+					$("div.fccbox").children().addClass("d-none");
+				}
+			}
+		})
+	}
 </script>

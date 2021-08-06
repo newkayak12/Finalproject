@@ -332,5 +332,22 @@ public class ProfileController {
 		}
 		return "common/msg";
 	}
+	
+	
+	@RequestMapping("/profile/writeFeed2ndComment")
+	@ResponseBody
+	public int writeFeed2ndComment(HttpServletRequest rq,
+			@RequestParam(value="feedSeq", required=false) String feedSeq,
+			@RequestParam(value="feedCommentSeq", required=false) String refCommentSeq,
+			@RequestParam(value="commenter", required=false) String commentId,
+			@RequestParam(value="content", required=false) String content) {
+		
+		User user=(User)rq.getSession().getAttribute("userSession");
+		FeedComment fc=FeedComment.builder().feedSeqRef(feedSeq).commenter(user.getUserId()).feedCommentRef(refCommentSeq).feedCommentContents(content).build();
+		if(commentId.equals(user.getUserId())) {
+			commentId="me";
+		}
+		return service.writeFeed2ndComment(fc, commentId, user.getUserNick());
+	}
 
 }
