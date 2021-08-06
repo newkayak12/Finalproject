@@ -58,11 +58,34 @@
 	const movieSeqFn=(e)=>{
 		let seq = e.target.value;
 		$(".movieName").removeClass('active');
+		$(".theater-place").removeClass('active');
+		$(".movie-date-wrapper").removeClass('movie-date-wrapper-active');
+		$(".reserve-time-button").removeClass('active');
 		$(e.target).addClass('active');
 		$("#movieSeq2").value="";		
 		$("#movieSeq2").attr("value",e.target.value);
 		$("#movieBox3").attr("value","");
-		
+		$.ajax({
+			url:"${path}/movie/movieBox",
+			data:{"movieSeq":e.target.value},
+			success:data=>{
+				console.log(data);
+				$("#location-1").html("")
+				$("#movieTitle").append().html("영화 : " +data[0]['movieSeq']['movieTitleKr']).css("font-weight","bold");
+				$("#movieBox2").append().html("영화관 : " +data[0]['movieBoxSeq']['movieBox']).css("font-weight","bold");
+				$("#movieBox3").attr("value",data[0]['movieBoxSeq']['movieBox'])
+				
+				for(var i=0; i<data.length; i++){
+					$("#location-1").append(
+							$("<button>").addClass("theater-place justify-content-center")
+							.html(data[i]["movieBoxSeq"]["movieLocation"])
+							.attr({"value":data[i]["movieBoxSeq"]["movieLocation"]
+							,"onclick":"showDate(event);"}).css("text-align","center"))
+							
+							
+				}
+			}
+		})
 		
 	}
 	

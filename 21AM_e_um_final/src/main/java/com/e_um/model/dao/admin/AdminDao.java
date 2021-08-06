@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.placeinfo.movie.movie.Movie;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -291,4 +293,25 @@ public class AdminDao implements AdminDaoInterface{
 		return session.update("admin.updatefood", food);
 	}
 
+	@Override
+	public List<Movie> movieList(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("movie.movieListAdmin","",new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int movieTotalData(SqlSessionTemplate session) {
+		return session.selectOne("movie.movieTotalCount");
+	}
+
+	@Override
+	public List<MovieTicketing> ticketingList(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("movie.tickectList","",new RowBounds((cPage-1)*numPerPage, numPerPage) );
+	}
+
+	@Override
+	public int tickectTotal(SqlSessionTemplate session) {
+		return session.selectOne("movie.tickectCount");
+	}
+	
+	
 }

@@ -4,7 +4,6 @@ import static com.e_um.common.pagebar.PageBar.getPageBar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,8 @@ import com.e_um.model.sevice.admin.AdminServiceInterface;
 import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.placeinfo.movie.movie.Movie;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.user.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -338,10 +339,31 @@ public class AdminController {
 	public String manageService(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		return "components/admin/manageservice";
 	}
+	
 	@RequestMapping("/admin/managemovie")
 	public String manageMovie(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
-		return "components/admin/managemovie";
+		int numPerPage = 10;
+		model.addAttribute("pageBar",getPageBar(service.movieTotalData(), Integer.parseInt(cPage), numPerPage, "manageMovie"));
+		List<Movie> list = service.movieList(Integer.parseInt(cPage), numPerPage);
+		model.addAttribute("list",list);
+		return "components/admin/manageMovie";
 	}
+	
+	@RequestMapping("/admin/enrollMovie")
+	public String enrollMovie(Model model) {
+		return "components/admin/enrollMovie";
+	}
+	
+	@RequestMapping("/admin/ShowTicketingList")
+	public String showTicketingList(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+		model.addAttribute("pageBar",getPageBar(service.tickectTotal(), Integer.parseInt(cPage), numPerPage, "showTicketingList"));
+		List<MovieTicketing> list = service.ticketingList(Integer.parseInt(cPage),numPerPage);
+		model.addAttribute("list",list);
+		System.out.println(list);
+		return "components/admin/showTicketingList";
+	}
+	
 	
 	@RequestMapping("/admin/managefeed")
 	public String manageFeed(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {

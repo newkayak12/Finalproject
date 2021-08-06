@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.e_um.common.renamePolicy.RenamePolicy;
 import com.e_um.model.sevice.placeInfo.movie.MovieServiceInterface;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.personInfo.MoviePersonInfo;
@@ -26,7 +28,7 @@ import com.e_um.model.vo.userInfo.report.Report;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
-
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
 
 @Controller
@@ -316,6 +318,7 @@ public class MovieController {
 	
 	@RequestMapping("/movie/seatStart")
 	public String seatStart(@RequestParam Map param,Model model) {
+	  System.out.println(param);
 	  model.addAttribute("param",param);
 	  return "movie/movieSeat";
 	}
@@ -450,7 +453,40 @@ public class MovieController {
 	  }
 	  
 	  
-	  
+	  @RequestMapping("/movie/movieEnroll")
+	  public String movieEnroll(@RequestParam Map param, HttpServletRequest req, 
+			  @RequestParam (value="file")MultipartFile[] files,Model model) {
+		  System.out.println(param);
+		  String moviePhoto1 = (String)param.get("moviePhoto1");
+		  String moviePhoto2 = (String)param.get("moviePhoto2");
+		  String moviePhoto3 = (String)param.get("moviePhoto3"); 
+		 
+		  param.put("moviePhoto1", null);
+		  param.put("moviePhoto2", null);
+		  param.put("moviePhoto3", null);
+		  int i = 1;
+			
+		  for(MultipartFile f : files) { 
+			  if(f.getSize()==0) break;
+			  param.put("moviePhoto"+i, renamepolicy(req,f,"movie")); 
+			  
+			  i+=1;
+		  }
 		  
+		  int enroll = service.enrollMovie(param);
+		  String msg = "";
+		  String loc = "";
+		  if(enroll>0) {
+				msg = "입력이 완료되었습니다.";
+				loc="/admin/enter";
+			}else {
+				msg = "입력이 실패했습니다.";
+				loc="/admin/enter";
+			}
+			model.addAttribute("msg",msg);
+			model.addAttribute("loc",loc);
+			
+			return "/common/msg";
+	  }
 	  
 }

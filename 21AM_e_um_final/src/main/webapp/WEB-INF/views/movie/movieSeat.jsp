@@ -203,10 +203,12 @@
 		} */
         function seatMaker(){
 			let seats = [];
+			
 			$.ajax({
 				url:"${path}/movie/movieSeat",
         		data:{"movieSeq":$("#movieSeq").val(),'movieLocation':$("#movieLocation").val(),"movieBox":$("#movieBox").val() },
 				success:moviebox=>{
+					console.log(moviebox);
 					let cols = moviebox['movieColumns'];
 					let rows = moviebox['movieRows'];
 					

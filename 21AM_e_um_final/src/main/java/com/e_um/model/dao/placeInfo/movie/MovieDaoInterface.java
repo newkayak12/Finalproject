@@ -71,7 +71,7 @@ public interface MovieDaoInterface {
 
 	int updateRate(SqlSessionTemplate session, Map map);
 	
-	
+	int enrollMovie(SqlSessionTemplate session, Map param);
 	
 	
 	
