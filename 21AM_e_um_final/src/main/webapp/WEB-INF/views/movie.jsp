@@ -22,7 +22,7 @@
     				console.log(data);
     				let date = data["movieOpenDate"];
     				let result = date.split("-");
-    				$("#modalImage").attr("src","${applicationScope.path}/resources/upload/movie/movie_poster/"+data["moviePhoto"])
+    				$("#modalImage").attr("src","${applicationScope.path}/resources/upload/movie/"+data["moviePhoto"])
     				$("#modalTitleKr").html(data["movieTitleKr"])
     				$("#modalTitleEn").html(data["movieTitleEn"])
     				$("#modalOpenDate").html("개봉일 : "+result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
@@ -194,7 +194,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size "
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -226,7 +226,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -254,7 +254,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -300,7 +300,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -332,7 +332,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -360,7 +360,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -387,7 +387,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -433,7 +433,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size "
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l2.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -465,7 +465,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l2.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -493,7 +493,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l2.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -538,7 +538,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l2.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -570,7 +570,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l2.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -598,7 +598,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l2.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -625,7 +625,7 @@
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
-		                                              src="${applicationScope.path }/resources/upload/movie/movie_poster/${l2.moviePhoto}"
+		                                              src="${applicationScope.path }/resources/upload/movie/${l2.moviePhoto}"
 		                                              data-original=""
 		                                              data-error=""/>
 		                                       </div>
@@ -656,7 +656,7 @@
                 </div>
            </section>
            <section id="movie_video">
-            <div class="wrapper mb-5" style="border: 1px solid black;width:100%; height:500px; margin:0 auto;">
+            <div class="wrapper mb-5" style="width:100%; height:500px; margin:0 auto;">
                 <div><h3>흥행 영화 예고편</h3></div>
                 <div>
                     <iframe id="movieVideo" src=""

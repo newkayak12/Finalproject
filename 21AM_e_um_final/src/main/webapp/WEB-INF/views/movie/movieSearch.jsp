@@ -111,7 +111,7 @@
 					                 <figure class="movie_list">
 					                   <div class="thumb">
 					                     <img class="thumb-size col-12"
-					                          src="${applicationScope.path }/resources/upload/movie/movie_poster/${l.moviePhoto}"
+					                          src="${applicationScope.path }/resources/upload/movie/${l.moviePhoto}"
 					                          data-original=""
 					                          data-error=""/>
 					                   </div>

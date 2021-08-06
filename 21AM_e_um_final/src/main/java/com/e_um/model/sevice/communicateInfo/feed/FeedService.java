@@ -30,7 +30,7 @@ public class FeedService implements FeedServiceInterface {
 			for(int i =0; i<result.size(); i++) {
 				
 				List<FeedComment> list = dao.feedComment(result.get(i).getFeedSeq(), session);
-				Collections.reverse(list);
+//				Collections.reverse(list);
 				result.get(i).setCommentlist(list);
 				
 			}

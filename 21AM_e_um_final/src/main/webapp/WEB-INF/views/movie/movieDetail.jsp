@@ -15,7 +15,7 @@
 				success:data=>{
 					let date = data["moviePersonBirth"];
 					let result = date.split("-"); 
-					$("#modalImage").attr("src","${applicationScope.path}/resources/upload/movie/movie_person_picture/"+data["moviePersonPhoto"])
+					$("#modalImage").attr("src","${applicationScope.path}/resources/upload/moviePerson/"+data["moviePersonPhoto"])
 					$("#modalPersonName").html(data["moviePersonName"])
 					$("#modalBirth").html("출생 : " +result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
 					$("#modalPhilmo").html("")
@@ -57,7 +57,7 @@
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","block")
 			$("#graphcontainer").css("display","none")
-			
+			$("#reviewBody").html("");
 			$.ajax({
 				url:"<%=request.getContextPath()%>/movie/movieReview",
 				data:{"movieSeq":movieSeq},
@@ -103,8 +103,12 @@
     				
     				if(data['total'] !=='NaN'){
     					$("#totalPoint").html("★"+data['total']).css("font-size","40px");
+    					$("#totalPoint2").html("★"+data['total']).css("font-size","40px");
+    					$("#totalPoint3").html("★"+data['total']).css("font-size","40px");
     				}else{
     					$("#totalPoint").html("★0").css("font-size","30px");
+    					$("#totalPoint2").html("★0").css("font-size","30px");
+    					$("#totalPoint3").html("★0").css("font-size","30px");
     				}
     				new Chart($("#radar-chart"), {
     				    type: 'radar',
@@ -153,6 +157,29 @@
     				      }
     				    }
     				}); 
+    				new Chart($("#radar-chart3"), {
+    				    type: 'radar',
+    				    data: {
+    				      labels: ["연출", "영상미", "스토리", "연기력", "음악성"],
+    				      datasets: [
+    				        {
+    				          label: '평균 분포',
+    				          fill: true,
+    				          backgroundColor: "rgba(179,181,198,0.2)",
+    				          borderColor: "#6543b1",
+    				          pointBorderColor: "#fff",
+    				          pointBackgroundColor: "#6543b1",
+    				          /* data: [10,12,13,18,20] */
+    				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
+    				        }
+    				      ]
+    				    },
+    				    options: {
+    				      title: {
+    				        
+    				      }
+    				    }
+    				}); 
     					
     			}
     		})
@@ -179,8 +206,11 @@
     			        };
 
     			        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
+    			        var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+    			        var chart3 = new google.visualization.PieChart(document.getElementById('piechart3'));
     			        chart.draw(data, options);
+    			        chart2.draw(data,options);
+    			        chart3.draw(data,options);
     			      }
 
     			}
@@ -272,7 +302,7 @@
 			        <div class="sect-base-movie pt-3 pb-3">
 			            <div class="box-image">
 			                <span class="thumb-image justify-content-center">
-			                    <img class="thumb-size" src="${path }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
+			                    <img class="thumb-size" src="${path }/resources/upload/movie/${movie.moviePhoto }" alt="">
 			                </span>
 			            </div>
 			            <div class="box-contents ml-5 pt-5">
@@ -379,18 +409,37 @@
 					<div id="graphcontainer" class="justify-content-center">
 						<h3 class="ml-3">예매분포</h3>
 						<div class="col-12" style="height: 300px; display: flex;">
-							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 caru992" style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>평균 별점</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
 
 									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: lightgreen; vertical-align:20px; text-align: center;">
 
-									
-
 										<span id="totalPoint"></span>
 									</div>
 								</div>
 							</div>
+							<div class="col-4 caru991" style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>평균 별점</h5>
+								<div class="mt-5" style="border: 1px solid black; height: 200px;">
+
+									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: lightgreen; vertical-align:20px; text-align: center;">
+
+										<span id="totalPoint2"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-4 caru723" style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>평균 별점</h5>
+								<div class="mt-5 pt-5" style="border: 1px solid black; height: 200px;">
+
+									<div class="circle" style="margin: 0 auto; width: 100px; height: 100px; border-radius: 100px;line-height: 100px; background-color: lightgreen; vertical-align:20px; text-align: center;">
+
+										<span id="totalPoint3"></span>
+									</div>
+								</div>
+							</div>
+							
 							<div class="col-4 caru992" style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>관람포인트</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
@@ -409,9 +458,32 @@
 									</div> -->
 								</div>
 							</div>
-							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 caru723" style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>관람포인트</h5>
+								<div class="mt-5  pt-5" style="border: 1px solid black; height: 200px;">
+									<canvas  id="radar-chart3" width=250 height=230></canvas>
+									<!-- <div class="view_point col-12" style="margin: 0 auto;  height: 200px; text-align: center;">
+										<canvas  id="radar-chart" width=250 height=165></canvas>
+									</div> -->
+								</div>
+							</div>
+							<div class="col-4 caru992" style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>예매성비</h5>
-								<div class="mt-5 col-12" style="border: 1px solid black;  height: 200px;" id="piechart">
+								<div class="mt-5 col-12" style="border: 1px solid black; width:100% height: 200px;" id="piechart">
+									
+
+								</div>
+							</div>
+							<div class="col-4 caru991" style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>예매성비</h5>
+								<div class="mt-5 col-12" style="border: 1px solid black; width:100% height: 200px;" id="piechart2">
+									
+
+								</div>
+							</div>
+							<div class="col-4 caru723" style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>예매성비</h5>
+								<div class="mt-5" style="border: 1px solid black; width:100% height: 200px;" id="piechart3">
 									
 
 								</div>
