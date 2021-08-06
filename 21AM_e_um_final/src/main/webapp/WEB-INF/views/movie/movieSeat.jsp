@@ -2,94 +2,92 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-	
-	<div class="select-container">
-		<div class="select-wrapper">
-			<div class="select-title">인원/좌석</div>
-			<div class="select-seat-container">
-				<div class="select-seat-number-container">
-					<div class="select-seat-number-wrapper">
-						<div class="select-seat">
-							<div class="select-seat-age">인원</div>
-							<div class="select-seat-number">
-								<ul class="select-seat-ul select-seat-ul-normal">
-									<li class="select-number-normal ">0</li>
-									<li class="select-number-normal">1</li>
-									<li class="select-number-normal">2</li>
-									<li class="select-number-normal">3</li>
-									<li class="select-number-normal">4</li>
-									<!--  <li class="select-number-normal">6</li>
-                                    <li class="select-number-normal">7</li>
-                                    <li class="select-number-normal">8</li> -->
-								</ul>
+	<section class="mt-5 pt-5">
+		<div id="root" class=" mt-5">
+			<div class="select-container" style='width: 100%;'>
+				<div class="select-wrapper">
+					<div class="select-title">인원/좌석</div>
+					<div class="select-seat-container">
+						<div class="select-seat-number-container">
+							<div class="select-seat-number-wrapper">
+								<div class="select-seat">
+									<div class="select-seat-age">인원</div>
+									<div class="select-seat-number">
+										<ul class="select-seat-ul select-seat-ul-normal">
+											<li class="select-number-normal ">0</li>
+											<li class="select-number-normal">1</li>
+											<li class="select-number-normal">2</li>
+											<li class="select-number-normal">3</li>
+											<li class="select-number-normal">4</li>
+											<!--  <li class="select-number-normal">6</li>
+		                                    <li class="select-number-normal">7</li>
+		                                    <li class="select-number-normal">8</li> -->
+										</ul>
+									</div>
+								</div>
+		
+							</div>
+							<div class="reserve-number-wrapper">
+								<div class="reserve-number-title">선택된 좌석 수</div>
+								<div class="reserve-number">0</div>
 							</div>
 						</div>
-
-					</div>
-					<div class="reserve-number-wrapper">
-						<div class="reserve-number-title">선택된 좌석 수</div>
-						<div class="reserve-number">0</div>
-					</div>
-				</div>
-				<div class="select-seat-information">
-					<div class="selected-movie"></div>
-					<div class="select-seat-information-wrapper">
-						<div class="select-theater-place selected-theater-place-info">${param.movieLocation }</div>
-						<div class="select-theater-place selected-theater-place-info">${param.movieBox }
+						<div class="select-seat-information">
+							<div class="selected-movie"></div>
+							<div class="select-seat-information-wrapper">
+								<div class="select-theater-place selected-theater-place-info">${param.movieLocation }</div>
+								<div class="select-theater-place selected-theater-place-info">${param.movieBox }
+								</div>
+								<div class="select-theater-place">
+									<span>남은좌석</span><span class="remain-seats"></span>/<span
+										class="all-seats"></span>
+								</div>
+		
+							</div>
+							<div class="select-theater-date">
+								<div class="theater-date"></div>
+								<div class="theater-time"></div>
+							</div>
+							<div class="selected-seats-wrapper">
+								<span class="selected-seats-title">좌석번호</span> <span
+									class="selected-seats">선택한 좌석이 없습니다.</span>
+							</div>
+							<div class="ticket-price-wrapper">
+								<div class="ticket-price-title">가격</div>
+								<div class="ticket-price">0원</div>
+							</div>
+							<form action="${path }/movie/movieReserveEnd" class="seatForm" method="post">
+								<input type="hidden" id="movieSeq" name="movieSeq" value="${param.movieSeq }"> 
+		                        <input type="hidden" id="movieLocation" name="movieLocation" value="${param.movieLocation }">
+								<input type="hidden" id="movieBox" name="movieBox" value="${param.movieBox }">
+								<input type="hidden" id="movieDate" name="movieDate" value="${param.movieDate }">
+								<input type="hidden" id="movieTime" name="movieTime" value="${param.movieTime }">
+								<input type="hidden" class="ticketNumber" name="ticketNumber">
+								<input type="hidden" class="selectedSeat" name="selectedSeat" value="">
+								<!-- 티켓의수(선택한 좌석) -->
+								
+								<!-- 결제 정보 -->
+								<input type="hidden" class="payMoney" name="moviePrice">
+								<button type="button" class="reserve-button">
+									결제하기
+								</button>
+							</form>
 						</div>
-						<div class="select-theater-place">
-							<span>남은좌석</span><span class="remain-seats"></span>/<span
-								class="all-seats"></span>
+		
+					</div>
+					<div class="seat-container">
+		
+						<div class="seat-wrapper">
+							<div class="screen-view-wrapper">
+								<div class="screen-view">SCREEN</div>
+							</div>
 						</div>
-
-					</div>
-					<div class="select-theater-date">
-						<div class="theater-date"></div>
-						<div class="theater-time"></div>
-					</div>
-					<div class="selected-seats-wrapper">
-						<span class="selected-seats-title">좌석번호</span> <span
-							class="selected-seats">선택한 좌석이 없습니다.</span>
-					</div>
-					<div class="ticket-price-wrapper">
-						<div class="ticket-price-title">가격</div>
-						<div class="ticket-price">0원</div>
-					</div>
-					<form action="${path }/movie/movieReserveEnd" class="seatForm" method="post">
-						<input type="hidden" id="movieSeq" name="movieSeq" value="${param.movieSeq }"> 
-                        <input type="hidden" id="movieLocation" name="movieLocation" value="${param.movieLocation }">
-						<input type="hidden" id="movieBox" name="movieBox" value="${param.movieBox }">
-						<input type="hidden" id="movieDate" name="movieDate" value="${param.movieDate }">
-						<input type="hidden" id="movieTime" name="movieTime" value="${param.movieTime }">
-						<input type="hidden" class="ticketNumber" name="ticketNumber">
-						<input type="hidden" class="selectedSeat" name="selectedSeat" value="">
-						<!-- 티켓의수(선택한 좌석) -->
-						
-						<!-- 결제 정보 -->
-						<input type="hidden" class="payMoney" name="moviePrice">
-						<button type="button" class="reserve-button">
-							결제하기
-						</button>
-					</form>
-				</div>
-
-			</div>
-			<div class="seat-container">
-
-				<div class="seat-wrapper">
-					<div class="screen-view-wrapper">
-						<div class="screen-view">SCREEN</div>
+		                
 					</div>
 				</div>
-                
 			</div>
 		</div>
-	</div>
-</body>
-
-
-</html>
-
+	</section>
 <script>
 		$(function(){
 			seatMaker();
@@ -158,8 +156,19 @@
         }
 
         function selectListUiFunction(selectSeatListUlActive) {
-            selectSeatListUlActive.forEach(li => {
-                if (li.parentNode.classList.contains('select-seat-ul-normal')) {
+        	const seatWrapper = document.querySelectorAll(".seatButtonWrapper");
+        	const reserveNumber = document.querySelector(".reserve-number");
+        	const seats = document.querySelector(".selected-seats");
+        	
+        	for(var i =0; i<seatWrapper.length;i++){
+        		seatWrapper[i].remove();
+        	}
+        	reserveNumber.innerHTML=0;
+        	seats.innerHTML=0;
+        	seatMaker();
+        	selectSeatListUlActive.forEach(li => {
+           	
+            	if (li.parentNode.classList.contains('select-seat-ul-normal')) {
                     normalNumber = Number(li.innerHTML);
                     normalMoney = 10000 * normalNumber;
                     allMoney = normalMoney;
@@ -348,17 +357,32 @@
 
 <style>
     /* content */
+    
+ #root{
+ 	font-family:'Noto Sans KR';
+ }
 
 .select-container {
-    margin-top: 140px;
+    margin-top: 50px;
 }
 
-.select-wrapper {
-    width: 900px;
-    background-color: #F2F0E5;
-    margin: 0 auto;
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
+@media(min-width:992px){
+	.select-wrapper {
+	    width: 900px;
+	    background-color: #F2F0E5;
+	    margin: 0 auto;
+	    border-left: 1px solid #dddddd;
+	    border-right: 1px solid #dddddd;
+	}
+}
+@media(min-width:796px){
+	.select-wrapper {
+	    width: 800px;
+	    background-color: #F2F0E5;
+	    margin: 0 auto;
+	    border-left: 1px solid #dddddd;
+	    border-right: 1px solid #dddddd;
+	}
 }
 
 .select-title {

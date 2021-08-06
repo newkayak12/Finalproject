@@ -171,6 +171,24 @@ public class MovieDao implements MovieDaoInterface {
 		// TODO Auto-generated method stub
 		return session.update("report.reportCountUpdate",report);
 	}
+
+	@Override
+	public int totalCount(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.totalCount");
+	}
+
+	@Override
+	public int movieCount(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.movieCount",param);
+	}
+
+	@Override
+	public int updateRate(SqlSessionTemplate session, Map map) {
+		// TODO Auto-generated method stub
+		return session.update("movie.updateRate",map);
+	}
 	
 	
 	

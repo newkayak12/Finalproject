@@ -50,7 +50,7 @@
 		        		$("#movieDate1").html("날짜 :" + data["movieDate"])
 		        		$("#content").css("display","block");
 		        	}
-		        }) */
+		        }) */ 
 		        var IMP = window.IMP; // 생략가능
 			    IMP.init('imp71220424');
 			    
@@ -107,7 +107,7 @@
 				    } else {
 				        var msg = '결제에 실패하였습니다.';
 				        msg += '에러내용 : ' + rsp.error_msg;
-				        location.assign("${path}/movie/movieInfo");
+				        location.assign("${path}/movie/movieReserve");
 				    }
 				    alert(msg);
 			    }); 
@@ -143,5 +143,10 @@
 		</div>
 	</section>
 	
+	<style>
+		#root{
+			font-family:'Noto Sans KR';
+		}
+	</style>
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

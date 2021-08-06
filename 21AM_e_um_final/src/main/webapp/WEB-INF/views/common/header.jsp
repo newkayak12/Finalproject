@@ -130,7 +130,7 @@
 					<div style="position: fixed; right: 5px;" id="innerXbox"
 						class="text-center d-flex justify-content-between ">
 						<div id="controlpanel"></div>
-						<div class="pr-4" onclick="closetoolbox()">X</div>
+						<div class="pr-4 cursor" onclick="closetoolbox()">X</div>
 					</div>
 
 
@@ -150,20 +150,20 @@
 			</div>
 
 			<ul class="hamnav mt-2 mb-2 navbar-nav col-5 p-0">
-				<li class="nav-item"><a class="nav-link text-center"
+				<li class="nav-item"><a class="nav-link text-center tway"
 					href="${pageContext.request.contextPath }/friend/main">친구 찾기</a></li>
-				<li class="nav-item"><a class="nav-link text-center"
+				<li class="nav-item"><a class="nav-link text-center tway"
 					href="${pageContext.request.contextPath }/group/groupMain.do">소모임</a></li>
 				<li class="nav-item"><a
-					class="nav-link dropdown-toggle col-12 text-center"
+					class="nav-link dropdown-toggle tway col-12 text-center"
 					onclick="sumbmenucontroller()" href="#">플레이스</a></li>
 			</ul>
 			<div id="submenu" class="mt-1 col-5 p-0">
 				<div class="text-center ">
-					<a class="nav-link" href="${pageContext.request.contextPath }/food/foodMain">맛집</a>
+					<a class="nav-link tway" href="${pageContext.request.contextPath }/food/foodMain">맛집</a>
 				</div>
 				<div class="text-center ">
-					<a class="nav-link" href="${pageContext.request.contextPath }/movie/movieInfo">영화</a>
+					<a class="nav-link tway" href="${pageContext.request.contextPath }/movie/movieInfo">영화</a>
 				</div>
 			</div>
 
@@ -224,7 +224,8 @@
 			
 		</div>
 		<div class="col-12 border mb-0 d-flex justify-content-around align-items-center" style="height:10%; max-height:100px; position:absolute; bottom:0px;">
-			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> <input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
+			<input type="text" id="chatinputboxTop" class="col-9 border" placeholder="내용을 입력하세요" onkeyup="entertosend()"> 
+			<input type="button" id="headerbtn" class="checkBtn col-2" value="전송" onclick="sendmsg()">
 
 			<input type="hidden" id="chatRoomTophidden1">
 			<input type="hidden" id="chatRoomTophidden2">
@@ -292,7 +293,7 @@ $(function(){
     	onlinesend()
     	/* $('.toast').toast('show'); */
     	
-    },20000)
+    }/* , 1000  */  ,200000 )
 })
 
 
@@ -411,7 +412,7 @@ function online(){
 				$("#footerinnerContainer").html("")
 				
 				data.forEach((v,i)=>{
-					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"}).css("color","black")
+					let out = $("<div>").attr({"class":"d-flex flex-row justify-content-between mt-2 border cursor" , "onclick":"headerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')", "data-toggle":"modal","data-target":"#headerprofile"}).css("color","black")
 					let profilebox = $("<span>").attr({"class":"ml-2 mr-2 d-flex flex-row"})
 					let photo = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"25px","width":"25px", "border-radius":"100%"})
 					let	nick = $("<span>").html(v["friendId"]["userNick"]).css("color","gray")
@@ -422,7 +423,7 @@ function online(){
 					out.append(profilebox).append(statusbox)
 					$("#toolinnerbox").append(out);
 					
-					let outf = $("<div>").attr({"class":"d-flex flex-row justify-content-between mb-2 border" , "onclick":"footerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')"})
+					let outf = $("<div>").attr({"class":"d-flex flex-row justify-content-between mb-2 border cursor" , "onclick":"footerProfile('"+v["friendId"]["userId"]+"','"+v["friendId"]["profileImageFile"]+"','"+v["friendId"]["userNick"]+"','"+v["friendId"]["profileStatus"]+"')"})
 					let profileboxf = $("<span>").attr("class","ml-2 mr-2 d-flex flex-row")
 					let photof = $("<img>").attr("src","${pageContext.request.contextPath}/resources/upload/profile/"+v["friendId"]["profileImageFile"]).css({"height":"35px","width":"35px", "border-radius":"100%"})
 					let nickf = $("<span>").html(v["friendId"]["userNick"])
@@ -465,7 +466,7 @@ function kakaoLogout(){
 
 /* **************** 햄버거 ********************************************** */
 	const ham=()=>{
-		
+		$("#footerContainer").hide(240)
 		if($(".hamdown").css("display")=='none'){
 			$('.hamback').show();
 			$('.hamdown').show(250);
@@ -510,8 +511,9 @@ function kakaoLogout(){
 			"href":"${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}", 
 			"class" : "tway blackText"
 		}).css("text-decoration","none"))
+
 		let profilelink = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
-		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#","class" : "tway blackText"}).css("text-decoration","none"))
+		let supportlink = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/faq/open","class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlink = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		
 		$("#toolinnerbox").html($("<div>").append(mypagelink).append(profilelink).append(supportlink).append(logoutlink).attr({"class":"text-center pt-4","id":"menubox"}))
@@ -525,7 +527,7 @@ function kakaoLogout(){
 		
 		
 		let mypagelinkf = $("<div>").append($("<a>").html("마이페이지").attr({"href":"${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}","class" : "tway blackText" }).css("text-decoration","none"))
-		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/user/profile/start?userId=${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
+		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
 		let supportlinkf = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#", "class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlinkf = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
 		$("#footerinnerContainer").html($("<div>").append(mypagelinkf).append(profilelinkf).append(supportlinkf).append(logoutlinkf)).attr("class","text-center pt-4")
@@ -540,6 +542,8 @@ function kakaoLogout(){
 	const fn_showprofilebot=()=>{
 		$("#controlpanelfooter").html("")
 		showmypage()
+		
+		unham()
 		/* $("#footerContainer").css("overflow","visible") */
 		
 			if($("#footerContainer").css("display")=='none'){
@@ -624,7 +628,7 @@ function kakaoLogout(){
 	
 	/* 푸터 친구 목록 */
 	function friendListbot(){
-		
+		unham()
 		$("#controlpanelfooter").html("친구목록")
 		$("#footerinnerContainer").html("")
 		/* fn_friendList(); */
@@ -848,11 +852,11 @@ function kakaoLogout(){
 		$("body").css("overflow","hidden")
 		$("#footerinnerContainer").html("")
 		
-		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"30px"}))
+		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"20px","margin-top":"10px"}))
 		
-		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"100%","max-height":"800px"}).css({"overflow-y":"auto"})
+		let	chatRootBottom = $("<div>").attr({"id":"chatRootBottom", "class":"col-12"}).css({"height":"70%"}).css({"overflow-y":"auto"})
 		
-		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"0px","background-color":"white"})
+		let chatRootDockBottom = $("<div>").attr({"id":"chatRootDockBottom", "class":"col-12 border mb-3  pl-3 pr-3 d-flex justify-content-around"}).css({"position":"absolute","bottom":"100px","background-color":"white"})
 		let chatinputboxBottom = $("<input>").attr({"id":"chatinputboxBottom","type":"text","placeholder":"채팅을 입력하세요","class":"col-10","onkeyup":"entertosend()"})
 		let chatRoomBottomhidden1 = $("<input>").attr({"id":"chatRoomBottomhidden1", "type":"hidden"})
 		let chatRoomBottomhidden2 = $("<input>").attr({"id":"chatRoomBottomhidden2", "type":"hidden"})
@@ -917,13 +921,15 @@ function kakaoLogout(){
 			 console.log(data) */
 			 if(data["data"]["chats"]!=null){
 				 data["data"]["chats"].forEach((v,i)=>{
-			 	
+			 			console.log(v)
 				 		if(v["chatSender"]["userNick"]=='${userSession.userNick}'){
+				 			 let time = v["chatSendTime"].substring(10);
+			 				time = time.substring(0,6) 
 				 			let cover = $("<div>").attr("class","d-flex justify-content-end align-content-center mt-1 mb-1")
 				 			let outter = $("<div>").attr("class","col-6")
 				 			let inner = $("<div>").attr("class","d-flex justify-content-between ")
 				 			let content = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr('class','balloonright mt-4')
-				 			let timeline = $("<span>").attr("class","small").html(v["chatSendTime"].substring(10));
+				 			let timeline = $("<span>").attr("class","small").html(time);
 				 			
 				 			
 	
@@ -936,15 +942,17 @@ function kakaoLogout(){
 		 					}
 				 			
 				 		} else {
-				 			
-				 			
+				 			 let time = v["chatSendTime"].substring(10);
+				 				time = time.substring(0,6) 
+			 				console.log("상대")
+				 			console.log(v["chatSendTime"])
 				 			nickname = v["chatSender"]["userNick"];
 				 			photos=v["chatSender"]["profileImageFile"]
 				 				
 				 			let aCover = $("<div>").attr("class","d-flex mt-1 mb-1 pt-1 pb-1 justify-content-start align-content-center")
 				 			let aphoto = $("<div>").html($("<img>").css({"object-fit":"cover","border-radius":"100%"}).attr({"height":"60px", "width":"60px","src":"${pageContext.request.contextPath}/resources/upload/profile/"+v["chatSender"]["profileImageFile"]}))
 				 			let aoutter = $("<div>").attr("class","col-6 my-auto")
-				 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(v["chatSendTime"].substring(10) ))
+				 			let anickandtime = $("<div>").append($("<span>").html(v["chatSender"]["userNick"])).append($("<span>").attr("class","ml-2 small").css("color","gray").html(time))
 				 			let acontent = $("<div>").html(v["chatContent"]).css({"word-wrap":"break-word","word-break":"normal"}).attr("class","balloonleft")
 				 			
 				 			
@@ -972,9 +980,10 @@ function kakaoLogout(){
 
 		} else if(data["flag"]=='running'){
 			
+			console.log(data) 
 			if($("#chatRoomTophidden1").val()==data["room"]||$("#chatRoomBottomhidden1").val()==data["room"]){
 			
-				/* console.log('들어오냐? ') */
+				console.log(data["time"])
 				let chatRootBottom = $("#chatRootBottom");
 				let chatRoottop = $("#chatRoottop");
 				/* {room=CR_1, my=newkayak12, target=yejin1234, flag=running, msg=밥은 먹었어?, type=text} */
@@ -1070,13 +1079,14 @@ function kakaoLogout(){
 		}
 		
 		
-		
-		/* console.log(msg) */
-		let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
-		let result = JSON.stringify(data);
-		socket.send(result)
+		if(msg.length>0){
+			
+		console.log(msg)
+			let data = {"room":room,"my":my,"target":target,"flag":flag,"msg":msg, "type":"text"};
+			let result = JSON.stringify(data);
+			socket.send(result)
 		/* console.log(socket) */
-		
+		}
 	
 	
 
@@ -1243,6 +1253,7 @@ function kakaoLogout(){
 	
 	/* 푸터 채팅 리스트 */
 	function showchatListf(){
+		unham()
 		if($("#footerContainer").css("display")=='none'){
 			fn_chatList()
 			$("#footerContainer").show(240)	
@@ -1251,6 +1262,13 @@ function kakaoLogout(){
 			$("#footerContainer").hide(240)	
 			$("body").css("overflow","")
 		}
+		
+		console.log($("#chatRoomTophidden1").val())
+		if($("#chatRoomTophidden1").val()!=null){
+			fin()
+		}
+		
+		
 		
 		/* $("#footerContainer").toggle(240)
 		$("#footerinnerContainer").html("") */
@@ -1317,13 +1335,13 @@ function kakaoLogout(){
 						data.forEach((v,i)=>{
 							/* console.log(v) */
 							if(v["alarmRead"]=='unread'){
-							let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
-							let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+							let friendList = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+							let friendListf = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"#46a4e0","opacity":"0.8","color":"#edeced" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}else {
-								let friendList = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
-								let friendListf = $("<div>").attr({"class":" small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+								let friendList = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
+								let friendListf = $("<div>").attr({"class":"cursor small pl-1 pt-2 mt-1 pb-2 d-flex justify-content-between"}).css({"background-color":"white","opacity":"0.8","color":"black" }).html($("<span>").html(v['alarmContent']).attr("onclick","fn_read('"+v["alarmSeq"] +"','"+v["alarmToggle"]["alarmKey"]+"','"+v["refSeq"]+"')")).append($("<span>").html("X").attr({"class":"pr-2", "onclick":"fn_delAlarm('"+v["alarmSeq"] +"','e')"}));
 								outter.append(friendList);
 								outterf.append(friendListf);
 							}
@@ -1357,7 +1375,7 @@ function kakaoLogout(){
 	const fn_showalarmbot=()=>{
 		$("#controlpanelfooter").html("알람")
 		alarmlist();
-		
+		unham()
 		$("#footerContainer").toggle(240)
 		/* $("#footerContainer").css("overflow","scroll") */
 			 if($("#footerContainer").css("display")=='block'){
@@ -1449,6 +1467,8 @@ function kakaoLogout(){
 	const closetoolbox=()=>{
 		/* $("#toolbox").css("display","none") */
 		$("#toolbox").hide(240);
+		fin();
+		
 	}
 	
 	

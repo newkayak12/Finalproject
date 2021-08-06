@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+	    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/taehui.css">
 	
 	
 	<script>
@@ -27,6 +29,7 @@
 		
 		
 		const basicInfoShow=()=>{
+			$("#movieVideo").attr("src","");
 			$("#basicInfocontainer").css("display","block")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","none")
@@ -49,6 +52,7 @@
 			
 		}
 		const reviewShow=(movieSeq)=>{
+			$("#movieVideo").attr("src","");
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","block")
@@ -62,14 +66,16 @@
 						console.log(v["movieReviewWriteDate"]);
 						let date = (v["movieReviewWriteDate"]);
 						let result = date.split("-");
-						console.log(result);
+						
 						$("#reviewBody").append(
 								$("<tr>").append($("<td>").html(v["userId"]["userId"]))
 								.append($("<td>").html("★"+v["movieEvaluationAvg"]))
 								.append($("<td>").html(v["movieReviewContent"]))
 								.append($("<td>").html(result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일"))
 								.append($('<td>').append($('<button onclick="movieModal(event);" data-target="#movieReport" data-toggle="modal">')
-										.css("background-color","lightgreen").attr("value",v["movieReviewSeq"]).html("신고")))
+								.attr("value",v["movieReviewSeq"]).css({"border-radius": "10px","border-color":"#e2e6ea","width":"41px","height":"31px"})
+								.append($("<img>").attr("src","${path}/resources/images/user/siren.png").css("width","20px")))
+										)
 						
 						)
 					})
@@ -89,16 +95,42 @@
 			
 		}
 		const graphShow=(movieSeq)=>{
+			$("#movieVideo").attr("src","");
 			$.ajax({
     			url:"<%=request.getContextPath()%>/movie/movieReviewData",
     			data:{"movieSeq":movieSeq},
     			success:data=>{
+    				
     				if(data['total'] !=='NaN'){
-    					$("#totalPoint").html("★"+data['total']).css("font-size","30px");
+    					$("#totalPoint").html("★"+data['total']).css("font-size","40px");
     				}else{
     					$("#totalPoint").html("★0").css("font-size","30px");
     				}
     				new Chart($("#radar-chart"), {
+    				    type: 'radar',
+    				    data: {
+    				      labels: ["연출", "영상미", "스토리", "연기력", "음악성"],
+    				      datasets: [
+    				        {
+    				          label: '평균 분포',
+    				          fill: true,
+    				          backgroundColor: "rgba(179,181,198,0.2)",
+    				          borderColor: "#6543b1",
+    				          pointBorderColor: "#fff",
+    				          pointBackgroundColor: "#6543b1",
+    				          /* data: [10,12,13,18,20] */
+    				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
+    				        }
+    				      ]
+    				    },
+    				    options: {
+    				      title: {
+    				        
+    				      }
+    				    }
+    				}); 
+    				
+    				new Chart($("#radar-chart2"), {
     				    type: 'radar',
     				    data: {
     				      labels: ["연출", "영상미", "스토리", "연기력", "음악성"],
@@ -127,8 +159,30 @@
     		$.ajax({
     			url:"${path}/movie/genderRate",
     			data: {"movieSeq":movieSeq},
-    			success:data=>{
-    				console.log(data);
+    			success:rate=>{
+    				console.log(rate);
+    				 console.log(rate['female'])
+    				 google.charts.load('current', {'packages':['corechart']});
+    			     google.charts.setOnLoadCallback(drawChart);
+
+    			      function drawChart() {
+
+    			        var data = google.visualization.arrayToDataTable([
+    			          ['Task', 'Hours per Day'],
+    			          ['남',    rate['male']],
+    			          ['여',    rate['female']],
+    			          
+    			        ]);
+
+    			        var options = {
+    			          
+    			        };
+
+    			        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    			        chart.draw(data, options);
+    			      }
+
     			}
     			
     		})
@@ -146,8 +200,8 @@
 			location.assign("<%=request.getContextPath()%>/movie/movieWriteStart?movieSeq="+movieSeq);
 		}
 		
-		const movieReserve=()=>{
-			location.assign("<%=request.getContextPath()%>/movie/movieReserve");
+		const movieReserve=(e)=>{
+			location.assign("<%=request.getContextPath()%>/movie/movieReserve?movieSeq="+e.target.value);
 		}
 		
 		const movieModal=(e)=>{
@@ -209,16 +263,16 @@
 	</script>
 	
 	
-	<section class="mt-5 pt-5">
+	<section class=" pt-5">
 		<div id="root" class="container mt-5">
 			<section>
 			   <div>
 			       <div class="movie-detail">
 			        <div class="title"><h3>영화상세</h3></div>
-			        <div class="sect-base-movie pb-3">
+			        <div class="sect-base-movie pt-3 pb-3">
 			            <div class="box-image">
 			                <span class="thumb-image justify-content-center">
-			                    <img class="thumb-size col-12" src="${path }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
+			                    <img class="thumb-size" src="${path }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
 			                </span>
 			            </div>
 			            <div class="box-contents ml-5 pt-5">
@@ -229,20 +283,20 @@
 			                </div>
 			                <div class="score">
 			                    <span>예매율 &nbsp;
-			                        <strong>${movie.movieReserveRate }</strong>
+			                        <strong>${movie.movieReserveRate }%</strong>
 			                    </span><br>
 			                    <span>영화평점 &nbsp;
 			                        <strong>★${movie.movieTotalEvalution }</strong>
 			                    </span>
 			                </div>
-			                <button class="btn btn-success mt-5" onclick="movieReserve();">예매하기</button>
+			                <button class="btn btn-success mt-5" onclick="movieReserve(event);" value="${movie.movieSeq }">예매하기</button>
 			            </div>
 			        </div>
 			        
 			        
-			         <div class="cols-content mt-5" id="menu">
-			            <div class="col-detail pb-3">
-			                <ul class="tab-menu pl-0 pb-5 text-center">
+			         <div class="cols-content mt-3" id="menu">
+			            <div class="col-detail mb-3">
+			                <ul class="tab-menu pl-0 pb-3 text-center">
 			                    <li><button class="btn" id="basicinfobtn" onclick="basicInfoShow()">기본정보</button></li>
 			                    <li><button class="btn" id="trailerbtn" onclick="trailerShow('${movie.movieSeq}')">트레일러</button></li>
 			                    <li><button class="btn" id="reviewbtn" onclick="reviewShow('${movie.movieSeq}')">관람평</button></li>
@@ -298,8 +352,8 @@
 					<div id="trailercontainer" class="p-3 pt-0 " >
 						<iframe id="movieVideo" src=""
 		                    style="width:100%; height:450px;"
-		                    frameborder="0" allow="accelermeter; clipboard-white; encrypted-media; gyroscope; picture-in-picture" allowfullscreen" >
-                        
+		                    frameborder="0" allow="accelermeter; clipboard-white; encrypted-media; gyroscope; picture-in-picture" allow-script="true" allowfullscreen="true" >
+                        	
                    		 </iframe>
 					</div>
 					<div id="reviewcontainer" class="">
@@ -309,46 +363,57 @@
 						    <thead>
 						      <tr>
 						        <th class="col-2">작성자</th>
-						        <th class="col-2">평점</th>
-						        <th class="col-5 justify-content-center">리뷰</th>
-						        <th class="col-2">작성일</th>
-						        <th class="col-1">신고</th>
+						        <th class="col-1">평점</th>
+						        <th class="col-4 justify-content-center">리뷰</th>
+						        <th class="col-3">작성일</th>
+						        <th class="col-2">신고</th>
 						      </tr >
 						    </thead>
 						    <tbody id="reviewBody">
 							    
 						    </tbody>
 						  </table>
-						  <div id="pageBar">
 						  
-						  </div>
 					</div>
 					
-					<div id="graphcontainer">
-						<h3>예매분포</h3>
+					<div id="graphcontainer" class="justify-content-center">
+						<h3 class="ml-3">예매분포</h3>
 						<div class="col-12" style="height: 300px; display: flex;">
-							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>평균 별점</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: #6543b1; text-align: center;">
+
+									<div class="circle" style="margin: 0 auto; padding-top:30px; width: 180px; height: 180px; border-radius: 120px;line-height: 120px; background-color: lightgreen; vertical-align:20px; text-align: center;">
+
+									
+
 										<span id="totalPoint"></span>
 									</div>
 								</div>
 							</div>
-							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
+							<div class="col-4 caru992" style="border: 1px solid black; height: 300px; display: inline-block;">
 								<h5>관람포인트</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
-										<canvas id="radar-chart" width="250" height="250"></canvas>
-									</div>
+									<canvas  id="radar-chart" width=250 height=150></canvas>
+									<!-- <div class="view_point col-12" style="margin: 0 auto;  height: 200px; text-align: center;">
+										<canvas  id="radar-chart" width=250 height=165></canvas>
+									</div> -->
 								</div>
 							</div>
-							<div class="col-3 " style="border: 1px solid black; height: 300px; display: inline-block;">
-								<h5>예매성비</h5>
+							<div class="col-4 caru991" style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>관람포인트</h5>
 								<div class="mt-5" style="border: 1px solid black; height: 200px;">
-									<div class="view_point" style="margin: 0 auto; width: 200px; height: 200px; text-align: center;">
-										
-									</div>
+									<canvas  id="radar-chart2" width=250 height=230></canvas>
+									<!-- <div class="view_point col-12" style="margin: 0 auto;  height: 200px; text-align: center;">
+										<canvas  id="radar-chart" width=250 height=165></canvas>
+									</div> -->
+								</div>
+							</div>
+							<div class="col-4 " style="border: 1px solid black; height: 300px; display: inline-block;">
+								<h5>예매성비</h5>
+								<div class="mt-5 col-12" style="border: 1px solid black;  height: 200px;" id="piechart">
+									
+
 								</div>
 							</div>
 						</div>
@@ -489,7 +554,6 @@
 
 <style>
      #root{
-	    border:1px red solid;
 	    /* min-height:500px; */
 	    font-family:'Noto Sans KR';
 	}
@@ -603,7 +667,7 @@
         font-weight: 1000;
     }
     .sect-base-movie{
-        margin-top: 40px;
+
         display: flex;
         border-bottom: 2px solid black;
        
@@ -621,7 +685,6 @@
     }
     .box-contents{
         width: 765px;
-        height: 350px;
         display: inline-block;
         margin-left: 30px;
         

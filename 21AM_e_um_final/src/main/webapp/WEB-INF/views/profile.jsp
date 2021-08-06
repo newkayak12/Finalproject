@@ -93,7 +93,7 @@
 			        		</c:when>
 			        	</c:choose>
 				        <a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
-				            <button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;">
+				            <button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;" onclick="userReport('${profileInfo.userId}')">
 				            	<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" width="20px" data-toggle="modal" data-target="#ReportModal">
 				            </button>
 				        </a>
@@ -101,7 +101,7 @@
 				</c:if>
 				<c:if test="${profileInfo.userId==userId }">
 					<div id="profileBtn" class="ml-md-5 mt-4">
-						<button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;" onclick="location.assign('${pagecontext.request.contextPath}/user/mypage/start?userId=${userSession.userId}');">
+						<button type="button" class="btn btn-light btn-sm" style="border-radius: 10px;" onclick="location.assign('${pageContext.request.contextPath}/user/mypage/start?userId=${userSession.userId}');">
 			            	<i class="fas fa-cog" width="20px"></i>
 			            </button>
 					</div>
@@ -169,7 +169,7 @@
 	      <!-- Modal Header -->
 	      <div class="modal-header">
 	        <h4 class="modal-title pointFont mainColor"></h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close mainColor" data-dismiss="modal">&times;</button>
 	      </div>
 	
 	      <!-- Modal body -->
@@ -193,7 +193,7 @@
 	      <!-- Modal Header -->
 	      <div class="modal-header">
 	        <h4 class="modal-title pointFont mainColor">방명록</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close mainColor" data-dismiss="modal">&times;</button>
 	      </div>
 	
 	      <!-- Modal body -->
@@ -216,7 +216,7 @@
 	
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close mainColor" data-dismiss="modal">&times;</button>
 	      </div>
 	
 	      <!-- Modal body -->
@@ -273,13 +273,11 @@
 	})
 	
 	$(function(){
-		
 		let feedSeq ='${feedSeq}';
 		
 		if(feedSeq!='none'){
 			fn_openFeedModal(feedSeq);
 		}
-		
 		
 	    let index=0;
 	    let profileId="${profileInfo.userId }";
@@ -364,6 +362,88 @@
 				$("#feedDetailModal").modal("show");
 			}
 		})
+	}
+	
+	function userReport(friendId){
+    	let userReportId = friendId;
+    	let userReportMyId = '${userSession.userId}';
+    	let userReportContent = "사용자 신고"
+    	let userReportTargetContent = 'profile';
+    	
+    	$.ajax({
+    		url:"${pageContext.request.contextPath}/report/reportprifile",
+    		data:{userIdShooter:userReportMyId , userIdTarget:userReportId , reportContents:userReportContent, reportTargetContent: userReportId}, 
+    		success:data=>{
+    			if(data>0){
+  					alert('신고가 완료되었습니다.')
+  				}
+    		}
+    	})
+    }
+	
+	function reportthis(){
+		  let content = $("#reportcategory").val()
+		  
+		  if(content=='etc'){
+			content = $("#etcContent").val()  
+		  }
+			 
+		  let shooter = $("#myid").html()
+		  let target = $("#counterpartid").html()
+		  let seq = $("#reportSeq").val()
+		  
+		  $.ajax({
+			  url:"${pageContext.request.contextPath}/report/reportfeed",
+			  data:{userIdShooter:shooter , userIdTarget:target , reportContents:content, reportTargetContent: seq},
+			  success:data=>{
+				$("#counterpartid").html("")
+		    	$("#myid").html("")
+		    	$("#etcContent").val("")
+				$(".reportbtn").prop("checked", false)
+				
+				if(data>0){
+					alert('신고가 완료되었습니다.')
+				}
+			  }
+		  })
+	}
+	
+	function fn_report(seq,feedId, myId){
+  	let feedSeqRep = seq;
+  	let feedIdRep  = feedId;
+  	let myIdRep = myId;
+  	$("#counterpartid").html(feedIdRep)
+  	$("#myid").html(myIdRep)
+  	$("#reportSeq").val(feedSeqRep);
+  	
+  	  $(".reportbtn").change((e)=>{
+		    	$("#reportcategory").val($(e.target).val())
+  		  
+	        if($(e.target).val()=='etc'){
+	            $(".etc").show(240)
+	        } else{
+	            $(".etc").hide(240)
+	        }
+	    })
+  }
+	
+	// 업로드한 파일에 마우스 커서가 올라가면 삭제버튼 보이게 하기 
+	const fn_showDelBtn = (e) => {
+		$(e.target).children().children().css({
+			"display" : ""
+		}); 
+	}
+
+	// 업로드한 파일에서 마우스 커서가 벗어나면 삭제버튼 가리기
+	const fn_hideDelBtn = (e) => {
+		$(e.target).children().children().css({
+			"display" : "none"
+		});
+	}
+
+	// 업로드한 파일 삭제버튼 눌렀을 때 실행되는 함수 
+	const fn_delImg = (e) => {
+		$(e.target).parent().parent().parent().parent().remove(".prevLi");
 	}
 </script>
    

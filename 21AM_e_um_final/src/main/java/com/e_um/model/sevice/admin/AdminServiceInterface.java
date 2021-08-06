@@ -6,6 +6,9 @@ import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
+import com.e_um.model.vo.userInfo.report.ReportFoodComment;
+import com.e_um.model.vo.userInfo.report.ReportGroupBoard;
+import com.e_um.model.vo.userInfo.report.ReportGroupBoardComment;
 import com.e_um.model.vo.userInfo.user.User;
 
 public interface AdminServiceInterface {
@@ -41,8 +44,26 @@ public interface AdminServiceInterface {
 	public int feedCommentTotalData();
 	
 	public int feedCommentBlock(String seq);
-	public int feedCommentUnBlock(String seq); 
+	public int feedCommentUnBlock(String seq);
 	
+	public List<ReportFoodComment> manageFoodComment(int cPage, int numPerPage);
+	public int foodCommentTotalData();
+	
+	public int foodCommentBlock(String seq);
+	public int foodCommentUnBlock(String seq); 
+	
+	public List<ReportGroupBoard> manageGroupBoard(int cPage, int numPerPage);
+	public int groupBoardTotalData();
+	
+	public int groupBoardBlock(String seq);
+	public int groupBoardUnBlock(String seq);
+	
+	public List<ReportGroupBoardComment> manageReportGroupBoardComment(int cPage, int numPerPage);
+	public int reportGroupBoardCommentTotalData();
+	
+	public int reportGroupBoardCommentBlock(String seq);
+	public int reportGroupBoardCommentUnBlock(String seq);
+	public int updatefood(Food food); 
 	
 	
 }

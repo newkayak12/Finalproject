@@ -7,15 +7,16 @@
     <span class="m-2 d-flex justify-content-center align-items-center p-3 w-fitcontent">
         <span class="w-10 pointFont">ID</span>
         &nbsp;&nbsp;
-        <input type="text" id="userId" class="w-50 " style="height:30px" placeholder="아이디">
-        &nbsp;&nbsp;
-        <label>
-	        <input type="checkbox" class="w-10" id="persistlogin" >
-	        &nbsp;&nbsp; 
-	        <span class="w-10 ">아이디 저장</span>
+        <input type="text" id="userId" class="w-75 " style="height:30px" placeholder="아이디">
+        &nbsp;&nbsp; 
+        <label style="width: 80px !important" >
+	        <span class="small cursor" style="width: 80px !important" >
+	         <input type="checkbox" class="" id="persistlogin" >
+	        	ID유지
+        	</span>
         </label>
     </span>	
-    <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
+    <span class="m-2 d-flex justify-content-center align-content-center p-1 w-fitcontent">
         <span class="w-10 pointFont">PW</span>
         &nbsp;&nbsp; 
         <input type="password" id="userPassword" class="w-75 " style="height:30px" onkeyup="enterkey()" placeholder="비밀번호">
@@ -23,12 +24,12 @@
         &nbsp;&nbsp; 
         <input type="button" onclick ="loginVerifyAjax()" class=" checkBtn " value="로그인">
     </span>
-    <span class="m-2 d-flex justify-content-center align-content-center p-3 w-fitcontent">
+    <span class="m-2 d-flex justify-content-center align-content-center p-1 w-fitcontent">
         &nbsp;&nbsp; 
-        <img src ="${pageContext.request.contextPath }/resources/images/user/kakaoLogin.png" class="" style="width: 150px;" onclick="kakaoLogin()">
+        <img src ="${pageContext.request.contextPath }/resources/images/user/kakaoLogin.png" class="cursor" style="width: 150px;" onclick="kakaoLogin()">
         &nbsp;&nbsp; 
     </span>
-    <span class="d-flex flex-row w-50 justify-content-around align-content-center">
+    <span class="d-flex flex-row w-50 justify-content-around align-content-center cursor">
         <span onclick="fn_lostAndFound()">
                아이디/비밀번호 찾기
         </span>

@@ -10,6 +10,10 @@
 		</div>
 	</section>
 
-
+	<style>
+		#root{
+			font-family:'Noto Sans KR';
+		}
+	</style>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

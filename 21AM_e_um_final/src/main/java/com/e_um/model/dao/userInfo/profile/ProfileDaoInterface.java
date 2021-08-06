@@ -49,5 +49,9 @@ public interface ProfileDaoInterface {
 	int feedLike(SqlSessionTemplate session, Likefeed likef, String profileId, String userNick);
 	
 	int writeFeedComment(SqlSessionTemplate session, FeedComment fc, String profileId, String userNick);
+	
+	int insertFeed(SqlSessionTemplate session, NoHasAFeed nhf);
+	
+	int modifyFeed(SqlSessionTemplate session, NoHasAFeed nhf);
 
 }

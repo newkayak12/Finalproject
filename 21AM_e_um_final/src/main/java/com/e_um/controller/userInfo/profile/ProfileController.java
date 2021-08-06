@@ -1,5 +1,7 @@
 package com.e_um.controller.userInfo.profile;
 
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.userInfo.profile.ProfileServiceInterface;
+import com.e_um.model.vo.communicateinfo.feed.NoHasAFeed;
 import com.e_um.model.vo.communicateinfo.feedComment.FeedComment;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.communicateinfo.guestbook.Guestbook;
@@ -152,19 +155,23 @@ public class ProfileController {
 	
 	
 	@RequestMapping("/profile/writeFeed/end")
-	public String insertFeed(HttpServletRequest rq, Model m,
-			@RequestParam(value="feedImage", required=false) MultipartFile[] feedImage
-			) {
-		//미완
+	public String insertFeed(HttpServletRequest rq, String feedContents, Model m,
+			@RequestParam("file") MultipartFile[] files) {
 		User user=(User)rq.getSession().getAttribute("userSession");
-		log.info("파일명: "+feedImage[0].getOriginalFilename());
-		log.info("파일 크기: {}",feedImage[0].getSize());
-		log.info("파일명: {}",feedImage[1].getOriginalFilename()=="");
-		log.info("파일 크기: {}",feedImage[1].getSize());
-		log.info("파일명: {}",feedImage[2].getOriginalFilename()==null);
-		log.info("파일 크기: {}",feedImage[2].getSize());
+		//log.info("feedContents: {}",feedContents);
+		String[] newFileName={null, null, null};
+		for(int i=0;i<files.length;i++) {
+			newFileName[i]=renamepolicy(rq, files[i], "feed");
+		}
+		NoHasAFeed nhf=NoHasAFeed.builder().feederId(user.getUserId()).feedContents(feedContents).feedImage1(newFileName[0]).feedImage2(newFileName[1]).feedImage3(newFileName[2]).build();
 		
-		return "";
+		m.addAttribute("loc", "/profile/open/"+user.getUserId());
+		if(service.insertFeed(nhf)>0) {
+			m.addAttribute("msg", "피드가 등록되었습니다.");
+		}else {
+			m.addAttribute("msg", "피드 등록에 실패했습니다.");
+		}
+		return "common/msg";
 	}
 	
 	
@@ -255,6 +262,75 @@ public class ProfileController {
 			profileId="me";
 		}
 		return service.writeFeedComment(fc, profileId, user.getUserNick());
+	}
+	
+	
+	@RequestMapping("/profile/modifyFeed/start")
+	public String modifyFeedStart(@RequestParam(value="feedSeq", required=false) String feedSeq, Model m) {
+		m.addAttribute("feed",service.selectFeed(feedSeq));
+		return "components/profile/modifyFeedModal";
+	}
+	
+	
+	@RequestMapping("/profile/modifyFeed/end")
+	public String modifyFeed(HttpServletRequest rq, String feedContents, Model m, String feedSeq,
+			@RequestParam("file") MultipartFile[] files, @RequestParam("oldFile") int[] oldFile) {
+		User user=(User)rq.getSession().getAttribute("userSession");
+		
+		String[] newFileName={null, null, null};
+		
+		NoHasAFeed oldFeed=service.selectFeed(feedSeq);
+		
+		if(oldFile.length!=0) {
+			//예전에 올린 파일이 남아있음
+			
+			for(int i=0;i<oldFile.length;i++) {
+				switch(oldFile[i]) {
+					case 1: newFileName[i]=oldFeed.getFeedImage1(); break;
+					case 2: newFileName[i]=oldFeed.getFeedImage2(); break;
+					case 3: newFileName[i]=oldFeed.getFeedImage3(); break;
+				}
+			}
+		} //예전에 올린 파일이 아예 없거나 다 지움
+		
+		//새로 올린 파일이 있는지 확인
+		if(files.length!=0) {
+			//length가 1이어도 0번 인덱스에 공값이 들어있을 수 있으므로 한 번 더 체크
+			if(files[0].getSize()!=0) {
+				//새로 올린 파일이 존재함
+				
+				for(int i=0;i<files.length;i++) {
+					//newFileName이 null인 곳에 입력해야 함으로 검증해야 함
+					
+					if(oldFile.length==0) {
+						//newFileName에 모두 null값이 들어있으므로 0번 인덱스부터 넣으면 됨
+						newFileName[i]=renamepolicy(rq, files[i], "feed");
+						
+					} else {
+						//newFileName에 이미 값이 들어있을 것임
+						//null값이 들어있는 자리부터 넣어야 함
+						
+						for(int j=1;j<3;j++) {
+							//어차피 0번 인덱스에는 무조건 값이 있을 것이므로 1번 인덱스가 null인지부터 검증하면 됨
+							if(newFileName[j]==null) {
+								newFileName[j]=renamepolicy(rq, files[i], "feed");
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		NoHasAFeed nhf=NoHasAFeed.builder().feedSeq(feedSeq).feedContents(feedContents).feedImage1(newFileName[0]).feedImage2(newFileName[1]).feedImage3(newFileName[2]).build();
+		
+		m.addAttribute("loc", "/profile/open/"+user.getUserId());
+		if(service.modifyFeed(nhf)>0) {
+			m.addAttribute("msg", "피드가 수정되었습니다.");
+		}else {
+			m.addAttribute("msg", "피드 수정에 실패했습니다.");
+		}
+		return "common/msg";
 	}
 
 }

@@ -17,21 +17,12 @@
 /* 필터초기화 버튼 */
 #clearFoodSearchCondition { border: 1px solid #2AC1BC; float: right; margin: 10px; background-color: white; }
 #clearFoodSearchCondition:hover { background-color: #2AC1BC; }
-.mainPageImages { width : 250px; height:150px; border-radius: 10px; object-fit:cover;}
+.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
 .mainPageFoodName { color : #3a3a3a; font-size : 20px; font-weight:900; }
 .mainPageFoodStar { color : #2AC1BC; font-size : 20px; font-weight:900;}
 .mainPageFoodAddrCate { color : gray; font-size : 15px; font-weight:900; }
 a { text-decoration:none !important } 
 a:hover { text-decoration:none !important }
-
-
-
-@media(min-width:775px){
-.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
-}
-@media(max-width:1200px){
-.mainPageImages { width : 200px; height:150px; border-radius: 10px; object-fit:cover;}
-}
 
 </style>
 
@@ -43,10 +34,10 @@ a:hover { text-decoration:none !important }
 		<div>
 		
 			<div class="search-container col-12">
-				<form action="" method="" class="col-12">
+				<form class="col-12">
 					<!-- 검색창, 검색버튼, 검색조건펼치기버튼 -->
-					<div style="text-align:center;">
-						<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" required>
+					<div style="text-align:center; width:100%;">
+						<input class="col-8 col-md-6 form-control" id="foodSearchKeyword" style="display:inline; width:60% !important;" size="20" type="search" name="searchKeyword" placeholder="지역, 식당, 음식으로 검색해보세요" required>
 						<button class="btn checkBtn mb-1" type="button" id="foodSearchButton" >검색</button>
 						<button class="btn cancelBtn mb-1" type="button" id="showFoodSearchCondition">필터 ☟</button>
 					</div>
@@ -117,60 +108,19 @@ a:hover { text-decoration:none !important }
 					
 				</form>
 			</div>
-			
-			<%-- <button class="btn btn-primary" onclick="location.href='${applicationScope.path}/food/foodForm/start'">맛집등록</button> --%>
-			<button class="btn" style="float:right;" onclick="location.assign('${path}/food/allFood');">맛집 전체보기</button>
 		
 		</div> <!-- 검색 div -->
 		
-		<div class="features-boxed">
-			
-				<div class="container">
-				
-					<h4 class="mainColor tway">평점이 높은 맛집</h4>
-					
-					<div id="" class="row justify-content-center features">
-					
-						<c:forEach items="${ list }" var="f">
-						
-							<div class="col-6 col-md-3 item" style="text-align:center;">
-							
-								<div class="box">
-								
-									<a class="open_food_modal" href="javascript:void(0)" onclick="fn_foodmodal('${ f.foodSeq }')" data-target="#foodModal" data-toggle="modal">
-										
-										<div>
-											<img class="mainPageImages" src="${ path }/resources/upload/food/${f.menus[0].menuPhoto}">
-											<div class="info mt-1 ml-4" style="text-align:left;">
-												<span class="mainPageFoodName"><c:out value="${ f.foodName }"/></span>&nbsp;
-												<strong class="mainPageFoodStar"><fmt:formatNumber type="number" pattern="0.0" value="${ f.foodStar }"/></strong>
-												<p class="mainPageFoodAddrCate"><c:out value="${fn:substring(f.foodAddr, 4, 6)}"/>&nbsp;-&nbsp;<c:out value="${ f.foodCategoryMain }"/></p>
-											</div>
-										</div>
-									</a>
-									
-								</div> <!-- box -->
-								
-								
-							</div>
-							
-						</c:forEach>
-						
-					</div>
-					
-				</div> <!--container-->
-			
-		</div> <!-- features-boxed -->
-			
-
+		<!-- 맛집 리스트 덩어리 들어갈 자리  -->
+		<div id="mainFoodList" class="features-boxed">
 		
-
+		</div>
+		
+		<button id="allFoodBtn" class="btn cancelBtn"  onclick="location.assign('${path}/food/allFood');">맛집 전체보기</button>
 
 	</div> <!-- root -->
 	
-	<div>
-		<a id="MOVE_TOP_BTN" href="#"><div>TOP</div></a>
-	</div>
+
 </section>
 
 <!-- 모달창 -->
@@ -218,6 +168,16 @@ a:hover { text-decoration:none !important }
 		</div> <!-- 모달 div -->
 
 <script>
+	
+/* 	$(function() {
+		// 평점이 높은 맛집, 리뷰가 많은 맛집, 예약이 많은 맛집
+		$.ajax({
+			url : "${ pageContext.request.contextPath }/food/foodMainList",
+			success : data => {
+				$("#mainFoodList").append(data);
+			}
+		});
+	} */
 
 	// 모달열기 함수 
 	const fn_foodmodal=(seq)=>{
@@ -284,24 +244,6 @@ a:hover { text-decoration:none !important }
 	}
 	
 	
-	// top버튼 
-	$(function() {
-		$(window).scroll(function() {
-			if ($(this).scrollTop() > 500) {
-				$('#MOVE_TOP_BTN').fadeIn();
-			} else {
-				$('#MOVE_TOP_BTN').fadeOut();
-			}
-		});
-		$("#MOVE_TOP_BTN").click(function() {
-			$('html, body').animate({
-				scrollTop : 0
-				}, 400);
-			return false;
-		});
-	});
-	
-	
 	// 검색조건 열기 
 	$("#showFoodSearchCondition").click( (e) => {
 		$("#foodSearch-condition").slideToggle();
@@ -317,6 +259,7 @@ a:hover { text-decoration:none !important }
 	
 	// 검색카테고리 출력하기위해 데이터 가져옴 
 	$(function() {
+		
 		$.ajax({
 			url: "${path}/food/selectFoodCategoryList",
 			success: data => {
@@ -332,14 +275,26 @@ a:hover { text-decoration:none !important }
 							"value" : data.CategoryMainList[i]
 						}) 
 					);
+					
 					$("#foodSearchCategory2").append(
 						$("<label>").attr({
 							"for" :"foodCateMainCon" + i
 						}).text(data.CategoryMainList[i])
 					);
-				}
+					
+				} // for 
+			} // success
+		}) // ajax
+		
+		
+		// 평점이 높은 맛집, 리뷰가 많은 맛집, 예약이 많은 맛집
+		$.ajax({
+			url : "${ pageContext.request.contextPath }/food/foodMainList",
+			success : data => {
+				$("#mainFoodList").append(data);
 			}
-		})
+		});
+		
 	});
 	
 	// 검색 
@@ -374,6 +329,9 @@ a:hover { text-decoration:none !important }
 					"starCon" : foodStarCon
 				},
 				success : data => {
+					
+					// 맛집전체보기 버튼 감춤 
+					$("#allFoodBtn").css("display", "none");
 					
 					console.log(data);
 					console.log(data.length);

@@ -7,10 +7,10 @@
        		<img src="${pageContext.request.contextPath}/resources/images/user/previous.png" alt="뒤로가기" onclick="fn_login()" width="20px" class="m-1">
        	</div>
         <div class="d-flex justify-content-around flex-row align-items-center" id="lostandfoundContainer" style="min-height:200px">
-            <span class="lostbox border  text-center justify-content-center  align-content-center d-flex flex-column h-100 col-5 mr-1 ml-1" style="min-height:200" onclick="findmyid()" >
+            <span class="lostbox border cursor  text-center justify-content-center  align-content-center d-flex flex-column h-100 col-5 mr-1 ml-1" style="min-height:200" onclick="findmyid()" >
                 아이디 찾기
             </span>
-            <span class=" lostbox border  text-center justify-content-center align-content-center  d-flex flex-column h-75 col-5 mr-1 ml-1" style="min-height:200" onclick="findmypw()">
+            <span class=" lostbox border  cursor text-center justify-content-center align-content-center  d-flex flex-column h-75 col-5 mr-1 ml-1" style="min-height:200" onclick="findmypw()">
                 비밀번호 찾기
             </span>
         </div>        

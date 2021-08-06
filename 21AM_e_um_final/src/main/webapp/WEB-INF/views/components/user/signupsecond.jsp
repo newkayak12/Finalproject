@@ -29,8 +29,8 @@
                                 <img alt="사진" src="<%=request.getContextPath()%>/resources/images/user/default.png"  style="height: 300px;  width: 100%;" id="profilepreview">
                                 
                                 <div style="width: fit-content;" class="p-1 mt-2">
-                                    <input type="button" value="프로필 사진 삭제" class="col-md-5  m-2 btn btn-danger " style="font-size: 12px;" onclick="fn_photoDel()">
-                                    <input type="button" value="프로필 사진 추가" class="col-md-5  m-2 btn btn-primary" style="font-size: 12px;" onclick="fn_photo()" >
+                                    <input type="button" value="프로필 사진 삭제" class="col-md-5 cursor  m-2 btn btn-danger " style="font-size: 12px;" onclick="fn_photoDel()">
+                                    <input type="button" value="프로필 사진 추가" class="col-md-5 cursor  m-2 btn btn-primary" style="font-size: 12px;" onclick="fn_photo()" >
                                 </div>
                             </div>
                         </div>
@@ -46,68 +46,68 @@
                                     <p onclick="fn_athletic()" class="pl-2 pointFont">운동</p>
                                     <div id="athletic" class="p-1 " style="display: none;">
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">축구</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">농구</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">야구</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">축구</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">농구</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">야구</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">eSports</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">골프</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">등산</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">eSports</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">골프</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">등산</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">헬스</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">자전거</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">요가</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">헬스</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">자전거</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">요가</span>
                                         </div>
                                     </div>
                                     <p onclick="fn_mbti()" class="pl-2 pointFont">MBTI</p>
                                     <div id="mbti" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ISTJ</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ISFJ</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">INFJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ISTJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ISFJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">INFJ</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">INTJ</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ISTP</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ISFP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">INTJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ISTP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ISFP</span>
                                         </div>    
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">INFP</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">INTP</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ESTP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">INFP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">INTP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ESTP</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ESFP</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ENFP</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ENTP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ESFP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ENFP</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ENTP</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ESTJ</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ESFJ</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ENFJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ESTJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ESFJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ENFJ</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">ENTJ</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">ENTJ</span>
                                         </div>
                                     </div>
                                     <p onclick="fn_hobby1()" class="pl-2 pointFont">hobby1</p>
                                     <div id="hobby1" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-4 m-2 text-center" onclick="addInterest(event)">근교드라이브</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">노래방</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">전시회</span>
+                                            <span class="col-4 m-2 text-center cursor" onclick="addInterest(event)">근교드라이브</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">노래방</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">전시회</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">영화감상</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">콘서트</span>
-                                            <span class="col-4 m-2 text-center" onclick="addInterest(event)">애니메이션</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">영화감상</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">콘서트</span>
+                                            <span class="col-4 m-2 text-center cursor" onclick="addInterest(event)">애니메이션</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">달다구리</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">정치</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">보드게임</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">달다구리</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">정치</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">보드게임</span>
                                         </div>
 
                                         
@@ -115,38 +115,38 @@
                                     <p onclick="fn_hobby2()" class="pl-2 pointFont">hobby2</p>
                                     <div id="hobby2" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">강아지</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">고양이</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">타로</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">강아지</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">고양이</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">타로</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">넷플릭스</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">박물관</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">음악</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">넷플릭스</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">박물관</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">음악</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">봉사활동</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">와인</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">종이접기</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">봉사활동</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">와인</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">종이접기</span>
                                         </div>
                                         
                                     </div>
                                     <p onclick="fn_hobby3()" class="pl-2 pointFont">hobby3</p>
                                     <div id="hobby3" class="p-1" style="display: none;">
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-4 m-2 text-center" onclick="addInterest(event)">솔직한 대화</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">동네 산책</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">낚시</span>
+                                            <span class="col-4 m-2 text-center cursor" onclick="addInterest(event)">솔직한 대화</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">동네 산책</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">낚시</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">캠핑</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">작가</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">비건</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">캠핑</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">작가</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">비건</span>
                                         </div>
                                         <div class="d-flex justify-content-around">
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">피씨방</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">맛집</span>
-                                            <span class="col-3 m-2 text-center" onclick="addInterest(event)">사진</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">피씨방</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">맛집</span>
+                                            <span class="col-3 m-2 text-center cursor" onclick="addInterest(event)">사진</span>
                                         </div>
                                         
                                     </div>
@@ -163,8 +163,8 @@
                     </div>
             
                     <div class="d-flex justify-content-center col-8 pr-4 pl-4">
-                        <input type="button" value="이전으로" style="background-color: white!important;" class="col-3 m-2 mr-4 cancelBtn" onclick="signupfirst()" >
-                        <input type="button" value="다음으로" class="col-3 m-2 ml-4 checkBtn" onclick="signupthird()">
+                        <input type="button" value="이전으로" style="background-color: white!important;" class="col-3 m-2 mr-4  cursor cancelBtn" onclick="signupfirst()" >
+                        <input type="button" value="다음으로" class="col-3 m-2 ml-4 checkBtn cursor" onclick="signupthird()">
                     </div>
             
                     

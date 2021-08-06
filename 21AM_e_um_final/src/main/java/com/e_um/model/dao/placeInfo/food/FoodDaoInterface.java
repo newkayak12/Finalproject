@@ -67,6 +67,18 @@ public interface FoodDaoInterface {
 
 	List<Food> selectAllFoodSorting(SqlSessionTemplate session, String con, String cPage);
 
+	int totalFoodCount(SqlSessionTemplate session);
+
+	List<LikeFood> myLikeFoodList(SqlSessionTemplate session, String userId);
+
+	List<FoodComment> myFoodCommentList(SqlSessionTemplate session, String userId);
+
+	List<Food> fSmainFoodList(SqlSessionTemplate session);
+
+	List<Food> fCmainFoodList(SqlSessionTemplate session);
+
+	List<Food> fBmainFoodList(SqlSessionTemplate session);
+
 	
 
 }

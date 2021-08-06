@@ -26,7 +26,7 @@ public interface MypageServiceInterface {
 	
 	int selectMovieTicketingCount(String userId);
 	
-	int cancelMovie(MovieTicketing mt);
+	int cancelMovie(String movieReservNum);
 	
 	List<Map> selectFriendList(String userId);
 	
@@ -43,5 +43,7 @@ public interface MypageServiceInterface {
 	int selectFoodBookingCount(String userId);
 	
 	int cancelFood(String foodBookingSeq);
+	
+	int changeProfilePhoto(User u);
 
 }

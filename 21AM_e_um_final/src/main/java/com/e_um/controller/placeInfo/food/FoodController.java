@@ -699,17 +699,48 @@ public class FoodController {
 		return "food/allFood";
 	}
 	
+	// 맛집 전체보기 
 	@RequestMapping("/food/allFoodSorting")
 	public String allFoodNameAsc(String con, @RequestParam(value="cPage", defaultValue = "1") String cPage, Model model) {
 		
 		log.error("{}", con);
 		
 		List<Food> list = service.selectAllFoodSorting(con, cPage);
-		
 		model.addAttribute("list", list);
+		
+		// 맛집 총 개수 
+		int totalFoodCount = service.totalFoodCount();
+		model.addAttribute("totalFoodCount" ,totalFoodCount);
+		model.addAttribute("cPage", cPage);
 		
 		return "components/food/foodSortingList";
 	}
+	
+	// 맛집 메인페이지에 넣을 리스트 
+	@RequestMapping("/food/foodMainList")
+	public String mainFoodList(Model model) {
+		
+		// 평점이 높은 맛집, 리뷰가 많은 맛집, 예약이 많은 맛집
+		
+		List<Food> fSlist = service.fSmainFoodList();
+		List<Food> fClist = service.fCmainFoodList();
+		List<Food> fBlist = service.fBmainFoodList();
+		
+//		log.error("fSlist{}", fSlist);
+//		log.error("fClist{}", fClist);
+//		log.error("fBlist{}", fBlist);
+		
+		log.error("fSlist{}", fSlist.size()); // 14
+		log.error("fClist{}", fClist.size()); // 14
+		log.error("fBlist{}", fBlist.size()); // 14
+		
+		model.addAttribute("fSlist", fSlist);
+		model.addAttribute("fClist", fClist);
+		model.addAttribute("fBlist", fBlist);
+		
+		return "components/food/main_foodList";
+	}
+	
 	
 	
 	

@@ -47,5 +47,9 @@ User selectProfileInfo(String profileId);
 	int feedLike(Likefeed likef, String profileId, String userNick);
 	
 	int writeFeedComment(FeedComment fc, String profileId, String userNick);
+	
+	int insertFeed(NoHasAFeed nhf);
+	
+	int modifyFeed(NoHasAFeed nhf);
 
 }

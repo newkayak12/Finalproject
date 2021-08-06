@@ -22,21 +22,21 @@
 		<!-- The slideshow -->
 		<div class="carousel-inner">
 			<div class="carousel-item active" style="background-color:black;">
-				<div class="carouselImgDiv mx-auto">
-					<img src="${path }/resources/upload/feed/${feed.feedImage1}" alt="피드 이미지 1" class="feedImg">
+				<div class="carouselImgDiv m-auto">
+					<img src="${path }/resources/upload/feed/${feed.feedImage1}" alt="피드 이미지 1" class="feedImg2">
 				</div>
 			</div>
 			<c:if test="${feed.feedImage2!=null}">
 				<div class="carousel-item" style="background-color:black;">
-					<div class="carouselImgDiv mx-auto">
-						<img src="${path }/resources/upload/feed/${feed.feedImage2}" alt="피드 이미지 2" class="feedImg">
+					<div class="carouselImgDiv m-auto">
+						<img src="${path }/resources/upload/feed/${feed.feedImage2}" alt="피드 이미지 2" class="feedImg2">
 					</div>
 				</div>
 			</c:if>
 			<c:if test="${feed.feedImage3!=null}">
 				<div class="carousel-item" style="background-color:black;">
-					<div class="carouselImgDiv mx-auto">
-						<img src="${path }/resources/upload/feed/${feed.feedImage3}" alt="피드 이미지 3" class="feedImg">
+					<div class="carouselImgDiv m-auto">
+						<img src="${path }/resources/upload/feed/${feed.feedImage3}" alt="피드 이미지 3" class="feedImg2">
 					</div>
 				</div>
 			</c:if>
@@ -80,9 +80,16 @@
 	            <span class="ml-2">${fn:length(comment) }</span>
             </div>
             <div style="font-size:14px;">
-	            <span class="likeLink pointer" onclick="fn_modifyFeed('${feed.feedSeq}')">수정</span>
-	            <span> | </span>
-	            <span class="likeLink pointer" onclick="fn_deleteFeed('${feed.feedSeq}')">삭제</span>
+            	<c:if test="${feed.feederId==userSession.userId}">
+		            <span class="likeLink pointer" onclick="fn_modifyFeedOpen('${feed.feedSeq}')" data-dismiss="modal">수정</span>
+		            <span> | </span>
+		            <span class="likeLink pointer" onclick="fn_deleteFeed('${feed.feedSeq}')">삭제</span>
+	            </c:if>
+	            <c:if test="${feed.feederId!=userSession.userId}">
+		            <a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
+                        <img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" onclick="fn_report('${feed.feedSeq }', '${feed.feederId }','${userSession.userId }')" width="20px" data-toggle="modal" data-target="#ReportModal">
+                    </a>
+	            </c:if>
             </div>
         </div>
         <div class="my-4 p-3" style="border:1px dotted #b8d8d7">
@@ -137,6 +144,11 @@
 				                    <c:if test="${userSession.userNick==c.commenterNick }">
 				                    	<div class="my-auto pointer" onclick="fn_delComm('${c.feedCommentSeq}')">&times;</div>
 				                    </c:if>
+				                    <c:if test="${userSession.userNick!=c.commenterNick }">
+				                    	<a href="#" id="reportPop" data-toggle="hover" data-placement="bottom" data-content="신고">
+				                    		<img alt="신고"  class="m-2"  src="${pageContext.request.contextPath }/resources/images/user/siren.png" onclick="fn_report('${c.feedCommentSeq }', '${c.commenter }','${userSession.userId }')" width="20px" data-toggle="modal" data-target="#ReportModal">
+				                    	</a>
+				                    </c:if>
 				                </div>
 			                </c:otherwise>
 			        	</c:choose>
@@ -154,6 +166,98 @@
         </div>
     </div>
 </div>
+
+<!-- 신고 모달 -->
+<div class="modal" id="ReportModal">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+
+    <div class="modal-header">
+          <h4 class="modal-title mainColor">신고하기</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <table class="table-striped table table-bordered table-sm col-12">
+          	  <input type="hidden" id= "reportSeq">
+          	  <input type="hidden" id= "reportcategory">
+              <tr >
+                  <th style="width:30%" class="text-center p-0" >신고할 아이디</th>
+                  <td colspan="3" class="p-0 text-center"id="counterpartid"></td>
+              </tr>
+              <tr>
+                  <th style="width:30%" class="text-center p-0" >신고하는 아이디</th>
+                  <td colspan="3" class="p-0 text-center" id="myid"></td>
+              </tr>
+              
+              <!-- <tr > -->
+                <th style="width:30%; vertical-align:middle;" rowspan="6" class="text-center p-0">
+                    신고 항목
+                </th>
+                  <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                      <label class="small">
+                          <input type="radio" name="report" value="language"  class="reportbtn" > 부적절한 언어 사용
+                      </label>
+                  </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="advertisement" class="reportbtn"> 광고성 게시글
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="imposter" class="reportbtn"> 타인을 사칭합니다.
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="profilePhoto" class="reportbtn"> 부적절한 프로필 사진 
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="feed" class="reportbtn"> 부적절한 게시글 사진 및 내용
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" vertical-align: middle;" class="text-left p-0 pl-5">
+                        <label class="small">
+                            <input type="radio" name="report" value="etc" class="reportbtn"> 기타
+                        </label>
+                    </td>
+                </tr>
+                   
+
+              <tr class="etc" style="display: none;">
+                  <th colspan="4" class="pl-4">기타 내용</th>
+              </tr>
+              <tr class="etc" style="display: none;">
+                <td colspan="4" class="text-center p-0">
+<textarea cols="45" rows="3" id="etcContent"></textarea>
+                </td>
+              </tr>
+          
+          
+          </table>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="cancelBtn" data-dismiss="modal">닫기</button>
+          <button type="button" class="checkBtn" data-dismiss="modal" onclick="reportthis()">신고하기</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
 
 <script>
 	function fn_delComm(fcSeq){
@@ -174,8 +278,17 @@
 		}
 	}
 	
-	function fn_modifyFeed(feedSeq){
-		//피드 작성 폼에 내용 포함해서 띄우기
+	function fn_modifyFeedOpen(feedSeq){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/profile/modifyFeed/start",
+			data:{"feedSeq":feedSeq},
+			success:data=>{
+				$("#writeModal .modal-title").html("피드 수정");
+				$("#writeModal .modal-body").html(data);
+				$("#writeModal").modal("show");
+			}
+		})
 	}
 	
 	function fn_deleteFeed(feedSeq){
@@ -259,4 +372,6 @@
 	    	})
 	    }
 	}
+	
+	$("#reportPop").popover({ trigger: "hover" });
 </script>

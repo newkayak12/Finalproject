@@ -52,4 +52,16 @@ public interface FoodServiceInterface {
 
 	List<Food> selectAllFoodSorting(String con, String cPage);
 
+	int totalFoodCount();
+
+	List<LikeFood> myLikeFoodList(String userId);
+
+	List<FoodComment> myFoodCommentList(String userId);
+
+	List<Food> fSmainFoodList();
+
+	List<Food> fCmainFoodList();
+
+	List<Food> fBmainFoodList();
+
 }

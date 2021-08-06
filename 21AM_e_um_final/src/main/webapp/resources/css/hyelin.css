@@ -2,17 +2,17 @@
 
 /*section css*/
 #root{
-    border:1px red solid;
+    /* border:1px red solid; */
     /* min-height:500px; */
     font-family:'Noto Sans KR';
 }
 
 
 /*friend.jsp*/
-#searchFriBtn{
+.searchBtn{
     padding: .375rem 2rem;
-    background-color: rgb(165, 205, 230);
-    border:rgb(165, 205, 230);
+    background-color: rgb(0, 128, 192);
+    border:rgb(0, 128, 192);
 }
 #searchFriDetail{
     /* margin-left:10%; */
@@ -98,29 +98,39 @@
 	height: 140px;
 	object-fit: cover;
 }
-
 .disableBtn{
 	border : 2px solid;
     border-radius: 10px;
     font-family: 'Noto Sans KR';
     font-weight: bold;
 }
-
-
 .pointer{
 	cursor:pointer;
 }
+.input-file-button{ padding: 34px 37px; background-color: white; border-radius: 10px; color: lightgray; cursor: pointer; border : 2px dashed lightgray; };
+
+
 
 
 /*feedDetailModal*/
 .feedImg{
-    /* width:550px;
-    height:550px; */
+     /* width:550px;
+    height:550px;*/
+    min-width:70%;
     max-width: 100%;
-	height: auto;
+	height: 100%;
+	min-height:70%;
 	display: block;
     object-fit: cover;
     /* object-position: 50% 50%; */
+}
+.feedImg2{
+	min-width:70%;
+    max-width: 100%;
+	height: 100%;
+	min-height:70%;
+	display: block;
+    object-fit: cover;
 }
 #feedCC{
     overflow:auto; 
@@ -193,6 +203,11 @@
     font-weight: bold;
     width:107px;
 }
+#profilePreview{
+	object-fit: cover;
+	width:300px;
+	height:300px;
+}
 
 
 /*movieModal*/
@@ -220,4 +235,28 @@
 }
 .infobold:hover{
 	font-weight:bold;
+}
+
+
+
+
+/*qna*/
+#qnaCate>a{
+    text-decoration: none;
+}
+.qnaBox{
+    height:100px;
+    border: #bde7e6 1px solid;
+    color:black;
+}
+.qnaBox:hover{
+    background-color: #bde7e6;
+}
+
+
+
+
+/*writeQ*/
+.btnWidth{
+    width:100px;
 }

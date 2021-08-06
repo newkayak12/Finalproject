@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div class="d-flex flex-column justify-content-between align-itmes-center">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -84,7 +85,7 @@
 			</span>
 		</div> 
 	
-		<table class="table table-striped table-hover tway">
+		<table class="table table-striped table-hover">
 			<tr>
 				<th class="bgColorMainColorSub whiteText">
 					아이디
@@ -114,6 +115,8 @@
 					정지
 				</th>
 			</tr>
+			
+			<c:if test="${list.size()>0}">
 			<c:forEach items="${list }" var="i">
 				<tr>
 					<td>${i.userId }</td>
@@ -148,8 +151,19 @@
 					
 				</tr>
 			</c:forEach>
+			</c:if>
+			<c:if test="${list.size()==0}">
+				<tr>
+					<td colspan="9" class="text-center">
+						내용이 없습니다.
+					</td>
+				</tr>
+			</c:if>
 		</table>
+		
+		<c:if test="${list.size()>0}">
 		<div>${pageBar }</div>
+		</c:if>
 	</div>
 
 

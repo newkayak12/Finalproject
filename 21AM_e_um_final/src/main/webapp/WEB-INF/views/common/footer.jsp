@@ -3,12 +3,12 @@
  
 
 		<div id="footerContainer" style="">
-			<div class="d-flex justify-content-between  border col-12">
-				<span id="controlpanelprev"></span>
-				<span id="controlpanelfooter"></span>
+			<div class="d-flex justify-content-between align-itmes-center border col-12" style="height: 40px!important;" id="panel">
+				<span id="controlpanelprev" class="d-flex justify-content-center align-itmes-center"></span>
+				<span id="controlpanelfooter" class="d-flex flex-column justify-content-center align-itmes-center"></span>
 				<span id="controlpanelnext"></span>
 			</div>
-			<div id="footerinnerContainer" style="height:570px !important" class="mb-5 p-0" >
+			<div id="footerinnerContainer" style="height:100% !important" class="mb-5 p-0" >
 				
 			</div>
 				
@@ -46,23 +46,58 @@
           </ul>
      </div> 
      
-
+	
+		<a id="MOVE_TOP_BTN" href="#" style="position: fixed; right:50px; bottom:110px; border-radius: 100%; display: none;" class="gototop p-2"><i class="fas fa-arrow-up" style="color: white; font-size:32px;"></i></a>
+	
 
 	<div class="footerInfo">
 	    <ul class="list-inline pt-3">
-	        <li class="list-inline-item"><a href="#">Home</a></li>
-	        <li class="list-inline-item"><a href="#">Services</a></li>
-	        <li class="list-inline-item"><a href="#">About</a></li>
-	        <li class="list-inline-item"><a href="#">Terms</a></li>
-	        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+	        <li class="list-inline-item"><a href="${pageContext.request.contextPath }/">메인</a></li>
+	        <li class="list-inline-item border" style="height: 15px"></li>
+	        <li class="list-inline-item"><a href="${pageContext.request.contextPath }/faq/open">고객센터</a></li>
+	        <li class="list-inline-item border" style="height: 15px"></li>
+	        <li class="list-inline-item"><a href="#">개인정보 보호 정책 및 약관</a></li>
+	       <!--  <li class="list-inline-item"><a href="#">Terms</a></li>
+	        <li class="list-inline-item"><a href="#">Privacy Policy</a></li> -->
 	    </ul>
-	    <p class="copyright">E_um | address : 서울특별시 역상동 테헤란로  | email : eum@eum.com</p> 
-	    <p class="copyright">SanghyunKim YejinKim TaehuiKim WoosikLee HyerinJang</p>
-	    <p class="copyright">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
+	     <p class="copyright m-1">
+	            (주)이음 | 주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 |이메일 : eum@eum.com <br>
+	            
+	        </p>
+	        <p class="copyright m-1">팀장 : 김상현 | 팀원 : 김예진 김태희 이우식 장혜린</p>
+	        <p class="copyright m-1">Copyright ©2021 E_um Co.Ltd.All rights reserved</p>
     </div>
     
 </footer>
+<script type="text/javascript">
+$(function() {
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 1000) {
+			$('#MOVE_TOP_BTN').fadeIn();
+		} else {
+			$('#MOVE_TOP_BTN').fadeOut();
+		}
+	});
+	$("#MOVE_TOP_BTN").click(function() {
+		$('html, body').animate({
+			scrollTop : 0
+			}, 400);
+		return false;
+	});
+	
+	
+});
 
+function response(){
+	if($("#iconboxfooter").css('display')!='none'){
+		$("section").css('margin-bottom',"40px")
+	}else {
+		$("section").css('margin-bottom',"0px")
+	}
+}
+
+
+</script>
 
 
 </body>

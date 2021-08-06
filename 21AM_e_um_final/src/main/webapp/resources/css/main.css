@@ -42,7 +42,7 @@
 	.typo{
 		width: 100%;
 		background-color:white;
-		font-size : 40px;
+		font-size : 5vw;
 		height: 800px;
 		font-family: 'twayair';
 	}
@@ -117,6 +117,7 @@
  top:-3px;
  left:-6px;  
  rotate: 306deg; 
+ transform:rotate(306deg)
 
 
 }
@@ -142,6 +143,7 @@
  top:-3px;
  right:-6px;  
  rotate: 53deg; 
+ transform:rotate(53deg)
 
 
 }
@@ -171,7 +173,7 @@
 	background-color:white;
 	top:55px;
 	width: 100%;
-	height: 670px; 
+	height: 100%; 
 	/* height:100px; */
 	z-index: 200;
 	display: none;
@@ -184,9 +186,9 @@
 	color:black;
 }
 
-
+/* 
 @media(max-width: 575px){
-	/*feedphoto  */
+	feedphoto 
 	.feedPhoto{
 		width:250px;
 		height: 250px
@@ -194,7 +196,7 @@
 	}
 }
 @media(min-width: 575px){
-	/*feedphoto  */
+	feedphoto 
 	.feedPhoto{
 		width:300px;
 		height: 300px
@@ -207,7 +209,7 @@
 	}
 } 
 @media(min-width: 993px){
-	/*feedphoto  */
+	feedphoto 
 	.feedPhoto{
 		width:400px;
 		height: 400px
@@ -215,12 +217,19 @@
 	}
 }
 @media(min-width: 1200px){
-	/*feedphoto  */
+	feedphoto 
 	.feedPhoto{
 		width:600px;
 		height: 600px
 		
 	}
+} */
+
+.feedPhoto{
+	width:100%;
+	height: 100%;
+	max-width:500px;
+	max-height:500px;
 }
 @media(max-width: 850px){
 	.footer{
@@ -502,7 +511,9 @@ body{
 .bgColorMainColorSub {
 	background-color: #7ee3e0;
 }
-
+.gototop{
+	background-color:#4ea7a5;
+}
 
 .tway {
 	font-family: 'twayair';

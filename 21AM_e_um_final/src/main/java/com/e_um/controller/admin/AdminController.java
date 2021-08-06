@@ -387,4 +387,84 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("/admin/managefoodreview")
+	public String manageFoodReview(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+			model.addAttribute("list", service.manageFoodComment(Integer.parseInt(cPage), numPerPage));
+			model.addAttribute("pageBar",getPageBar(service.foodCommentTotalData(), Integer.parseInt(cPage), numPerPage, "manageFoodReview"));
+		return "components/admin/managefoodreview";
+	}
+	
+	@RequestMapping("/admin/foodblock")
+	@ResponseBody
+	public int foodBlock(String seq) {
+		return service.foodCommentBlock(seq);
+	}
+	@RequestMapping("/admin/foodunblock")
+	@ResponseBody
+	public int foodunBlock(String seq) {
+		return service.foodCommentUnBlock(seq);
+	}
+	
+	@RequestMapping("/admin/managegroupboard")
+	public String manageGroupBoard(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+			model.addAttribute("list", service.manageGroupBoard(Integer.parseInt(cPage), numPerPage));
+			model.addAttribute("pageBar",getPageBar(service.groupBoardTotalData(), Integer.parseInt(cPage), numPerPage, "manageGroupBoard"));
+		return "components/admin/admingroupboard";
+	}
+	
+	@RequestMapping("/admin/groupboardblock")
+	@ResponseBody
+	public int groupBoardBlock(String seq) {
+		return service.groupBoardBlock(seq);
+	}
+	@RequestMapping("/admin/groupboardunblock")
+	@ResponseBody
+	public int groupBoardunBlock(String seq) {
+		return service.groupBoardUnBlock(seq);
+	}
+	@RequestMapping("/admin/managegroupboardcomment")
+	public String manageGroupBoardComment(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+		model.addAttribute("list", service.manageGroupBoard(Integer.parseInt(cPage), numPerPage));
+		model.addAttribute("pageBar",getPageBar(service.groupBoardTotalData(), Integer.parseInt(cPage), numPerPage, "manageGroupBoard"));
+		return "components/admin/admingroupboardComment";
+	}
+	
+	@RequestMapping("/admin/groupboardcommentblock")
+	@ResponseBody
+	public int groupBoardCommentBlock(String seq) {
+		return service.groupBoardBlock(seq);
+	}
+	@RequestMapping("/admin/groupboardcommentunblock")
+	@ResponseBody
+	public int groupBoardCommentunBlock(String seq) {
+		return service.groupBoardUnBlock(seq);
+	}
+	
+	// 맛집 정보 수정 
+	@RequestMapping("/admin/updatefood/start")
+	public String updatefoodpage(String foodSeq, Model model) {
+		
+		List<String> CategoryMainList = fservice.selectFoodCategoryMain();
+		List<String> CategorySubList = fservice.selectFoodCategorySub();
+		Food f = fservice.selectFood(foodSeq);
+		
+		model.addAttribute("CategoryMainList", CategoryMainList);
+		model.addAttribute("CategorySubList", CategorySubList);
+		model.addAttribute("f", f);
+		
+		return "components/admin/foodUpdate";
+	}
+	
+	@RequestMapping("/admin/updatefood/end")
+	@ResponseBody
+	public int updatefood(Food food, Model model) {
+		
+		return  service.updatefood(food);
+	}
+	
+	
+	
 }

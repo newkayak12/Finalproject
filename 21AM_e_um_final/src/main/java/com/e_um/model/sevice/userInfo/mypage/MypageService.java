@@ -75,8 +75,8 @@ public class MypageService implements MypageServiceInterface {
 
 
 	@Override
-	public int cancelMovie(MovieTicketing mt) {
-		return dao.cancelMovie(session, mt);
+	public int cancelMovie(String movieReservNum) {
+		return dao.cancelMovie(session, movieReservNum);
 	}
 
 
@@ -125,6 +125,12 @@ public class MypageService implements MypageServiceInterface {
 	@Override
 	public int cancelFood(String foodBookingSeq) {
 		return dao.cancelFood(session, foodBookingSeq);
+	}
+
+
+	@Override
+	public int changeProfilePhoto(User u) {
+		return dao.changeProfilePhoto(session, u);
 	}
 
 }

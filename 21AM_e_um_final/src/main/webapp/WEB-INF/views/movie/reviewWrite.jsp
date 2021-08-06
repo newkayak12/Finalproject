@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/taehui.css">
 	<section class="mt-5 pt-5">
 		<div id="root" class="container mt-5">
 			<form action="<%=request.getContextPath()%>/movie/movieWriteEnd">
 			<div id="review-box" class="mt-3 pt-2 col-12 justify-content-center" style="border: 1px solid black; height: 850px; margin: 0 auto;">
 				<h2>리뷰작성</h2>
-				<div id="direct-point" class="col-4 mt-3" style="height: 4rem; border: 1px solid black;">
-					<span style="display: inline-block; font-size: 2rem;">연출</span>
+				<div id="direct-point" class="col-6 mt-3" style="height: 4rem;">
+					<p style="display: inline-block; font-size: 2rem;">연출</p>
 					<div class="star-rating">
 					  <input type="radio" id="5-stars-direct" name="direct" value="5" />
 					  <label for="5-stars-direct" class="star">&#9733;</label>
@@ -22,8 +22,8 @@
 					  <label for="1-star-direct" class="star">&#9733;</label>
 					</div>
 				 </div>
-				 <div id="visual-point" class="col-4 mt-3" style="height: 4rem; border: 1px solid black;">
-					<span style="display: inline-block; font-size: 2rem;">영상미</span>
+				 <div id="visual-point" class="col-6 mt-3" style="height: 4rem;">
+					<p style="display: inline-block; font-size: 2rem;">영상미</p>
 					<div class="star-rating">
 					  <input type="radio" id="5-stars-visual" name="visual" value="5" />
 					  <label for="5-stars-visual" class="star">&#9733;</label>
@@ -37,8 +37,8 @@
 					  <label for="1-star-visual" class="star">&#9733;</label>
 					</div>
 				 </div>
-				 <div id="story-point" class="col-4 mt-3" style="height: 4rem; border: 1px solid black;">
-					<span style="display: inline-block; font-size: 2rem;">스토리</span>
+				 <div id="story-point" class="col-6 mt-3" style="height: 4rem;">
+					<p style="display: inline-block; font-size: 2rem;">스토리</p>
 					<div class="star-rating">
 					  <input type="radio" id="5-stars-story" name="story" value="5" />
 					  <label for="5-stars-story" class="star">&#9733;</label>
@@ -52,8 +52,8 @@
 					  <label for="1-star-story" class="star">&#9733;</label>
 					</div>
 				 </div>
-				 <div id="acting-point" class="col-4 mt-3" style="height: 4rem; border: 1px solid black;">
-					<span style="display: inline-block; font-size: 2rem;">연기력</span>
+				 <div id="acting-point" class="col-6 mt-3" style="height: 4rem;">
+					<p style="display: inline-block; font-size: 2rem;">연기력</p>
 					<div class="star-rating">
 					  <input type="radio" id="5-stars-acting" name="acting" value="5" />
 					  <label for="5-stars-acting" class="star">&#9733;</label>
@@ -67,8 +67,8 @@
 					  <label for="1-star-acting" class="star">&#9733;</label>
 					</div>
 				 </div>
-				 <div id="ost-point" class="col-4 mt-3" style="height: 4rem; border: 1px solid black;">
-					<span style="display: inline-block; font-size: 2rem;">OST</span>
+				 <div id="ost-point" class="col-6 mt-3" style="height: 4rem;">
+					<p style="display: inline-block; font-size: 2rem;">OST</p>
 					<div class="star-rating">
 					  <input type="radio" id="5-stars-ost" name="ost" value="5" />
 					  <label for="5-stars-ost" class="star">&#9733;</label>
@@ -82,10 +82,11 @@
 					  <label for="1-star-ost" class="star">&#9733;</label>
 					</div>
 				 </div>
-				 <div class="col-12 mt-3" style="height: 300px; border: 1px solid black" >
+				 <div class="col-12 mt-3" style="height: 300px;" >
 					<div class="form-group">
 						  <label for="comment">Comment:</label>
 						  <textarea class="form-control" rows="7" id="comment" name="content" placeholder="영화는 어떠셨나요? 간단한 리뷰를 작성해보세요."></textarea>
+						  <div id="content_ctn">(0/100)</div>
 					</div>
 				 </div>
 				 <input type="hidden" value="${ movieSeq }" name="movieSeq">
@@ -97,8 +98,25 @@
 		</div>
 	</section>
 	
+	
+	<script>
+		$(document).ready(function() {
+		    $('#comment').on('keyup', function() {
+		        $('#content_ctn').html("("+$(this).val().length+" / 100)");
+		 
+		        if($(this).val().length > 100) {
+		            $(this).val($(this).val().substring(0, 100));
+		            $('#content_ctn').html("(100 / 100)");
+		        }
+		    });
+		});
+	</script>
+	
 
 	<style>
+		*{
+			/* border: 1px solid black; */
+		}
 		#root{
 	     	font-family:'NanumBarunGothic';
 	     	

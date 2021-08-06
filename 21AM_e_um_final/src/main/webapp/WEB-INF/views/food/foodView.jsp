@@ -97,7 +97,7 @@
 						
 						<!-- 로그인한 회원이 이 맛집을 좋아요했다면 로드할때 채워진 하트로 보이도록 --> 
 						<c:if test="${ likecheck ne null }">
-							<div id="likeicon" class="foodView-icons-inner mr-3" " onclick="fn_FoodLike(event);">
+							<div id="likeicon" class="foodView-icons-inner mr-3"  onclick="fn_FoodLike(event);">
 								<div class="foodView-icon-style">
 									<i class="fas fa-heart" id = "like" style="color : #2AC1BC !important;"></i>
 								</div>
@@ -356,12 +356,9 @@
 				success : data => {
 					console.log(data);
 					if(data == 'success') {
-						console.log('좋아요삭제 됩니까?')
-						console.log($("#unlike"))
 						
 						$("#like").removeClass("fas fa-heart")
 						$("#like").attr("class", "far fa-heart").css({ "color" : "rgb(201,201,201)" });
-						/* $("#like").parent().parent().css({ "color" : rgb(201,201,201) !important" }); */
 						
 					}
 				}
@@ -448,8 +445,11 @@
 		console.log($(e.target).attr("src"));
 		
 		let src = $(e.target).attr("src");
+		console.log(src.substring(17))
 		
-		$("#fv-imgModal").find("img").attr("src", "${ path }" + src);
+
+		$("#fv-imgModal").find("img").attr("src", "${ path }" + src.substring(16));
+
 		$("#fv-imgModal").modal("show"); 
 	}
 	

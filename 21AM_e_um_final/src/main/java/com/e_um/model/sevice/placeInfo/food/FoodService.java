@@ -228,5 +228,41 @@ public class FoodService implements FoodServiceInterface {
 	}
 
 
+	@Override
+	public int totalFoodCount() {
+		return dao.totalFoodCount(session);
+	}
+
+
+	@Override
+	public List<LikeFood> myLikeFoodList(String userId) {
+		return dao.myLikeFoodList(session, userId);
+	}
+
+
+	@Override
+	public List<FoodComment> myFoodCommentList(String userId) {
+		return dao.myFoodCommentList(session, userId);
+	}
+
+
+	@Override
+	public List<Food> fSmainFoodList() {
+		return dao.fSmainFoodList(session);
+	}
+
+
+	@Override
+	public List<Food> fCmainFoodList() {
+		return dao.fCmainFoodList(session);
+	}
+
+
+	@Override
+	public List<Food> fBmainFoodList() {
+		return dao.fBmainFoodList(session);
+	}
+
+
 
 }
