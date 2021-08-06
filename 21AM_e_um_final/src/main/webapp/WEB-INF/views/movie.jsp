@@ -163,25 +163,22 @@
       #movie_video{
       	margin-top:50px;
       }
-      
-      
+      .corsor{
+      	cursor:pointer
+      }
 
     </style>
     
-    <style>
-		*{
-	/* 	border: 1px magenta solid */
-		}    
-    </style>
+    
     <section class="mt-5 pt-5">
         <div id="root" class="container mt-5">
-            <div class="mb-5 mt-5">
+            <div class="mb-3 pb-1">
                 <form id="searchForm" class="float-right mr-5" action="<%=request.getContextPath() %>/movie/searchMovie">
-                    <input type="text" name="search" id="search" style="width:300px; height:24px;" placeholder="보고싶은 영화를 검색하세요">
+                    <input type="text" name="search" id="search" style="width:300px; height:30px;" placeholder="보고싶은 영화를 검색하세요">
                     <button class="btn-primary" onclick="movieSearch();">검색</button>
                 </form>
             </div>           
-            <section class="mt-5 mb-lg-0 pt-5 pt-lg-3 pb-5 mb-5">
+            <section class="mt-5 mb-lg-0 pt-5 pt-lg-3 pb-  mb-5">
             	<div id="recommand-container" class="caru992 carousel slide col-12  mt-0 container pt-4 border" data-ride="carousel">
             	<h3 class="mt-5" style="font-weight: bold">박스오피스 순위</h3>
 	                <div class="carousel-inner" id="recommand-inner-conatiner ">
@@ -193,7 +190,7 @@
 		                        <c:forEach var="l" items="${list }" begin="0" end="3">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size "
@@ -225,7 +222,7 @@
 		                        <c:forEach var="l" items="${list }" begin="4" end="7">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -253,7 +250,7 @@
 		                        <c:forEach var="l" items="${list }" begin="8" end="11">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -299,7 +296,7 @@
 		                        <c:forEach var="l" items="${list }" begin="0" end="2">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -331,7 +328,7 @@
 		                        <c:forEach var="l" items="${list }" begin="3" end="5">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -359,7 +356,7 @@
 		                        <c:forEach var="l" items="${list }" begin="6" end="8">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -386,7 +383,7 @@
 		                        <c:forEach var="l" items="${list }" begin="9" end="11">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -432,7 +429,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="0" end="3">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size "
@@ -464,7 +461,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="4" end="7">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -492,7 +489,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="8" end="11">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -537,7 +534,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="0" end="2">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -569,7 +566,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="3" end="5">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -597,7 +594,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="6" end="8">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -624,7 +621,7 @@
 		                        <c:forEach var="l2" items="${list2 }" begin="9" end="11">
 		                             <div class="col-6 col-md-3 item active">
 		                                <div class="box">
-		                                  <div class="movieBox" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
+		                                  <div class="movieBox cursor" onclick="moveFn('${l2.movieSeq}');" data-target="#movieModal" data-toggle="modal">
 		                                     <figure class="movie_list">
 		                                       <div class="thumb">
 		                                         <img class="thumb-size"
@@ -688,10 +685,10 @@
                            <div class="text-center ">  
                              <img id="modalImage" class="" width="200px;" src="">
                              <div class="modal-info">
-                               <h3 id="modalTitleKr"></h3>
-                               <h5 id="modalTitleEn"></h5>
-                               <p id="modalOpenDate" class="small"></p>
-                               <p id="modalReserveRate" class="small"></p>
+                               <h3 id="modalTitleKr" style="width: 385px;"></h3>
+                               <h5 id="modalTitleEn" style="width: 385px;"></h5>
+                               <p id="modalOpenDate" style="width: 385px;" class="small"></p>
+                               <p id="modalReserveRate" style="width: 385px;" class="small"></p>
                            </div>
                            <div class="col-12 d-flex flex-row justify-content-around">
                                <button id="btn1" class="btn checkBtn" onclick="move_movieDetail(event);" >상세보기</button>

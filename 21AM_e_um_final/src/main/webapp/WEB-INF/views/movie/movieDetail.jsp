@@ -29,6 +29,7 @@
 		
 		
 		const basicInfoShow=()=>{
+			$("#movieVideo").attr("src","");
 			$("#basicInfocontainer").css("display","block")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","none")
@@ -51,6 +52,7 @@
 			
 		}
 		const reviewShow=(movieSeq)=>{
+			$("#movieVideo").attr("src","");
 			$("#basicInfocontainer").css("display","none")
 			$("#trailercontainer").css("display","none")
 			$("#reviewcontainer").css("display","block")
@@ -71,7 +73,9 @@
 								.append($("<td>").html(v["movieReviewContent"]))
 								.append($("<td>").html(result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일"))
 								.append($('<td>').append($('<button onclick="movieModal(event);" data-target="#movieReport" data-toggle="modal">')
-										.css("background-color","lightgreen").attr("value",v["movieReviewSeq"]).html("신고")))
+								.attr("value",v["movieReviewSeq"]).css({"border-radius": "10px","border-color":"#e2e6ea","width":"41px","height":"31px"})
+								.append($("<img>").attr("src","${path}/resources/images/user/siren.png").css("width","20px")))
+										)
 						
 						)
 					})
@@ -91,7 +95,7 @@
 			
 		}
 		const graphShow=(movieSeq)=>{
-			$("#movieVideo").pause();
+			$("#movieVideo").attr("src","");
 			$.ajax({
     			url:"<%=request.getContextPath()%>/movie/movieReviewData",
     			data:{"movieSeq":movieSeq},
@@ -196,8 +200,8 @@
 			location.assign("<%=request.getContextPath()%>/movie/movieWriteStart?movieSeq="+movieSeq);
 		}
 		
-		const movieReserve=()=>{
-			location.assign("<%=request.getContextPath()%>/movie/movieReserve");
+		const movieReserve=(e)=>{
+			location.assign("<%=request.getContextPath()%>/movie/movieReserve?movieSeq="+e.target.value);
 		}
 		
 		const movieModal=(e)=>{
@@ -265,7 +269,7 @@
 			   <div>
 			       <div class="movie-detail">
 			        <div class="title"><h3>영화상세</h3></div>
-			        <div class="sect-base-movie pb-3">
+			        <div class="sect-base-movie pt-3 pb-3">
 			            <div class="box-image">
 			                <span class="thumb-image justify-content-center">
 			                    <img class="thumb-size" src="${path }/resources/upload/movie/movie_poster/${movie.moviePhoto }" alt="">
@@ -285,14 +289,14 @@
 			                        <strong>★${movie.movieTotalEvalution }</strong>
 			                    </span>
 			                </div>
-			                <button class="btn btn-success mt-5" onclick="movieReserve();">예매하기</button>
+			                <button class="btn btn-success mt-5" onclick="movieReserve(event);" value="${movie.movieSeq }">예매하기</button>
 			            </div>
 			        </div>
 			        
 			        
-			         <div class="cols-content mt-5" id="menu">
-			            <div class="col-detail pb-3">
-			                <ul class="tab-menu pl-0 pb-5 text-center">
+			         <div class="cols-content mt-3" id="menu">
+			            <div class="col-detail mb-3">
+			                <ul class="tab-menu pl-0 pb-3 text-center">
 			                    <li><button class="btn" id="basicinfobtn" onclick="basicInfoShow()">기본정보</button></li>
 			                    <li><button class="btn" id="trailerbtn" onclick="trailerShow('${movie.movieSeq}')">트레일러</button></li>
 			                    <li><button class="btn" id="reviewbtn" onclick="reviewShow('${movie.movieSeq}')">관람평</button></li>
@@ -663,7 +667,7 @@
         font-weight: 1000;
     }
     .sect-base-movie{
-        margin-top: 40px;
+
         display: flex;
         border-bottom: 2px solid black;
        
@@ -681,7 +685,6 @@
     }
     .box-contents{
         width: 765px;
-        height: 350px;
         display: inline-block;
         margin-left: 30px;
         
