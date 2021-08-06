@@ -88,6 +88,10 @@
                         
             </div>
      <!-- feed-footer -->
+     
+     <%-- ${feed.commentlist } --%>
+     
+     
      		<div class="d-flex justify-content-center">
      			
 	     		<div  class="text-center  col-8 justify-content-start p-0" id="commentbox${index.get(i.index) }" >
