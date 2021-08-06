@@ -68,8 +68,8 @@ public class MypageController {
 //		log.error("userId: {}", user.getUserId());
 
 		// yj add
-		List<LikeFood> myLkeFoodList = foodService.myLikeFoodList(user.getUserId(), cPage, numPerPage);
-		List<FoodComment> myFoodCommentList = foodService.myFoodCommentList(user.getUserId(), cPage, numPerPage);
+		List<LikeFood> myLkeFoodList = foodService.myLikeFoodList(user.getUserId());
+		List<FoodComment> myFoodCommentList = foodService.myFoodCommentList(user.getUserId());
 		
 		int totalData=0;
 		String pageBar="";
@@ -93,7 +93,7 @@ public class MypageController {
 				m.addAttribute("myLkeFoodList", myLkeFoodList);
 				m.addAttribute("myFoodCommentList", myFoodCommentList);
 				totalData=service.selectFoodBookingCount(user.getUserId());
-				pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
+				// pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
 		}
 		m.addAttribute("pageBar", pageBar);
 		return "components/myPage/" + modalName;
