@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -289,6 +290,11 @@ public class AdminDao implements AdminDaoInterface{
 	@Override
 	public int updatefood(SqlSessionTemplate session, Food food) {
 		return session.update("admin.updatefood", food);
+	}
+
+	@Override
+	public List<Faq> selectFAQ(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("admin.selectFAQ","",new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 
 }

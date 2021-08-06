@@ -385,8 +385,6 @@
 	$("span.writeFccBtn").click(e=>{
 		//console.log($(e.target).parentsUntil("div.commentHead").parent().eq(0).next());
 		let fccBox=$(e.target).parentsUntil("div.commentHead").parent().eq(0).next();
-		console.log(fccBox);
-		console.log(fccBox.children());
 		fccBox.toggleClass("d-none");
 		fccBox.children().toggleClass("d-none");
 	})
