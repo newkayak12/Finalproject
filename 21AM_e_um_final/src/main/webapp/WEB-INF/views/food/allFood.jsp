@@ -60,6 +60,7 @@
 				$(".tab-content").append(data);
 			}
 		});
+
 	} );
 
 	
@@ -68,6 +69,10 @@
 		let href = $(e.target).attr("href");
 		 
 		$(".tab-content").html("");
+		
+		// 탭을 클릭할때마다 cpage를 1로 초기화하여 정렬방법이 바뀔때마다 1페이지를 보여주도록 
+		// 이 코드가 없으면 탭이 바뀌어도 이전 탭에서의 증가되어있는 cPage가 남아있다 
+		cPage = 1;
 		
 		$.ajax({
 			url : "${path}/food/allFoodSorting",

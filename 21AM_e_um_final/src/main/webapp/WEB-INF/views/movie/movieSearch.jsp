@@ -91,6 +91,9 @@
       #movie_video{
       	margin-top:50px;
       }
+      .cursor{
+      	cursor: pointer;
+      }
       
     </style>
 
@@ -104,7 +107,7 @@
 			    		<c:forEach var="l" items="${list }">
 			    			 <div class="col-6 col-md-3 item active">
 				                <div class="box">
-				                  <div class="movieBox" onclick="moveFn('${l.movieSeq }');" data-target="#myModal" data-toggle="modal">
+				                  <div class="movieBox cursor" onclick="moveFn('${l.movieSeq }');" data-target="#myModal" data-toggle="modal">
 					                 <figure class="movie_list">
 					                   <div class="thumb">
 					                     <img class="thumb-size col-12"

@@ -168,15 +168,28 @@ public class FoodDao implements FoodDaoInterface {
 	}
 
 	@Override
-	public List<LikeFood> myLikeFoodList(SqlSessionTemplate session, String userId, int cPage, int numPerPage) {
-		RowBounds row=new RowBounds((cPage-1)*numPerPage,numPerPage);
-		return session.selectList("food.myLikeFoodList", userId, row);
+	public List<LikeFood> myLikeFoodList(SqlSessionTemplate session, String userId) {
+		return session.selectList("food.myLikeFoodList", userId);
 	}
 
 	@Override
-	public List<FoodComment> myFoodCommentList(SqlSessionTemplate session, String userId, int cPage, int numPerPage) {
-		RowBounds row=new RowBounds((cPage-1)*numPerPage,numPerPage);
-		return session.selectList("food.myFoodCommentList", userId, row);
+	public List<FoodComment> myFoodCommentList(SqlSessionTemplate session, String userId) {
+		return session.selectList("food.myFoodCommentList", userId);
+	}
+
+	@Override
+	public List<Food> fSmainFoodList(SqlSessionTemplate session) {
+		return session.selectList("food.fSmainFoodList");
+	}
+
+	@Override
+	public List<Food> fCmainFoodList(SqlSessionTemplate session) {
+		return session.selectList("food.fCmainFoodList");
+	}
+
+	@Override
+	public List<Food> fBmainFoodList(SqlSessionTemplate session) {
+		return session.selectList("food.fBmainFoodList");
 	}
 
 

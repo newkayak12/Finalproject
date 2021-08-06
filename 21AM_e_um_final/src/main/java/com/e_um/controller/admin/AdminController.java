@@ -443,4 +443,28 @@ public class AdminController {
 		return service.groupBoardUnBlock(seq);
 	}
 	
+	// 맛집 정보 수정 
+	@RequestMapping("/admin/updatefood/start")
+	public String updatefoodpage(String foodSeq, Model model) {
+		
+		List<String> CategoryMainList = fservice.selectFoodCategoryMain();
+		List<String> CategorySubList = fservice.selectFoodCategorySub();
+		Food f = fservice.selectFood(foodSeq);
+		
+		model.addAttribute("CategoryMainList", CategoryMainList);
+		model.addAttribute("CategorySubList", CategorySubList);
+		model.addAttribute("f", f);
+		
+		return "components/admin/foodUpdate";
+	}
+	
+	@RequestMapping("/admin/updatefood/end")
+	@ResponseBody
+	public int updatefood(Food food, Model model) {
+		
+		return  service.updatefood(food);
+	}
+	
+	
+	
 }
