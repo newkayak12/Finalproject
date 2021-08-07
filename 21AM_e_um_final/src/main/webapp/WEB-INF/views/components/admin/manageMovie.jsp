@@ -16,6 +16,8 @@
 			<th class="bgColorMainColorSub whiteText">예매율</th>
 			<th class="bgColorMainColorSub whiteText">상태</th>
 			<th class="bgColorMainColorSub whiteText">삭제</th>
+			<th class="bgColorMainColorSub whiteText">수정</th>
+			
 		
 			
 		</tr>
@@ -37,7 +39,8 @@
 					<c:otherwise>
 						<td><input type="button" onclick="movieLive('${l.movieSeq}');" value="복구"></td>
 					</c:otherwise>
-				</c:choose>						
+				</c:choose>
+				<td><input type="button" onclick="amendMovie('${l.movieSeq}');" value="수정"></td>						
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -71,6 +74,17 @@ function movieLive(movieSeq,cPage){
 		}	
 	})
 	
+}
+function amendMovie(movieSeq){
+	$.ajax({
+		url:'${pageContext.request.contextPath}/movie/amendMovie',
+		data: {"movieSeq":movieSeq},
+		success:data=>{
+			$("#prev").css("visibility","visible")
+			$("#title").html("영화 수정")
+			$("#root").html(data)
+		}
+	})
 }
 </script>
 

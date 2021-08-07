@@ -208,8 +208,37 @@ public class MovieService implements MovieServiceInterface {
 
 	@Override
 	public int movieLive(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.movieLive(session,movieSeq);
+	}
+
+	@Override
+	public int movieUpdate(Map param) {
+		return dao.movieUpdate(session,param);
+	}
+
+	@Override
+	public int moviePersonDelete(String moviePersonSeq) {
+		return dao.moviePersonDelete(session,moviePersonSeq);
+	}
+
+	@Override
+	public int moviePersonLive(String moviePersonSeq) {
+		return dao.moviePersonLive(session,moviePersonSeq);
+	}
+
+	@Override
+	public MoviePersonInfo moviePersonInfo(String moviePersonSeq) {
+		return dao.moviePersonInfo(session,moviePersonSeq);
+	}
+
+	@Override
+	public int updatePerson(Map param) {
+		return dao.updatePerson(session,param);
+	}
+
+	@Override
+	public int reserveCancel(String movieReservNum) {
+		return dao.reserveCancel(session,movieReservNum);
 	}
 	
 	

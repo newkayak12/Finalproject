@@ -83,13 +83,16 @@ public interface MovieServiceInterface {
 	
 	int movieLive(String movieSeq);
 	
+	int movieUpdate(Map param);
 	
+	int moviePersonDelete(String moviePersonSeq);
 	
+	int moviePersonLive(String moviePersonSeq);
 	
+	MoviePersonInfo moviePersonInfo(String moviePersonSeq);
 	
+	int updatePerson(Map param);
 	
-	
-	
-	
+	int reserveCancel(String movieReservNum);
 	
 }
