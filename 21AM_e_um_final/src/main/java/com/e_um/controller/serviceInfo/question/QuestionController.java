@@ -40,6 +40,7 @@ public class QuestionController {
 		
 		User user=(User)rq.getSession().getAttribute("userSession");
 		m.addAttribute("quesList",service.selectQuestionList(user.getUserId(), cPage, numPerPage));
+		//log.warn("quesList: {}",service.selectQuestionList(user.getUserId(), cPage, numPerPage));
 		int totalData=service.selectQuestionListCount(user.getUserId());
 		m.addAttribute("pageBar",PageBar.getPageBarDef(totalData, cPage, numPerPage,rq.getContextPath() + "/qna/openListPaging", "fn_paging"));
 		
@@ -82,6 +83,14 @@ public class QuestionController {
 		}
 		
 		return "common/msg";
+	}
+	
+	
+	@RequestMapping("/qna/view")
+	public String openQnaView(String queSeq, Model m) {
+		m.addAttribute("qna",service.selectQNA(queSeq));
+		//log.warn("service.selectQNA(queSeq): {}",service.selectQNA(queSeq));
+		return "qna/qnaView"; 
 	}
 	
 }

@@ -146,8 +146,11 @@ public class ProfileService implements ProfileServiceInterface {
 	public int modifyFeed(NoHasAFeed nhf) {
 		return dao.modifyFeed(session, nhf);
 	}
-	
-	
-	
+
+
+	@Override
+	public int writeFeed2ndComment(FeedComment fc, String refCommentId, String userNick) {
+		return dao.writeFeed2ndComment(session, fc, refCommentId, userNick);
+	}
 
 }

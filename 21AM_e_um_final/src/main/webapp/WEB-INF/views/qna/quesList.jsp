@@ -11,8 +11,11 @@
 	<div id="root" class="container mt-5">
 		<h2 class="mb-5 tway">고객센터</h2>
 	    <div class="d-flex align-items-center flex-column mb-5">
-	        <h4 class="tway">내 문의</h4>
+	        <h4 class="tway">내 문의 목록</h4>
 	        <div id="quesTable" class="col">
+				<div class="mb-5">
+					<button type="button" class="btn checkBtn ml-4 btnWidth float-right" onclick="location.assign('${pageContext.request.contextPath}/qna/write/start?flag='+'list')">문의하기</button>
+				</div>
 				<table class="table table-hover mt-4">
 				    <colgroup>
 				        <col class="col-1">
@@ -34,18 +37,24 @@
 				        <c:if test="${!empty quesList }">
 				            <c:forEach var="q" items="${quesList }">
 				            	<tr>
-				                    <td class="colcenter align-middle pointer" onclick="location.assign('')">${fn:substring(q.questionSeq,3,6) }</td>
-				                    <td class="colcenter align-middle pointer" onclick="location.assign('')">${q.questionCategory }</td>
-				                    <td class="align-middle pointer" onclick="location.assign('')">${q.questionTitle }</td>
-				                    <td class="colcenter align-middle pointer" onclick="location.assign('')">
+				                    <td class="colcenter align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
+				                    	${fn:substring(q.questionSeq,3,6) }
+				                    </td>
+				                    <td class="colcenter align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
+				                    	${q.questionCategory }
+				                    </td>
+				                    <td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
+				                    	${q.questionTitle }
+				                    </td>
+				                    <td class="colcenter align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
 				                        <fmt:formatDate value="${q.questionDate }" pattern="yyyy/MM/dd"/>
 				                    </td>
 				                    <td class="colcenter pointer align-middle">
-				                        <c:if test="${questionResponseFlag eq 'success' }">
-				                            <button class="cancelBtn btn">완료</button>
+				                        <c:if test="${q.questionResponseFlag eq 'success' }">
+				                            <button class="cancelBtn btn" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">완료</button>
 				                        </c:if>
-				                        <c:if test="${questionResponseFlag ne 'wait' }">
-				                            <button class="disabledBtn btn" disabled>미완료</button>
+				                        <c:if test="${q.questionResponseFlag eq 'wait' }">
+				                            <button class="disabledBtn btn" disabled onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">미완료</button>
 				                        </c:if>
 				                    </td>
 				                  </tr>
@@ -58,8 +67,7 @@
 				        </c:if>
 				    </tbody>
 				</table>
-				
-				<nav aria-label="Page navigation example">
+				<nav aria-label="Page navigation example mt-5">
 				      ${pageBar }
 				</nav>
 	        </div>

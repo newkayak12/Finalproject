@@ -26,18 +26,24 @@
         <c:if test="${!empty quesList }">
             <c:forEach var="q" items="${quesList }">
             	<tr>
-                    <td class="colcenter align-middle pointer" onclick="location.assign('')">${fn:substring(q.questionSeq,3,6) }</td>
-                    <td class="colcenter align-middle pointer" onclick="location.assign('')">${q.questionCategory }</td>
-                    <td class="align-middle pointer" onclick="location.assign('')">${q.questionTitle }</td>
-                    <td class="colcenter align-middle pointer" onclick="location.assign('')">
+                    <td class="colcenter align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
+                    	${fn:substring(q.questionSeq,3,6) }
+                    </td>
+                    <td class="colcenter align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
+                    	${q.questionCategory }
+                    </td>
+                    <td class="align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
+                    	${q.questionTitle }
+                    </td>
+                    <td class="colcenter align-middle pointer" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">
                         <fmt:formatDate value="${q.questionDate }" pattern="yyyy/MM/dd"/>
                     </td>
                     <td class="colcenter pointer align-middle">
-                        <c:if test="${questionResponseFlag eq 'success' }">
-                            <button class="cancelBtn btn">완료</button>
+                        <c:if test="${q.questionResponseFlag eq 'success' }">
+                            <button class="cancelBtn btn" onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">완료</button>
                         </c:if>
-                        <c:if test="${questionResponseFlag ne 'wait' }">
-                            <button class="disabledBtn btn" disabled>미완료</button>
+                        <c:if test="${q.questionResponseFlag eq 'wait' }">
+                            <button class="disabledBtn btn" disabled onclick="location.assign('${pageContext.request.contextPath}/qna/view?queSeq=${q.questionSeq }')">미완료</button>
                         </c:if>
                     </td>
                   </tr>
@@ -51,6 +57,6 @@
     </tbody>
 </table>
 
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example mt-5">
       ${pageBar }
 </nav>

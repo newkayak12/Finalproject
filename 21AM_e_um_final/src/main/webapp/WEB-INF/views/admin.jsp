@@ -33,20 +33,23 @@
 			</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick ="moviesub()">영화관리</span>
 			<span id="moviesub" class="text-center cursor " style="display:none;">
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 영화 조회 </div>
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 영화 등록 </div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 영화 수정</div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 인물 조회 </div>
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 인물 등록 </div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 인물 수정</div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"> 예매 조회 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="manageMovie();"> 영화 조회 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="enrollMovie();"> 영화 등록 </div>						
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="managePerson();"> 인물 조회 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="registPerson();"> 인물 등록 </div>					
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="showTicketingList()"> 예매 조회 </div>
 			</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick="foodSub()">맛집관리</span>
 			<span id="foodsub" class="text-center cursor " style="display:none;">
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"  onclick ="manageFood()">조회 및 정보수정</div>
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="writeFood()"> 맛집 등록 </div>
 			</span>
-			<span class="text-center cursor pointFont" style="font-size:20px">고객센터관리</span>
+			<span class="text-center cursor pointFont" style="font-size:20px" onclick="serviceSub()">고객센터관리</span>
+				<span id="serviceSub" class="text-center cursor " style="display:none;">
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageFAQ(1)"> FAQ 조회 </div>
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick =""> FAQ 등록 </div>
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick =""> 문의사항 답변 </div>
+				</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick="reportsub()">신고관리</span>
 			<span id="reportsub" class="text-center cursor " style="display:none;">
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageReport()"> 피드 </div>
@@ -97,6 +100,7 @@
 				$("#moviesub").hide(240)
 				$("#groupsub").hide(240)
 				$("#foodsub").hide(240)
+				$("#serviceSub").hide(240)
 				$("#reportsub").hide(240)
 			}
 			
@@ -145,13 +149,13 @@
 	
 	/* 음식 수정 자리 amendFood  */
 	
-	function manageService(){
+	function manageFAQ(cPage){
 		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/manageservice',
+			url:'${pageContext.request.contextPath}/admin/manageFAQ',
 			data:{"cPage":cPage},
 			success:list=>{
 				$("#prev").css("visibility","visible")
-				$("#title").html("고객센터 관리")
+				$("#title").html("FAQ 조회")
 				$("#root").html(list)
 			}
 		})
@@ -233,7 +237,7 @@
 	
 	
 	/* 영화 조회  */
-	function manageMovie(){
+	function manageMovie(cPage){
 		
 		$.ajax({
 			url:'${pageContext.request.contextPath}/admin/managemovie',
@@ -247,13 +251,59 @@
 		
 	}
 	
-	/* 영화 등록 registMovie  */
-	/* 영화 수정 amendMovie */
-	/* 인물 조회 managePerson */
-	/* 인물 등록 registPerson */
-	/* 인물 수정 amendPerson */
-	/* 예매 조회 ShowTicketingList */
+	/* 영화 등록 enrollMovie  */
+	function enrollMovie(){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/enrollMovie',
+			success:data=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("영화 등록")
+				$("#root").html(data)
+			}
+		})
+	}
 	
+	
+	/* 인물 조회 managePerson */
+	function managePerson(cPage){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/movie/managePerson',
+			data:{"cPage":cPage},
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("영화인물 조회")
+				$("#root").html(list)
+			}
+		})
+	}
+	
+	/* 인물 등록 registPerson */
+	function registPerson(){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/movie/enrollPerson',
+			success:data=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("영화인물 등록")
+				$("#root").html(data)
+			}
+		})
+		
+	}
+	
+	
+	/* 예매 조회 ShowTicketingList */
+	function showTicketingList(cPage){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/ShowTicketingList',
+			data:{"cPage":cPage},
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("예매 조회")
+				$("#root").html(list)
+			}
+				
+		})
+	}
 	
 	
 	
@@ -269,18 +319,28 @@
 		$("#foodsub").slideToggle(240)
 		$("#moviesub").hide(240)
 		$("#groupsub").hide(240)
+		$("#serviceSub").hide(240)
 		$("#reportsub").hide(240)
 	} 
 	function moviesub(){
 		$("#moviesub").slideToggle(240)
 		$("#foodsub").hide(240)
 		$("#groupsub").hide(240)
+		$("#serviceSub").hide(240)
 		$("#reportsub").hide(240)
 	}
 	function groupsub(){
 		$("#groupsub").slideToggle(240)
 		$("#moviesub").hide(240)
 		$("#foodsub").hide(240)
+		$("#serviceSub").hide(240)
+		$("#reportsub").hide(240)
+	}
+	function serviceSub(){
+		$("#serviceSub").slideToggle(240)
+		$("#moviesub").hide(240)
+		$("#foodsub").hide(240)
+		$("#groupsub").hide(240)
 		$("#reportsub").hide(240)
 	}
 	function reportsub(){
@@ -288,6 +348,7 @@
 		$("#moviesub").hide(240)
 		$("#groupsub").hide(240)
 		$("#foodsub").hide(240)
+		$("#serviceSub").hide(240)
 	}
 	
 	
