@@ -4,7 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-	    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/taehui.css">
+<link rel="stylesheet" href="${path}/resources/css/taehui.css">
 	
 	
 	<script>
@@ -126,12 +126,8 @@
     				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
     				        }
     				      ]
-    				    },
-    				    options: {
-    				      title: {
-    				        
-    				      }
     				    }
+    				    
     				}); 
     				
     				new Chart($("#radar-chart2"), {
@@ -150,12 +146,8 @@
     				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
     				        }
     				      ]
-    				    },
-    				    options: {
-    				      title: {
-    				        
-    				      }
     				    }
+    				   
     				}); 
     				new Chart($("#radar-chart3"), {
     				    type: 'radar',
@@ -173,46 +165,43 @@
     				          data : [data['directEvg'],data['visualEvg'],data['storyEvg'],data['actingEvg'],data['ostEvg']]
     				        }
     				      ]
-    				    },
-    				    options: {
-    				      title: {
-    				        
-    				      }
     				    }
+    				   
     				}); 
     					
     			}
     		})
+    		
     		$.ajax({
     			url:"${path}/movie/genderRate",
     			data: {"movieSeq":movieSeq},
     			success:rate=>{
-    				console.log(rate);
-    				 console.log(rate['female'])
-    				 google.charts.load('current', {'packages':['corechart']});
-    			     google.charts.setOnLoadCallback(drawChart);
-
-    			      function drawChart() {
-
-    			        var data = google.visualization.arrayToDataTable([
-    			          ['Task', 'Hours per Day'],
-    			          ['남',    rate['male']],
-    			          ['여',    rate['female']],
-    			          
-    			        ]);
-
-    			        var options = {
-    			          
-    			        };
-
-    			        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    			        var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-    			        var chart3 = new google.visualization.PieChart(document.getElementById('piechart3'));
-    			        chart.draw(data, options);
-    			        chart2.draw(data,options);
-    			        chart3.draw(data,options);
-    			      }
-
+	    			console.log(rate['male'])
+	    			console.log(rate['female'])
+    				google.charts.load('current', {'packages':['corechart']});
+	    			google.charts.setOnLoadCallback(drawChart);
+						
+	    			function drawChart() {
+	
+	    			var data = google.visualization.arrayToDataTable([
+	    			     ['Task', 'Hours per Day'],
+	    			     ['남',    rate['male']],
+	    			     ['여',    rate['female']],
+	    			          
+	    			]);
+					
+	    			var options = {
+	    					
+	    			};
+	    			       
+	    			        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+	    			        var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+	    			        var chart3 = new google.visualization.PieChart(document.getElementById('piechart3'));
+	    			        chart.draw(data,options);
+	    			        chart2.draw(data,options);
+	    			        chart3.draw(data,options);
+	    			 }
+    				 
     			}
     			
     		})

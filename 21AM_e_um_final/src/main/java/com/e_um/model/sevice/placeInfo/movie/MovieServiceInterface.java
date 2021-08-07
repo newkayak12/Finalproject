@@ -69,5 +69,30 @@ public interface MovieServiceInterface {
 	
 	int enrollMovie(Map param);
 	
+	List<Movie> movieAll();
+	
+	int registPerson(Map param);
+	
+	int insertCross(Map param);
+	
+	int personTotalData();
+	
+	List<MoviePersonInfo> personList(int cPage, int numPerPage);
+	
+	int movieDelete(String movieSeq);
+	
+	int movieLive(String movieSeq);
+	
+	int movieUpdate(Map param);
+	
+	int moviePersonDelete(String moviePersonSeq);
+	
+	int moviePersonLive(String moviePersonSeq);
+	
+	MoviePersonInfo moviePersonInfo(String moviePersonSeq);
+	
+	int updatePerson(Map param);
+	
+	int reserveCancel(String movieReservNum);
 	
 }

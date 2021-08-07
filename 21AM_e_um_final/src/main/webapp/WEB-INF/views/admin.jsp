@@ -34,11 +34,9 @@
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick ="moviesub()">영화관리</span>
 			<span id="moviesub" class="text-center cursor " style="display:none;">
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="manageMovie();"> 영화 조회 </div>
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="enrollMovie();"> 영화 등록 </div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick=""> 영화 수정</div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick=""> 인물 조회 </div>
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick=""> 인물 등록 </div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick=""> 인물 수정</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="enrollMovie();"> 영화 등록 </div>						
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="managePerson();"> 인물 조회 </div>
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="registPerson();"> 인물 등록 </div>					
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="showTicketingList()"> 예매 조회 </div>
 			</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick="foodSub()">맛집관리</span>
@@ -245,7 +243,6 @@
 			url:'${pageContext.request.contextPath}/admin/managemovie',
 			data:{"cPage":cPage},
 			success:list=>{
-				console.log(list);
 				$("#prev").css("visibility","visible")
 				$("#title").html("영화 관리")
 				$("#root").html(list)
@@ -253,6 +250,7 @@
 		})
 		
 	}
+	
 	/* 영화 등록 enrollMovie  */
 	function enrollMovie(){
 		$.ajax({
@@ -264,10 +262,35 @@
 			}
 		})
 	}
-	/* 영화 수정 amendMovie */
+	
+	
 	/* 인물 조회 managePerson */
+	function managePerson(cPage){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/movie/managePerson',
+			data:{"cPage":cPage},
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("영화인물 조회")
+				$("#root").html(list)
+			}
+		})
+	}
+	
 	/* 인물 등록 registPerson */
-	/* 인물 수정 amendPerson */
+	function registPerson(){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/movie/enrollPerson',
+			success:data=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("영화인물 등록")
+				$("#root").html(data)
+			}
+		})
+		
+	}
+	
+	
 	/* 예매 조회 ShowTicketingList */
 	function showTicketingList(cPage){
 		$.ajax({
@@ -275,7 +298,7 @@
 			data:{"cPage":cPage},
 			success:list=>{
 				$("#prev").css("visibility","visible")
-				$("#title").html("영화 등록")
+				$("#title").html("예매 조회")
 				$("#root").html(list)
 			}
 				

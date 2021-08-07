@@ -175,6 +175,71 @@ public class MovieService implements MovieServiceInterface {
 	public int enrollMovie(Map param) {
 		return dao.enrollMovie(session,param);
 	}
+
+	@Override
+	public List<Movie> movieAll() {
+		return dao.movieAll(session);
+	}
+
+	@Override
+	public int registPerson(Map param) {
+		return dao.registPerson(session,param);
+	}
+
+	@Override
+	public int insertCross(Map param) {
+		return dao.insertCross(session,param);
+	}
+
+	@Override
+	public int personTotalData() {
+		return dao.personTotalData(session);
+	}
+
+	@Override
+	public List<MoviePersonInfo> personList(int cPage, int numPerPage) {
+		return dao.personList(session, cPage, numPerPage);
+	}
+
+	@Override
+	public int movieDelete(String movieSeq) {
+		return dao.movieDelete(session,movieSeq);
+	}
+
+	@Override
+	public int movieLive(String movieSeq) {
+		return dao.movieLive(session,movieSeq);
+	}
+
+	@Override
+	public int movieUpdate(Map param) {
+		return dao.movieUpdate(session,param);
+	}
+
+	@Override
+	public int moviePersonDelete(String moviePersonSeq) {
+		return dao.moviePersonDelete(session,moviePersonSeq);
+	}
+
+	@Override
+	public int moviePersonLive(String moviePersonSeq) {
+		return dao.moviePersonLive(session,moviePersonSeq);
+	}
+
+	@Override
+	public MoviePersonInfo moviePersonInfo(String moviePersonSeq) {
+		return dao.moviePersonInfo(session,moviePersonSeq);
+	}
+
+	@Override
+	public int updatePerson(Map param) {
+		return dao.updatePerson(session,param);
+	}
+
+	@Override
+	public int reserveCancel(String movieReservNum) {
+		return dao.reserveCancel(session,movieReservNum);
+	}
 	
 	
 	

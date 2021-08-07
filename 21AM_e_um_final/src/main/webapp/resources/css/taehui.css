@@ -35,18 +35,18 @@
       }
       
        @media(max-width:767px){
-      	.caru992{
-      		display:none !important;
-      	}
-      	.caru991{
-      		display:none !important;
-      		
-      	} 
-      	.caru723{
-      		display:block !important;
-      	}
-      	.thumb-size {
-        width: 100%;
-        /* height: 234px; */ 
-      } 
+	      	.caru992{
+	      		display:none !important;
+	      	}
+	      	.caru991{
+	      		display:none !important;
+	      		
+	      	} 
+	      	.caru723{
+	      		display:block !important;
+	      	}
+	      	.thumb-size {
+		        width: 100%;
+		        /* height: 234px; */ 
+	      	} 
       }

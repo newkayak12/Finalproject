@@ -73,7 +73,30 @@ public interface MovieDaoInterface {
 	
 	int enrollMovie(SqlSessionTemplate session, Map param);
 	
+	List<Movie> movieAll(SqlSessionTemplate session);
 	
+	int registPerson(SqlSessionTemplate session, Map param);
 	
+	int insertCross(SqlSessionTemplate session, Map param);
+	
+	int personTotalData(SqlSessionTemplate session);
+	
+	List<MoviePersonInfo> personList(SqlSessionTemplate session, int cPage, int numPerPage);
+	
+	int movieDelete(SqlSessionTemplate session, String movieSeq);
+	
+	int movieLive(SqlSessionTemplate session, String movieSeq);
+	
+	int movieUpdate(SqlSessionTemplate session, Map param);
+	
+	int moviePersonDelete(SqlSessionTemplate session, String moviePersonSeq);
+	
+	int moviePersonLive(SqlSessionTemplate session, String moviePersonSeq);
+	
+	MoviePersonInfo moviePersonInfo(SqlSessionTemplate session, String moviePersonSeq);
+	
+	int updatePerson(SqlSessionTemplate session, Map param);
+	
+	int reserveCancel(SqlSessionTemplate session, String movieReservNum);
 	
 }
