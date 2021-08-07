@@ -44,4 +44,10 @@ public interface BoardDaoInterface {
 
 	int addComment(SqlSessionTemplate session, Map param);
 
+	int delComment(SqlSessionTemplate session, String groupCommentSeq);
+
+	int checkCommentReport(SqlSessionTemplate session, Map<String, String> param);
+
+	int CommentReport(SqlSessionTemplate session, Map<String, String> param);
+
 }

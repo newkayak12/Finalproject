@@ -115,6 +115,24 @@ public class BoardDao implements BoardDaoInterface {
 		 
 		return session.insert("group.addComment",param);
 	}
+
+	@Override
+	public int delComment(SqlSessionTemplate session, String groupCommentSeq) {
+
+		return session.update("group.delComment",groupCommentSeq);
+	}
+
+	@Override
+	public int checkCommentReport(SqlSessionTemplate session, Map<String, String> param) {
+		
+		return session.selectOne("group.checkCommentReport",param);
+	}
+
+	@Override
+	public int CommentReport(SqlSessionTemplate session, Map<String, String> param) {
+		
+		return session.insert("group.commentReport",param);
+	}
 	
 	
 	

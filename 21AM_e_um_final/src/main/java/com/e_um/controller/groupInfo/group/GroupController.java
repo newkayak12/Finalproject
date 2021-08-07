@@ -370,9 +370,24 @@ public class GroupController {
 		
 		return glike;
 		
-		
 	}
 	
+	@RequestMapping("/group/checkCommentReport")
+	@ResponseBody
+	public int checkReport(String groupCommentSeq, String userId) {
+		Map<String, String > param = new HashMap<>();
+		param.put("groupCommentSeq", groupCommentSeq);
+		param.put("userId", userId);
+		
+		 int report=serviceb.checkCommentReport(param);
+		 
+		 if(report> 0) {
+			 return 0;
+		 }
+		 else {
+			 return serviceb.CommentReport(param);
+		 }
+	}
 	
 	/* 게시판 검색 */
 	@RequestMapping("/group/gorupBoardSearch")
@@ -413,7 +428,7 @@ public class GroupController {
 	}
 	
 	@RequestMapping("/board/boardcommentlist")
-	public String commentList(String groupBoardSeq, String userId, String groupCommentContents, String groupCommentDate,Model model) {
+	public String commentList(String groupBoardSeq,Model model) {
 		log.warn("commentboardseq{}",groupBoardSeq);
 		List<Comment> commentlist = serviceb.selectBoardCommentList(groupBoardSeq);
 		model.addAttribute("commentlist",commentlist);
@@ -431,6 +446,13 @@ public class GroupController {
 		param.put("groupCommentContents",groupCommentContents);
 		
 		return serviceb.addComment(param);
+	}
+	
+	@RequestMapping("/group/delcomment")
+	@ResponseBody
+	public int delComment(String groupCommentSeq) {
+		log.warn("dasdas{}",groupCommentSeq);
+		return serviceb.delComment(groupCommentSeq);
 	}
 	
 	

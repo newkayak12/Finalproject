@@ -36,10 +36,7 @@
 		$.ajax({
 			url : "${path}/board/boardcommentlist",
 			data : {
-				"groupBoardSeq" : "${board.groupBoardSeq}",
-				"userId" : "${userSession.userId}"
-				
-				
+				"groupBoardSeq" : "${board.groupBoardSeq}"
 			},
 			success : data=>{
 				console.log(data);
@@ -74,6 +71,24 @@
 				}
 			})
 		}
+	}
+	function fn_del(del){
+		console.log(del);
+		$.ajax({
+			url : "${path}/group/delcomment",
+			data : {
+				"groupCommentSeq" : del
+			},
+			success : data=>{
+				console.log(data);
+				if(data>0){
+					commentlist();
+				}
+				else{
+					alert("정상적으로 삭제되지 않았습니다.");
+				}
+			}
+		})
 	}
 
 	const fn_boardlike = (e) =>{

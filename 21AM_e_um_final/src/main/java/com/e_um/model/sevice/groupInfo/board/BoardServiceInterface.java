@@ -41,6 +41,12 @@ public interface BoardServiceInterface {
 	List<Comment> selectBoardCommentList(String groupBoardSeq);
 
 	int addComment(Map param);
+
+	int delComment(String groupCommentSeq);
+
+	int checkCommentReport(Map<String, String> param);
+
+	int CommentReport(Map<String, String> param);
 	
 	
 	

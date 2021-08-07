@@ -151,6 +151,31 @@ public class BoardService implements BoardServiceInterface {
 		 
 		return dao.addComment(session, param);
 	}
+
+
+
+	@Override
+	public int delComment(String groupCommentSeq) {
+		
+		return dao.delComment(session, groupCommentSeq);
+	}
+
+
+
+	@Override
+	public int checkCommentReport(Map<String, String> param) {
+
+		return dao.checkCommentReport(session, param);
+	}
+
+
+
+	@Override
+	public int CommentReport(Map<String, String> param) {
+		 
+		return dao.CommentReport(session, param);
+	}
+	
 	
 	 
 	
