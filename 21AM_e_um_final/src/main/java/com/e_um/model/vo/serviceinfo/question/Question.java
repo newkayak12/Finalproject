@@ -22,7 +22,7 @@ public class Question {
 	 * User에 대한 전체적인 정보가 필요하다고 판단.
 	 */
 	private String questionSeq;
-	private User userId;
+	private String userId;
 	private String questionCategory;
 	private String questionTitle;
 	private String questionContents;
@@ -34,6 +34,6 @@ public class Question {
 	 * 어차피 join해야한다고 판단하여, answer테이블의 내용도 같이 넣음
 	 */
 	
-	private String questionAnswerContents, questionAnswerTitle;
+	private String questionAnswerContents;
 	private Date questionAnswerDate;
 }

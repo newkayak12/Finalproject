@@ -46,7 +46,12 @@
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px"  onclick ="manageFood()">조회 및 정보수정</div>
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="writeFood()"> 맛집 등록 </div>
 			</span>
-			<span class="text-center cursor pointFont" style="font-size:20px">고객센터관리</span>
+			<span class="text-center cursor pointFont" style="font-size:20px" onclick="serviceSub()">고객센터관리</span>
+				<span id="serviceSub" class="text-center cursor " style="display:none;">
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageFAQ(1)"> FAQ 조회 </div>
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick =""> FAQ 등록 </div>
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick =""> 문의사항 답변 </div>
+				</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick="reportsub()">신고관리</span>
 			<span id="reportsub" class="text-center cursor " style="display:none;">
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageReport()"> 피드 </div>
@@ -97,6 +102,7 @@
 				$("#moviesub").hide(240)
 				$("#groupsub").hide(240)
 				$("#foodsub").hide(240)
+				$("#serviceSub").hide(240)
 				$("#reportsub").hide(240)
 			}
 			
@@ -145,13 +151,13 @@
 	
 	/* 음식 수정 자리 amendFood  */
 	
-	function manageService(){
+	function manageFAQ(cPage){
 		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/manageservice',
+			url:'${pageContext.request.contextPath}/admin/manageFAQ',
 			data:{"cPage":cPage},
 			success:list=>{
 				$("#prev").css("visibility","visible")
-				$("#title").html("고객센터 관리")
+				$("#title").html("FAQ 조회")
 				$("#root").html(list)
 			}
 		})
@@ -323,18 +329,28 @@
 		$("#foodsub").slideToggle(240)
 		$("#moviesub").hide(240)
 		$("#groupsub").hide(240)
+		$("#serviceSub").hide(240)
 		$("#reportsub").hide(240)
 	} 
 	function moviesub(){
 		$("#moviesub").slideToggle(240)
 		$("#foodsub").hide(240)
 		$("#groupsub").hide(240)
+		$("#serviceSub").hide(240)
 		$("#reportsub").hide(240)
 	}
 	function groupsub(){
 		$("#groupsub").slideToggle(240)
 		$("#moviesub").hide(240)
 		$("#foodsub").hide(240)
+		$("#serviceSub").hide(240)
+		$("#reportsub").hide(240)
+	}
+	function serviceSub(){
+		$("#serviceSub").slideToggle(240)
+		$("#moviesub").hide(240)
+		$("#foodsub").hide(240)
+		$("#groupsub").hide(240)
 		$("#reportsub").hide(240)
 	}
 	function reportsub(){
@@ -342,6 +358,7 @@
 		$("#moviesub").hide(240)
 		$("#groupsub").hide(240)
 		$("#foodsub").hide(240)
+		$("#serviceSub").hide(240)
 	}
 	
 	

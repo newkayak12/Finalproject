@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.e_um.model.dao.serviceInfo.question.QuestionDaoInterface;
 import com.e_um.model.sevice.userInfo.user.UserService;
 import com.e_um.model.vo.serviceinfo.question.NoHasAQuestion;
+import com.e_um.model.vo.serviceinfo.question.Question;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,12 @@ public class QuestionService implements QuestServiceInterface {
 	@Override
 	public int selectQuestionListCount(String userId) {
 		return dao.selectQuestionListCount(session, userId);
+	}
+
+
+	@Override
+	public Question selectQNA(String queSeq) {
+		return dao.selectQNA(session, queSeq);
 	}
 
 }

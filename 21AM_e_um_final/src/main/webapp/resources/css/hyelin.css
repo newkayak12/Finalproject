@@ -260,3 +260,20 @@
 .btnWidth{
     width:100px;
 }
+
+
+
+
+/*qnaView*/
+.aboxborder{
+    border:1px rgb(211, 211, 211) dotted;
+    padding:10px;
+}
+.marginborder{
+    border-top: 25px solid white;
+}
+.abox{
+    background-color: #e2f1f1;
+    min-height:100px;
+    padding:30px 10% 30px 10%;
+}

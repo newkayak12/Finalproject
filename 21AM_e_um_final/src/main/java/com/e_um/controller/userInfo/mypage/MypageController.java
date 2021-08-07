@@ -19,13 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.common.pagebar.PageBar;
 import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
+import com.e_um.model.sevice.serviceInfo.question.QuestServiceInterface;
 import com.e_um.model.sevice.userInfo.mypage.MypageServiceInterface;
 import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.food.LikeFood;
-import com.e_um.model.vo.placeinfo.food.booking.FoodBooking;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
-import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -37,6 +36,9 @@ public class MypageController {
 
 	@Autowired
 	MypageServiceInterface service;
+	
+	@Autowired
+	QuestServiceInterface quesService;
 
 	@Autowired
 	UserServiceInterface userService;
@@ -93,7 +95,13 @@ public class MypageController {
 				m.addAttribute("myLkeFoodList", myLkeFoodList);
 				m.addAttribute("myFoodCommentList", myFoodCommentList);
 				totalData=service.selectFoodBookingCount(user.getUserId());
-				// pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
+				//pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
+				break;
+				
+			case "supportModal":
+				m.addAttribute("quesList",quesService.selectQuestionList(user.getUserId(), cPage, numPerPage));
+				totalData=quesService.selectQuestionListCount(user.getUserId());
+				pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
 		}
 		m.addAttribute("pageBar", pageBar);
 		return "components/myPage/" + modalName;

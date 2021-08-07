@@ -335,11 +335,15 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/admin/manageservice")
-	public String manageService(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
-		return "components/admin/manageservice";
+	@RequestMapping("/admin/manageFAQ")
+	public String manageFAQ(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("list",service.selectFAQ(Integer.parseInt(cPage), numPerPage));
+		//model.addAttribute("pageBar", getPageBar(service.faqTotalData(), Integer.parseInt(cPage) ,numPerPage ,"manageFAQ"));
+		return "components/admin/manageFAQ";
 	}
 	
+
 	@RequestMapping("/admin/managemovie")
 	public String manageMovie(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		int numPerPage = 10;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
@@ -294,6 +295,10 @@ public class AdminDao implements AdminDaoInterface{
 	}
 
 	@Override
+	public List<Faq> selectFAQ(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("admin.selectFAQ","",new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
 	public List<Movie> movieList(SqlSessionTemplate session, int cPage, int numPerPage) {
 		return session.selectList("movie.movieListAdmin","",new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
@@ -312,6 +317,5 @@ public class AdminDao implements AdminDaoInterface{
 	public int tickectTotal(SqlSessionTemplate session) {
 		return session.selectOne("movie.tickectCount");
 	}
-	
 	
 }
