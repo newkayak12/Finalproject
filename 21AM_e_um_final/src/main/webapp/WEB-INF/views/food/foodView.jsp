@@ -35,7 +35,8 @@
 	.toast-wrap {
     display: table;
     position: fixed;
-    left: 50%;
+    left:50%;
+    top:50%;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -55,7 +56,7 @@
     background: #2AC1BC;
     z-index: -1;
     border-radius: 10px;
-}
+} 
 .toast {
     display: table-cell;
     text-align: center;

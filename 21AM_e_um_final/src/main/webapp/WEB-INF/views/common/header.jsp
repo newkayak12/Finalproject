@@ -201,9 +201,9 @@
 				<!-- Modal footer -->
 				<div class="d-flex flex-row justify-content-center pt-2 pb-2" style="background-color: rgb(113, 120, 127);">
 					<span class="ml-2 mr-2" id="headerGoprofile"> 
-					<i class="fa fa-th-large m-4" aria-hidden="true" style="font-size: 30px; color: white"></i>
+					<i class="fa fa-th-large m-4 cursor" aria-hidden="true" style="font-size: 30px; color: white"></i>
 					<div class="text-center" style="color: white;">프로필 보기</div>
-					</span> <span class="ml-2 mr-2" id="headerChat"> 
+					</span> <span class="ml-2 mr-2 cursor" id="headerChat"> 
 					<i class="fa fa-comments m-4 mb-1 " aria-hidden="true" style="font-size: 30px; color: white"></i>
 						<div class="text-center" style="color: white;" >채팅하기</div>
 					</span>
@@ -293,7 +293,7 @@ $(function(){
     	onlinesend()
     	/* $('.toast').toast('show'); */
     	
-    }/* , 1000  */  ,200000 )
+    }, 1000/*   ,200000  */)
 })
 
 
