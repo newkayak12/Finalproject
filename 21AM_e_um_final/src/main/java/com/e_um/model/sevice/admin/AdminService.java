@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.e_um.model.dao.admin.AdminDaoInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -199,6 +200,19 @@ public class AdminService implements AdminServiceInterface {
 	@Override
 	public int updatefood(Food food) {
 		return dao.updatefood(session, food);
+	}
+	
+	@Override
+	@Transactional
+	public int updatefoodMenu(List<FoodMenu> menuList) {
+		
+		int result = 0;
+		
+		for(FoodMenu m : menuList) {
+			result+=dao.updatefoodMenu(session, m);
+		}
+		
+		return result;
 	}
 
 }
