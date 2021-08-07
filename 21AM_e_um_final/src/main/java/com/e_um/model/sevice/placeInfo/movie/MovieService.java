@@ -175,6 +175,42 @@ public class MovieService implements MovieServiceInterface {
 	public int enrollMovie(Map param) {
 		return dao.enrollMovie(session,param);
 	}
+
+	@Override
+	public List<Movie> movieAll() {
+		return dao.movieAll(session);
+	}
+
+	@Override
+	public int registPerson(Map param) {
+		return dao.registPerson(session,param);
+	}
+
+	@Override
+	public int insertCross(Map param) {
+		return dao.insertCross(session,param);
+	}
+
+	@Override
+	public int personTotalData() {
+		return dao.personTotalData(session);
+	}
+
+	@Override
+	public List<MoviePersonInfo> personList(int cPage, int numPerPage) {
+		return dao.personList(session, cPage, numPerPage);
+	}
+
+	@Override
+	public int movieDelete(String movieSeq) {
+		return dao.movieDelete(session,movieSeq);
+	}
+
+	@Override
+	public int movieLive(String movieSeq) {
+		// TODO Auto-generated method stub
+		return dao.movieLive(session,movieSeq);
+	}
 	
 	
 	

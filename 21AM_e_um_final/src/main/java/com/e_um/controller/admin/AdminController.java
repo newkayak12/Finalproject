@@ -349,10 +349,12 @@ public class AdminController {
 		return "components/admin/manageMovie";
 	}
 	
+	
 	@RequestMapping("/admin/enrollMovie")
 	public String enrollMovie(Model model) {
 		return "components/admin/enrollMovie";
 	}
+		
 	
 	@RequestMapping("/admin/ShowTicketingList")
 	public String showTicketingList(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {

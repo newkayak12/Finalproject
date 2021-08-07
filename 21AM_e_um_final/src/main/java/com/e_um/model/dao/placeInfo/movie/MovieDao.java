@@ -3,6 +3,7 @@ package com.e_um.model.dao.placeInfo.movie;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -194,6 +195,48 @@ public class MovieDao implements MovieDaoInterface {
 	public int enrollMovie(SqlSessionTemplate session, Map param) {
 		// TODO Auto-generated method stub
 		return session.insert("movie.enrollMovie",param);
+	}
+
+	@Override
+	public List<Movie> movieAll(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectList("movie.movieAll");
+	}
+
+	@Override
+	public int registPerson(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("movie.registPerson",param);
+	}
+
+	@Override
+	public int insertCross(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("movie.insertCross",param);
+	}
+
+	@Override
+	public int personTotalData(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.personTotalData");
+	}
+
+	@Override
+	public List<MoviePersonInfo> personList(SqlSessionTemplate session, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return session.selectList("movie.personList","",new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int movieDelete(SqlSessionTemplate session, String movieSeq) {
+		// TODO Auto-generated method stub
+		return session.update("movie.movieDelete",movieSeq);
+	}
+
+	@Override
+	public int movieLive(SqlSessionTemplate session, String movieSeq) {
+		// TODO Auto-generated method stub
+		return session.update("movie.movieLive",movieSeq);
 	}
 	
 	

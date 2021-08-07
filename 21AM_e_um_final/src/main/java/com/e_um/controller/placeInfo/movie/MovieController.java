@@ -28,6 +28,8 @@ import com.e_um.model.vo.userInfo.report.Report;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
+
+import static com.e_um.common.pagebar.PageBar.getPageBar;
 import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
 
@@ -289,7 +291,6 @@ public class MovieController {
 	//영화 예약페이지 이동
 	@RequestMapping("/movie/movieReserve")
 	public String movieReserve(String movieSeq, Model model) {
-		System.out.println(movieSeq);
 		model.addAttribute("movieSeq",movieSeq);
 		return "movie/movieReserve";
 	}
@@ -318,7 +319,6 @@ public class MovieController {
 	
 	@RequestMapping("/movie/seatStart")
 	public String seatStart(@RequestParam Map param,Model model) {
-	  System.out.println(param);
 	  model.addAttribute("param",param);
 	  return "movie/movieSeat";
 	}
@@ -456,7 +456,6 @@ public class MovieController {
 	  @RequestMapping("/movie/movieEnroll")
 	  public String movieEnroll(@RequestParam Map param, HttpServletRequest req, 
 			  @RequestParam (value="file")MultipartFile[] files,Model model) {
-		  System.out.println(param);
 		  String moviePhoto1 = (String)param.get("moviePhoto1");
 		  String moviePhoto2 = (String)param.get("moviePhoto2");
 		  String moviePhoto3 = (String)param.get("moviePhoto3"); 
@@ -489,4 +488,65 @@ public class MovieController {
 			return "/common/msg";
 	  }
 	  
+	  @RequestMapping("/movie/enrollPerson")
+		public String enrollPerson(Model model) {
+		  	List<Movie> list = service.movieAll();
+		  	model.addAttribute("list",list);
+		  	return "components/admin/registPerson";
+		}
+
+	  
+	 @RequestMapping("/movie/registPerson")
+	 public String registPerson(HttpServletRequest req,@RequestParam Map param, 
+			 Model model, @RequestParam (value="file")MultipartFile files) {
+		 param.put("personPhoto", renamepolicy(req,files,"moviePerson")); 
+		 int result = service.registPerson(param);
+		 String moviePersonSeq = (String)param.get("moviePersonSeq");
+		 String movieSeq = (String)param.get("movieSeq");
+		 param.clear();
+		 param.put("movieSeq", movieSeq);
+		 param.put("moviePersonSeq", moviePersonSeq);
+		 int result2 = service.insertCross(param);
+		 
+		 String msg = "";
+		  String loc = "";
+		  if(result>0 && result2>0) {
+				msg = "입력이 완료되었습니다.";
+				loc="/admin/enter";
+			}else {
+				msg = "입력이 실패했습니다.";
+				loc="/admin/enter";
+			}
+			model.addAttribute("msg",msg);
+			model.addAttribute("loc",loc);
+			
+			return "/common/msg";
+		 
+	 }
+	  
+	 @RequestMapping("/movie/managePerson")
+		public String managePerson(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+			int numPerPage = 10;
+			model.addAttribute("pageBar",getPageBar(service.personTotalData(), Integer.parseInt(cPage),numPerPage,"managePerson"));
+			List<MoviePersonInfo> list = service.personList(Integer.parseInt(cPage),numPerPage);
+			model.addAttribute("list",list);
+			return "components/admin/managePerson";
+		}
+	  
+	  
+	 @RequestMapping("/movie/movieDelete")
+	 @ResponseBody
+	 public int deleteMovie(@RequestParam(value="movieSeq")String movieSeq) {
+		 
+		 return service.movieDelete(movieSeq);
+	 }
+	 
+	 @RequestMapping("/movie/movieLive")
+	 @ResponseBody
+	 public int liveMovie(@RequestParam(value="movieSeq")String movieSeq) {
+		 
+		 return service.movieLive(movieSeq);
+	 }
+	 
+	 
 }

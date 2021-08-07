@@ -30,6 +30,7 @@ public class Movie {
 	private String movieContents, movieStatus;
 	private double movieReserveRate;
 	private double movieTotalEvalution;
+	private String movieFlag;
 	
 	private List<MoviePersonInfo> moviePersonName = new ArrayList();
 	
