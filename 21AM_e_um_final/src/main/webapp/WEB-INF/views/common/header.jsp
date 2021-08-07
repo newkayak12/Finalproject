@@ -218,7 +218,7 @@
 	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:500px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none; background-color: white">
 		<div class="col-12 border d-flex justify-content-between" style="height:10%; max-height:50px position:fixed; top:0px;">
 			<span id="headerchatidBox">제목</span>
-			<span onclick ="headerchatclean()">X</span>
+			<span onclick ="headerchatclean()" class="cursor pt-2">X</span>
 		</div>
 		<div id="chatRoottop" class="col-12 border mb-0" style="height:80%;  overflow:auto;">
 			
@@ -781,15 +781,15 @@ function kakaoLogout(){
 			
 			/* console.log("socketstart header") */
 			/* 헤더 ui */
-					let tar = '';
+					/* let tar = '';
 					if(id1!='${userSession.userId}'){
 						tar = id1;
 					} else {
 						tar =id2;
-					}
+					} */
 					
 				$("#chatdraggerable").css("display","block");
-				$("#headerchatidBox").html(tar)
+				$("#headerchatidBox").html("채팅").attr("class","tway mainColor pt-2")
 			
 		} else {
 			

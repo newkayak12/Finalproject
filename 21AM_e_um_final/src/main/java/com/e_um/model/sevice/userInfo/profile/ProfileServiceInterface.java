@@ -51,5 +51,7 @@ User selectProfileInfo(String profileId);
 	int insertFeed(NoHasAFeed nhf);
 	
 	int modifyFeed(NoHasAFeed nhf);
+	
+	int writeFeed2ndComment(FeedComment fc, String refCommentId, String userNick);
 
 }

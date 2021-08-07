@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.vo.serviceinfo.question.NoHasAQuestion;
+import com.e_um.model.vo.serviceinfo.question.Question;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +31,12 @@ public class QuestionDao implements QuestionDaoInterface {
 	@Override
 	public int selectQuestionListCount(SqlSessionTemplate session, String userId) {
 		return session.selectOne("question.selectQuestionListCount",userId);
+	}
+
+
+	@Override
+	public Question selectQNA(SqlSessionTemplate session, String queSeq) {
+		return session.selectOne("question.selectQNA",queSeq);
 	}
 
 }

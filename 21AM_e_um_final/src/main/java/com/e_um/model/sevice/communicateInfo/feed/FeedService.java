@@ -1,5 +1,6 @@
 package com.e_um.model.sevice.communicateInfo.feed;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,9 +29,9 @@ public class FeedService implements FeedServiceInterface {
 		
 			for(int i =0; i<result.size(); i++) {
 				
-				log.warn("시간이 얼마가 걸리든{}", result.get(i).getFeedSeq());
-				log.warn("시간이 얼마가 걸리든{}", dao.feedComment(result.get(i).getFeedSeq(), session));
-				result.get(i).setCommentlist(dao.feedComment(result.get(i).getFeedSeq(), session));
+				List<FeedComment> list = dao.feedComment(result.get(i).getFeedSeq(), session);
+//				Collections.reverse(list);
+				result.get(i).setCommentlist(list);
 				
 			}
 			

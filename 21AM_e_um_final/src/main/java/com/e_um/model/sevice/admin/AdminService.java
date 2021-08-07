@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.e_um.model.dao.admin.AdminDaoInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
+import com.e_um.model.vo.placeinfo.movie.movie.Movie;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -200,5 +204,38 @@ public class AdminService implements AdminServiceInterface {
 	public int updatefood(Food food) {
 		return dao.updatefood(session, food);
 	}
+	
+	@Override
+	@Transactional
+	public int updatefoodMenu(List<FoodMenu> menuList) {
+		
+		int result = 0;
+		
+		for(FoodMenu m : menuList) {
+			result+=dao.updatefoodMenu(session, m);
+		}
+		
+		return result;
+	}
 
+	@Override
+	public List<Faq> selectFAQ(int cPage, int numPerPage) {
+		return dao.selectFAQ(session, cPage, numPerPage);
+	}
+	public List<Movie> movieList(int cPage, int numPerPage) {
+		return dao.movieList(session,cPage,numPerPage);
+	}
+	@Override
+	public int movieTotalData() {
+		return dao.movieTotalData(session);
+	}
+	@Override
+	public List<MovieTicketing> ticketingList(int cPage, int numPerPage) {
+		return dao.ticketingList(session,cPage,numPerPage);
+	}
+	@Override
+	public int tickectTotal() {
+		return dao.tickectTotal(session);
+	}
+	
 }

@@ -373,14 +373,14 @@
 	
 		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-2 p-0 pt-2 col-12 img-holder" style="height: 5600px; container:''; background-color: #EAEAEA;">
 			
-			<div class="typo text-center d-flex justify-content-center align-items-center pb-5 mb-2">
+			<div class="typo text-center d-flex justify-content-center align-items-center pb-5 mb-2" style="font-size: 4.5vw">
 			</div>
 			
 			
 			<div class="screen00 p-3 d-flex justify-content-end align-items-center" id="sc00" style="display:none;">
 				<div class="p-1 m-5 scitems" id="scCont00">
 					
-					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						새로운 친구를 찾는 방법
 					</div>
 					<img src="${pageContext.request.contextPath }/resources/images/index/main1.png" width="40%">
@@ -399,7 +399,7 @@
 				<div class="p-1 m-5 scitems" id="scCont01">
 				
 					<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="40%" >
-					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						친구와 함께 보낸 하루를
 						<br>&nbsp;&nbsp;&nbsp;  돌아볼 수 있는 방법
 					</div>
@@ -410,7 +410,7 @@
 				
 				<div class="p-1 m-5 scitems d-flex flex-column justify-content-around align-items-center" id="scCont02" style="flex-direction: row !important; align-content: middle">
 				
-					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
+					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						친해진 친구와 함께,
 						<br>&nbsp;&nbsp;&nbsp;  시간을 공유할 수 있는 방법
 					</div>
@@ -425,7 +425,7 @@
 				
 				<div class="p-1 m-5 scitems" id="scCont03">
 					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="40%">
-					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
+					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						좋아하는 음식을 
 							<br>&nbsp;&nbsp; 함께 먹을 수 있는 방법
 					</div>
@@ -434,7 +434,7 @@
 			<div class="screen00 p-3 d-flex justify-content-center align-items-center" id="sc04" style="display:none;">
 				
 				<div class="p-1 m-5 scitems d-flex flex-row justify-content-center align-items-center" id="scCont04">
-					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3.2vw">
+					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						새로운 친구와 
 						<br>&nbsp;&nbsp;&nbsp; 함께할 수 있는 방법
 					</div>

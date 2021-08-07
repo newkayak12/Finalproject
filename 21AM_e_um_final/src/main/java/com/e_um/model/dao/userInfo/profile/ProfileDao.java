@@ -166,4 +166,21 @@ public class ProfileDao implements ProfileDaoInterface {
 		return session.update("profile.modifyFeed",nhf);
 	}
 
+
+	@Override
+	public int writeFeed2ndComment(SqlSessionTemplate session, FeedComment fc, String refCommentId, String userNick) {
+		int result=0;
+		
+		if(session.insert("profile.writeFeed2ndComment",fc)>0) {
+			if(!refCommentId.equals("me")) {
+				Map param=new HashMap();
+				param.put("userId", refCommentId);
+				param.put("friendNick", userNick);
+				param.put("refSeq", fc.getFeedSeqRef());
+				result=session.insert("alarm.insertFeed2",param);
+			}
+		}
+		return result;
+	}
+
 }

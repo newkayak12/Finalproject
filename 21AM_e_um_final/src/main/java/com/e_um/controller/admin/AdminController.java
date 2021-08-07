@@ -1,10 +1,12 @@
 package com.e_um.controller.admin;
 
 import static com.e_um.common.pagebar.PageBar.getPageBar;
+import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.e_um.model.sevice.admin.AdminServiceInterface;
 import com.e_um.model.sevice.placeInfo.food.FoodServiceInterface;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
+import com.e_um.model.vo.placeinfo.movie.movie.Movie;
+import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.user.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -279,7 +285,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/managefood")
 	public String manageFood(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
-		int numPerPage =10;
+		int numPerPage =5;
 		List<Food> statistics=service.statisticsFood();
 		
 		List<double[]> like_star = new ArrayList();
@@ -334,14 +340,41 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/admin/manageservice")
-	public String manageService(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
-		return "components/admin/manageservice";
+	@RequestMapping("/admin/manageFAQ")
+	public String manageFAQ(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("list",service.selectFAQ(Integer.parseInt(cPage), numPerPage));
+		//model.addAttribute("pageBar", getPageBar(service.faqTotalData(), Integer.parseInt(cPage) ,numPerPage ,"manageFAQ"));
+		return "components/admin/manageFAQ";
 	}
+	
+
 	@RequestMapping("/admin/managemovie")
 	public String manageMovie(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
-		return "components/admin/managemovie";
+		int numPerPage = 10;
+		model.addAttribute("pageBar",getPageBar(service.movieTotalData(), Integer.parseInt(cPage), numPerPage, "manageMovie"));
+		List<Movie> list = service.movieList(Integer.parseInt(cPage), numPerPage);
+		model.addAttribute("list",list);
+		return "components/admin/manageMovie";
 	}
+	
+	
+	@RequestMapping("/admin/enrollMovie")
+	public String enrollMovie(Model model) {
+		return "components/admin/enrollMovie";
+	}
+		
+	
+	@RequestMapping("/admin/ShowTicketingList")
+	public String showTicketingList(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage = 10;
+		model.addAttribute("pageBar",getPageBar(service.tickectTotal(), Integer.parseInt(cPage), numPerPage, "showTicketingList"));
+		List<MovieTicketing> list = service.ticketingList(Integer.parseInt(cPage),numPerPage);
+		model.addAttribute("list",list);
+		System.out.println(list);
+		return "components/admin/showTicketingList";
+	}
+	
 	
 	@RequestMapping("/admin/managefeed")
 	public String manageFeed(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
@@ -465,6 +498,47 @@ public class AdminController {
 		return  service.updatefood(food);
 	}
 	
-	
+	@RequestMapping("/admin/updatefoodMenu")
+	public String updatefoodMenu(String foodSeq, HttpServletRequest rq,String[] foodMenuSeq, String[] menuName, String[] menuPrice, MultipartFile[] menuPhoto, Model model) {
+		
+		FoodMenu menu;
+		
+		List<FoodMenu> menuList = new ArrayList<>();
+		
+		for(int i=0; i<menuName.length; i++) {
+		
+			log.error("{}",menuName[i]);
+			log.error("{}",menuPrice[i]);
+			log.error("{}",menuPhoto[i].getOriginalFilename());
+			
+			menu = new FoodMenu();
+			
+			menu.setFoodSeq(foodSeq);
+			
+			if(!foodMenuSeq[i].equals("")) {
+				menu.setFoodMenuSeq(foodMenuSeq[i]);
+			}
+			if(!menuName[i].equals("")) {
+				menu.setMenuName(menuName[i]);
+			}
+			if(!menuPrice[i].equals("")) {
+				menu.setMenuPrice(Integer.parseInt(menuPrice[i]));
+			}
+			if(!menuPhoto[i].getOriginalFilename().equals("")) {
+				menu.setMenuPhoto(renamepolicy(rq, menuPhoto[i], "food"));
+			}
+			
+			menuList.add(menu);
+		}
+				 
+		log.error("{}", menuList);
+		
+		int result = service.updatefoodMenu(menuList);
+		
+		model.addAttribute("msg", result > 0 ? "메뉴가 수정되었습니다" : "메뉴가 수정되지않았습니다. 다시 시도해주세요.");
+		model.addAttribute("loc", "/admin/enter");
+		
+		return "/common/msg";
+	}
 	
 }

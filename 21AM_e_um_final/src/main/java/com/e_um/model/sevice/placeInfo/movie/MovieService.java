@@ -31,125 +31,117 @@ public class MovieService implements MovieServiceInterface {
 	SqlSessionTemplate session;
 	@Override
 	public List<Movie> movieList() {
-		// TODO Auto-generated method stub
 		return dao.movieList(session);
 	}
 	
 	@Override
 	public List<Movie> movieList2() {
-		// TODO Auto-generated method stub
 		return dao.movieList2(session);
 	}
 
 
 	@Override
 	public Movie moviePoster(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.moviePoster(movieSeq, session);
 	}
+	
 	@Override
 	public Movie movieVideo() {
-		// TODO Auto-generated method stub
 		return dao.movieVideo(session);
 	}
+	
 	@Override
 	public Movie movieDetail(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.movieDetail(movieSeq,session);
 	}
+	
 	@Override
 	public List<Movie> movieSearch(String search) {
-		// TODO Auto-generated method stub
 		return dao.movieSearch(search,session);
 	}
+	
 	@Override
 	public MoviePersonInfo moviePerson(String person) {
-		// TODO Auto-generated method stub
 		return dao.moviePerson(person , session);
 	}
+	
 	@Override
 	public List<MovieReview> movieReview(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.movieReview(movieSeq,session);
 	}
+	
 	@Override
 	public int movieWrite(Map param) {
-		// TODO Auto-generated method stub
 		return dao.movieWrite(param,session);
 	}
+	
 	@Override
 	public int movieReviewCount(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.movieReviewCount(session,movieSeq);
 	}
+	
 	@Override
 	public int updateTotal(Map map) {
-		// TODO Auto-generated method stub
 		return dao.updateTotal(session,map);
 	}
+	
 	@Override
 	public List<MovieReview> movieReviewList(Map param) {
-		// TODO Auto-generated method stub
 		return dao.movieReviewList(session,param);
 	}
 	
 	@Override
 	public int maleCount(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.maleCount(session,movieSeq);
 	}
 
 	@Override
 	public int femaleCount(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.femaleCount(session,movieSeq);
 	}
 
 	@Override
 	public int movieReviewCount2(Map param) {
-		// TODO Auto-generated method stub
 		return dao.movieReviewCount2(session, param);
 	}
+	
 	@Override
 	public List<MovieSeatStatus> movieBox(String movieSeq) {
-		// TODO Auto-generated method stub
 		return dao.movieBox(session,movieSeq);
 	}
+	
 	@Override
 	public List<MovieTime> movieTime() {
-		// TODO Auto-generated method stub
 		return dao.movieTime(session);
 	}
+	
 	@Override
 	public List<Seat> movieSeatList() {
-		// TODO Auto-generated method stub
 		return dao.movieSeatList(session);
 	}
+	
 	@Override
 	public Movie movieName(Map param) {
-		// TODO Auto-generated method stub
 		return dao.movieName(session,param);
 	}
+	
 	@Override
 	public MovieBox getMovieSeat(Map param) {
-		// TODO Auto-generated method stub
 		return dao.getMovieSeat(session,param);
 	}
+	
 	@Override
 	public int payEnd(Map param) {
-		// TODO Auto-generated method stub
 		return dao.payEnd(session,param);
 	}
 	
 	@Override
 	public MovieTicketing movieTicket(Map param) {
-		// TODO Auto-generated method stub
 		return dao.movieTicket(session,param);
 	}
 
 	@Override
 	public MovieReview movieReviewOne(String movieReviewSeq) {
-		// TODO Auto-generated method stub
 		return dao.movieReviewOne(session,movieReviewSeq);
 	}
 	
@@ -166,20 +158,87 @@ public class MovieService implements MovieServiceInterface {
 
 	@Override
 	public int totalCount() {
-		// TODO Auto-generated method stub
 		return dao.totalCount(session);
 	}
 
 	@Override
 	public int movieCount(Map param) {
-		// TODO Auto-generated method stub
 		return dao.movieCount(session,param);
 	}
 
 	@Override
 	public int updateRate(Map map) {
-		// TODO Auto-generated method stub
 		return dao.updateRate(session,map);
+	}
+
+	@Override
+	public int enrollMovie(Map param) {
+		return dao.enrollMovie(session,param);
+	}
+
+	@Override
+	public List<Movie> movieAll() {
+		return dao.movieAll(session);
+	}
+
+	@Override
+	public int registPerson(Map param) {
+		return dao.registPerson(session,param);
+	}
+
+	@Override
+	public int insertCross(Map param) {
+		return dao.insertCross(session,param);
+	}
+
+	@Override
+	public int personTotalData() {
+		return dao.personTotalData(session);
+	}
+
+	@Override
+	public List<MoviePersonInfo> personList(int cPage, int numPerPage) {
+		return dao.personList(session, cPage, numPerPage);
+	}
+
+	@Override
+	public int movieDelete(String movieSeq) {
+		return dao.movieDelete(session,movieSeq);
+	}
+
+	@Override
+	public int movieLive(String movieSeq) {
+		return dao.movieLive(session,movieSeq);
+	}
+
+	@Override
+	public int movieUpdate(Map param) {
+		return dao.movieUpdate(session,param);
+	}
+
+	@Override
+	public int moviePersonDelete(String moviePersonSeq) {
+		return dao.moviePersonDelete(session,moviePersonSeq);
+	}
+
+	@Override
+	public int moviePersonLive(String moviePersonSeq) {
+		return dao.moviePersonLive(session,moviePersonSeq);
+	}
+
+	@Override
+	public MoviePersonInfo moviePersonInfo(String moviePersonSeq) {
+		return dao.moviePersonInfo(session,moviePersonSeq);
+	}
+
+	@Override
+	public int updatePerson(Map param) {
+		return dao.updatePerson(session,param);
+	}
+
+	@Override
+	public int reserveCancel(String movieReservNum) {
+		return dao.reserveCancel(session,movieReservNum);
 	}
 	
 	
