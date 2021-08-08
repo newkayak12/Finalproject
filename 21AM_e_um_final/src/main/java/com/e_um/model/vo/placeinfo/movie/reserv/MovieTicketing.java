@@ -26,4 +26,5 @@ public class MovieTicketing {
 	private Date movieReservDate;
 	private String movieReservCancel;
 	private String movieTitle;
+	private String payStatus;
 }

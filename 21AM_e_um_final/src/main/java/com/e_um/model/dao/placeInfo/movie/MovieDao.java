@@ -238,6 +238,53 @@ public class MovieDao implements MovieDaoInterface {
 		// TODO Auto-generated method stub
 		return session.update("movie.movieLive",movieSeq);
 	}
+
+	@Override
+	public int movieUpdate(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.update("movie.movieUpdate",param);
+	}
+
+	@Override
+	public int moviePersonDelete(SqlSessionTemplate session, String moviePersonSeq) {
+		// TODO Auto-generated method stub
+		return session.update("movie.moviePersonDelete",moviePersonSeq);
+	}
+
+	@Override
+	public int moviePersonLive(SqlSessionTemplate session, String moviePersonSeq) {
+		// TODO Auto-generated method stub
+		return session.update("movie.moviePersonLive",moviePersonSeq);
+	}
+
+	@Override
+	public MoviePersonInfo moviePersonInfo(SqlSessionTemplate session, String moviePersonSeq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("movie.moviePersonInfo",moviePersonSeq);
+	}
+
+	@Override
+	public int updatePerson(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.update("movie.updatePerson",param);
+	}
+
+	@Override
+	public int reserveCancel(SqlSessionTemplate session, String movieReservNum) {
+		// TODO Auto-generated method stub
+		return session.update("movie.reserveCancel",movieReservNum);
+	}
+
+	@Override
+	public int movieAlarm(SqlSessionTemplate session, Map param) {
+		return session.insert("movie.movieAlarm",param);
+	}
+
+	@Override
+	public int movieScheduler(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("movie.movieScheduler",param);
+	}
 	
 	
 	

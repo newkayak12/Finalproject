@@ -22,10 +22,11 @@ public class MoviePersonInfo {
 	private String moviePersonSeq, moviePersonName;
 	private Date moviePersonBirth;
 	private String moviePersonPhoto;
+	private String moviePersonFlag;
 	
 //	typeHandler로....  영화1,영화2,영화3 
 //	영화 영화 인물 영, 여2, 여3, 
-	private List<String> movies = new ArrayList<String>();
+	private String movies;
 //	private List<Movie> movies = new ArrayList();
 	
 }

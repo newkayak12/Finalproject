@@ -201,9 +201,9 @@
 				<!-- Modal footer -->
 				<div class="d-flex flex-row justify-content-center pt-2 pb-2" style="background-color: rgb(113, 120, 127);">
 					<span class="ml-2 mr-2" id="headerGoprofile"> 
-					<i class="fa fa-th-large m-4" aria-hidden="true" style="font-size: 30px; color: white"></i>
+					<i class="fa fa-th-large m-4 cursor" aria-hidden="true" style="font-size: 30px; color: white"></i>
 					<div class="text-center" style="color: white;">프로필 보기</div>
-					</span> <span class="ml-2 mr-2" id="headerChat"> 
+					</span> <span class="ml-2 mr-2 cursor" id="headerChat"> 
 					<i class="fa fa-comments m-4 mb-1 " aria-hidden="true" style="font-size: 30px; color: white"></i>
 						<div class="text-center" style="color: white;" >채팅하기</div>
 					</span>
@@ -218,7 +218,7 @@
 	<div id="chatdraggerable" class="ui-widget-content " style="content:''; z-index:400; min-width:300px; width:500px; min-height:400px; height:500px; position:absolute;   top:100px; left:50px; border:1px black solid; display:none; background-color: white">
 		<div class="col-12 border d-flex justify-content-between" style="height:10%; max-height:50px position:fixed; top:0px;">
 			<span id="headerchatidBox">제목</span>
-			<span onclick ="headerchatclean()">X</span>
+			<span onclick ="headerchatclean()" class="cursor pt-2">X</span>
 		</div>
 		<div id="chatRoottop" class="col-12 border mb-0" style="height:80%;  overflow:auto;">
 			
@@ -293,7 +293,7 @@ $(function(){
     	onlinesend()
     	/* $('.toast').toast('show'); */
     	
-    }/* , 1000  */  ,200000 )
+    }, 1000/*   ,200000  */)
 })
 
 
@@ -781,15 +781,15 @@ function kakaoLogout(){
 			
 			/* console.log("socketstart header") */
 			/* 헤더 ui */
-					let tar = '';
+					/* let tar = '';
 					if(id1!='${userSession.userId}'){
 						tar = id1;
 					} else {
 						tar =id2;
-					}
+					} */
 					
 				$("#chatdraggerable").css("display","block");
-				$("#headerchatidBox").html(tar)
+				$("#headerchatidBox").html("채팅").attr("class","tway mainColor pt-2")
 			
 		} else {
 			

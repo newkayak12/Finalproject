@@ -32,10 +32,11 @@
 
 	
 	/* 토스트 메시지 */
-	.toast-wrap {
+.toast-wrap {
     display: table;
     position: fixed;
-    left: 50%;
+    left:50%;
+    top:50%;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -44,9 +45,17 @@
     padding: 10px;
     border-radius: 5%;
     z-index: 999;
+    color:white;
+   	width: 50%;
+   	height: 5%;
 }
 .toast-wrap::after {
-    content: "";
+    content: "가고싶다 리스트에 추가되었습니다";
+    text-align : center;
+    align-content:center;
+    align-items:center;
+    align-self:center;
+	vertical-align:middle;
     position: absolute;
     left: 0;
     top: 0;
@@ -55,15 +64,17 @@
     background: #2AC1BC;
     z-index: -1;
     border-radius: 10px;
-}
+} 
 .toast {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
     font-weight: bold;
     font-size: 1.2em;
+ 
 }
 </style>
+
 
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
@@ -143,9 +154,9 @@
 				
 				
 				<!-- 정보 영역 -->
-				<div class="foodView-info-container">
+				<div class="foodView-info-container  d-md-flex   justify-content-between">
 				
-					<table>
+					<table class="col-md-6 col-12">
 						<tr>
 							<th class="">주소</th>
 							<td class=""><c:out value="${ food.foodAddr }"/></td>
@@ -186,14 +197,42 @@
 							<td class=""><c:out value="${ food.foodContents }"/></td>
 						</tr>
 					</table>
+					
+					<!-- 지도 -->
+					<div id="nmap" style="width:100%; height:300px;" class="col-md-6 col-12 mt-2 "></div>
 				</div>
+				
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=w63thm9d3h"></script>
+<script>
+	/* var position = new naver.maps.LatLng(37.523825497795826, 127.02431805512373); */
+	var position = new naver.maps.LatLng(${food.foodLatitude}, ${food.foodLongitude});
+	
+	var map = new naver.maps.Map('nmap', {
+	    center: position,
+	    zoom: 16
+	});
+	
+	var markerOptions = {
+	    position: position,
+	    map: map,
+	    icon: {
+	        url: './img/pin_default.png',
+	        size: new naver.maps.Size(22, 35),
+	        origin: new naver.maps.Point(0, 0),
+	        anchor: new naver.maps.Point(11, 35)
+	    }
+	};
+	
+	var marker = new naver.maps.Marker(markerOptions);
+</script>
+				
 				
 				<!-- 메뉴 영역 -->
 				<div class="foodView-menu-container" >
 					<p class="mainColor tway" style="font-size:17px;">&nbsp;&nbsp;대표 메뉴</p>
 					<div class="row p-3">
 						<c:forEach var="menu" items="${ food.menus }">
-							<div class="col-6 col-md-4 item" style="padding:5px;">
+							<div class="col-6 col-md-4 d-flex flex-column flex-lg-row  item" style="padding:5px;">
 								<img onclick="fn_largeImg(event);" class="mr-3 ml-3 cursor" style="border-radius: 10px;" width="100px" height="100px" src="${ path }/resources/upload/food/${ menu.menuPhoto}">
 								<div class="ml-3" style="display : inline-block;">
 									<span><c:out value="${ menu.menuName }"/></span>
@@ -204,10 +243,7 @@
 						</c:forEach>
 					</div>
 				</div>
-				
-				<!-- 지도 영역 -->
-				<div class="">
-				</div>
+		
 				
 				<!-- 리뷰 영역 -->
 				<br>
@@ -223,8 +259,8 @@
 </section>
 
 <!-- 토스트 메시지 -->
-<div id="toast" class="toast-wrap" style="display:none;">
-    <div class="toast"></div>
+<div id="toast" class="toast-wrap " style="display:none;">
+    
 </div>
 
 
@@ -401,7 +437,7 @@
 					"foodCommentSeq" : foodCommentSeq
 				},
 				success : data => {
-					console.log(data);
+					// console.log(data);
 					alert("리뷰가 삭제되었습니다.");
 					window.location.reload();
 				}
@@ -429,7 +465,7 @@
 				"reportContent" : reportContent
 			},
 			success : data => {
-				console.log(data);
+				// console.log(data);
 				if(data > 0) {
 					alert("신고되었습니다.");
 					$("#fcreportModal").modal("hide");

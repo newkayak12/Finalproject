@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
+import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.serviceinfo.faq.Faq;
@@ -89,7 +91,9 @@ public interface AdminDaoInterface {
 	
 	public int reportGroupBoardCommentBlock(String seq, SqlSessionTemplate session);
 	public int reportGroupBoardCommentUnBlock(String seq, SqlSessionTemplate session);
-	public int updatefood(SqlSessionTemplate session, Food food); 
+
+	public int updatefood(SqlSessionTemplate session, Food food);
+	public int updatefoodMenu(SqlSessionTemplate session, FoodMenu m);
 
 	public List<Faq> selectFAQ(SqlSessionTemplate session, int cPage, int numPerPage);
 	public int faqTotalData(SqlSessionTemplate session);

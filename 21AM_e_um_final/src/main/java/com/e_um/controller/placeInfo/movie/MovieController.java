@@ -387,9 +387,11 @@ public class MovieController {
 			  param.put("movieSeat"+i,seats[i-1]);
 			  i+=1;
 		  }
-		  
+		 System.out.println(param);
 		 int result = service.payEnd(param); 
-		 
+		 System.out.println(param);
+		 int result2 = service.movieAlarm(param);
+		 int result3 = service.movieScheduler(param);
 		 double totalCount = service.totalCount();
 		 double movieCount = service.movieCount(param);
 		 
@@ -546,6 +548,78 @@ public class MovieController {
 	 public int liveMovie(@RequestParam(value="movieSeq")String movieSeq) {
 		 
 		 return service.movieLive(movieSeq);
+	 }
+	 
+	 @RequestMapping("/movie/amendMovie")
+	 public String amendMovie(@RequestParam(value="movieSeq")String movieSeq,Model model) {
+		 Movie movie = service.moviePoster(movieSeq);
+		 
+		 model.addAttribute("movie",movie);
+		 return "components/admin/amendMovie";
+	 }
+	 
+	 @RequestMapping("/movie/movieUpdate")
+	 public String movieUpdate(@RequestParam Map param, Model model) {
+		 int result = service.movieUpdate(param);
+		 String msg = "";
+		 String loc = "";
+		 if(result>0) {
+			 msg = "수정이 성공했습니다.";
+			 loc="/admin/enter";
+		 }else {
+			 msg = "수정이 실패했습니다.";
+			 loc="/admin/enter";
+		 }
+		 
+		 model.addAttribute("msg",msg);
+		 model.addAttribute("loc",loc);
+		 return "/common/msg";
+	 }
+	 
+	 @RequestMapping("/movie/moviePersonDelete")
+	 @ResponseBody
+	 public int deleteMoviePerson(@RequestParam(value="moviePersonSeq")String moviePersonSeq) {
+		 return service.moviePersonDelete(moviePersonSeq);
+	 }
+	 
+	 @RequestMapping("/movie/moviePersonLive")
+	 @ResponseBody
+	 public int liveMoviePerson(@RequestParam(value="moviePersonSeq")String moviePersonSeq) {
+		 return service.moviePersonLive(moviePersonSeq);
+	 }
+	 
+	 @RequestMapping("/movie/amendPerson")
+	 public String amendPerson(@RequestParam(value="moviePersonSeq")String moviePersonSeq,Model model) {
+		 MoviePersonInfo mpi = service.moviePersonInfo(moviePersonSeq);
+		 model.addAttribute("person",mpi);
+		 return "components/admin/amendMoviePerson";
+	 }
+	 
+	 @RequestMapping("/movie/updatePerson")
+	 public String updatePerson(@RequestParam Map param, MultipartFile file, Model model,HttpServletRequest req) {
+		 param.put("personPhoto", renamepolicy(req,file,"moviePerson")); 
+		 int result = service.updatePerson(param);
+		 String msg = "";
+		 String loc = "";
+		 if(result>0) {
+			 msg = "수정이 성공했습니다.";
+			 loc="/admin/enter";
+		 }else {
+			 msg = "수정이 실패했습니다.";
+			 loc="/admin/enter";
+		 }
+		 
+		 model.addAttribute("msg",msg);
+		 model.addAttribute("loc",loc);
+		 return "/common/msg";
+	 }
+	 
+	 @RequestMapping("/movie/reserveCancel")
+	 @ResponseBody
+	 public int reserveCancel(@RequestParam(value="movieReservNum")String movieReservNum) {
+		 int result = service.reserveCancel(movieReservNum);
+		 System.out.println(result);
+		 return result;
 	 }
 	 
 	 

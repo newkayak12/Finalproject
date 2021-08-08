@@ -34,11 +34,9 @@
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick ="moviesub()">영화관리</span>
 			<span id="moviesub" class="text-center cursor " style="display:none;">
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="manageMovie();"> 영화 조회 </div>
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="enrollMovie();"> 영화 등록 </div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="amendMovie();"> 영화 수정</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="enrollMovie();"> 영화 등록 </div>						
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="managePerson();"> 인물 조회 </div>
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="registPerson();"> 인물 등록 </div>			
-				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick=""> 인물 수정</div>			
+				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="registPerson();"> 인물 등록 </div>					
 				<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick="showTicketingList()"> 예매 조회 </div>
 			</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick="foodSub()">맛집관리</span>
@@ -285,13 +283,6 @@
 		})
 	}
 	
-	/* 영화 수정 amendMovie */
-	/* function amendMovie(){
-		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/amendMovie',
-			success
-		})
-	} */
 	
 	/* 인물 조회 managePerson */
 	function managePerson(cPage){
@@ -319,7 +310,6 @@
 		
 	}
 	
-	/* 인물 수정 amendPerson */
 	
 	/* 예매 조회 ShowTicketingList */
 	function showTicketingList(cPage){

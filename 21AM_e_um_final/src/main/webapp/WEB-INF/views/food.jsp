@@ -30,8 +30,9 @@ a:hover { text-decoration:none !important }
 	<div id="root" class="container mt-5">
 	
 		<p class="mainColor tway" style="font-size:35px; text-align:center;">맛집 찾기</p>
+		<p class="text-center tway">친구랑 같이 갈 맛집을 찾아볼까요?</p>
 	
-		<div>
+		<div class="mt-1 mb-5">
 		
 			<div class="search-container col-12">
 				<form class="col-12">
@@ -168,17 +169,6 @@ a:hover { text-decoration:none !important }
 		</div> <!-- 모달 div -->
 
 <script>
-	
-/* 	$(function() {
-		// 평점이 높은 맛집, 리뷰가 많은 맛집, 예약이 많은 맛집
-		$.ajax({
-			url : "${ pageContext.request.contextPath }/food/foodMainList",
-			success : data => {
-				$("#mainFoodList").append(data);
-			}
-		});
-	} */
-
 	// 모달열기 함수 
 	const fn_foodmodal=(seq)=>{
 		$.ajax({

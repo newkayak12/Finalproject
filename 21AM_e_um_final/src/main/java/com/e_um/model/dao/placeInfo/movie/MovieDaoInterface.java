@@ -87,4 +87,20 @@ public interface MovieDaoInterface {
 	
 	int movieLive(SqlSessionTemplate session, String movieSeq);
 	
+	int movieUpdate(SqlSessionTemplate session, Map param);
+	
+	int moviePersonDelete(SqlSessionTemplate session, String moviePersonSeq);
+	
+	int moviePersonLive(SqlSessionTemplate session, String moviePersonSeq);
+	
+	MoviePersonInfo moviePersonInfo(SqlSessionTemplate session, String moviePersonSeq);
+	
+	int updatePerson(SqlSessionTemplate session, Map param);
+	
+	int reserveCancel(SqlSessionTemplate session, String movieReservNum);
+	
+	int movieAlarm(SqlSessionTemplate session, Map param);
+	
+	int movieScheduler(SqlSessionTemplate session, Map param);
+	
 }

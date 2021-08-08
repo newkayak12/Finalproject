@@ -217,8 +217,18 @@ public class FoodService implements FoodServiceInterface {
 
 
 	@Override
-	public int insertFoodAlarm(Map<String, String> param) {
-		return dao.insertFoodAlarm(session, param);
+	public int insertFoodAlarm(Map<String, Object> param) {
+		
+		// return dao.insertFoodAlarm(session, param);
+		
+		int result = dao.insertFoodAlarm(session, param);
+		
+		if(result > 0) {
+			return dao.insertFoodScheduler(session, param);
+		} else {
+			return 0;
+		}
+		
 	}
 
 

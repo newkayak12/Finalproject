@@ -42,7 +42,7 @@
 	.typo{
 		width: 100%;
 		background-color:white;
-		font-size : 5vw;
+		/* font-size : 3vw; */
 		height: 800px;
 		font-family: 'twayair';
 	}
@@ -53,7 +53,7 @@
  	.typo{
 		width: 100%;
 		background-color: white;
-		font-size : 64px;
+		/* font-size : 64px; */
 		height: 800px;
 		font-family: 'twayair';
 	}	
