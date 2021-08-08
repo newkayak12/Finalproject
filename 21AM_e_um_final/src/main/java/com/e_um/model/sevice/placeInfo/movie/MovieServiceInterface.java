@@ -95,4 +95,7 @@ public interface MovieServiceInterface {
 	
 	int reserveCancel(String movieReservNum);
 	
+	int movieAlarm(Map param);
+	
+	int movieScheduler(Map param);
 }
