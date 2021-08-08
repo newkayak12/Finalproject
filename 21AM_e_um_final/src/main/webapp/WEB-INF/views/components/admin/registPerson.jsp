@@ -25,3 +25,10 @@
   	  <input type="file" name="file" multiple="multiple" required><br>
   	  <button class="btn btn-primary">등록</button>
   </form>
+  
+  
+  <style>
+		*{
+			font-family:'Noto Sans KR';
+		}
+</style>

@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
     
 <form action="${pageContext.request.contextPath}/movie/movieUpdate" method="post">
-    <h1>영화 등록</h1>
     <input type="hidden" value="${movie.movieSeq }" name="movieSeq">
     <h4 style="display: inline-block; width: 200px;">영화제목(한글) :</h4>
     <input style="height: 20px; width: 300px; height:25px;"  type="text" name="movieTitleKr" value="${movie.movieTitleKr }" disabled><br>
@@ -28,3 +27,9 @@
     <button class="btn btn-primary ml-5 mt-5">수정</button>
     
   </form>
+  
+  <style>
+		*{
+			font-family:'Noto Sans KR';
+		}
+	</style>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <form action="${pageContext.request.contextPath }/movie/movieEnroll" method="post" enctype="multipart/form-data">
-    <h1>영화 등록</h1>
     <h4 style="display: inline-block; width: 200px;">영화제목(한글) :</h4>
     <input style="height: 20px; width: 300px;" type="text" name="movieTitleKr" required><br>
     <h4 style="width: 200px; display: inline-block;">영화제목(영어) :</h4>
@@ -28,3 +27,9 @@
     <input type="file" name="file" multiple="multiple">
     <button class="btn btn-primary ml-5">등록</button>
   </form>
+  
+  <style>
+		*{
+			font-family:'Noto Sans KR';
+		}
+	</style>
