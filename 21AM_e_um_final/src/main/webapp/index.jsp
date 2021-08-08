@@ -373,7 +373,7 @@
 	
 		<section class=" fluid-container position-relative  sectionMinHeight mb-1 mt-2 p-0 pt-2 col-12 img-holder" style="height: 5600px; container:''; background-color: #EAEAEA;">
 			
-			<div class="typo text-center d-flex justify-content-center align-items-center pb-5 mb-2" style="font-size: 4.5vw">
+			<div class="typo text-center d-flex justify-content-center align-items-center pb-5 mb-2" style="font-size: 4.7vw">
 			</div>
 			
 			
