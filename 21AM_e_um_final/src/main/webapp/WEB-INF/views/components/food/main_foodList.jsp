@@ -5,14 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <div class="container">
-<%-- <c:out value="${fSlist }"/>
-<c:out value="${fClist }"/>
-<c:out value="${fBlist }"/> --%>
-
-	<h4 class="mainColor tway">평점이 높은 맛집</h4>
+	<h4 class="mainColor tway ml-3">평점이 높은 맛집</h4>
 	
 	<div id="" class="row justify-content-center features">
-	
 		<c:forEach items="${ fSlist }" var="f" varStatus="vs">
 			<c:if test="${ vs.count < 5 }">
 				<div class="col-6 col-md-4 col-lg-3 item" style="text-align:center;">
@@ -36,7 +31,7 @@
 
 <div class="container">
 
-	<h4 class="mainColor tway">리뷰가 많은 맛집</h4>
+	<h4 class="mainColor tway ml-3">리뷰가 많은 맛집</h4>
 	
 	<div id="" class="row justify-content-center features">
 	
@@ -63,7 +58,7 @@
 
 <div class="container">
 
-	<h4 class="mainColor tway">예약이 많은 맛집</h4>
+	<h4 class="mainColor tway ml-3">예약이 많은 맛집</h4>
 	
 	<div id="" class="row justify-content-center features">
 	

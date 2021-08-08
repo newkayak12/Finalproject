@@ -35,7 +35,8 @@
 	.toast-wrap {
     display: table;
     position: fixed;
-    left: 50%;
+    left:50%;
+    top:50%;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -55,7 +56,7 @@
     background: #2AC1BC;
     z-index: -1;
     border-radius: 10px;
-}
+} 
 .toast {
     display: table-cell;
     text-align: center;
@@ -64,6 +65,7 @@
     font-size: 1.2em;
 }
 </style>
+
 
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
@@ -143,9 +145,9 @@
 				
 				
 				<!-- 정보 영역 -->
-				<div class="foodView-info-container">
+				<div class="foodView-info-container  d-md-flex   justify-content-between">
 				
-					<table>
+					<table class="col-md-6 col-12">
 						<tr>
 							<th class="">주소</th>
 							<td class=""><c:out value="${ food.foodAddr }"/></td>
@@ -186,7 +188,35 @@
 							<td class=""><c:out value="${ food.foodContents }"/></td>
 						</tr>
 					</table>
+					
+					<!-- 지도 -->
+					<div id="nmap" style="width:100%; height:300px;" class="col-md-6 col-12 mt-2 "></div>
 				</div>
+				
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=w63thm9d3h"></script>
+<script>
+	/* var position = new naver.maps.LatLng(37.523825497795826, 127.02431805512373); */
+	var position = new naver.maps.LatLng(${food.foodLatitude}, ${food.foodLongitude});
+	
+	var map = new naver.maps.Map('nmap', {
+	    center: position,
+	    zoom: 16
+	});
+	
+	var markerOptions = {
+	    position: position,
+	    map: map,
+	    icon: {
+	        url: './img/pin_default.png',
+	        size: new naver.maps.Size(22, 35),
+	        origin: new naver.maps.Point(0, 0),
+	        anchor: new naver.maps.Point(11, 35)
+	    }
+	};
+	
+	var marker = new naver.maps.Marker(markerOptions);
+</script>
+				
 				
 				<!-- 메뉴 영역 -->
 				<div class="foodView-menu-container" >
@@ -204,10 +234,7 @@
 						</c:forEach>
 					</div>
 				</div>
-				
-				<!-- 지도 영역 -->
-				<div class="">
-				</div>
+		
 				
 				<!-- 리뷰 영역 -->
 				<br>

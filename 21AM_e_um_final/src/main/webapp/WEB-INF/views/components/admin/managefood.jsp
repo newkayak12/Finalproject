@@ -93,8 +93,8 @@
       } 
 </script>
 
-<div class="d-flex flex-column justify-content-between align-itmes-center">
-	<div style="height: 650px" class="d-flex flex-column  align-items-center" id="manageFoodDiv">
+<div class="d-flex flex-column justify-content-between align-itmes-center" id="manageFoodDiv">
+	<div style="height: 650px" class="d-flex flex-column  align-items-center">
 	
 		<div class="d-flex justify-content-around">
 			<span id="price_star"></span>
@@ -184,7 +184,7 @@
 	</div>
 	
 	<c:if test="${list.size()>0}">
-		<div class="mt-5">${pageBar }</div>
+		<div id="mf_pageBar" class="mt-5">${pageBar }</div>
 	</c:if>
 	
 </div>
@@ -198,7 +198,11 @@
 				"foodSeq" : foodSeq	
 			},
 			success: data => {
+				$("#mf_pageBar").css("display", "none");
+				
 				$("#manageFoodDiv").html("");
+				$("#manageFoodDiv").attr("class", "");
+				
 				$("#title").html("음식점 정보 수정")
 				$("#manageFoodDiv").html(data)
 			}

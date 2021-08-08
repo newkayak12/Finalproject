@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
-import com.e_um.model.vo.serviceinfo.faq.Faq;
+import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -66,7 +67,9 @@ public interface AdminServiceInterface {
 	
 	public int reportGroupBoardCommentBlock(String seq);
 	public int reportGroupBoardCommentUnBlock(String seq);
-	public int updatefood(Food food); 
+	
+	public int updatefood(Food food);
+	public int updatefoodMenu(List<FoodMenu> menuList); 
 	
 
 	public List<Faq> selectFAQ(int cPage, int numPerPage);

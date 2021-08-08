@@ -168,17 +168,6 @@ a:hover { text-decoration:none !important }
 		</div> <!-- 모달 div -->
 
 <script>
-	
-/* 	$(function() {
-		// 평점이 높은 맛집, 리뷰가 많은 맛집, 예약이 많은 맛집
-		$.ajax({
-			url : "${ pageContext.request.contextPath }/food/foodMainList",
-			success : data => {
-				$("#mainFoodList").append(data);
-			}
-		});
-	} */
-
 	// 모달열기 함수 
 	const fn_foodmodal=(seq)=>{
 		$.ajax({
