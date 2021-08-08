@@ -21,3 +21,9 @@
   	  <br>
   	  <button class="btn btn-primary">수정</button>
  </form>
+ 
+ <style>
+		*{
+			font-family:'Noto Sans KR';
+		}
+</style>

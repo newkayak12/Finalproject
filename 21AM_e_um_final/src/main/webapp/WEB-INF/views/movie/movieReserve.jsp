@@ -138,10 +138,29 @@
 	 */
 </script>	
 <style>
+	.movieName{
+		border-radius: 10px;
+		font-family: 'Noto Sans KR';
+		font-weight: bold;
+	}
 	.active{
 		background-color: #2AC1BC;
-		
+	    border : 2px solid #2AC1BC;
+	    color:white;
+	    border-radius: 10px;
+	    font-family: 'Noto Sans KR';
+	    font-weight: bold;	
 	}
+	
+	
+/*취소 버튼*/
+.cancelBtn{
+    border : 2px solid #2AC1BC;
+    color:#2AC1BC;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR';
+    font-weight: bold;
+}
 </style>
 	
 	
@@ -435,6 +454,9 @@
 		    justify-content: center;
 		    align-items: center;
 		    padding: 5px 2px;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
+		    font-weight: bold;
 		}
 		
 		.movie-week-of-day {
@@ -465,11 +487,13 @@
 		
 		.movie-date-wrapper-active {
 		    background-color: #2AC1BC;
+		    color:white;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
+		    font-weight: bold;
 		}
 		
-		.movie-date-wrapper-active>* {
-		    color: white;
-		}
+		
 		
 		.theater-wrapper {
 		    padding-left: 12px;
@@ -508,8 +532,9 @@
 		    /* height: 40px;
 		    width : 135px; */
 		    font-size: 12px;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
 		    font-weight: bold;
-		    text-align: left;
 		}
 		
 		.reserve-time {
@@ -526,6 +551,9 @@
 		
 		.reserve-time-wrapper {
 		    margin-top: 10px;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
+		    font-weight: bold;
 		}
 		
 		.reserve-time-button {

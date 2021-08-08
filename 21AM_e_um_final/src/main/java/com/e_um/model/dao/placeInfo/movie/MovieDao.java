@@ -274,6 +274,17 @@ public class MovieDao implements MovieDaoInterface {
 		// TODO Auto-generated method stub
 		return session.update("movie.reserveCancel",movieReservNum);
 	}
+
+	@Override
+	public int movieAlarm(SqlSessionTemplate session, Map param) {
+		return session.insert("movie.movieAlarm",param);
+	}
+
+	@Override
+	public int movieScheduler(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("movie.movieScheduler",param);
+	}
 	
 	
 	
