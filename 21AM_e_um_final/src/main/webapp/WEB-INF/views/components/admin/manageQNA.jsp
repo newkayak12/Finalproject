@@ -10,13 +10,16 @@
 	<div style="height: 650px" class="d-flex flex-column  align-items-center" id="manageFAQDiv">
 		<table class="table table-striped table-hover colcenter">
 			<colgroup>
-				<col class="col-2">
-				<col class="col-6">
 				<col class="col-1">
-				<col class="col-1">
-				<col class="col-2">
+		        <col class="col-2">
+		        <col class="col-5">
+		        <col class="col-2">
+		        <col class="col-2">
 			</colgroup>
 			<tr>
+				<th class="bgColorMainColorSub whiteText colcenter">
+					글 번호
+				</th>
 				<th class="bgColorMainColorSub whiteText colcenter">
 					카테고리
 				</th>
@@ -24,38 +27,36 @@
 					제목
 				</th>
 				<th class="bgColorMainColorSub whiteText colcenter">
-					상태
+					날짜
 				</th>
 				<th class="bgColorMainColorSub whiteText colcenter">
-					수정
-				</th>
-				<th class="bgColorMainColorSub whiteText colcenter">
-					상태 변경
+					답변 현황
 				</th>
 			</tr>
 			
 			<c:if test="${list.size()>0}">
 				<c:forEach items="${list }" var="i">
 					<tr>
-						<td class="pointer align-middle">${i.questCategory }</td>
-						<td class="pointer align-middle">${i.faqTitle }</td>
-						<td class="pointer align-middle">
-							<c:if test="${i.deleteFlag eq 'live' }">
-								사용
-							</c:if>
-							<c:if test="${i.deleteFlag eq 'die' }">
-								미사용
-							</c:if>
-						</td>
-						<td class="align-middle"><button class="cancelBtn btn" onclick="fn_modifyFAQStart('${i.faqSeq }')">수정</button></td>
-						<td class="align-middle">
-							<c:if test="${i.deleteFlag eq 'die' }">
-								<button class="checkBtn btn" onclick="fn_changeFAQStatus('${i.faqSeq }','live')">사용</button>
-							</c:if>
-							<c:if test="${i.deleteFlag eq 'live' }">
-								<button class="cancelBtn btn" onclick="fn_changeFAQStatus('${i.faqSeq }','die')">미사용</button>
-							</c:if>
-						</td>
+						<td class="colcenter align-middle">
+	                    	${fn:substring(i.questionSeq,3,6) }
+	                    </td>
+	                    <td class="colcenter align-middle">
+	                    	${i.questionCategory }
+	                    </td>
+	                    <td class="align-middle">
+	                    	${i.questionTitle }
+	                    </td>
+	                    <td class="colcenter align-middle">
+	                        <fmt:formatDate value="${i.questionDate }" pattern="yyyy/MM/dd"/>
+	                    </td>
+	                    <td class="colcenter align-middle">
+	                        <c:if test="${i.questionResponseFlag eq 'success' }">
+	                            <button class="disabledBtn btn" disabled>완료</button>
+	                        </c:if>
+	                        <c:if test="${i.questionResponseFlag eq 'wait' }">
+	                            <button class="cancelBtn btn" onclick="fn_answerQuestionStart('${i.questionSeq}')">미완료</button>
+	                        </c:if>
+	                    </td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -76,33 +77,14 @@
 </div>
 
 <script>
-	function fn_changeFAQStatus(faqSeq, flag){
+	function fn_answerQuestionStart(questionSeq){
 		$.ajax({
 			type:"post",
-			url:"${pageContext.request.contextPath}/admin/changeFAQStatus",
-			data:{
-				faqSeq:faqSeq,
-				flag:flag
-				},
-			success:list=>{
-				if(list>0){
-					alert("상태가 변경되었습니다.");
-					manageFAQ(1);
-				}else{
-					alert("상태 변경에 실패했습니다.");
-				}
-			}
-		})
-	}
-	
-	function fn_modifyFAQStart(faqSeq){
-		$.ajax({
-			type:"post",
-			url:"${pageContext.request.contextPath}/admin/modifyFAQ/start",
-			data:{faqSeq:faqSeq},
+			url:"${pageContext.request.contextPath}/admin/answerQuestion/start",
+			data:{questionSeq:questionSeq},
 			success:list=>{
 				$("#prev").css("visibility","visible")
-				$("#title").html("FAQ 수정")
+				$("#title").html("문의사항 답변")
 				$("#root").html(list)
 			}
 		})

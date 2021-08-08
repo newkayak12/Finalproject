@@ -48,9 +48,9 @@
 			</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick="serviceSub()">고객센터관리</span>
 				<span id="serviceSub" class="text-center cursor " style="display:none;">
-					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageFAQ(1)"> FAQ 조회 </div>
-					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick =""> FAQ 등록 </div>
-					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick =""> 문의사항 답변 </div>
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageFAQ(1);"> FAQ 조회 </div>
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="writeFAQ();"> FAQ 등록 </div>
+					<div class="text-center cursor pointFont" style="color:2AC1BC; font-size:16px" onclick ="manageQNA(1)"> 문의사항 답변 </div>
 				</span>
 			<span class="text-center cursor pointFont" style="font-size:20px" onclick="reportsub()">신고관리</span>
 			<span id="reportsub" class="text-center cursor " style="display:none;">
@@ -161,10 +161,30 @@
 				$("#root").html(list)
 			}
 		})
-	
 	}
 	
-	/* 댓글 다는 부분 만들어주기 supportRepl */
+	function writeFAQ(){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/writeFAQ/start',
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("FAQ 등록")
+				$("#root").html(list)
+			}
+		})
+	}
+	
+	function manageQNA(cPage){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/manageQNA',
+			data:{"cPage":cPage},
+			success:list=>{
+				$("#prev").css("visibility","visible")
+				$("#title").html("QNA 조회")
+				$("#root").html(list)
+			}
+		})
+	}
 	
 	
 	/* 피드 */

@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
-import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
+import com.e_um.model.vo.serviceinfo.question.NoHasAQuestion;
+import com.e_um.model.vo.serviceinfo.question.Question;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -66,10 +68,18 @@ public interface AdminServiceInterface {
 	
 	public int reportGroupBoardCommentBlock(String seq);
 	public int reportGroupBoardCommentUnBlock(String seq);
-	public int updatefood(Food food); 
-	
+	public int updatefood(Food food);
 
 	public List<Faq> selectFAQ(int cPage, int numPerPage);
+	public int faqTotalData();
+	public int writeFAQ(Faq f);
+	public int changeFAQStatus(Faq f);
+	public Faq selectFAQOne(String faqSeq);
+	public int modifyFAQ(Faq f);
+	public List<NoHasAQuestion> selectQNAAll(int cPage, int numPerPage);
+	public int qnaTotalData();
+	public NoHasAQuestion selectQNA(String questionSeq);
+	public int updateAnswer(Question qa);
 
 	public List<Movie> movieList(int cPage, int numPerPage);
 	public int movieTotalData();

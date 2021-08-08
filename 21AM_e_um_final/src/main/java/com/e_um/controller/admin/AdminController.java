@@ -18,6 +18,8 @@ import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
+import com.e_um.model.vo.serviceinfo.question.Question;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.user.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -339,7 +341,7 @@ public class AdminController {
 	public String manageFAQ(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
 		int numPerPage =10;
 		model.addAttribute("list",service.selectFAQ(Integer.parseInt(cPage), numPerPage));
-		//model.addAttribute("pageBar", getPageBar(service.faqTotalData(), Integer.parseInt(cPage) ,numPerPage ,"manageFAQ"));
+		model.addAttribute("pageBar", getPageBar(service.faqTotalData(), Integer.parseInt(cPage) ,numPerPage ,"manageFAQ"));
 		return "components/admin/manageFAQ";
 	}
 	
@@ -494,5 +496,67 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("/admin/writeFAQ/start")
+	public String openFAQForm() {
+		return "components/admin/faqForm";
+	}
+	
+	
+	@RequestMapping("/admin/writeFAQ/end")
+	@ResponseBody
+	public int writeFAQ(String category, String title, String content) {
+		Faq f=Faq.builder().questCategory(category).faqTitle(title).faqContents(content).build();
+		return service.writeFAQ(f);
+	}
+	
+	
+	@RequestMapping("/admin/changeFAQStatus")
+	@ResponseBody
+	public int changeFAQStatus(String faqSeq, String flag) {
+		Faq f=Faq.builder().faqSeq(faqSeq).deleteFlag(flag).build();
+		return service.changeFAQStatus(f);
+	}
+	
+	
+	@RequestMapping("/admin/modifyFAQ/start")
+	public String openModifyFAQForm(String faqSeq, Model m) {
+		m.addAttribute("faq",service.selectFAQOne(faqSeq));
+		return "components/admin/modifyFAQ";
+	}
+	
+	
+	@RequestMapping("/admin/modifyFAQ/end")
+	@ResponseBody
+	public int modifyFAQ(String faqSeq, String category, String title, String content) {
+		Faq f=Faq.builder().faqSeq(faqSeq).questCategory(category).faqTitle(title).faqContents(content).build();
+		//log.warn("f: {}", f);
+		return service.modifyFAQ(f);
+	}
+	
+	
+	@RequestMapping("/admin/manageQNA")
+	public String manageQNA(@RequestParam(defaultValue = "1", value = "cPage")String cPage, Model model) {
+		int numPerPage =10;
+		model.addAttribute("list",service.selectQNAAll(Integer.parseInt(cPage), numPerPage));
+		model.addAttribute("pageBar", getPageBar(service.qnaTotalData(), Integer.parseInt(cPage) ,numPerPage ,"manageQNA"));
+		return "components/admin/manageQNA";
+	}
+	
+	
+	@RequestMapping("/admin/answerQuestion/start")
+	public String answerQuestionStart(String questionSeq, Model m) {
+		m.addAttribute("qna",service.selectQNA(questionSeq));
+		//log.warn("service.selectQNA(questionSeq): {}", service.selectQNA(questionSeq));
+		return "components/admin/answerQ";
+	}
+	
+	
+	@RequestMapping("/admin/answerQuestion/end")
+	@ResponseBody
+	public int answerQuestionEnd(String questionSeq, String userId, String answer) {
+		Question qa=Question.builder().questionSeq(questionSeq).userId(userId).questionAnswerContents(answer).build();
+		log.warn("qa: {}",qa);
+		return service.updateAnswer(qa);
+	}
 	
 }
