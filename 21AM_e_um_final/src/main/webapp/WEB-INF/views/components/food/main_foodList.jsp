@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<div class="container">
-	<h4 class="mainColor tway ml-3">평점이 높은 맛집</h4>
+<div class="container mt-3">
+	<h4 class="mainColor tway ml-3 mb-3">평점이 높은 맛집</h4>
 	
 	<div id="" class="row justify-content-center features">
 		<c:forEach items="${ fSlist }" var="f" varStatus="vs">
@@ -29,9 +29,9 @@
 	</div>
 </div> <!--container-->
 
-<div class="container">
+<div class="container mt-3">
 
-	<h4 class="mainColor tway ml-3">리뷰가 많은 맛집</h4>
+	<h4 class="mainColor tway ml-3 mb-3">리뷰가 많은 맛집</h4>
 	
 	<div id="" class="row justify-content-center features">
 	
@@ -56,9 +56,9 @@
 	</div>
 </div> <!--container--> 
 
-<div class="container">
+<div class="container mt-3">
 
-	<h4 class="mainColor tway ml-3">예약이 많은 맛집</h4>
+	<h4 class="mainColor tway ml-3 mb-3">예약이 많은 맛집</h4>
 	
 	<div id="" class="row justify-content-center features">
 	

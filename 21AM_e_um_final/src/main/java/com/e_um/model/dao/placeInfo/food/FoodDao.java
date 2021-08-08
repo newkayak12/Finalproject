@@ -152,7 +152,7 @@ public class FoodDao implements FoodDaoInterface {
 	}
 
 	@Override
-	public int insertFoodAlarm(SqlSessionTemplate session, Map<String, String> param) {
+	public int insertFoodAlarm(SqlSessionTemplate session, Map<String, Object> param) {
 		return session.insert("food.insertFoodAlarm", param);
 	}
 
@@ -190,6 +190,11 @@ public class FoodDao implements FoodDaoInterface {
 	@Override
 	public List<Food> fBmainFoodList(SqlSessionTemplate session) {
 		return session.selectList("food.fBmainFoodList");
+	}
+
+	@Override
+	public int insertFoodScheduler(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.insert("food.insertFoodScheduler", param);
 	}
 
 

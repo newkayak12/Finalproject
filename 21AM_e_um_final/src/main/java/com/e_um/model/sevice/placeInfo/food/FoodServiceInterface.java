@@ -48,7 +48,7 @@ public interface FoodServiceInterface {
 
 	int foodViewCountUp(String foodSeq);
 
-	int insertFoodAlarm(Map<String, String> param);
+	int insertFoodAlarm(Map<String, Object> param);
 
 	List<Food> selectAllFoodSorting(String con, String cPage);
 

@@ -29,7 +29,7 @@
 	<div id="root" class="container mt-5">
 		<p class="tway mainColor" style="font-size:35px; text-align:center;">맛집 예약하기</p>
 		<!-- 정보 영역 -->
-		<div class="info ml-5 mr-5 mt-5 mb-3" style="display:inline-block;">
+		<div class="info ml-5 mr-5 mt-3 mb-3" style="display:inline-block;">
 				<div class="tway blackText" style="float:left; font-size:45px;">&nbsp;&nbsp;<c:out value="${ food.foodName }"/></div>
 				<div class="ml-5" style="float:right;">
 					<span class="etc"><c:out value="😋 ${ food.foodAddr }"/></span>
