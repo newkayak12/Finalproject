@@ -2,6 +2,7 @@ package com.e_um.controller.userInfo.mypage;
 
 import static com.e_um.common.renamePolicy.RenamePolicy.renamepolicy;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
 import com.e_um.model.vo.userInfo.alarmToggle.AlarmToggle;
 import com.e_um.model.vo.userInfo.interest.Interest;
+import com.e_um.model.vo.userInfo.scheduler.NoHasAScheduler;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +82,7 @@ public class MypageController {
 			case "infoModal":
 				m.addAttribute("alarm", service.selectAlarmToggle(user.getUserId()));
 				break;
+				
 			case "movieModal":
 				m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage));
 				//log.error("movieInfo: {}",m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage)));
@@ -100,6 +103,13 @@ public class MypageController {
 				m.addAttribute("myFoodCommentList", myFoodCommentList);
 				totalData=service.selectFoodBookingCount(user.getUserId());
 				//pageBar=PageBar.getPageBarModalName(modalName, totalData, cPage, numPerPage, rq.getContextPath()+"/user/mypage/openModal", "fn_paging");
+				break;
+			
+			case "calendarModal":
+				m.addAttribute("dateList", service.selectDate(user.getUserId()));
+				//log.warn("dateList: {}",service.selectDate(user.getUserId()));
+				m.addAttribute("scheduleList", service.selectSchedule(user.getUserId()));
+				//log.warn("scheduleList: {}",service.selectSchedule(user.getUserId()));
 				break;
 				
 			case "supportModal":
@@ -293,6 +303,26 @@ public class MypageController {
 		User user = (User) rq.getSession().getAttribute("userSession");
 		AlarmToggle at=AlarmToggle.builder().alarmKey(alarmKey).userId(user.getUserId()).alarmToggle(flag).build();
 		return service.alarmOnOff(at);
+	}
+	
+	
+	@RequestMapping("/user/mypage/deleteSchedule")
+	@ResponseBody
+	public int deleteSchedule(String schedulerSeq) {
+		return service.deleteSchedule(schedulerSeq);
+	}
+	
+	
+	@RequestMapping("/user/mypage/insertSchedule")
+	@ResponseBody
+	public int insertSchedule(HttpServletRequest rq, String category, Date scheduleDate, String scheduleTitle) {
+//		log.warn("category: {}",category);
+//		log.warn("scheduleTitle: {}",scheduleTitle);
+//		log.warn("scheduleDate: {}",scheduleDate);
+		User user = (User) rq.getSession().getAttribute("userSession");
+		NoHasAScheduler nhs=NoHasAScheduler.builder().schedulerCategorySeq(category).userId(user.getUserId()).schedulerTitle(scheduleTitle).schedulerDate(scheduleDate).build();
+		//return 0;
+		return service.insertSchedule(nhs);
 	}
 
 }

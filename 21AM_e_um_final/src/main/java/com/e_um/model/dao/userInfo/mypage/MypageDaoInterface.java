@@ -9,6 +9,7 @@ import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
 import com.e_um.model.vo.userInfo.alarmToggle.AlarmToggle;
 import com.e_um.model.vo.userInfo.interest.Interest;
+import com.e_um.model.vo.userInfo.scheduler.NoHasAScheduler;
 import com.e_um.model.vo.userInfo.user.User;
 
 public interface MypageDaoInterface {
@@ -52,5 +53,13 @@ public interface MypageDaoInterface {
 	List<AlarmToggle> selectAlarmToggle(SqlSessionTemplate session, String userId);
 	
 	int alarmOnOff(SqlSessionTemplate session, AlarmToggle at);
+	
+	List<Map> selectDate(SqlSessionTemplate session, String userId);
+	
+	List<Map> selectSchedule(SqlSessionTemplate session, String userId);
+	
+	int deleteSchedule(SqlSessionTemplate session, String schedulerSeq);
+	
+	int insertSchedule(SqlSessionTemplate session, NoHasAScheduler nhs);
 
 }

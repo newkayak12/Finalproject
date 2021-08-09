@@ -252,6 +252,11 @@
 .qnaBox:hover{
     background-color: #bde7e6;
 }
+.qnaImg{
+	object-fit: cover;
+	width:200px;
+	height:200px;
+}
 
 
 
@@ -327,4 +332,15 @@
 }
 .resultbox:hover{
     background-color: #bde7e6;
+}
+
+
+
+
+/*calendarModal*/
+.dateDesign{
+	color:#004080;
+}
+.ulDesign{
+	list-style-type: none;
 }

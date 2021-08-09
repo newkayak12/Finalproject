@@ -32,7 +32,7 @@
 	         <tr>
 	             <th>첨부파일</th>
 	             <td colspan="3">
-	             	<img src="${pageContext.request.contextPath}/resources/upload/question/${qna.questionImageFile }" alt="첨부파일">
+	             	<img class="qnaImg" src="${pageContext.request.contextPath}/resources/upload/question/${qna.questionImageFile }" alt="첨부파일">
 	             </td>
 	         </tr>
 	        </c:if>
