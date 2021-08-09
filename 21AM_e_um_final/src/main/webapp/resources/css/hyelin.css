@@ -252,6 +252,11 @@
 .qnaBox:hover{
     background-color: #bde7e6;
 }
+.qnaImg{
+	object-fit: cover;
+	width:200px;
+	height:200px;
+}
 
 
 
