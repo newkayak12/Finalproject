@@ -23,6 +23,14 @@ public interface GroupServiceInterface {
 	Group selectGroupUseridCheck(String groupSeq);
 	List<Group> selectGrouplistNew();
 	List<Category> selectGroupCategory();
+	List<Group> selectgamelist();
+	List<Group> selectgymlist();
+	List<Group> selectmovielist();
+	List<Group> selectshoppinglist();
+	List<Group> selectreadlist();
+	List<Group> selectresturantlist();
+	List<Group> selectcooklist();
+	List<Group> selectcodinglist();
 	
 	
 	

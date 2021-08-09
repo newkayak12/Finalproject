@@ -79,6 +79,7 @@ public class GroupController {
 	}
 	
 	
+	
 	/* 그룹 만들기 */
 	@RequestMapping("/group/Gomain.do")
 	public String groupInsert(@RequestParam Map param, Model model, HttpServletRequest rq, MultipartFile file) {
@@ -471,6 +472,67 @@ public class GroupController {
 		log.warn("dasdas{}",groupCommentSeq);
 		return serviceb.delComment(groupCommentSeq);
 	}
+	
+	
+	//카테고리영역
+	
+	@RequestMapping("/group/game")
+	public String groupgame(Model m) {
+		List<Group> list = service.selectgamelist();
+		m.addAttribute("list",list);
+		return "group/game";
+	}
+	
+	@RequestMapping("/group/gym")
+	public String groupgym(Model m) {
+		List<Group> list = service.selectgymlist();
+		m.addAttribute("list",list);
+		return "group/gym";
+	}
+	
+	@RequestMapping("/group/movie")
+	public String groupmovie(Model m) {
+		List<Group> list = service.selectmovielist();
+		m.addAttribute("list",list);
+		return "group/movie";
+	}
+	
+	@RequestMapping("/group/shopping")
+	public String groupshopping(Model m) {
+		List<Group> list = service.selectshoppinglist();
+		m.addAttribute("list",list);
+		return "group/shopping";
+	}
+	
+	@RequestMapping("/group/read")
+	public String groupread(Model m) {
+		List<Group> list = service.selectreadlist();
+		m.addAttribute("list",list);
+		return "group/read";
+	}
+	
+	@RequestMapping("/group/resturant")
+	public String groupresturant(Model m) {
+		List<Group> list = service.selectresturantlist();
+		m.addAttribute("list",list);
+		return "group/resturant";
+	}
+	
+	@RequestMapping("/group/cook")
+	public String groupcook(Model m) {
+		List<Group> list = service.selectcooklist();
+		m.addAttribute("list",list);
+		return "group/cook";
+	}
+	
+	@RequestMapping("/group/coding")
+	public String groupcoding(Model m) {
+		List<Group> list = service.selectcodinglist();
+		m.addAttribute("list",list);
+		return "group/coding";
+	}
+	
+
 	
 	
 	

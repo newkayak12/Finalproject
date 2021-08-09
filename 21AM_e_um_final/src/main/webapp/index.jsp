@@ -401,7 +401,7 @@
 					<img src="${pageContext.request.contextPath }/resources/images/index/main2.png" width="40%" >
 					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						친구와 함께 보낸 하루를
-						<br>&nbsp;&nbsp;&nbsp;  돌아볼 수 있는 방법
+						<br>&nbsp;  돌아볼 수 있는 방법
 					</div>
 				</div>
 			</div>
@@ -412,7 +412,7 @@
 				
 					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						친해진 친구와 함께,
-						<br>&nbsp;&nbsp;&nbsp;  시간을 공유할 수 있는 방법
+						<br>&nbsp; 시간을 공유할 수 있는 방법
 					</div>
 					
 					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="40%" >	
@@ -427,7 +427,7 @@
 					<img src="${pageContext.request.contextPath }/resources/images/index/main4.png" width="40%">
 					<div class="d-flex align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						좋아하는 음식을 
-							<br>&nbsp;&nbsp; 함께 먹을 수 있는 방법
+							<br>&nbsp; 함께 먹을 수 있는 방법
 					</div>
 				</div>
 			</div>
@@ -436,7 +436,7 @@
 				<div class="p-1 m-5 scitems d-flex flex-row justify-content-center align-items-center" id="scCont04">
 					<div class="d-flex  align-items-center typoscreen ml-2 mr-2" style="font-size:3vw">
 						새로운 친구와 
-						<br>&nbsp;&nbsp;&nbsp; 함께할 수 있는 방법
+						<br>&nbsp; 함께할 수 있는 방법
 					</div>
 					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="40%">
 

@@ -85,6 +85,55 @@ public class GroupService implements GroupServiceInterface {
 		return dao.selectGroupCategory(session);
 	}
 
+	@Override
+	public List<Group> selectgamelist() {
+		
+		List<Group> group = dao.selectgamelist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectgymlist() {
+		List<Group> group = dao.selectgymlist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectmovielist() {
+		List<Group> group = dao.selectmovielist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectshoppinglist() {
+		List<Group> group = dao.selectshoppinglist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectreadlist() {
+		List<Group> group = dao.selectreadlist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectresturantlist() {
+		List<Group> group = dao.selectresturantlist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectcooklist() {
+		List<Group> group = dao.selectcooklist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectcodinglist() {
+		List<Group> group = dao.selectcodinglist(session);
+		return group;
+	}
+
 	
 	
 	

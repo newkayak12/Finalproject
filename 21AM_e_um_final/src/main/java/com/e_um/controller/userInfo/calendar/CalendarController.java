@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class Calendar {
+public class CalendarController {
 
 	@RequestMapping("/user/calendar")
 	public String calendar() {

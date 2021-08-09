@@ -27,5 +27,13 @@ public interface GroupDaoInterface {
 	Group selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq);
 	List<Group> selectGroupListNew(SqlSessionTemplate session);
 	List<Category> selectGroupCategory(SqlSessionTemplate session);
+	List<Group> selectgamelist(SqlSessionTemplate session);
+	List<Group> selectgymlist(SqlSessionTemplate session);
+	List<Group> selectmovielist(SqlSessionTemplate session);
+	List<Group> selectshoppinglist(SqlSessionTemplate session);
+	List<Group> selectresturantlist(SqlSessionTemplate session);
+	List<Group> selectreadlist(SqlSessionTemplate session);
+	List<Group> selectcooklist(SqlSessionTemplate session);
+	List<Group> selectcodinglist(SqlSessionTemplate session);
 	
 }

@@ -64,18 +64,14 @@
    <div id="root" class="container mt-5">
    
       <div class="container">
-      	<span class="float-left">
-      		<h2><c:out value="${group.groupTitle }"/></h2>
+      	<span>
+      		<h2 class="tway" style="text-align: center;"><c:out value="${group.groupTitle }"/></h2>
       	</span>
-      	<br><br><br><br>
+      	<br><br>
       	<span class="float-right">
-      		<p>누적방문자</p>
-      		<p><c:out value="${group.groupCountTotal }"/></p>
-      		<br>
+      		<p>TODAY<span class="ml-2"  style="font-weight: 900;"><c:out value="${group.groupCountToday }"/></span> / TOTAL <span class="ml-2 " style="font-weight: 900;"><c:out value="${group.groupCountTotal }"/></span></p>
       		
       	</span>
-      	<p>오늘방문자</p>
-      	<p><c:out value="${group.groupCountToday }"/></p>
       	<br><br>
       	<button type="button" class="btn cancelBtn"
       	onclick="moveFnMain('${group.groupSeq}');">정보</button>
@@ -88,7 +84,7 @@
       
       <br><br>
       
-      <h3>사진 올라갈 자리</h3>
+      <h5 class="mainColor tway ml-3">소모임 게시판</h5>
       
       <br><hr><br>
       

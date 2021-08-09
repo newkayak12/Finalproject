@@ -98,6 +98,7 @@
 			case "food": modalName="foodModal"; modalTitle="내 맛집 관리"; break;
 			case "calendar": modalName="calendarModal"; modalTitle="내 일정 관리"; break;
 			case "support": modalName="supportModal"; modalTitle="내 문의사항"; break;
+			case "insertSchedule": modalName="insertSchedule"; modalTitle="일정 등록"; break;
 		}
 		
 		$.ajax({
