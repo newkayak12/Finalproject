@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.userInfo.alarmToggle.AlarmToggle;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -47,5 +48,9 @@ public interface MypageDaoInterface {
 	int cancelFood(SqlSessionTemplate session, String foodBookingSeq);
 	
 	int changeProfilePhoto(SqlSessionTemplate session, User u);
+	
+	List<AlarmToggle> selectAlarmToggle(SqlSessionTemplate session, String userId);
+	
+	int alarmOnOff(SqlSessionTemplate session, AlarmToggle at);
 
 }

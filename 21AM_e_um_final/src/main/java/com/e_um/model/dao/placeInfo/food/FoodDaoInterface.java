@@ -63,7 +63,7 @@ public interface FoodDaoInterface {
 
 	int foodViewCountUp(SqlSessionTemplate session, String foodSeq);
 
-	int insertFoodAlarm(SqlSessionTemplate session, Map<String, String> param);
+	int insertFoodAlarm(SqlSessionTemplate session, Map<String, Object> param);
 
 	List<Food> selectAllFoodSorting(SqlSessionTemplate session, String con, String cPage);
 
@@ -78,6 +78,8 @@ public interface FoodDaoInterface {
 	List<Food> fCmainFoodList(SqlSessionTemplate session);
 
 	List<Food> fBmainFoodList(SqlSessionTemplate session);
+
+	int insertFoodScheduler(SqlSessionTemplate session, Map<String, Object> param);
 
 	
 

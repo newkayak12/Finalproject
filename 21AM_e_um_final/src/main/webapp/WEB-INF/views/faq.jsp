@@ -10,11 +10,11 @@
 <section class="mt-5 pt-5">
 	<div id="root" class="container mt-5">
 		<h2 class="mb-5 tway">고객센터</h2>
-	    <form action="" method="post" class="mt-3 mb-5 mx-md-5">
+	    <form action="${pageContext.request.contextPath}/faq/searchResult" method="post" class="mt-3 mb-5 mx-md-5">
 	        <div class="input-group mb-3">
-	            <input type="text" class="form-control" id="searchQNA" name="searchQNA" placeholder="무엇을 도와드릴까요?">
+	            <input type="text" class="form-control" id="searchFAQ" name="keyword" placeholder="무엇을 도와드릴까요?">
 	            <div class="input-group-append">
-	                <button id="searchFriBtn" class="btn btn-success searchBtn" type="button">검색</button>
+	                <button id="searchFriBtn" class="btn btn-success searchBtn" type="submit">검색</button>
 	            </div>
 	        </div>
 	    </form>
@@ -23,22 +23,22 @@
 	        <h4 class="tway">FAQ</h4>
 	        <div class="mb-4">카테고리별 자주 묻는 질문</div>
 	        <div id="qnaCate" class="d-flex flex-wrap col-lg-10 col">
-	            <a href="#" class="col-md-3 mb-3 col-6">
+	            <a href="${pageContext.request.contextPath}/faq/view?flag=친구 찾기" class="col-md-3 mb-3 col-6">
 	                <div class="qnaBox mx-2 d-flex justify-content-center align-items-center">
 	                    <b>친구 찾기</b>
 	                </div>
 	            </a>
-	            <a href="#" class="col-md-3 mb-3 col-6">
+	            <a href="${pageContext.request.contextPath}/faq/view?flag=소모임" class="col-md-3 mb-3 col-6">
 	                <div class="qnaBox mx-2 d-flex justify-content-center align-items-center">
 	                    <b>소모임</b>
 	                </div>
 	            </a>
-	            <a href="#" class="col-md-3 mb-3 col-6">
+	            <a href="${pageContext.request.contextPath}/faq/view?flag=플레이스" class="col-md-3 mb-3 col-6">
 	                <div class="qnaBox mx-2 d-flex justify-content-center align-items-center">
 	                    <b>플레이스</b>
 	                </div>
 	            </a>
-	            <a href="#" class="col-md-3 mb-3 col-6">
+	            <a href="${pageContext.request.contextPath}/faq/view?flag=기타" class="col-md-3 mb-3 col-6">
 	                <div class="qnaBox mx-2 d-flex justify-content-center align-items-center">
 	                    <b>기타</b>
 	                </div>

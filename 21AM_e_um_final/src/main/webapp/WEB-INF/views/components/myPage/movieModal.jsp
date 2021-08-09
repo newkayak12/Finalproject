@@ -9,7 +9,8 @@
     	<col class="col-1">
     	<col class="col-3">
     	<col class="col-2">
-        <col class="col-5">
+        <col class="col-4">
+        <col class="col-1">
         <col class="col-1">
     </colgroup>
     <thead class="thead-light">
@@ -18,6 +19,7 @@
         <th class="colcenter">영화</th>
         <th class="colcenter">상영관 정보</th>
         <th class="colcenter">예매 정보</th><!-- 지역/상영관/날짜/시간/좌석번호(총 몇인) -->
+        <th class="colcenter">결제 상태</th>
         <th class="colcenter">예매 취소</th>
       </tr>
     </thead>
@@ -44,6 +46,14 @@
 							<c:set var="su" value="4"/>
 						</c:if>
 						(총 <c:out value="${su }"/>인)
+					</td>
+					<td class="colcenter pointer align-middle">
+						<c:if test="${m.payStatus eq 'pay' }">
+							완료
+						</c:if>
+						<c:if test="${m.payStatus ne 'pay' }">
+							미완료
+						</c:if>
 					</td>
 					<td class="colcenter pointer align-middle">
 						<c:if test="${m.dateMinus gt 0 }">
