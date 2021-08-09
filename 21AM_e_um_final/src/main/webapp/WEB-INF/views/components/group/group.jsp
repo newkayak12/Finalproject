@@ -11,6 +11,7 @@
 		        <td class="status">
 		 			<c:out value="일반"/>
 		        </td>
+		    
 		        <td class="title"><a href="javascript:moveFn('${b.groupBoardSeq}');"><c:out value="${b.groupBoardTitle }"/></a></td>
 		        <td class="userId"><c:out value="${b.groupBoardUser.userId}"/></td>
 		        <td class="date"><c:out value="${b.groupBoardDate }"/></td>

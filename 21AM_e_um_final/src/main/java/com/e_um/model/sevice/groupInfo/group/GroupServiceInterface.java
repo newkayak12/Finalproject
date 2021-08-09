@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.e_um.model.vo.groupinfo.board.Board;
+import com.e_um.model.vo.groupinfo.group.Category;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -20,6 +21,8 @@ public interface GroupServiceInterface {
 	int groupJoin(Map param);
 	
 	Group selectGroupUseridCheck(String groupSeq);
+	List<Group> selectGrouplistNew();
+	List<Category> selectGroupCategory();
 	
 	
 	

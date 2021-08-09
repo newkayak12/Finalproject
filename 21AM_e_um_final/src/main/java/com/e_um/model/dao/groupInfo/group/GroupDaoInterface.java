@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.e_um.model.vo.groupinfo.board.Board;
+import com.e_um.model.vo.groupinfo.group.Category;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
@@ -24,5 +25,7 @@ public interface GroupDaoInterface {
 	int groupJoin(SqlSessionTemplate session, Map param);
 	
 	Group selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq);
+	List<Group> selectGroupListNew(SqlSessionTemplate session);
+	List<Category> selectGroupCategory(SqlSessionTemplate session);
 	
 }

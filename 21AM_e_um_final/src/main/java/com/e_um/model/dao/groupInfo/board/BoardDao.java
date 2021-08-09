@@ -103,6 +103,46 @@ public class BoardDao implements BoardDaoInterface {
 		
 		return session.update("group.groupCountToday",groupSeq);
 	}
+
+	@Override
+	public List<Comment> selectBoardCommentList(SqlSessionTemplate session, String groupBoardSeq) {
+		log.warn("commentdao{}",groupBoardSeq);
+		return session.selectList("group.selectBoardCommentList",groupBoardSeq);
+	}
+
+	@Override
+	public int addComment(SqlSessionTemplate session, Map param) {
+		 
+		return session.insert("group.addComment",param);
+	}
+
+	@Override
+	public int delComment(SqlSessionTemplate session, String groupCommentSeq) {
+
+		return session.update("group.delComment",groupCommentSeq);
+	}
+
+	@Override
+	public int checkCommentReport(SqlSessionTemplate session, Map<String, String> param) {
+		int test = session.selectOne("group.checkCommentReport",param);
+		log.warn("testtesttest{}",test);
+		return test;
+	}
+
+	@Override
+	public int CommentReport(SqlSessionTemplate session, Map<String, String> param) {
+		
+		return session.insert("group.commentReport",param);
+	}
+
+	@Override
+	public int groupCountTotal(SqlSessionTemplate session, String groupSeq) {
+		
+		return session.update("group.groupCountTotal",groupSeq);
+	}
+	
+	
+	
 	
 	
 	
