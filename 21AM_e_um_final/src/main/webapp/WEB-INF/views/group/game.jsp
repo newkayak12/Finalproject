@@ -40,7 +40,7 @@ const moveFn=(groupSeq)=>{
 <section class="mt-5 pt-5">
    <div id="root" class="container mt-5">
    	<div class="container">
-   		<h2 class="mainColor tway ml-3">모든 소모임</h2>
+   		<h2 class="mainColor tway ml-3">게임 소모임</h2>
    		
    		<table class="table table-hover">
    			<thead>
