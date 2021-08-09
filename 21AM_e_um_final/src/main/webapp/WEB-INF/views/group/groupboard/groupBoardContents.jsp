@@ -6,6 +6,9 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!--본인 css 파일 포함시켜주세요-->
 
+<link href="${pageContext.request.contextPath}/resources/css/woosik.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
+
 <script>
 	$(function(){
 		likecheck();
@@ -142,25 +145,24 @@
 				name="groupBoardSeq" id="tesss" />
 			<input type="hidden" value="${board.groupSeq }"
 				name="groupSeq" id="tsdads"/>
-			${board.groupBoardSeq }	
-			${board.groupSeq }
+			
 			<div>
-				<label>제목</label>
-				<p>
+				<!--  <label>제목</label> -->
+				<h2 class="tway">
 					<c:out value="${board.groupBoardTitle }" />
-				</p>
+				</h2>
 			</div>
-			<div>
-				<label>작성자</label>
+			<div class="w_board">
+				<label class="w_boardCont_tit">작성자</label>
 				<p>
 					<c:out value="${board.groupBoardUser.userId }" />
 				</p>
 			</div>
-			<div>
-				<label>내용</label> ${board.groupBoardContents }
+			<div class="w_board">
+				<label class="w_boardCont_tit">내용</label> ${board.groupBoardContents }
 			</div>
 			<div>
-				<label>사진</label>
+				<label class="w_boardCont_tit">사진</label>
 				<div class="p-1">
 					<%-- <p><c:out value="${board.groupBoardPhoto}"/></p> --%>
 					<c:if test="${board.groupBoardPhoto ne null}">
@@ -181,6 +183,7 @@
 			</div>
 
 			<div class="test1">
+			
 				<c:if test="${likeboard ne null }">
 					<div id="likeicon" class="like" onclick="fn_boardlike(event);">
 						<div class="board-icon">
@@ -193,7 +196,7 @@
 				</c:if>
 				<c:if test="${likeboard eq null }">
 					<div id="likeicon" class="like" onclick="fn_boardlike(event);">
-						<div class="board-icon">
+						<div class="board-icon w_board_icon">
 							<i class="far fa-heart" id="like"
 								style="color: rgb(201, 201, 201);"></i>
 						</div>
@@ -203,13 +206,14 @@
 				</c:if>
 			</div>
 			
-			<div id="test1">
+			<table style="font-size:14px;" id="test1">
 				
-			</div>
+			</table>
 
-			<div>
+			<div class="w_board_comment">
 				<label>댓글</label> <input type="text" class="form-control"
 					placeholder="입력해" id="boardcontext">
+					
 				<button type="button" class="btn btn-primary" id="boardcomment" onclick="fn_boardcomment();">댓글입력</button>
 			</div>
 		</form>

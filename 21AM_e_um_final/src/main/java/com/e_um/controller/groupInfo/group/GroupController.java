@@ -25,6 +25,7 @@ import com.e_um.model.sevice.groupInfo.board.BoardServiceInterface;
 import com.e_um.model.sevice.groupInfo.group.GroupServiceInterface;
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.group.Category;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 import com.e_um.model.vo.groupinfo.member.Member;
@@ -55,10 +56,16 @@ public class GroupController {
 	public String groupList(Model m, HttpServletRequest rq) {
 		List<Group> list = service.selectGroupList();
 		List<Group> list2 = service.selectGroupListConditional((User) rq.getSession().getAttribute("userSession")); // 내가가입한
-																													// 소모임
-
+		List<Group> list3 = service.selectGroupListTop();																										// 소모임
+		List<Group> list4 = service.selectGrouplistNew();
+		List<Category> listcate = service.selectGroupCategory();
+		log.warn("catecate{}",listcate);
+		log.warn("listlist{}",list);
 		m.addAttribute("list2", list2);
 		m.addAttribute("list", list);
+		m.addAttribute("list3", list3);
+		m.addAttribute("list4",list4);
+		m.addAttribute("listcate",listcate);
 		return "group";
 	}
 
@@ -118,6 +125,7 @@ public class GroupController {
 		  }
 		  return page;
 		}
+	
 
 	
 	/* 게시판 글작성폼으로 */
@@ -378,8 +386,8 @@ public class GroupController {
 		Map<String, String > param = new HashMap<>();
 		param.put("groupCommentSeq", groupCommentSeq);
 		param.put("userId", userId);
-		
-		 int report=serviceb.checkCommentReport(param);
+		log.warn("checkcheck{}",param);
+		int report=serviceb.checkCommentReport(param);
 		 
 		 if(report> 0) {
 			 return 0;
@@ -427,6 +435,15 @@ public class GroupController {
 		return param;
 	}
 	
+	@RequestMapping("/group/groupCountTotal")
+	@ResponseBody
+	public Map groupCountTotal(String groupSeq) {
+		int result = serviceb.groupCountTotal(groupSeq);
+		Map param=new HashMap();
+		param.put("groupSeq", groupSeq);
+		return param;
+	}
+	
 	@RequestMapping("/board/boardcommentlist")
 	public String commentList(String groupBoardSeq,Model model) {
 		log.warn("commentboardseq{}",groupBoardSeq);
@@ -454,6 +471,7 @@ public class GroupController {
 		log.warn("dasdas{}",groupCommentSeq);
 		return serviceb.delComment(groupCommentSeq);
 	}
+	
 	
 	
 }

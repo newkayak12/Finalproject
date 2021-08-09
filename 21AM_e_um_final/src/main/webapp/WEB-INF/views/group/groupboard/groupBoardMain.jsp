@@ -35,11 +35,11 @@
       	<p>오늘방문자</p>
       	<p><c:out value="${group.groupCountToday }"/></p>
       	<br><br>
-      	<button type="button" class="btn btn-primary" disabled>정보</button>
-   		<button type="button" class="btn btn-outline-primary"
+      	<button type="button" class="btn checkBtn mb-1" disabled>정보</button>
+   		<button type="button" class="btn cancelBtn"
    		onclick="moveFnBoard('${group.groupSeq}');">게시판</button>
-   		<button type="button" class="btn btn-outline-primary"
-   		onclick= "moveFnScheduler('${group.groupSeq}')">스케쥴러</button>
+   		<%-- <button type="button" class="btn btn-outline-primary"
+   		onclick= "moveFnScheduler('${group.groupSeq}')">스케쥴러</button> --%>
       </div>
       
       <br><br>

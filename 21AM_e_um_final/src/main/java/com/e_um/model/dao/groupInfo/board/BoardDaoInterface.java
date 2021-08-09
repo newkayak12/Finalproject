@@ -50,4 +50,6 @@ public interface BoardDaoInterface {
 
 	int CommentReport(SqlSessionTemplate session, Map<String, String> param);
 
+	int groupCountTotal(SqlSessionTemplate session, String groupSeq);
+
 }

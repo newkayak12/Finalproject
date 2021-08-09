@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.groupInfo.group.GroupDaoInterface;
 import com.e_um.model.vo.groupinfo.board.Board;
+import com.e_um.model.vo.groupinfo.group.Category;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
@@ -70,6 +71,18 @@ public class GroupService implements GroupServiceInterface {
 	public Group selectGroupUseridCheck(String groupSeq) {
 		 
 		return dao.selectGroupUseridCheck(session,groupSeq);
+	}
+
+	@Override
+	public List<Group> selectGrouplistNew() {
+		
+		return dao.selectGroupListNew(session);
+	}
+
+	@Override
+	public List<Category> selectGroupCategory() {
+		
+		return dao.selectGroupCategory(session);
 	}
 
 	

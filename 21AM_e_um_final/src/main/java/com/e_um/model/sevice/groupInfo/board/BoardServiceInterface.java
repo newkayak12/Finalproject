@@ -47,6 +47,8 @@ public interface BoardServiceInterface {
 	int checkCommentReport(Map<String, String> param);
 
 	int CommentReport(Map<String, String> param);
+
+	int groupCountTotal(String groupSeq);
 	
 	
 	

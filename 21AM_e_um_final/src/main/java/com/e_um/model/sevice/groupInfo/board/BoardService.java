@@ -175,6 +175,14 @@ public class BoardService implements BoardServiceInterface {
 		 
 		return dao.CommentReport(session, param);
 	}
+
+
+
+	@Override
+	public int groupCountTotal(String groupSeq) {
+		
+		return dao.groupCountTotal(session, groupSeq);
+	}
 	
 	
 	 

@@ -124,8 +124,9 @@ public class BoardDao implements BoardDaoInterface {
 
 	@Override
 	public int checkCommentReport(SqlSessionTemplate session, Map<String, String> param) {
-		
-		return session.selectOne("group.checkCommentReport",param);
+		int test = session.selectOne("group.checkCommentReport",param);
+		log.warn("testtesttest{}",test);
+		return test;
 	}
 
 	@Override
@@ -133,6 +134,13 @@ public class BoardDao implements BoardDaoInterface {
 		
 		return session.insert("group.commentReport",param);
 	}
+
+	@Override
+	public int groupCountTotal(SqlSessionTemplate session, String groupSeq) {
+		
+		return session.update("group.groupCountTotal",groupSeq);
+	}
+	
 	
 	
 	

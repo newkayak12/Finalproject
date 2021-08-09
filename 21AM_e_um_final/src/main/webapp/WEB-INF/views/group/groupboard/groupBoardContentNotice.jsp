@@ -3,7 +3,34 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!--본인 css 파일 포함시켜주세요-->
 
-
+<script>
+	function fn_boardcomment(){
+		
+		let board = $("#boardcontext").val();
+		if(board.length<=0){
+			alert("내용을 입력하세요");
+		}
+		else{
+		$.ajax({
+			url : "<%=request.getContextPath()%>/group/addcomment",
+			data : {
+				"groupBoardSeq" : "${board.groupBoardSeq}",
+				"userId" : "${userSession.userId}",
+				"groupCommentContents" : $("#boardcontext").val()
+			},
+			success : data=>{
+				console.log(data);
+				if(data>0){
+					commentlist();
+				}
+				else{
+					alert("정상적으로 입력되지 않았습니다.");
+					}
+				}
+			})
+		}
+	}
+</script>
 
 
 <section class="mt-5 pt-5">
@@ -14,25 +41,24 @@
 				name="groupBoardSeq" id="tesss" />
 			<input type="hidden" value="${board.groupSeq }"
 				name="groupSeq" id="tsdads"/>
-			${board.groupBoardSeq }	
-			${board.groupSeq }
+			
 			<div>
-				<label>제목</label>
-				<p>
+				
+				<h2 class="tway">
 					<c:out value="${board.groupBoardTitle }" />
-				</p>
+				</h2>
 			</div>
-			<div>
-				<label>작성자</label>
+			<div class="w_board">
+				<label class="w_boardCont_tit">작성자</label>
 				<p>
 					<c:out value="${board.groupBoardUser.userId }" />
 				</p>
 			</div>
-			<div>
-				<label>내용</label> ${board.groupBoardContents }
+			<div class="w_board">
+				<label class="w_boardCont_tit">내용</label> ${board.groupBoardContents }
 			</div>
 			<div>
-				<label>사진</label>
+				<label class="w_boardCont_tit">사진</label>
 				<div class="p-1">
 					<%-- <p><c:out value="${board.groupBoardPhoto}"/></p> --%>
 					<c:if test="${board.groupBoardPhoto ne null}">
@@ -51,11 +77,17 @@
 					</c:if>
 				</div>
 			</div>
+			
+			<table style="font-size:14px;" id="test1">
+				
+			</table>
+			
 
-			<div>
+			<div class="w_board_comment">
 				<label>댓글</label> <input type="text" class="form-control"
 					placeholder="입력해" id="boardcontext">
-				<button type="submit" class="btn btn-primary">댓글입력</button>
+					
+				<button type="button" class="btn btn-primary" id="boardcomment" onclick="fn_boardcomment();">댓글입력</button>
 			</div>
 		</form>
 	</div>
