@@ -328,3 +328,14 @@
 .resultbox:hover{
     background-color: #bde7e6;
 }
+
+
+
+
+/*calendarModal*/
+.dateDesign{
+	color:#004080;
+}
+.ulDesign{
+	list-style-type: none;
+}
