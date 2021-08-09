@@ -25,6 +25,7 @@ import com.e_um.model.sevice.userInfo.user.UserServiceInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.food.LikeFood;
 import com.e_um.model.vo.placeinfo.food.comment.FoodComment;
+import com.e_um.model.vo.userInfo.alarmToggle.AlarmToggle;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -76,6 +77,9 @@ public class MypageController {
 		int totalData=0;
 		String pageBar="";
 		switch(modalName) {
+			case "infoModal":
+				m.addAttribute("alarm", service.selectAlarmToggle(user.getUserId()));
+				break;
 			case "movieModal":
 				m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage));
 				//log.error("movieInfo: {}",m.addAttribute("movieInfo",service.selectMovieTicketingInfo(user.getUserId(),cPage,numPerPage)));
@@ -280,6 +284,15 @@ public class MypageController {
 			m.addAttribute("msg", "프로필 사진 변경에 실패했습니다.");
 		}
 		return "common/msg";
+	}
+	
+	
+	@RequestMapping("/user/mypage/alarmOnOff")
+	@ResponseBody
+	public int alarmOnOff(String alarmKey, String flag, HttpServletRequest rq) {
+		User user = (User) rq.getSession().getAttribute("userSession");
+		AlarmToggle at=AlarmToggle.builder().alarmKey(alarmKey).userId(user.getUserId()).alarmToggle(flag).build();
+		return service.alarmOnOff(at);
 	}
 
 }

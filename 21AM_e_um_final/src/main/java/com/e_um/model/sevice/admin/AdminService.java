@@ -1,7 +1,6 @@
 package com.e_um.model.sevice.admin;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,9 @@ import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
+import com.e_um.model.vo.serviceinfo.question.NoHasAQuestion;
+import com.e_um.model.vo.serviceinfo.question.Question;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -236,6 +238,42 @@ public class AdminService implements AdminServiceInterface {
 	@Override
 	public int tickectTotal() {
 		return dao.tickectTotal(session);
+	}
+	@Override
+	public int writeFAQ(Faq f) {
+		return dao.writeFAQ(session,f);
+	}
+	@Override
+	public int faqTotalData() {
+		return dao.faqTotalData(session);
+	}
+	@Override
+	public int changeFAQStatus(Faq f) {
+		return dao.changeFAQStatus(session, f);
+	}
+	@Override
+	public Faq selectFAQOne(String faqSeq) {
+		return dao.selectFAQOne(session, faqSeq);
+	}
+	@Override
+	public int modifyFAQ(Faq f) {
+		return dao.modifyFAQ(session, f);
+	}
+	@Override
+	public List<NoHasAQuestion> selectQNAAll(int cPage, int numPerPage) {
+		return dao.selectQNAAll(session, cPage, numPerPage);
+	}
+	@Override
+	public int qnaTotalData() {
+		return dao.qnaTotalData(session);
+	}
+	@Override
+	public NoHasAQuestion selectQNA(String questionSeq) {
+		return dao.selectQNA(session, questionSeq);
+	}
+	@Override
+	public int updateAnswer(Question qa) {
+		return dao.updateAnswer(session, qa);
 	}
 	
 }

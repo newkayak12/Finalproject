@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.e_um.model.dao.userInfo.mypage.MypageDaoInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.userInfo.alarmToggle.AlarmToggle;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -131,6 +132,18 @@ public class MypageService implements MypageServiceInterface {
 	@Override
 	public int changeProfilePhoto(User u) {
 		return dao.changeProfilePhoto(session, u);
+	}
+
+
+	@Override
+	public List<AlarmToggle> selectAlarmToggle(String userId) {
+		return dao.selectAlarmToggle(session, userId);
+	}
+
+
+	@Override
+	public int alarmOnOff(AlarmToggle at) {
+		return dao.alarmOnOff(session, at);
 	}
 
 }

@@ -29,7 +29,7 @@
 	                </div><br>
 	                <div class="form-group">
 	                    <label for="content"><b>내용</b></label>
-	                    <textarea class="form-control" rows="15" id="qnaContent" name="content" required placeholder="내용을 입력해주세요."></textarea>
+	                    <textarea class="form-control" rows="15" id="qnaContent" name="content" required placeholder="내용을 입력해주세요." wrap="hard"></textarea>
 	                </div>
 	                <div class="d-flex">
 	                    <span class="col-3"><b>첨부파일</b></span>

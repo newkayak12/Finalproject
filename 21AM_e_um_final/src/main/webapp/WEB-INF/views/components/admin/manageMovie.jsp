@@ -34,13 +34,13 @@
 				<td><c:out value="${l.movieFlag }"/></td>
 				<c:choose>
 					<c:when test="${l.movieFlag=='live' }">
-						<td><input type="button" onclick="movieDelete('${l.movieSeq}');" value="삭제"></td>
+						<td><input type="button" onclick="movieDelete('${l.movieSeq}');" value="삭제" style="border-radius: 10px"></td>
 					</c:when>
 					<c:otherwise>
-						<td><input type="button" onclick="movieLive('${l.movieSeq}');" value="복구"></td>
+						<td><input type="button" onclick="movieLive('${l.movieSeq}');" value="복구" style="border-radius: 10px"></td>
 					</c:otherwise>
 				</c:choose>
-				<td><input type="button" onclick="amendMovie('${l.movieSeq}');" value="수정"></td>						
+				<td><input type="button" onclick="amendMovie('${l.movieSeq}');" value="수정" style="background-color: #2AC1BC; border-radius: 10px"></td>						
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -88,3 +88,8 @@ function amendMovie(movieSeq){
 }
 </script>
 
+<style>
+		*{
+			font-family:'Noto Sans KR';
+		}
+</style>

@@ -137,12 +137,7 @@
 	}
 	 */
 </script>	
-<style>
-	.active{
-		background-color: #2AC1BC;
-		
-	}
-</style>
+
 	
 	
 	<section class="mt-5 pt-5">
@@ -226,15 +221,11 @@
 		<script>
 		    const date = new Date();
 		    const nextMonthDate = new Date(date.getFullYear(), date.getMonth()+1 ,1);
-		    console.log(nextMonthDate);
 		    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 		    const reserveNextMonth = document.querySelector(".reserve-nextMonth");
 		    const reserveMonth = document.querySelector(".reserve-month");
-		    /* const nextMonthDate = new Date(date.getMonth()+2);
-	       	const nextMonthLastDate = new Date(new Date(date.getFullYear(), date.getMonth()+2,0)); */
 		    const nextMonth = date.getMonth()+2;
 	       	const nextMonthLastDay = new Date(date.getFullYear(),date.getMonth()+2,0);
-	       	console.log(nextMonthLastDay);
 	       	
 	       		const weekOfDay = ["일", "월", "화", "수", "목", "금", "토"]
 		        const year = date.getFullYear();
@@ -248,7 +239,7 @@
 		            const spanDay = document.createElement("span");
 					
 		            //class넣기
-		            button.classList = "movie-date-wrapper"
+		            button.classList ="movie-date-wrapper" 
 		            spanWeekOfDay.classList = "movie-week-of-day";
 		            spanDay.classList = "movie-day";
 		
@@ -269,10 +260,7 @@
 		            //날짜 넣기
 		            spanDay.innerHTML = i;
 		            button.append(spanDay);
-		            /* span.html(month+"월") */
-		            //button.append(i);
 		            button.value=[(year + "." +month + "." + i)];
-		           /*  reserveDate.append(span); */
 		            reserveMonth.append(button);
 					
 		            dayClickEvent(button);
@@ -307,7 +295,6 @@
 		            //날짜 넣기
 		            spanDay.innerHTML = i;
 		            button.append(spanDay);
-		            //button.append(i);
 		            button.value=[(year + "." +nextMonth + "." + i)];
 		            
 		            reserveNextMonth.append(button);
@@ -344,6 +331,19 @@
 		
 		<style>
 		
+		.movieName{
+			border-radius: 10px;
+			font-family: 'Noto Sans KR';
+			font-weight: bold;
+		}
+		.active{
+			background-color: #2AC1BC;
+		    border : 2px solid #2AC1BC;
+		    color:white;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
+		    font-weight: bold;	
+		}
 		
 		#root{
 		    width:100%;
@@ -435,6 +435,9 @@
 		    justify-content: center;
 		    align-items: center;
 		    padding: 5px 2px;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
+		    font-weight: bold;
 		}
 		
 		.movie-week-of-day {
@@ -465,11 +468,13 @@
 		
 		.movie-date-wrapper-active {
 		    background-color: #2AC1BC;
+		    color:white;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
+		    font-weight: bold;
 		}
 		
-		.movie-date-wrapper-active>* {
-		    color: white;
-		}
+		
 		
 		.theater-wrapper {
 		    padding-left: 12px;
@@ -508,8 +513,9 @@
 		    /* height: 40px;
 		    width : 135px; */
 		    font-size: 12px;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
 		    font-weight: bold;
-		    text-align: left;
 		}
 		
 		.reserve-time {
@@ -530,6 +536,9 @@
 		
 		.reserve-time-button {
 		    margin-top: 10px;
+		    border-radius: 10px;
+		    font-family: 'Noto Sans KR';
+		    font-weight: bold;
 		}
 		
 		.reserve-time-want {

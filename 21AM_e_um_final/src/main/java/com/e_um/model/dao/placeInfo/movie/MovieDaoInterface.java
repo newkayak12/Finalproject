@@ -99,4 +99,8 @@ public interface MovieDaoInterface {
 	
 	int reserveCancel(SqlSessionTemplate session, String movieReservNum);
 	
+	int movieAlarm(SqlSessionTemplate session, Map param);
+	
+	int movieScheduler(SqlSessionTemplate session, Map param);
+	
 }

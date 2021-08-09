@@ -240,6 +240,16 @@ public class MovieService implements MovieServiceInterface {
 	public int reserveCancel(String movieReservNum) {
 		return dao.reserveCancel(session,movieReservNum);
 	}
+
+	@Override
+	public int movieAlarm(Map param) {
+		return dao.movieAlarm(session,param);
+	}
+
+	@Override
+	public int movieScheduler(Map param) {
+		return dao.movieScheduler(session,param);
+	}
 	
 	
 	

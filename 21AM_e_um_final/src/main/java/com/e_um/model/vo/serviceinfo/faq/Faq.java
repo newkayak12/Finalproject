@@ -19,5 +19,5 @@ public class Faq {
 	/*
 	 * faq는 시퀀스, 카테고리 제목 내욜이 있다.
 	 * */
-	private String faqSeq, questionCategory, faqTitle, faqContents;
+	private String faqSeq, questCategory, faqTitle, faqContents, deleteFlag;
 }

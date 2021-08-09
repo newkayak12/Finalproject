@@ -1,5 +1,6 @@
 package com.e_um.model.dao.admin;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,18 +9,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.e_um.controller.admin.AdminController;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.placeinfo.food.food.Food;
 import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
+import com.e_um.model.vo.serviceinfo.question.NoHasAQuestion;
+import com.e_um.model.vo.serviceinfo.question.Question;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
 import com.e_um.model.vo.userInfo.report.ReportGroupBoard;
 import com.e_um.model.vo.userInfo.report.ReportGroupBoardComment;
 import com.e_um.model.vo.userInfo.user.User;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 public class AdminDao implements AdminDaoInterface{
@@ -315,12 +322,69 @@ public class AdminDao implements AdminDaoInterface{
 
 	@Override
 	public List<MovieTicketing> ticketingList(SqlSessionTemplate session, int cPage, int numPerPage) {
-		return session.selectList("movie.tickectList","",new RowBounds((cPage-1)*numPerPage, numPerPage) );
+		return session.selectList("movie.tickectList","",new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 
 	@Override
 	public int tickectTotal(SqlSessionTemplate session) {
 		return session.selectOne("movie.tickectCount");
+	}
+
+	@Override
+	public int writeFAQ(SqlSessionTemplate session, Faq f) {
+		return session.insert("admin.writeFAQ",f);
+	}
+
+	@Override
+	public int faqTotalData(SqlSessionTemplate session) {
+		return session.selectOne("admin.faqTotalData");
+	}
+
+	@Override
+	public int changeFAQStatus(SqlSessionTemplate session, Faq f) {
+		return session.update("admin.changeFAQStatus",f);
+	}
+
+	@Override
+	public Faq selectFAQOne(SqlSessionTemplate session, String faqSeq) {
+		return session.selectOne("admin.selectFAQOne",faqSeq);
+	}
+
+	@Override
+	public int modifyFAQ(SqlSessionTemplate session, Faq f) {
+		return session.update("admin.modifyFAQ",f);
+	}
+
+	@Override
+	public List<NoHasAQuestion> selectQNAAll(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("admin.selectQNAAll","",new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int qnaTotalData(SqlSessionTemplate session) {
+		return session.selectOne("admin.qnaTotalData");
+	}
+
+	@Override
+	public NoHasAQuestion selectQNA(SqlSessionTemplate session, String questionSeq) {
+		return session.selectOne("admin.selectQNA",questionSeq);
+	}
+
+	@Override
+	public int updateAnswer(SqlSessionTemplate session, Question qa) {
+		String questionSeq=qa.getQuestionSeq();
+		System.out.println("dao 들어옴");
+		if(session.insert("admin.insertAnswer",qa)>0) {
+			System.out.println("insertAnswer 실행!");
+			if(session.update("admin.updateAnswerFlag",questionSeq)>0) {
+				System.out.println("updateAnswerFlag 실행!");
+				return session.insert("admin.insertSupportAlarm",qa);
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
 	}
 	
 }

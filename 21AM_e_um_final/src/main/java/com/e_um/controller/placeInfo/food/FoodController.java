@@ -318,8 +318,8 @@ public class FoodController {
 		
 		
 		// 알림테이블에 넣기위한 작업 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("MM월 dd일");
-		SimpleDateFormat sdf2 = new SimpleDateFormat("HH시 mm분");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 		
 		String day = sdf1.format(bookingDateDay);
 		String time = sdf2.format(bookingDateTime);
@@ -327,7 +327,7 @@ public class FoodController {
 				log.error("예약날짜{}", day); // 예약날짜08월 08일
 				log.error("예약시간{}", time); // 예약시간17시 00분
 				
-		Map<String, String> param = new HashMap<>();
+		Map<String, Object> param = new HashMap<>();
 		
 		param.put("userId", userId);
 		param.put("day", day);
@@ -335,6 +335,8 @@ public class FoodController {
 		param.put("foodSeq", foodSeq);
 		param.put("foodName", service.selectFood(foodSeq).getFoodName());
 		
+		// 스케쥴러 테이블에 넣기 위한 작업
+		param.put("booking", booking);
 		
 		if(result > 0) {
 			result = service.insertFoodAlarm(param);
