@@ -177,7 +177,7 @@
 
                     const fn_photoDel=()=>{
                         $("#profilePhoto").val("");
-                        $("#profilepreview").attr("src","/resources/images/user/default.png")
+                        $("#profilepreview").attr("src","${pageContext.request.contextPath}/resources/images/user/default.png")
                         
                     }
                    

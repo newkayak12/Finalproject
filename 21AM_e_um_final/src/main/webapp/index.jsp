@@ -268,7 +268,7 @@
 		})
 	}
 	
-		let count = 0;
+		let countmain = 0;
 		let arr = 0;
 		
 	function board(){
@@ -277,9 +277,9 @@
 	
 		
 			 		setInterval(function(){
-				if(count<typ0.length+1){
-					$(".typo").append(typ0[count])
-					count+=1;
+				if(countmain<typ0.length+1){
+					$(".typo").append(typ0[countmain])
+					countmain+=1;
 				} else {
 					/* arr+=1; */
 					/* $(".typo").html("") */
