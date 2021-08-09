@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.userInfo.alarmToggle.AlarmToggle;
 import com.e_um.model.vo.userInfo.interest.Interest;
 import com.e_um.model.vo.userInfo.user.User;
 
@@ -45,5 +46,9 @@ public interface MypageServiceInterface {
 	int cancelFood(String foodBookingSeq);
 	
 	int changeProfilePhoto(User u);
+	
+	List<AlarmToggle> selectAlarmToggle(String userId);
+	
+	int alarmOnOff(AlarmToggle at);
 
 }

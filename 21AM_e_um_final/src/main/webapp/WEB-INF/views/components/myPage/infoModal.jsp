@@ -27,6 +27,9 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#photo">프로필 사진</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#alarm">알람 설정</a>
+    </li>
 </ul>
 
 <!-- Tab panes -->
@@ -252,6 +255,63 @@
 				<input type="file" id="profilePhoto" name="profileImageFile" value="default.jpg" accept='image/png,image/jpeg,image/jpg' style="display: none;">
 				<button id="photoChangeBtn" type="submit" class="btn changeBtn mt-4">변경하기</button>
 			</form>
+        </div>
+    </div>
+    
+    <div class="tab-pane container fade" id="alarm">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <table class="table table-borderless col-xl-6 col bgColor fakeborder">
+            	<colgroup>
+            		<col class="col-5">
+            		<col class="col-7">
+            	</colgroup>
+                <tbody>
+                	<c:forEach var="a" items="${alarm }">
+	                    <tr>
+	                    	<c:choose>
+	                    		<c:when test="${a.alarmKey eq 'friend_alarm' }">
+	                    			<th class="colend align-middle">친구 신청 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'accept_friend_alarm' }">
+	                    			<th class="colend align-middle">친구 수락 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'feed_alarm' }">
+	                    			<th class="colend align-middle">피드 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'feed_like_alarm' }">
+	                    			<th class="colend align-middle">피드 좋아요 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'guestbook_alarm' }">
+	                    			<th class="colend align-middle">방명록 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'group_alarm' }">
+	                    			<th class="colend align-middle">소모임 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'movie_alarm' }">
+	                    			<th class="colend align-middle">영화 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'food_alarm' }">
+	                    			<th class="colend align-middle">맛집 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'calendar_alarm' }">
+	                    			<th class="colend align-middle">캘린더 알람</th>
+	                    		</c:when>
+	                    		<c:when test="${a.alarmKey eq 'support_alarm' }">
+	                    			<th class="colend align-middle">문의사항 알람</th>
+	                    		</c:when>
+	                    	</c:choose>
+	                        <td class="colcenter">
+                        		<c:if test="${a.alarmToggle eq 'on' }">
+		                        	<button type="button" class="btn cancelbtn" onclick="fn_alarmOnOff('${a.alarmKey}','off')">OFF</button>
+                        		</c:if>
+                        		<c:if test="${a.alarmToggle eq 'off' }">
+		                        	<button type="button" class="btn checkbtn" onclick="fn_alarmOnOff('${a.alarmKey}','on')">ON</button>
+                        		</c:if>
+	                        </td>
+	                    </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -518,6 +578,25 @@
 	 	$("#profilePhoto").change((changeEvent)=>{
 		    let imgFile = changeEvent.target.files[0];
 		    reader.readAsDataURL(imgFile);
+		})
+	}
+	
+	function fn_alarmOnOff(alarmKey,flag){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/user/mypage/alarmOnOff",
+			data:{
+				alarmKey:alarmKey,
+				flag:flag
+			},
+			success:data=>{
+				if(data>0){
+					alert("알람 설정이 변경되었습니다.");
+					fn_openMPModal("info","알람 설정");
+				}else{
+					alert("알람 설정이 정상적으로 변경되지 않았습니다.");
+				}
+			}
 		})
 	}
 </script>
