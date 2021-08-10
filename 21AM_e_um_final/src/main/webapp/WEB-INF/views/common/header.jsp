@@ -530,7 +530,7 @@ function kakaoLogout(){
 		let profilelinkf = $("<div>").html($("<a>").html("프로필").attr({"href":"${pageContext.request.contextPath}/profile/open/${userSession.userId}", "class" : "tway blackText"}).css("text-decoration","none"))
 		let supportlinkf = $("<div>").html($("<a>").html("고객센터").attr({"href":"${pageContext.request.contextPath}/#", "class" : "tway blackText"}).css("text-decoration","none"))
 		let logoutlinkf = $("<div>").html($("<a>").html("로그아웃").attr({"href":"${pageContext.request.contextPath}/user/logout","onclick":"kakaoLogout()", "class" : "tway blackText"}).css("text-decoration","none"))
-		$("#footerinnerContainer").html($("<div>").append(mypagelinkf).append(profilelinkf).append(supportlinkf).append(logoutlinkf)).attr("class","text-center pt-4")
+		$("#footerinnerContainer").html($("<div>").append(mypagelinkf).append(profilelinkf).append(supportlinkf).append(logoutlinkf)).attr("class","text-center pt-4").css("height","100%")
 				
 		/* 문제점 2 */
 		
@@ -630,11 +630,11 @@ function kakaoLogout(){
 	function friendListbot(){
 		unham()
 		$("#controlpanelfooter").html("친구목록")
-		$("#footerinnerContainer").html("")
+		$("#footerinnerContainer").html("").css("height","80%")
 		/* fn_friendList(); */
 		online();
 		if($("#footerContainer").css("display")=='none'){
-			$("#footerinnerContainer").css("overflow","auto");
+			$("#footerinnerContainer").css("overflow","scroll");
 			$("body").css("overflow","hidden")
 			$("#footerContainer").show(240)
 		} else {
@@ -850,7 +850,7 @@ function kakaoLogout(){
 	
 	function chatInterfacebottom(){
 		$("body").css("overflow","hidden")
-		$("#footerinnerContainer").html("")
+		$("#footerinnerContainer").html("").css("height","100%")
 		
 		$("#controlpanelprev").html($("<img>").attr({"src":"${pageContext.request.contextPath}/resources/images/user/previous.png","onclick":"fin()"}).css({"width":"30px","height":"20px","margin-top":"10px"}))
 		

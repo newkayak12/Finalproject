@@ -438,7 +438,7 @@
 						새로운 친구와 
 						<br>&nbsp; 함께할 수 있는 방법
 					</div>
-					<img src="${pageContext.request.contextPath }/resources/images/index/main3.png" width="40%">
+					<img src="${pageContext.request.contextPath }/resources/images/index/main5.png" width="40%">
 
 				</div>
 			</div>
