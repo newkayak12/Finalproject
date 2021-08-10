@@ -153,7 +153,7 @@
 
 		<!-- 인기 있는 소모임 리스트 -->
 		<h4 class="mainColor tway ml-3">인기 있는 소모임</h4>
-		<div id="demo" class="carousel slide" data-ride="carousel" style="margin-bottom: 70px">
+		<div id="demo" class="carousel slide" data-ride="carousel" style="margin-bottom: 70px" data-interval="15000">
 
 		  <!-- Indicators -->
 		  <ul class="carousel-indicators">
@@ -216,7 +216,7 @@
 
 		<!-- 새로 생긴 소모임 리스트 -->
 		<h4 class="mainColor tway ml-3">새로 생긴 소모임</h4>
-		<div id="demonew" class="carousel slide" data-ride="carousel" style="margin-bottom: 70px">
+		<div id="demonew" class="carousel slide" data-ride="carousel" style="margin-bottom: 70px" data-interval="10000">
 
 		  <!-- Indicators -->
 		  <ul class="carousel-indicators">
@@ -228,7 +228,7 @@
 		
 		
 		  <!-- The slideshow -->
-		  <div class="carousel-inner d-flex  align-content-center" style="height: 300px;">
+		  <div class="carousel-inner d-flex  align-content-center" style="height: 300px; background-color: #F2F2F2; border-radius: 10px; padding-top: 30px;">
 		    <div class="carousel-item active " style=" height: 200px;" >
 		     <div class="d-flex justify-content-around" style="width: 100%; height: 100%">
 				<c:forEach var="g" items="${list4 }" begin="0" end="2">
@@ -287,7 +287,7 @@
 		
 		
 		  <!-- The slideshow -->
-		  <div class="carousel-inner d-flex  align-content-center" style="height: 300px;">
+		  <div class="carousel-inner d-flex  align-content-center" style="height: 300px;" data-interval="20000">
 		    <div class="carousel-item active " style=" height: 250px;" >
 		     <div class="d-flex justify-content-around" style="width: 100%; height: 100%">
 				<c:forEach var="c" items="${listcate }" begin="0" end="3">
@@ -296,35 +296,35 @@
 							<c:choose>
 								<c:when test="${c.groupCategoryName=='게임'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/game.png"
-									onclick="location.assign('${path}/group/game')"/>
+									onclick="location.assign('${path}/group/game')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='운동'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/gym.png"
-									onclick="location.assign('${path}/group/gym')"/>
+									onclick="location.assign('${path}/group/gym')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='요리'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/cook.png"
-									onclick="location.assign('${path}/group/cook')"/>
+									onclick="location.assign('${path}/group/cook')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='맛집'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/restaurant.png"
-									onclick="location.assign('${path}/group/resturant')"/>
+									onclick="location.assign('${path}/group/resturant')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='영화'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/movie.png"
-									onclick="location.assign('${path}/group/movie')"/>
+									onclick="location.assign('${path}/group/movie')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='코딩'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/coding.png"
-									onclick="location.assign('${path}/group/coding')"/>
+									onclick="location.assign('${path}/group/coding')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='쇼핑'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/shopping.png"
-									onclick="location.assign('${path}/group/shopping')"/>
+									onclick="location.assign('${path}/group/shopping')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='독서'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/read.png"
-									onclick="location.assign('${path}/group/read')"/>
+									onclick="location.assign('${path}/group/read')" style="width:100px; height: 100px;"/>
 								</c:when>
 							</c:choose>
 							<p class="list_container_tit text-center medium" style="overflow: hidden">${c.groupCategoryName  }</p>
@@ -333,50 +333,94 @@
 				</c:forEach>			
 			 </div>
 		    </div>
-		    <div class="carousel-item "  style=" height: 250px;">
-		     <div class="d-flex justify-content-around"  style="width: 100% ">
+		   <%--  <div class="carousel-item  "  style=" height: 250px;">
+		     <div class="d-flex justify-content-around align-content-center"  style="width: 100% ">
 				<c:forEach var="c" items="${listcate }" begin="4" end="7">
 						<div class="group cursor d-flex flex-column justify-content-center align-itmes-center" style="width: 15%;" onclick="moveFnCate('${g.groupSeq}');">
 							<c:choose>
 								<c:when test="${c.groupCategoryName=='게임'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/game.png"
-									onclick="location.assign('${path}/group/game')"/>
+									onclick="location.assign('${path}/group/game')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='운동'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/gym.png"
-									onclick="location.assign('${path}/group/gym')"/>
+									onclick="location.assign('${path}/group/gym')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='요리'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/cook.png"
-									onclick="location.assign('${path}/group/cook')"/>
+									onclick="location.assign('${path}/group/cook')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='맛집'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/restaurant.png"
-									onclick="location.assign('${path}/group/resturant')"/>
+									onclick="location.assign('${path}/group/resturant')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='영화'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/movie.png"
-									onclick="location.assign('${path}/group/movie')"/>
+									onclick="location.assign('${path}/group/movie')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='코딩'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/coding.png"
-									onclick="location.assign('${path}/group/coding')"/>
+									onclick="location.assign('${path}/group/coding')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='쇼핑'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/shopping.png"
-									onclick="location.assign('${path}/group/shopping')"/>
+									onclick="location.assign('${path}/group/shopping')" style="width:100px; height: 100px;"/>
 								</c:when>
 								<c:when test="${c.groupCategoryName=='독서'}">
 									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/read.png"
-									onclick="location.assign('${path}/group/read')"/>
+									onclick="location.assign('${path}/group/read')" style="width:100px; height: 100px;"/>
 								</c:when>
 							</c:choose>
 							<p class="list_container_tit text-center medium" style="overflow: hidden">${c.groupCategoryName }</p>
 						</div>
 				</c:forEach>	
 			 </div>
+		    </div> --%>
+		    <div class="carousel-item " style=" height: 250px;" >
+		     <div class="d-flex justify-content-around" style="width: 100%; height: 100%">
+				<c:forEach var="c" items="${listcate }" begin="4" end="7">
+					
+						<div class="group cursor d-flex flex-column justify-content-center align-itmes-center" style="width: 15%;" onclick="moveFnCate('${g.groupSeq}');">
+							<c:choose>
+								<c:when test="${c.groupCategoryName=='게임'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/game.png"
+									onclick="location.assign('${path}/group/game')" style="width:100px; height: 100px;"/>
+								</c:when>
+								<c:when test="${c.groupCategoryName=='운동'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/gym.png"
+									onclick="location.assign('${path}/group/gym')" style="width:100px; height: 100px;"/>
+								</c:when>
+								<c:when test="${c.groupCategoryName=='요리'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/cook.png"
+									onclick="location.assign('${path}/group/cook')" style="width:100px; height: 100px;"/>
+								</c:when>
+								<c:when test="${c.groupCategoryName=='맛집'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/restaurant.png"
+									onclick="location.assign('${path}/group/resturant')" style="width:100px; height: 100px;"/>
+								</c:when>
+								<c:when test="${c.groupCategoryName=='영화'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/movie.png"
+									onclick="location.assign('${path}/group/movie')" style="width:100px; height: 100px;"/>
+								</c:when>
+								<c:when test="${c.groupCategoryName=='코딩'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/coding.png"
+									onclick="location.assign('${path}/group/coding')" style="width:100px; height: 100px;"/>
+								</c:when>
+								<c:when test="${c.groupCategoryName=='쇼핑'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/shopping.png"
+									onclick="location.assign('${path}/group/shopping')" style="width:100px; height: 100px;"/>
+								</c:when>
+								<c:when test="${c.groupCategoryName=='독서'}">
+									<img src="<%=request.getContextPath() %>/resources/upload/group/group_category/read.png"
+									onclick="location.assign('${path}/group/read')" style="width:100px; height: 100px;"/>
+								</c:when>
+							</c:choose>
+							<p class="list_container_tit text-center medium" style="overflow: hidden">${c.groupCategoryName  }</p>
+							
+						</div>
+				</c:forEach>			
+			 </div>
 		    </div>
-		    
 		  </div>
 		
 		  <!-- Left and right controls -->
@@ -388,20 +432,25 @@
 		  </a>
 		
 		</div>
-
+<style>
+table a{
+	text-decoration: none;
+	color:black;
+}
+</style>
 		<!-- 소모임 전체 보기 리스트 -->
 		<h4 class="mainColor tway ml-3">소모임</h4>
-		<table id="tbl-nomal-group" class="table">
+		<table id="tbl-nomal-group" class="table table-hover">
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>카테고리</th>
-					<th>제목</th>
-					<th>인원수</th>
-					<th>성별</th>
-					<th>나이대</th>
-					<th>방장</th>
-					<th>생성날짜</th>
+					<th class="small">번호</th>
+	   				<th class="small">분류</th>
+	   				<th class="small" >제목</th>
+	   				<th class="small" >인원</th>
+	   				<th class="small" >성별</th>
+	   				<th class="small" >연령</th>
+	   				<th class="small">방장</th>
+	   				<th class="small">생성일</th>
 				</tr>
 			</thead>
 			<c:forEach var="g" items="${list }" begin="0" end="4">
