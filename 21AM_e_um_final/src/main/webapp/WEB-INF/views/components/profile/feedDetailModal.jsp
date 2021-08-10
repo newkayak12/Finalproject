@@ -152,9 +152,9 @@
 				                </div>
 				                <div class="fccbox d-flex d-none align-items-center">
 				                	<i class="fas fa-arrow-right d-none mr-2" style="font-size:20px;"></i>
-				                	<input name="fcccContents" type="text" class="form-control form-control-sm d-none">
+				                	<input name="${c.feedCommentSeq }" type="text" class="form-control form-control-sm d-none" required>
 				                	<div class="input-group-append d-none">
-					                    <button class="btn cancelBtn btn-sm" type="submit" onclick="fn_writefeedCC('${feed.feedSeq}','${c.feedCommentSeq}','${c.commenter }');" style="width:50px;"><small>작성</small></small></button>  
+					                    <button class="btn cancelBtn btn-sm" type="submit" onclick="fn_writefeedCC('${feed.feedSeq}','${c.feedCommentSeq}','${c.commenter }');" style="width:50px;"><small>작성</small></button>  
 					                </div>
 				                </div>
 			                </c:otherwise>
@@ -383,13 +383,15 @@
 	$("#reportPop").popover({ trigger: "hover" });
 	
 	$("span.writeFccBtn").click(e=>{
-		//console.log($(e.target).parentsUntil("div.commentHead").parent().eq(0).next());
+		console.log($(e.target).parentsUntil("div.commentHead").parent().eq(0).next());
 		let fccBox=$(e.target).parentsUntil("div.commentHead").parent().eq(0).next();
 		fccBox.toggleClass("d-none");
 		fccBox.children().toggleClass("d-none");
 	})
 	
 	function fn_writefeedCC(feedSeq, feedCommentSeq, commenter){
+		console.log("클릭됨");
+		console.log($("input[name="+feedCommentSeq+"]").val());
 		$.ajax({
 			type:"post",
 			url:"${pageContext.request.contextPath}/profile/writeFeed2ndComment",
@@ -397,14 +399,14 @@
 				"feedSeq":feedSeq,
 				"feedCommentSeq":feedCommentSeq,
 				"commenter":commenter,
-				"content":$("input[name=fcccContents]").val()
+				"content":$("input[name="+feedCommentSeq+"]").val()
 			},
 			success:data=>{
-				if(data>0){
-					fn_openFeedModal('${feed.feedSeq}');
+				 /* if(data>0){ */
+					fn_openFeedModal(feedSeq);
 					$("div.fccbox").addClass("d-none");
 					$("div.fccbox").children().addClass("d-none");
-				}
+				 /* }  */
 			}
 		})
 	}

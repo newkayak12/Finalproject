@@ -344,10 +344,13 @@ public class ProfileController {
 		
 		User user=(User)rq.getSession().getAttribute("userSession");
 		FeedComment fc=FeedComment.builder().feedSeqRef(feedSeq).commenter(user.getUserId()).feedCommentRef(refCommentSeq).feedCommentContents(content).build();
+		log.warn("fc: {}",fc);
 		if(commentId.equals(user.getUserId())) {
 			commentId="me";
 		}
-		return service.writeFeed2ndComment(fc, commentId, user.getUserNick());
+		int result=service.writeFeed2ndComment(fc, commentId, user.getUserNick());
+		log.warn("result: {}",result);
+		return result;
 	}
 
 }

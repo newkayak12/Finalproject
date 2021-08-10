@@ -550,10 +550,6 @@
 		$(".choCon").removeClass("choCon");
 	}
 	
-	let deImg='${path }/resources/images/feed/default.jpg';
-	
-	const reader = new FileReader();
-	
  	function fn_photo(){
 	    $("#profilePhoto").trigger("click");
 	    

@@ -387,9 +387,9 @@ public class MovieController {
 			  param.put("movieSeat"+i,seats[i-1]);
 			  i+=1;
 		  }
-		 System.out.println(param);
+		 System.out.println("param"+param);
 		 int result = service.payEnd(param); 
-		 System.out.println(param);
+		 System.out.println("param"+param);
 		 int result2 = service.movieAlarm(param);
 		 int result3 = service.movieScheduler(param);
 		 double totalCount = service.totalCount();

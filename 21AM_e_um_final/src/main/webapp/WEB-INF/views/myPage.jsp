@@ -161,5 +161,8 @@
     	}
     }
 	
+	const deImg='${path }/resources/images/feed/default.jpg';
+	
+	const reader = new FileReader();
 	
 </script>
