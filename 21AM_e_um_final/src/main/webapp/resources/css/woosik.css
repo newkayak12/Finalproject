@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+
+/* --------- 폰트-타이틀 ----------- */
+@font-face {
+        font-family: 'twayair';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+}
+
+
+
 /*section css*/
 #root {
 	/* border: 1px red solid; */
@@ -34,3 +45,42 @@
 }
 .list_container_tit{left:0; top:0;}
 .list_container_limit{left:0; bottom:0;}
+
+
+
+
+
+/** 소모임 만들기 **/
+.w_tit {margin-bottom:1rem;}
+.w_input_tit {font-size:14px; font-weight: 600;}
+.w_input_txt{font-size:14px;}
+.form-check {margin-bottom: 1rem;}
+.form-check label {margin-right:0.2rem;}
+.w_submit_btn{margin-top:2rem; text-align: center;}
+
+
+
+/** 소모임-게시판-상세 (groupBoardConte.jsp) **/
+h2{font-size:40px;}
+.w_boardCont_tit {font-family:twayair; color:#2AC1BC; font-size:17px;}
+.w_board p{
+	color: #333;
+	font-size: 14px;
+    line-height: 1.5em;
+}
+.w_board label{margin-bottom:0rem;}
+.w_board_like{margin-top:3rem;}
+.w_board_icon {display:inline-block;}
+.w_board_comment{border:1px solid #dcdcdc; padding:1rem; margin-top:1rem;}
+.w_board_comment label{font-size:14px; font-weight:600;}
+.w_board_comment input{font-size:14px;}
+.w_board_comment button{font-size:14px; background-color:#2AC1BC; border:1px solid #2AC1BC; box-sizing: border-box;}
+.w_board_comment button:hover{background-color:#fff; border:1px solid #2AC1BC; color:#2AC1BC; box-sizing: border-box;}
+
+
+
+
+
+
+
+

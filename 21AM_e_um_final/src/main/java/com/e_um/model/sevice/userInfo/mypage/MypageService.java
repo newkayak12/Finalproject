@@ -1,5 +1,6 @@
 package com.e_um.model.sevice.userInfo.mypage;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.e_um.model.dao.userInfo.mypage.MypageDaoInterface;
 import com.e_um.model.vo.communicateinfo.friend.Friend;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.userInfo.alarmToggle.AlarmToggle;
 import com.e_um.model.vo.userInfo.interest.Interest;
+import com.e_um.model.vo.userInfo.scheduler.NoHasAScheduler;
 import com.e_um.model.vo.userInfo.user.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -131,6 +134,42 @@ public class MypageService implements MypageServiceInterface {
 	@Override
 	public int changeProfilePhoto(User u) {
 		return dao.changeProfilePhoto(session, u);
+	}
+
+
+	@Override
+	public List<AlarmToggle> selectAlarmToggle(String userId) {
+		return dao.selectAlarmToggle(session, userId);
+	}
+
+
+	@Override
+	public int alarmOnOff(AlarmToggle at) {
+		return dao.alarmOnOff(session, at);
+	}
+
+
+	@Override
+	public List<Map> selectDate(String userId) {
+		return dao.selectDate(session, userId);
+	}
+
+
+	@Override
+	public List<Map> selectSchedule(String userId) {
+		return dao.selectSchedule(session, userId);
+	}
+
+
+	@Override
+	public int deleteSchedule(String schedulerSeq) {
+		return dao.deleteSchedule(session, schedulerSeq);
+	}
+
+
+	@Override
+	public int insertSchedule(NoHasAScheduler nhs) {
+		return dao.insertSchedule(session, nhs);
 	}
 
 }

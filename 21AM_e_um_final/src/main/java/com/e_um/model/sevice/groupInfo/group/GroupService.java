@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e_um.model.dao.groupInfo.group.GroupDaoInterface;
 import com.e_um.model.vo.groupinfo.board.Board;
+import com.e_um.model.vo.groupinfo.group.Category;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
@@ -70,6 +71,67 @@ public class GroupService implements GroupServiceInterface {
 	public Group selectGroupUseridCheck(String groupSeq) {
 		 
 		return dao.selectGroupUseridCheck(session,groupSeq);
+	}
+
+	@Override
+	public List<Group> selectGrouplistNew() {
+		
+		return dao.selectGroupListNew(session);
+	}
+
+	@Override
+	public List<Category> selectGroupCategory() {
+		
+		return dao.selectGroupCategory(session);
+	}
+
+	@Override
+	public List<Group> selectgamelist() {
+		
+		List<Group> group = dao.selectgamelist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectgymlist() {
+		List<Group> group = dao.selectgymlist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectmovielist() {
+		List<Group> group = dao.selectmovielist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectshoppinglist() {
+		List<Group> group = dao.selectshoppinglist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectreadlist() {
+		List<Group> group = dao.selectreadlist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectresturantlist() {
+		List<Group> group = dao.selectresturantlist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectcooklist() {
+		List<Group> group = dao.selectcooklist(session);
+		return group;
+	}
+
+	@Override
+	public List<Group> selectcodinglist() {
+		List<Group> group = dao.selectcodinglist(session);
+		return group;
 	}
 
 	

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e_um.model.vo.groupinfo.board.Board;
+import com.e_um.model.vo.groupinfo.group.Category;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.member.Member;
 import com.e_um.model.vo.userInfo.user.User;
@@ -55,6 +56,60 @@ public class GroupDao implements GroupDaoInterface {
 	public Group selectGroupUseridCheck(SqlSessionTemplate session, String groupSeq) {
 		
 		return session.selectOne("group.selectGroupUseridCheck", groupSeq);
+	}
+
+	@Override
+	public List<Group> selectGroupListNew(SqlSessionTemplate session) {
+		
+		return session.selectList("group.selectGroupListNew");
+	}
+
+	@Override
+	public List<Category> selectGroupCategory(SqlSessionTemplate session) {
+		
+		return session.selectList("group.selectGroupCategory");
+	}
+
+	@Override
+	public List<Group> selectgamelist(SqlSessionTemplate session) {
+		
+		return session.selectList("group.selectgamelist");
+	}
+
+	@Override
+	public List<Group> selectgymlist(SqlSessionTemplate session) {
+		return session.selectList("group.selectgymlist");
+		
+	}
+
+	@Override
+	public List<Group> selectmovielist(SqlSessionTemplate session) {
+		return session.selectList("group.selectmovielist");
+	}
+
+	@Override
+	public List<Group> selectshoppinglist(SqlSessionTemplate session) {
+		return session.selectList("group.selectshoppinglist");
+	}
+
+	@Override
+	public List<Group> selectresturantlist(SqlSessionTemplate session) {
+		return session.selectList("group.selectresturantlist");
+	}
+
+	@Override
+	public List<Group> selectreadlist(SqlSessionTemplate session) {
+		return session.selectList("group.selectreadlist");
+	}
+
+	@Override
+	public List<Group> selectcooklist(SqlSessionTemplate session) {
+		return session.selectList("group.selectcooklist");
+	}
+
+	@Override
+	public List<Group> selectcodinglist(SqlSessionTemplate session) {
+		return session.selectList("group.selectcodinglist");
 	}
 	
 	

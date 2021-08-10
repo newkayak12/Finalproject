@@ -462,7 +462,9 @@
 .select-seat-age {
     width: 40px;
 }
-
+.seat{
+	text-align: center;
+}
 .select-seat-number {
     margin-left: 15px;
 }

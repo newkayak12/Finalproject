@@ -13,15 +13,18 @@
 				url:"${path}/movie/moviePerson",
 				data:{"moviePersonName":moviePersonName},
 				success:data=>{
+					console.log(data)
 					let date = data["moviePersonBirth"];
 					let result = date.split("-"); 
+					let movies = data['movies'];
+					let result2 = movies.split(",");
 					$("#modalImage").attr("src","${applicationScope.path}/resources/upload/moviePerson/"+data["moviePersonPhoto"])
 					$("#modalPersonName").html(data["moviePersonName"])
 					$("#modalBirth").html("출생 : " +result[0]+"년"+result[1]+"월"+result[2].substring(0,2)+"일")
 					$("#modalPhilmo").html("")
-					data["movies"].forEach((v,i)=>{
+					result2.forEach((v,i)=>{
 						$("#modalPhilmo").append($("<li>").html(v).attr("class","list-group-item col-12 small").css("max-height","40px"));
-					})
+					}) 
 
 				}
 			});

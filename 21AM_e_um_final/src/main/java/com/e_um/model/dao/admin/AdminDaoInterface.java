@@ -11,6 +11,9 @@ import com.e_um.model.vo.placeinfo.food.menu.FoodMenu;
 import com.e_um.model.vo.serviceinfo.faq.Faq;
 import com.e_um.model.vo.placeinfo.movie.movie.Movie;
 import com.e_um.model.vo.placeinfo.movie.reserv.MovieTicketing;
+import com.e_um.model.vo.serviceinfo.faq.Faq;
+import com.e_um.model.vo.serviceinfo.question.NoHasAQuestion;
+import com.e_um.model.vo.serviceinfo.question.Question;
 import com.e_um.model.vo.userInfo.report.ReportFeed;
 import com.e_um.model.vo.userInfo.report.ReportFeedComment;
 import com.e_um.model.vo.userInfo.report.ReportFoodComment;
@@ -93,6 +96,15 @@ public interface AdminDaoInterface {
 	public int updatefoodMenu(SqlSessionTemplate session, FoodMenu m);
 
 	public List<Faq> selectFAQ(SqlSessionTemplate session, int cPage, int numPerPage);
+	public int faqTotalData(SqlSessionTemplate session);
+	public int writeFAQ(SqlSessionTemplate session, Faq f);
+	public int changeFAQStatus(SqlSessionTemplate session, Faq f);
+	public Faq selectFAQOne(SqlSessionTemplate session, String faqSeq);
+	public int modifyFAQ(SqlSessionTemplate session, Faq f);
+	public List<NoHasAQuestion> selectQNAAll(SqlSessionTemplate session, int cPage, int numPerPage);
+	public int qnaTotalData(SqlSessionTemplate session);
+	public NoHasAQuestion selectQNA(SqlSessionTemplate session, String questionSeq);
+	public int updateAnswer(SqlSessionTemplate session, Question qa);
 
 	public List<Movie> movieList(SqlSessionTemplate session, int cPage, int numPerPage);
 	public int movieTotalData(SqlSessionTemplate session);

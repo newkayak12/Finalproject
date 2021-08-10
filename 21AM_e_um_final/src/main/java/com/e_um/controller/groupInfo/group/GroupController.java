@@ -25,6 +25,7 @@ import com.e_um.model.sevice.groupInfo.board.BoardServiceInterface;
 import com.e_um.model.sevice.groupInfo.group.GroupServiceInterface;
 import com.e_um.model.vo.groupinfo.board.Board;
 import com.e_um.model.vo.groupinfo.comment.Comment;
+import com.e_um.model.vo.groupinfo.group.Category;
 import com.e_um.model.vo.groupinfo.group.Group;
 import com.e_um.model.vo.groupinfo.likeBoard.LikeBoard;
 import com.e_um.model.vo.groupinfo.member.Member;
@@ -55,10 +56,16 @@ public class GroupController {
 	public String groupList(Model m, HttpServletRequest rq) {
 		List<Group> list = service.selectGroupList();
 		List<Group> list2 = service.selectGroupListConditional((User) rq.getSession().getAttribute("userSession")); // 내가가입한
-																													// 소모임
-
+		List<Group> list3 = service.selectGroupListTop();																										// 소모임
+		List<Group> list4 = service.selectGrouplistNew();
+		List<Category> listcate = service.selectGroupCategory();
+		log.warn("catecate{}",listcate);
+		log.warn("listlist{}",list);
 		m.addAttribute("list2", list2);
 		m.addAttribute("list", list);
+		m.addAttribute("list3", list3);
+		m.addAttribute("list4",list4);
+		m.addAttribute("listcate",listcate);
 		return "group";
 	}
 
@@ -70,6 +77,7 @@ public class GroupController {
 		m.addAttribute("list", list);
 		return "group/groupList";
 	}
+	
 	
 	
 	/* 그룹 만들기 */
@@ -118,6 +126,7 @@ public class GroupController {
 		  }
 		  return page;
 		}
+	
 
 	
 	/* 게시판 글작성폼으로 */
@@ -370,9 +379,24 @@ public class GroupController {
 		
 		return glike;
 		
-		
 	}
 	
+	@RequestMapping("/group/checkCommentReport")
+	@ResponseBody
+	public int checkReport(String groupCommentSeq, String userId) {
+		Map<String, String > param = new HashMap<>();
+		param.put("groupCommentSeq", groupCommentSeq);
+		param.put("userId", userId);
+		log.warn("checkcheck{}",param);
+		int report=serviceb.checkCommentReport(param);
+		 
+		 if(report> 0) {
+			 return 0;
+		 }
+		 else {
+			 return serviceb.CommentReport(param);
+		 }
+	}
 	
 	/* 게시판 검색 */
 	@RequestMapping("/group/gorupBoardSearch")
@@ -411,5 +435,105 @@ public class GroupController {
 		param.put("groupSeq", groupSeq);
 		return param;
 	}
+	
+	@RequestMapping("/group/groupCountTotal")
+	@ResponseBody
+	public Map groupCountTotal(String groupSeq) {
+		int result = serviceb.groupCountTotal(groupSeq);
+		Map param=new HashMap();
+		param.put("groupSeq", groupSeq);
+		return param;
+	}
+	
+	@RequestMapping("/board/boardcommentlist")
+	public String commentList(String groupBoardSeq,Model model) {
+		log.warn("commentboardseq{}",groupBoardSeq);
+		List<Comment> commentlist = serviceb.selectBoardCommentList(groupBoardSeq);
+		model.addAttribute("commentlist",commentlist);
+		log.warn("commentlistlog{}",commentlist);
+		return "components/group/boardcomment";
+	}
+	
+	
+	@RequestMapping("/group/addcomment")
+	@ResponseBody 
+	public int addComment(String groupBoardSeq, String userId, String groupCommentContents) {
+		Map param = new HashMap();
+		param.put("groupBoardSeq",groupBoardSeq);
+		param.put("userId",userId);
+		param.put("groupCommentContents",groupCommentContents);
+		
+		return serviceb.addComment(param);
+	}
+	
+	@RequestMapping("/group/delcomment")
+	@ResponseBody
+	public int delComment(String groupCommentSeq) {
+		log.warn("dasdas{}",groupCommentSeq);
+		return serviceb.delComment(groupCommentSeq);
+	}
+	
+	
+	//카테고리영역
+	
+	@RequestMapping("/group/game")
+	public String groupgame(Model m) {
+		List<Group> list = service.selectgamelist();
+		m.addAttribute("list",list);
+		return "group/game";
+	}
+	
+	@RequestMapping("/group/gym")
+	public String groupgym(Model m) {
+		List<Group> list = service.selectgymlist();
+		m.addAttribute("list",list);
+		return "group/gym";
+	}
+	
+	@RequestMapping("/group/movie")
+	public String groupmovie(Model m) {
+		List<Group> list = service.selectmovielist();
+		m.addAttribute("list",list);
+		return "group/movie";
+	}
+	
+	@RequestMapping("/group/shopping")
+	public String groupshopping(Model m) {
+		List<Group> list = service.selectshoppinglist();
+		m.addAttribute("list",list);
+		return "group/shopping";
+	}
+	
+	@RequestMapping("/group/read")
+	public String groupread(Model m) {
+		List<Group> list = service.selectreadlist();
+		m.addAttribute("list",list);
+		return "group/read";
+	}
+	
+	@RequestMapping("/group/resturant")
+	public String groupresturant(Model m) {
+		List<Group> list = service.selectresturantlist();
+		m.addAttribute("list",list);
+		return "group/resturant";
+	}
+	
+	@RequestMapping("/group/cook")
+	public String groupcook(Model m) {
+		List<Group> list = service.selectcooklist();
+		m.addAttribute("list",list);
+		return "group/cook";
+	}
+	
+	@RequestMapping("/group/coding")
+	public String groupcoding(Model m) {
+		List<Group> list = service.selectcodinglist();
+		m.addAttribute("list",list);
+		return "group/coding";
+	}
+	
+
+	
+	
 	
 }

@@ -135,8 +135,8 @@
 			        <div><h5 id="movieTime1">시간 :</h5></div>
 			        <div><h5 id="movieDate1">날짜 :</h5></div>
 			        <div class="mt-5" style="text-align: center;">
-			        	<button class="btn mr-4" onclick="fn_movieMain();">영화메인</button>
-			        	<button class="btn ml-4" onclick="fn_Main();">홈으로</button>
+			        	<input type="button" class="btn mr-4" onclick="fn_movieMain();" value="영화메인">
+			        	<input type="button" class="btn ml-4" onclick="fn_Main();" value="영화메인">
 			    	</div>
 			    </div>
 			</div>

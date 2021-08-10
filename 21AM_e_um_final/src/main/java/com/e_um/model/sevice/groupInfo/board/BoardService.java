@@ -135,6 +135,55 @@ public class BoardService implements BoardServiceInterface {
 		log.warn("servicecece{}",groupSeq);
 		return dao.groupCountToday(session, groupSeq);
 	}
+
+
+
+	@Override
+	public List<Comment> selectBoardCommentList(String groupBoardSeq) {
+		log.warn("commentservice{}",groupBoardSeq);
+		return dao.selectBoardCommentList(session, groupBoardSeq);
+	}
+
+
+
+	@Override
+	public int addComment(Map param) {
+		 
+		return dao.addComment(session, param);
+	}
+
+
+
+	@Override
+	public int delComment(String groupCommentSeq) {
+		
+		return dao.delComment(session, groupCommentSeq);
+	}
+
+
+
+	@Override
+	public int checkCommentReport(Map<String, String> param) {
+
+		return dao.checkCommentReport(session, param);
+	}
+
+
+
+	@Override
+	public int CommentReport(Map<String, String> param) {
+		 
+		return dao.CommentReport(session, param);
+	}
+
+
+
+	@Override
+	public int groupCountTotal(String groupSeq) {
+		
+		return dao.groupCountTotal(session, groupSeq);
+	}
+	
 	
 	 
 	

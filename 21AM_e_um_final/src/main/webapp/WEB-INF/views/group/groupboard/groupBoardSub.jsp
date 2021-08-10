@@ -64,24 +64,27 @@
    <div id="root" class="container mt-5">
    
       <div class="container">
-      	<span class="float-left">
-      		<h2><c:out value="${group.groupTitle }"/></h2>
+      	<span>
+      		<h2 class="tway" style="text-align: center;"><c:out value="${group.groupTitle }"/></h2>
       	</span>
-      	<span class="float-right">
-      		<h2>오늘방문자</h2>
-      	</span>
-      	<h2>누적방문자</h2>
       	<br><br>
-      	<button type="button" class="btn btn-outline-primary"
+      	<span class="float-right">
+      		<p>TODAY<span class="ml-2"  style="font-weight: 900;"><c:out value="${group.groupCountToday }"/></span> / TOTAL <span class="ml-2 " style="font-weight: 900;"><c:out value="${group.groupCountTotal }"/></span></p>
+      		
+      	</span>
+      	<br><br>
+      	<button type="button" class="btn cancelBtn"
       	onclick="moveFnMain('${group.groupSeq}');">정보</button>
-   		<button type="button" class="btn btn-primary" disabled>게시판</button>
-   		<button type="button" class="btn btn-outline-primary"
-   		onclick="moveFnScheduler('${group.groupSeq}');">스케쥴러</button>
+   		<button type="button" class="btn checkBtn mb-1" disabled>게시판</button>
+   		<%-- <button type="button" class="btn btn-outline-primary"
+   		onclick="moveFnScheduler('${group.groupSeq}');">스케쥴러</button> --%>
+   		
+   		
       </div>
       
       <br><br>
       
-      <h3>사진 올라갈 자리</h3>
+      <h5 class="mainColor tway ml-3">소모임 게시판</h5>
       
       <br><hr><br>
       
@@ -90,7 +93,7 @@
       	<input type="text" class="form-control" id="inputSearch" name="inputSearch" placeholder="검색">
       	<input type="hidden" value="${group.groupSeq }" id="groupSeq" name="groupSeq"/>
       	<div class="input-group-append">
-      		<button class="btn btn-success" id="boardSearchButton" onclick="boardSearch();">찾기</button>
+      		<button class="btn cancelBtn" id="boardSearchButton" onclick="boardSearch();">찾기</button>
       	</div>
       </div>
       
@@ -98,7 +101,7 @@
       <br><br>
       
       <div>
-      	<button type="button" id="btnWrite" class="btn btn-primary" align="right"
+      	<button type="button" id="btnWrite" class="btn checkBtn mb-1" align="right"
       		onclick="moveFnCreateBoard('${group.groupSeq }');">
       		게시판 생성
       	</button>

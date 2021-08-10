@@ -25,5 +25,6 @@ public class MovieInfo {
 	private String movieReservCancel;
 	private String movieTitle;
 	private int dateMinus;
+	private String payStatus;
 
 }
