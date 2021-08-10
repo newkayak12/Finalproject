@@ -36,6 +36,14 @@ const moveFn=(groupSeq)=>{
 		})
 }
 </script>   
+ 
+ <style>
+table a{
+	text-decoration: none;
+	color:black;
+}
+</style>
+ 
     
 <section class="mt-5 pt-5">
    <div id="root" class="container mt-5">
@@ -45,14 +53,14 @@ const moveFn=(groupSeq)=>{
    		<table class="table table-hover">
    			<thead>
    			<tr>
-   				<th>번호</th>
-   				<th>카테고리</th>
-   				<th>제목</th>
-   				<th>인원수</th>
-   				<th>성별</th>
-   				<th>나이대</th>
-   				<th>방장</th>
-   				<th>생성날짜</th>
+   				<th class="small">번호</th>
+   				<th class="small">분류</th>
+   				<th class="small" >제목</th>
+   				<th class="small" >인원</th>
+   				<th class="small" >성별</th>
+   				<th class="small" >연령</th>
+   				<th class="small">방장</th>
+   				<th class="small">생성일</th>
    			</tr>
    			</thead>
    			<c:forEach var="g" items="${list }">

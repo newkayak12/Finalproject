@@ -8,7 +8,7 @@
 				<span id="controlpanelfooter" class="d-flex flex-column justify-content-center align-itmes-center"></span>
 				<span id="controlpanelnext"></span>
 			</div>
-			<div id="footerinnerContainer" style="height:100% !important" class="mb-5 p-0" >
+			<div id="footerinnerContainer" style="height: 100%" class="mb-5 p-0" >
 				
 			</div>
 				
