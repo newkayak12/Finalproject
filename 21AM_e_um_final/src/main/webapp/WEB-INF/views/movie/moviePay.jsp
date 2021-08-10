@@ -59,8 +59,8 @@
 				    pay_method: 'card',
 				    merchant_uid: 'merchant_' + new Date().getTime(),
 				    name: $("#movieTitle").val(),
-				    /* amount: $("#moviePrice").val(),  */
-				   	amount:100,
+				    amount: $("#moviePrice").val(),
+				   	
 			   
 			    }, function (rsp) {
 				    if (rsp.success) {
